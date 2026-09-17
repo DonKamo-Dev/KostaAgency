@@ -21,9 +21,4 @@ class Client extends Model
     {
         return $this->hasMany(Expense::class);
     }
-
-    public function recurringDocuments()
-    {
-        return $this->hasMany(RecurringDocument::class);
-    }
 }

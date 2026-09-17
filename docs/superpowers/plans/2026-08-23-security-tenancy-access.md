@@ -1,5 +1,7 @@
 # Security, Tenancy & Access Implementation Plan
 
+> **SUPERSEDED (2026-09-17):** El enfoque multi-empresa fue revertido. La migración `2026_08_24_000000_remove_multi_company_structure.php` consolidó los datos en un workspace privado único y eliminó `companies`/`company_user`, por lo que las tareas de tenancy de este plan ya no aplican. Ver `docs/superpowers/plans/2026-09-17-cierre-pendientes-plataforma.md`. Se conserva por trazabilidad histórica.
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Make company context explicit, block cross-company resource access, and remove unsafe production access routes.

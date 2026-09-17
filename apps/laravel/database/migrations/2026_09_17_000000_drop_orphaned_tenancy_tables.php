@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
@@ -11,10 +10,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('recurring_documents', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
-        });
+        Schema::dropIfExists('roles_and_permissions_tables');
+        Schema::dropIfExists('recurring_documents');
     }
 
     /**
@@ -22,6 +19,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('recurring_documents');
+        // These tables belonged to the removed tenancy/roles feature and are not restored.
     }
 };
