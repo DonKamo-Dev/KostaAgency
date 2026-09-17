@@ -140,7 +140,7 @@
 
 {{-- STATE 1: GENERATING --}}
 @if($generating)
-    <div class="wizard-card" wire:poll.3s="checkGeneration" role="status" aria-live="polite">
+    <div class="wizard-card" wire:poll.3s="checkGeneration" role="status" aria-live="polite" aria-busy="true">
         <div class="generating-overlay">
             <div class="spinner"></div>
             <p style="color:var(--text-secondary);font-size:15px;">Claude está diseñando tu estrategia...</p>

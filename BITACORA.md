@@ -52,7 +52,7 @@ Ordenados según el plan [2026-09-17-cierre-pendientes-plataforma](docs/superpow
 - Commit `b48b7c7` (15 archivos, 332 eliminaciones). Verificación: `php artisan test` (85 tests / 294 aserciones, en verde) y búsqueda de símbolos huérfanos sin resultados.
 - Fase 3 completada: la generación de Meta Ads ahora corre en segundo plano con el job `App\Jobs\GenerateMetaAdsQuote` (`tries=2`, `timeout=120`), la migración `2026_09_17_000001_add_generation_status_to_ai_meta_quotes.php` (`generation_status`, `error`, índice) y el servicio `queue` en `docker-compose.yml`.
 - El componente `Wizard` crea la cotización en `pending`, despacha el job y hace polling con `wire:poll.3s="checkGeneration"`; `History` lista solo cotizaciones `completed`.
-- Commit `f190689` (9 archivos, +355/−51). Verificación: `php artisan test` (90 tests / 306 aserciones, en verde) y `pint --test` en archivos nuevos sin hallazgos.
+- Commit `f190689` (9 archivos, +355/−51); refinamiento de accesibilidad y cobertura de fallo en commit posterior. Verificación: `php artisan test` (91 tests / 310 aserciones, en verde), `npm run test:js` (7 tests) y `npm run build` sin errores.
 
 ### 2026-09-16
 

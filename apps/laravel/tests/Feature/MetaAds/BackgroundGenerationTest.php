@@ -118,6 +118,22 @@ class BackgroundGenerationTest extends TestCase
             ->assertSee('Estrategia de prueba.');
     }
 
+    public function test_wizard_keeps_inputs_and_shows_error_when_generation_fails(): void
+    {
+        $this->mock(ClaudeMetaAdsService::class)
+            ->shouldReceive('generate')
+            ->andThrow(new \RuntimeException('Groq caído'));
+
+        Livewire::actingAs(User::factory()->create())
+            ->test(Wizard::class)
+            ->tap(fn ($component) => $this->fillWizard($component))
+            ->call('generate')
+            ->assertSet('generating', false)
+            ->assertSet('clientName', 'Tienda Moda')
+            ->assertSet('step', 5)
+            ->assertSee('Groq caído');
+    }
+
     public function test_history_only_lists_completed_quotes(): void
     {
         AiMetaQuote::factory()->create([
