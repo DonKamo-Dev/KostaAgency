@@ -2,9 +2,9 @@
 
 namespace App\Livewire\MetaAds;
 
+use App\Jobs\GenerateMetaAdsQuote;
 use App\Models\AiMetaQuote;
 use App\Models\Client;
-use App\Services\ClaudeMetaAdsService;
 use Livewire\Attributes\Locked;
 use Livewire\Component;
 
@@ -174,59 +174,73 @@ class Wizard extends Component
         $this->generateError = null;
         $this->validate($this->stepRules[5]);
 
+        $industry  = $this->industry === 'Otro' ? ($this->industryOther ?: 'Otro') : $this->industry;
+        $interests = array_map(
+            fn($i) => $i === 'Otro' ? ($this->interestOther ?: 'Otro') : $i,
+            $this->interests
+        );
+
+        $quote = new AiMetaQuote([
+            'client_name'      => $this->clientName,
+            'industry'         => $industry,
+            'budget_cop'       => $this->budgetCop,
+            'duration_days'    => $this->durationDays,
+            'daily_budget_cop' => intval($this->budgetCop / max(1, $this->durationDays)),
+            'age_range'        => $this->ageRange,
+            'location'         => $this->location,
+            'interests'        => $interests,
+            'platform'         => $this->platform,
+            'campaign_type'    => $this->campaignType,
+            'destination'      => $this->destination,
+            'whatsapp_number'  => $this->whatsappNumber ?: null,
+            'ai_result'        => [],
+        ]);
+        $quote->generation_status = AiMetaQuote::STATUS_PENDING;
+        $quote->save();
+
+        $this->quoteId    = $quote->id;
         $this->generating = true;
 
         try {
-            // TODO: Replace with queued job when background processing is implemented.
-            set_time_limit(120);
+            GenerateMetaAdsQuote::dispatch($quote->id);
+        } catch (\Throwable $e) {
+            \Illuminate\Support\Facades\Log::error('MetaAds generation dispatch failed', ['exception' => $e->getMessage()]);
+        }
 
-            $service = app(ClaudeMetaAdsService::class);
+        $this->checkGeneration();
+    }
 
-            $industry  = $this->industry === 'Otro' ? ($this->industryOther ?: 'Otro') : $this->industry;
-            $interests = array_map(
-                fn($i) => $i === 'Otro' ? ($this->interestOther ?: 'Otro') : $i,
-                $this->interests
-            );
+    public function checkGeneration(): void
+    {
+        if (! $this->generating || $this->quoteId === null) {
+            return;
+        }
 
-            $data = $service->generate([
-                'client_name'     => $this->clientName,
-                'industry'        => $industry,
-                'budget_cop'      => $this->budgetCop,
-                'duration_days'   => $this->durationDays,
-                'age_range'       => $this->ageRange,
-                'location'        => $this->location,
-                'interests'       => $interests,
-                'platform'        => $this->platform,
-                'campaign_type'   => $this->campaignType,
-                'destination'     => $this->destination,
-                'whatsapp_number' => $this->whatsappNumber,
-            ]);
+        $quote = AiMetaQuote::find($this->quoteId);
 
-            $quote = AiMetaQuote::create([
-                'client_name'      => $this->clientName,
-                'industry'         => $industry,
-                'budget_cop'       => $this->budgetCop,
-                'duration_days'    => $this->durationDays,
-                'daily_budget_cop' => intval($this->budgetCop / max(1, $this->durationDays)),
-                'age_range'        => $this->ageRange,
-                'location'         => $this->location,
-                'interests'        => $interests,
-                'platform'         => $this->platform,
-                'campaign_type'    => $this->campaignType,
-                'destination'      => $this->destination,
-                'whatsapp_number'  => $this->whatsappNumber ?: null,
-                'ai_result'        => $data,
-            ]);
+        if (! $quote) {
+            $this->generating    = false;
+            $this->generateError = 'No se encontró la cotización en proceso.';
 
-            $this->quoteId = $quote->id;
-            $data['proposal_structure'] = $this->defaultProposalStructure($data);
-            $this->result  = $data;
+            return;
+        }
 
-        } catch (\Exception $e) {
-            \Illuminate\Support\Facades\Log::error('MetaAds generation failed', ['exception' => $e->getMessage()]);
-            $this->generateError = 'Error al generar: ' . $e->getMessage();
-        } finally {
+        if ($quote->generation_status === AiMetaQuote::STATUS_COMPLETED) {
+            $data = $quote->ai_result ?? [];
+
+            if (empty($data['proposal_structure'])) {
+                $data['proposal_structure'] = $this->defaultProposalStructure($data);
+            }
+
+            $this->result     = $data;
             $this->generating = false;
+
+            return;
+        }
+
+        if ($quote->generation_status === AiMetaQuote::STATUS_FAILED) {
+            $this->generateError = 'Error al generar: ' . ($quote->error ?: 'intenta nuevamente.');
+            $this->generating    = false;
         }
     }
 

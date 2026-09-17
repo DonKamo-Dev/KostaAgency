@@ -8,6 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class AiMetaQuote extends Model
 {
     use HasFactory;
+
+    public const STATUS_PENDING    = 'pending';
+    public const STATUS_PROCESSING = 'processing';
+    public const STATUS_COMPLETED  = 'completed';
+    public const STATUS_FAILED     = 'failed';
+
     protected $fillable = [
         'client_name',
         'industry',
@@ -31,6 +37,11 @@ class AiMetaQuote extends Model
         'duration_days'    => 'integer',
         'daily_budget_cop' => 'integer',
     ];
+
+    public function scopeCompleted($query)
+    {
+        return $query->where('generation_status', self::STATUS_COMPLETED);
+    }
 
     public function getDailyBudgetFormattedAttribute(): string
     {

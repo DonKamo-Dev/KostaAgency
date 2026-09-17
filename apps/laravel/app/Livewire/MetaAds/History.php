@@ -21,6 +21,7 @@ class History extends Component
     public function render()
     {
         $quotes = AiMetaQuote::query()
+            ->completed()
             ->when($this->search, fn($q) => $q->where(function($q2) {
                 $q2->where('client_name', 'like', "%{$this->search}%")
                    ->orWhere('industry', 'like', "%{$this->search}%");
