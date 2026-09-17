@@ -11,7 +11,10 @@ apps/laravel/.env.production
 # ── Datos locales y temporales ──────────────────────────────────────
 backups/
 *.sql
+*.sqlite
+*.db
 tmp/
+apps/laravel/kamo_laravel
 *.log
 
 # ── Dependencias y build de Laravel ─────────────────────────────────
