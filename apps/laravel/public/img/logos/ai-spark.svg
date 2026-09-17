@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+  <defs>
+    <linearGradient id="ai-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#9333EA"/>
+      <stop offset="50%" stop-color="#EC4899"/>
+      <stop offset="100%" stop-color="#F59E0B"/>
+    </linearGradient>
+  </defs>
+  <rect width="256" height="256" rx="56" fill="#FAF5FF"/>
+  <path fill="url(#ai-grad)" d="M128 32l16 64 64 16-64 16-16 64-16-64-64-16 64-16 16-64zm56 128l8 32 32 8-32 8-8 32-8-32-32-8 32-8 8-32z"/>
+</svg>

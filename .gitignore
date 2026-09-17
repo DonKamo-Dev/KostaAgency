@@ -1,0 +1,41 @@
+# ── Secretos y entornos ─────────────────────────────────────────────
+.env
+.env.testing
+.env.docker
+apps/laravel/.env
+apps/laravel/.env.testing
+apps/laravel/.env.docker
+apps/laravel/.env.backup
+apps/laravel/.env.production
+
+# ── Datos locales y temporales ──────────────────────────────────────
+backups/
+*.sql
+tmp/
+*.log
+
+# ── Dependencias y build de Laravel ─────────────────────────────────
+apps/laravel/vendor/
+apps/laravel/node_modules/
+apps/laravel/public/build/
+apps/laravel/public/hot/
+apps/laravel/public/storage/
+apps/laravel/storage/*.key
+apps/laravel/test-output.txt
+
+# ── Tooling local del operador (agentes/IDE) ────────────────────────
+.agents/
+.claude/
+.superpowers/
+.opencode/
+skills-lock.json
+.codex
+.auth.json
+
+# ── SO y editor ──────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+.cursor/
+.zed/

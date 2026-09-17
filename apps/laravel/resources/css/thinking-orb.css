@@ -1,0 +1,96 @@
+/* ===== Thinking Orb Component & Shimmer Styling ===== */
+
+:root {
+    --pill-fill: rgba(20, 20, 20, 0.85);
+    --pill-stroke: inset 0 0 0 1px rgba(245, 245, 245, 0.1), inset 0 0 40px 0 rgba(230, 57, 70, 0.08);
+    --shimmer-dur: 2.2s;
+    --shimmer-band: 400%;
+    --shimmer-ease: linear;
+    --shimmer-base: rgba(245, 245, 245, 0.6);
+    --shimmer-highlight: #ffffff;
+}
+
+.thinking-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    height: 38px;
+    padding: 0 14px 0 8px;
+    border-radius: 9999px;
+    background: var(--pill-fill);
+    box-shadow: var(--pill-stroke);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    color: var(--text-primary, #f8f8f8);
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1;
+    user-select: none;
+    transition: background-color 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
+}
+
+.thinking-pill-lg {
+    height: 64px;
+    padding: 0 24px 0 10px;
+    gap: 12px;
+    font-size: 15px;
+    border-radius: 9999px;
+    box-shadow: inset 0 0 0 1px rgba(230, 57, 70, 0.25), inset 0 0 50px 0 rgba(230, 57, 70, 0.12), 0 8px 32px rgba(0, 0, 0, 0.5);
+}
+
+.t-shimmer {
+    position: relative;
+    display: inline-block;
+    color: var(--shimmer-base);
+    font-family: inherit;
+    letter-spacing: -0.01em;
+}
+
+.t-shimmer:before {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    pointer-events: none;
+    background-image: linear-gradient(90deg, transparent 0%, transparent 40%, var(--shimmer-highlight) 50%, transparent 60%, transparent 100%);
+    background-size: var(--shimmer-band) 100%;
+    background-repeat: no-repeat;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+    animation: t-shimmer var(--shimmer-dur) var(--shimmer-ease) infinite;
+}
+
+@keyframes t-shimmer {
+    0% { background-position: 100% 0; }
+    to { background-position: 0% 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .t-shimmer:before {
+        animation: none !important;
+    }
+}
+
+/* ===== Global Thinking Orb HUD (Top Center) ===== */
+.global-thinking-hud {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%) translateY(-20px);
+    opacity: 0;
+    pointer-events: none;
+    z-index: 99999;
+    transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1), transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.global-thinking-hud.active,
+[wire\:loading].global-thinking-hud,
+.global-thinking-hud:where([wire\:loading]) {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+    pointer-events: auto;
+}
