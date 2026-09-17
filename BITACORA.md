@@ -33,8 +33,8 @@ Ordenados según el plan [2026-09-17-cierre-pendientes-plataforma](docs/superpow
 | 1 | Repositorio Git inexistente | Fase 1 | Completada (baseline en `master`) |
 | 2 | Código muerto residual de tenancy/roles | Fase 2 | Completada (commit `b48b7c7`) |
 | 3 | Generación de Meta Ads síncrona (sin job en cola) | Fase 3 | Completada (commit `f190689`) |
-| 4 | Reporte de auditoría final `docs/audits/2026-08-23-platform-remediation.md` | Fase 4 | Pendiente |
-| 5 | Planes/documentación desincronizados | Fase 5 | Pendiente |
+| 4 | Reporte de auditoría final `docs/audits/2026-08-23-platform-remediation.md` | Fase 4 | Completada (commit `399089b`) |
+| 5 | Planes/documentación desincronizados | Fase 5 | Completada (commit de cierre) |
 
 ## Registro de cambios
 
@@ -53,6 +53,9 @@ Ordenados según el plan [2026-09-17-cierre-pendientes-plataforma](docs/superpow
 - Fase 3 completada: la generación de Meta Ads ahora corre en segundo plano con el job `App\Jobs\GenerateMetaAdsQuote` (`tries=2`, `timeout=120`), la migración `2026_09_17_000001_add_generation_status_to_ai_meta_quotes.php` (`generation_status`, `error`, índice) y el servicio `queue` en `docker-compose.yml`.
 - El componente `Wizard` crea la cotización en `pending`, despacha el job y hace polling con `wire:poll.3s="checkGeneration"`; `History` lista solo cotizaciones `completed`.
 - Commit `f190689` (9 archivos, +355/−51); refinamiento de accesibilidad y cobertura de fallo en commit posterior. Verificación: `php artisan test` (91 tests / 310 aserciones, en verde), `npm run test:js` (7 tests) y `npm run build` sin errores.
+- Fase 4 completada: se ejecutaron los gates finales (PHP 91/310, JS 7/7, build OK), se levantó el servicio `queue` (`kamo_queue` Up) y se verificó `intl` y la tabla `jobs`. El pipeline asíncrono se validó end-to-end: dispatch → cola → worker → `generation_status = failed` con `error` persistido ante una clave Groq inválida.
+- Se publicó el reporte `docs/audits/2026-08-23-platform-remediation.md` con gates, smoke HTTP, hallazgos resueltos y hallazgos no bloqueantes (estilo Pint heredado, `KAMO_LOCAL_ACCESS_EMAIL` sin definir, `GROQ_API_KEY` inválida, smoke visual manual pendiente). Commit `399089b`.
+- Fase 5 completada: se sincronizaron los planes `2026-08-23-ui-accessibility-consistency.md`, `2026-08-23-runtime-pdf-docker.md` y `2026-08-23-financial-document-workflows.md` con banner de estado y checkboxes marcados solo donde hay gate/artefacto verificable; la spec incorpora la sección "Estado final" (sin multi-empresa) y se actualizaron los README raíz y de `apps/laravel` (cola, verificación y estado de Git).
 
 ### 2026-09-16
 

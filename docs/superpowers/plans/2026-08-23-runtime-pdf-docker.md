@@ -2,6 +2,17 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
+> **Estado (2026-09-17):** plan cerrado. `intl`, los PDFs sin PNG y el loader global
+> quedaron verificados por los gates de la
+> [auditoría de remediación](../../audits/2026-08-23-platform-remediation.md)
+> (`npm run test:js` 7/7, `npm run build` OK, `intl` presente en el contenedor, PDFs con
+> `%PDF` en la suite).
+>
+> **Convención de checkboxes:** `[x]` = entregable reproducido hoy (gate automático verde
+> o artefacto presente en el repositorio). Los pasos de estado rojo TDD (`Step 2`), los
+> checkpoints de commit históricos (`Step 5`) y las verificaciones manuales en navegador
+> quedan **sin marcar** porque no son reproducibles en este entorno.
+
 **Goal:** Remove shared browser errors, make loaders accessible, generate PDFs within 128 MB, and provide the required PHP runtime extensions.
 
 **Architecture:** Isolate orb preset selection into a pure tested module, keep animation behavior inside the custom element, and remove duplicate global request hooks. Replace Dompdf's expensive alpha-PNG logo with a lightweight HTML/CSS brand mark. Rebuild the PHP image with `intl` enabled.
@@ -32,7 +43,7 @@
 **Interfaces:**
 - Produces: `presetSizeFor(displaySize): 24|64`; reduced-motion detection remains an internal custom-element responsibility.
 
-- [ ] **Step 1: Write failing pure JavaScript tests**
+- [x] **Step 1: Write failing pure JavaScript tests**
 
 ```js
 import test from 'node:test';
@@ -58,7 +69,7 @@ Run: `node --test tests/js/thinking-orb-preset.test.mjs`
 
 Expected: FAIL with module-not-found.
 
-- [ ] **Step 3: Implement preset mapping and use it in the custom element**
+- [x] **Step 3: Implement preset mapping and use it in the custom element**
 
 ```js
 export function presetSizeFor(displaySize) {
@@ -70,7 +81,7 @@ In `thinking-orb.js`, call `resolvePreset(state, presetSizeFor(size))`. Add a `m
 
 Add package script: `"test:js": "node --test tests/js/*.test.mjs"`.
 
-- [ ] **Step 4: Run unit test and production build**
+- [x] **Step 4: Run unit test and production build**
 
 Run: `npm run test:js`
 
@@ -100,7 +111,7 @@ git commit -m "fix: normalize thinking orb presets"
 - Consumes: `window.showThinkingLoader(label, state)` and `window.hideThinkingLoader()`.
 - Produces: exactly one HUD per page and exactly one Livewire hook registration.
 
-- [ ] **Step 1: Write a failing shared-layout test**
+- [x] **Step 1: Write a failing shared-layout test**
 
 ```php
 public function test_layouts_render_one_global_hud_and_do_not_duplicate_livewire_hooks(): void
@@ -118,7 +129,7 @@ Run: `php artisan test tests/Feature/SharedLayoutTest.php`
 
 Expected: FAIL while layouts contain inline hook code.
 
-- [ ] **Step 3: Centralize lifecycle setup in `thinking-orb.js`**
+- [x] **Step 3: Centralize lifecycle setup in `thinking-orb.js`**
 
 Use a window guard:
 
@@ -132,7 +143,7 @@ if (!window.__kamoLoaderHooksInstalled) {
 
 Remove inline Livewire hook scripts from Blade layouts. Keep one HUD container in each top-level layout because only one layout renders per response. Ensure timers are cleared on success/failure and Livewire navigation.
 
-- [ ] **Step 4: Run layout tests and browser console smoke check**
+- [ ] **Step 4: Run layout tests and browser console smoke check** _(tests y build verde; consola del navegador pendiente de revisión manual)_
 
 Run: `php artisan test tests/Feature/SharedLayoutTest.php`
 
@@ -160,7 +171,7 @@ git commit -m "fix: centralize global loading feedback"
 **Interfaces:**
 - Produces: valid PDF response without decoding `Imagotipo-DK.png`.
 
-- [ ] **Step 1: Strengthen PDF regression tests**
+- [x] **Step 1: Strengthen PDF regression tests**
 
 ```php
 $response = $this->actingAs($user)->get(route('meta-ads.pdf', $quote));
@@ -177,7 +188,7 @@ Run: `php -d memory_limit=128M artisan test tests/Feature/MetaAds/PdfTest.php`
 
 Expected: FAIL with Dompdf PNG alpha allocation exhaustion.
 
-- [ ] **Step 3: Replace raster logo embedding with lightweight brand markup**
+- [x] **Step 3: Replace raster logo embedding with lightweight brand markup**
 
 Remove base64 image loading from both templates and render:
 
@@ -188,7 +199,7 @@ Remove base64 image loading from both templates and render:
 
 Use PDF-safe CSS, text, borders, and existing coral/black colors. Do not use remote resources, SVG filters, or alpha-heavy raster images.
 
-- [ ] **Step 4: Run both PDF tests at the normal memory limit**
+- [x] **Step 4: Run both PDF tests at the normal memory limit**
 
 Run: `php -d memory_limit=128M artisan test tests/Feature/MetaAds/PdfTest.php tests/Feature/Documents/PdfTest.php`
 
@@ -210,7 +221,7 @@ git commit -m "fix: generate branded pdfs within memory limit"
 **Interfaces:**
 - Produces: PHP image with `intl`, `gd`, `pdo_mysql`, `zip`, and `opcache` loaded.
 
-- [ ] **Step 1: Capture the failing runtime check**
+- [ ] **Step 1: Capture the failing runtime check** _(estado rojo histórico; `intl` ya está instalado y verificado)_
 
 Run: `docker exec kamo_app php -r "exit(extension_loaded('intl') ? 0 : 1);"`
 
@@ -233,7 +244,7 @@ RUN apk add --no-cache \
 
 Document `docker compose build app && docker compose up -d --force-recreate app nginx` in README.
 
-- [ ] **Step 3: Rebuild and recreate the app container**
+- [x] **Step 3: Rebuild and recreate the app container**
 
 Run: `docker compose build app`
 
@@ -243,7 +254,7 @@ Run: `docker compose up -d --force-recreate app nginx`
 
 Expected: app and nginx are running.
 
-- [ ] **Step 4: Verify the extension and Laravel command**
+- [x] **Step 4: Verify the extension and Laravel command**
 
 Run: `docker exec kamo_app php -r "echo extension_loaded('intl') ? 'intl-ok' : 'intl-missing';"`
 

@@ -2,6 +2,15 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
+> **Estado (2026-09-17):** plan cerrado. El código se implementó en la remediación de
+> agosto y quedó verificado por los gates automáticos publicados en la
+> [auditoría de remediación](../../audits/2026-08-23-platform-remediation.md).
+>
+> **Convención de checkboxes:** `[x]` = entregable reproducido hoy (gate automático verde
+> o artefacto presente en el repositorio). Los pasos de estado rojo TDD (`Step 2`), los
+> checkpoints de commit históricos (`Step 5`) y las verificaciones manuales en navegador
+> quedan **sin marcar** porque no son reproducibles en este entorno.
+
 **Goal:** Preserve Kamo's current design while making public, auth, and workspace views consistent, responsive, semantic, keyboard accessible, and complete across loading/empty/error states.
 
 **Architecture:** Consolidate shared design tokens and interaction primitives in active layouts, keep controller-backed Blade screens canonical, and align Breeze auth views with Kamo. Make targeted semantic and responsive fixes instead of restructuring navigation or rebranding.
@@ -33,7 +42,7 @@
 **Interfaces:**
 - Produces: shared skip link, `main` target, focus ring tokens, reduced-motion override, and semantic navigation.
 
-- [ ] **Step 1: Write failing layout accessibility assertions**
+- [x] **Step 1: Write failing layout accessibility assertions**
 
 ```php
 public function test_public_and_app_layouts_have_skip_link_main_target_and_theme_color(): void
@@ -53,7 +62,7 @@ Run: `php artisan test tests/Feature/Accessibility/LayoutAccessibilityTest.php`
 
 Expected: FAIL for missing app/auth primitives.
 
-- [ ] **Step 3: Normalize shared primitives**
+- [x] **Step 3: Normalize shared primitives**
 
 Add CSS variables for four text levels, border levels, control background/border/focus, and explicit transitions. Add:
 
@@ -66,7 +75,7 @@ Add CSS variables for four text levels, border levels, control background/border
 
 Add skip links and `<main id="main">`. Set `color-scheme: dark` and matching `theme-color`. Replace clickable non-button navigation toggles with buttons and accessible names.
 
-- [ ] **Step 4: Run layout tests and build**
+- [x] **Step 4: Run layout tests and build**
 
 Run: `php artisan test tests/Feature/Accessibility/LayoutAccessibilityTest.php`
 
@@ -98,7 +107,7 @@ git commit -m "fix: unify accessible layout primitives"
 **Interfaces:**
 - Produces: consistent Spanish Kamo auth screens with headings, labels, autocomplete, inline errors, and keyboard-accessible controls.
 
-- [ ] **Step 1: Add failing copy and structure assertions**
+- [x] **Step 1: Add failing copy and structure assertions**
 
 ```php
 $this->get('/register')
@@ -117,11 +126,11 @@ Run: `php artisan test tests/Feature/Auth`
 
 Expected: FAIL on default English copy and missing heading.
 
-- [ ] **Step 3: Apply the existing login visual language to all auth views**
+- [x] **Step 3: Apply the existing login visual language to all auth views**
 
 Reuse `auth-wrapper`, `login-card`, `custom-label`, `custom-input`, `btn-primary-red`, and `custom-link`. Every page receives one `<h1>`, Spanish active-voice copy, input `name`, correct `type`, `autocomplete`, clickable labels, inline errors, and specific submit labels. Remove `tabindex="-1"` from the password visibility button and provide visible focus.
 
-- [ ] **Step 4: Run auth tests and mobile browser verification**
+- [ ] **Step 4: Run auth tests and mobile browser verification** _(tests verde; revisión visual manual pendiente)_
 
 Run: `php artisan test tests/Feature/Auth`
 
@@ -153,7 +162,7 @@ git commit -m "fix: align authentication views with kamo"
 **Interfaces:**
 - Produces: labeled search/forms, accessible modals, confirmed deletion, inline API errors, and stable loading/empty/error states.
 
-- [ ] **Step 1: Write failing semantic view assertions**
+- [x] **Step 1: Write failing semantic view assertions**
 
 ```php
 public function test_workspace_search_controls_have_accessible_names(): void
@@ -174,11 +183,11 @@ Run: `php artisan test tests/Feature/Accessibility/WorkspaceViewsTest.php`
 
 Expected: FAIL.
 
-- [ ] **Step 3: Implement semantic states and safe destructive actions**
+- [x] **Step 3: Implement semantic states and safe destructive actions**
 
 Add labels/accessible names to every search and form control. Give modals a heading referenced by `aria-labelledby`, focus the first control on open, return focus on close, close on Escape, contain overscroll, and mark background inert where supported. Replace direct deletion with a Kamo confirmation dialog. In shared scripts, store `requestError`, render it in `aria-live="polite"`, clear loaders in `finally`, and preserve user input after `422` or network errors.
 
-- [ ] **Step 4: Run workspace tests and responsive browser passes**
+- [ ] **Step 4: Run workspace tests and responsive browser passes** _(tests verde; revisión visual manual pendiente)_
 
 Run: `php artisan test tests/Feature/Accessibility/WorkspaceViewsTest.php`
 
@@ -205,7 +214,7 @@ git commit -m "fix: complete workspace interaction states"
 **Interfaces:**
 - Produces: tabular financial data, semantic filters/chips, accessible chart fallback, and keyboard-operable Meta Ads selections.
 
-- [ ] **Step 1: Write failing accessibility assertions**
+- [x] **Step 1: Write failing accessibility assertions**
 
 ```php
 $this->actingAs($this->user)->get('/servicios/meta-ads-ia')
@@ -222,13 +231,13 @@ Run: `php artisan test tests/Feature/Accessibility/DashboardMetaAdsTest.php`
 
 Expected: FAIL on clickable divs and missing chart fallback.
 
-- [ ] **Step 3: Replace pointer-only controls and complete data states**
+- [x] **Step 3: Replace pointer-only controls and complete data states**
 
 Change platform, industry, duration, age, and interest chips to `<button type="button">` with `aria-pressed`. Add keyboard focus styles. Give charts adjacent text summaries and empty-state copy. Use `font-variant-numeric: tabular-nums` on monetary and percentage comparisons. Make Chart.js initialization idempotent across Livewire navigation.
 
 Apply the same modal semantics, focus behavior, labeled icon buttons, bulk-action confirmation, and live status feedback to the case-study manager.
 
-- [ ] **Step 4: Run tests and browser verification**
+- [ ] **Step 4: Run tests and browser verification** _(tests verde; revisión visual manual pendiente)_
 
 Run: `php artisan test tests/Feature/Accessibility/DashboardMetaAdsTest.php tests/Feature/MetaAds`
 
@@ -257,7 +266,7 @@ git commit -m "fix: make dashboard and meta ads accessible"
 **Interfaces:**
 - Produces: valid contact/WhatsApp links, semantic CV action, explicit image dimensions, reliable contact success/error state, and consistent public metadata.
 
-- [ ] **Step 1: Write failing public-view assertions**
+- [x] **Step 1: Write failing public-view assertions**
 
 ```php
 public function test_public_pages_have_titles_headings_and_no_placeholder_whatsapp_link(): void
@@ -277,11 +286,11 @@ Run: `php artisan test tests/Feature/PublicViewsTest.php`
 
 Expected: FAIL for placeholder link and clickable CV div.
 
-- [ ] **Step 3: Apply targeted public fixes**
+- [x] **Step 3: Apply targeted public fixes**
 
 Read the WhatsApp number from `config('kamo.whatsapp_number')`; hide the control when unset instead of rendering an empty destination. Convert the CV email card to a button with accessible copy feedback. Add explicit `width`/`height` to known images, `loading="lazy"` below the fold, one page-specific `<h1>`, and page titles/descriptions. Keep existing marketing layout and colors. Contact success and error messages use `aria-live="polite"` and retain form values after failure.
 
-- [ ] **Step 4: Run tests and all viewport checks**
+- [ ] **Step 4: Run tests and all viewport checks** _(tests verde; revisión visual manual pendiente)_
 
 Run: `php artisan test tests/Feature/PublicViewsTest.php`
 
@@ -311,7 +320,7 @@ git commit -m "fix: polish public kamo views"
 - Consumes: all prior plans.
 - Produces: one canonical screen per module and final evidence report.
 
-- [ ] **Step 1: Prove duplicate views are unreferenced**
+- [x] **Step 1: Prove duplicate views are unreferenced**
 
 Run: `rg -n "livewire\.(clients|services|expenses|quotes|bills|invoices)\.index|Livewire\\(Clients|Services|Expenses|Quotes|Bills|Invoices)" apps/laravel --glob '!vendor/**' --glob '!storage/**'`
 
@@ -323,7 +332,7 @@ Use `apply_patch` deletions for the unreferenced files. Run: `php artisan route:
 
 Expected: all intended routes present and no route references removed classes.
 
-- [ ] **Step 3: Run full automated gates**
+- [x] **Step 3: Run full automated gates**
 
 Run: `php artisan test`
 
@@ -337,7 +346,7 @@ Run: `vendor/bin/pint --test app bootstrap config database routes tests`
 
 Expected: touched files pass; formatting-only legacy findings are listed separately.
 
-- [ ] **Step 4: Run container and browser gates and write audit report**
+- [ ] **Step 4: Run container and browser gates and write audit report** _(auditoría publicada en `docs/audits/`; revisión visual manual pendiente)_
 
 Run: `docker compose ps` and `docker exec kamo_app php -m`.
 

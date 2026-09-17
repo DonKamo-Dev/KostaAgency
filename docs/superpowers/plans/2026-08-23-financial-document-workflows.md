@@ -2,6 +2,21 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
+> **Estado (2026-09-17):** plan cerrado. Los servicios `DocumentCalculator`,
+> `DocumentNumberGenerator` y `RegisterDocumentPayment`, la migración
+> `2026_08_23_000001_add_unique_document_number_scope.php` y los tests de
+> `tests/Feature/Documents` están presentes y verdes en la
+> [auditoría de remediación](../../audits/2026-08-23-platform-remediation.md).
+>
+> **Nota de tenancy:** `2026-08-23-security-tenancy-access.md` fue revertido
+> (`SUPERSEDED`); el alcance por `company_id` se implementó sobre el workspace privado
+> único, sin modelo `Company`.
+>
+> **Convención de checkboxes:** `[x]` = entregable reproducido hoy (gate automático verde
+> o artefacto presente en el repositorio). Los pasos de estado rojo TDD (`Step 2`), los
+> checkpoints de commit históricos (`Step 5`) y los entregables ausentes quedan **sin
+> marcar** porque no son reproducibles en este entorno.
+
 **Goal:** Make quote, bill, invoice, payment, conversion, and Meta Ads workflows type-safe, transactional, company-scoped, and mathematically trustworthy.
 
 **Architecture:** Controllers keep their current routes but delegate numbering and calculations to focused services. The server derives totals from quantity and unit price, unique database constraints prevent duplicate numbers, and payments/conversions lock document rows inside transactions.
@@ -33,7 +48,7 @@
 **Interfaces:**
 - Produces: `DocumentCalculator::lineSubtotal(array $item): string` and `DocumentCalculator::subtotal(array $items): string` using two-decimal arithmetic.
 
-- [ ] **Step 1: Write failing calculator and tampered-subtotal tests**
+- [x] **Step 1: Write failing calculator and tampered-subtotal tests**
 
 ```php
 public function test_calculates_decimal_line_totals_without_trusting_subtotal(): void
@@ -61,7 +76,7 @@ Run: `php artisan test tests/Unit/DocumentCalculatorTest.php tests/Feature/Docum
 
 Expected: FAIL.
 
-- [ ] **Step 3: Implement calculation service and use it in all three controllers**
+- [x] **Step 3: Implement calculation service and use it in all three controllers**
 
 ```php
 final class DocumentCalculator
@@ -83,7 +98,7 @@ final class DocumentCalculator
 
 Use calculated values for document totals and item subtotals in quote, bill, and invoice create/update paths.
 
-- [ ] **Step 4: Run total tests**
+- [x] **Step 4: Run total tests**
 
 Run: `php artisan test tests/Unit/DocumentCalculatorTest.php tests/Feature/Documents/DocumentTotalsTest.php`
 
@@ -111,7 +126,7 @@ git commit -m "fix: calculate document totals on server"
 **Interfaces:**
 - Produces: `DocumentNumberGenerator::next(int $companyId, string $type): string` and private controller type assertions.
 
-- [ ] **Step 1: Write failing type and numbering tests**
+- [ ] **Step 1: Write failing type and numbering tests** _(falta `tests/Unit/DocumentNumberGeneratorTest.php`; la cobertura de tipos vive en `DocumentTypeTest`)_
 
 ```php
 public function test_invoice_routes_reject_quote_ids(): void
@@ -136,7 +151,7 @@ Run: `php artisan test tests/Feature/Documents/DocumentTypeTest.php tests/Unit/D
 
 Expected: FAIL.
 
-- [ ] **Step 3: Add type assertions, generator, and unique index**
+- [x] **Step 3: Add type assertions, generator, and unique index**
 
 Use:
 
@@ -149,7 +164,7 @@ private function assertType(Document $document, string $type): void
 
 Call it before every edit, update, delete, cancel, payment, convert, duplicate, and PDF operation. The generator runs inside the caller transaction, locks the last matching document row, extracts the numeric suffix, and returns the next prefix/suffix. Add unique index on `company_id`, `type`, and `doc_number`.
 
-- [ ] **Step 4: Run migrations and focused tests**
+- [x] **Step 4: Run migrations and focused tests**
 
 Run: `php artisan migrate:fresh --env=testing`
 
@@ -177,7 +192,7 @@ git commit -m "fix: enforce document types and unique numbers"
 **Interfaces:**
 - Produces: `RegisterDocumentPayment::handle(Document $document, array $data): Payment`.
 
-- [ ] **Step 1: Write failing overpayment and balance tests**
+- [x] **Step 1: Write failing overpayment and balance tests**
 
 ```php
 public function test_payment_cannot_exceed_outstanding_balance(): void
@@ -205,11 +220,11 @@ Run: `php artisan test tests/Feature/Documents/PaymentTest.php`
 
 Expected: FAIL.
 
-- [ ] **Step 3: Implement locked transactional payment registration**
+- [x] **Step 3: Implement locked transactional payment registration**
 
 Inside `DB::transaction`, reload the document with `lockForUpdate()`, reject cancelled/wrong-type documents, validate `amount <= total - paid`, create the payment, and update `paid` plus `paid/pending` status. Controllers delegate to the service and return validation errors under `amount`.
 
-- [ ] **Step 4: Run payment and document workflow tests**
+- [x] **Step 4: Run payment and document workflow tests**
 
 Run: `php artisan test tests/Feature/Documents`
 
@@ -237,7 +252,7 @@ git commit -m "fix: enforce transactional payment balances"
 - Consumes: current-company context and `DocumentNumberGenerator`.
 - Produces: idempotent transactional quote conversion and company-scoped Meta Ads lookup.
 
-- [ ] **Step 1: Write failing conversion and foreign Meta Ads tests**
+- [x] **Step 1: Write failing conversion and foreign Meta Ads tests**
 
 ```php
 public function test_converted_quote_cannot_be_converted_twice(): void
@@ -262,11 +277,11 @@ Run: `php artisan test tests/Feature/Documents/QuoteConversionTest.php tests/Fea
 
 Expected: FAIL.
 
-- [ ] **Step 3: Lock conversion and scope all Meta Ads lookups**
+- [x] **Step 3: Lock conversion and scope all Meta Ads lookups**
 
 Reload the quote with `lockForUpdate()`, assert `type=quote` and `status=pending`, create one invoice with `related_doc_id`, then mark converted. In Meta Ads classes/controllers, replace `findOrFail($id)` with `where('company_id', $currentCompany->id())->findOrFail($id)`.
 
-- [ ] **Step 4: Run document and Meta Ads tests**
+- [x] **Step 4: Run document and Meta Ads tests**
 
 Run: `php artisan test tests/Feature/Documents tests/Feature/MetaAds`
 

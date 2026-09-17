@@ -281,3 +281,28 @@ All behavior changes follow red-green-refactor.
 - Keyboard navigation, focus visibility, labels, semantic controls, and reduced motion meet the stated accessibility requirements.
 - The full automated suite and frontend production build pass.
 
+## Estado Final (2026-09-17)
+
+Esta spec se redactó asumiendo multi-empresa (invariante de "current company"). El 24 de
+agosto de 2026 esa arquitectura se **revirtió** con la migración
+`2026_08_24_000000_remove_multi_company_structure.php`, que elimina la estructura de
+múltiples compañías. La plataforma opera hoy como **workspace privado único**.
+
+Decisiones de cierre:
+
+- **No multi-empresa:** no existe `Company` ni alcance por `company_id` en `app/`. Las
+  secciones de esta spec sobre "current-company invariant" y "cross-company access" se
+  consideran fuera de alcance por decisión de producto.
+- **Acceso local:** el atajo `/entrar-kamo` está restringido a `app()->isLocal()` y
+  resuelve el usuario vía `config('kamo.local_access_email')`, sin ID fijo.
+- **Código muerto de tenancy/roles:** eliminado; ver plan
+  [2026-08-23-security-tenancy-access.md](../plans/2026-08-23-security-tenancy-access.md)
+  (marcado `SUPERSEDED`) y el commit `b48b7c7`.
+- **Estado verificado y evidencia:** ver
+  [auditoría de remediación](../../audits/2026-08-23-platform-remediation.md) y el plan de
+  cierre [2026-09-17-cierre-pendientes-plataforma.md](../plans/2026-09-17-cierre-pendientes-plataforma.md).
+
+Se preservan del resto de esta spec: identidad visual, tokens, accesibilidad, estados de
+interacción, responsive, seguridad de rutas de desarrollo, PDFs dentro del límite de
+memoria, `intl` en Docker y los invariantes financieros de documentos y pagos.
+
