@@ -32,7 +32,7 @@ Ordenados según el plan [2026-09-17-cierre-pendientes-plataforma](docs/superpow
 | --- | --- | --- | --- |
 | 1 | Repositorio Git inexistente | Fase 1 | Completada (baseline en `master`) |
 | 2 | Código muerto residual de tenancy/roles | Fase 2 | Completada (commit `b48b7c7`) |
-| 3 | Generación de Meta Ads síncrona (sin job en cola) | Fase 3 | Pendiente |
+| 3 | Generación de Meta Ads síncrona (sin job en cola) | Fase 3 | Completada (commit `f190689`) |
 | 4 | Reporte de auditoría final `docs/audits/2026-08-23-platform-remediation.md` | Fase 4 | Pendiente |
 | 5 | Planes/documentación desincronizados | Fase 5 | Pendiente |
 
@@ -50,6 +50,9 @@ Ordenados según el plan [2026-09-17-cierre-pendientes-plataforma](docs/superpow
 - Se retiraron las migraciones que creaban `roles_and_permissions_tables` y `recurring_documents`, y se añadió `2026_09_17_000000_drop_orphaned_tenancy_tables.php` para eliminar ambas tablas en bases existentes.
 - Se marcó el plan `2026-08-23-security-tenancy-access.md` como `SUPERSEDED`.
 - Commit `b48b7c7` (15 archivos, 332 eliminaciones). Verificación: `php artisan test` (85 tests / 294 aserciones, en verde) y búsqueda de símbolos huérfanos sin resultados.
+- Fase 3 completada: la generación de Meta Ads ahora corre en segundo plano con el job `App\Jobs\GenerateMetaAdsQuote` (`tries=2`, `timeout=120`), la migración `2026_09_17_000001_add_generation_status_to_ai_meta_quotes.php` (`generation_status`, `error`, índice) y el servicio `queue` en `docker-compose.yml`.
+- El componente `Wizard` crea la cotización en `pending`, despacha el job y hace polling con `wire:poll.3s="checkGeneration"`; `History` lista solo cotizaciones `completed`.
+- Commit `f190689` (9 archivos, +355/−51). Verificación: `php artisan test` (90 tests / 306 aserciones, en verde) y `pint --test` en archivos nuevos sin hallazgos.
 
 ### 2026-09-16
 
@@ -77,6 +80,9 @@ docker compose up -d
 
 # Migraciones (contenedor)
 docker compose exec app php artisan migrate
+
+# Worker de cola (generación de Meta Ads en segundo plano)
+docker compose up -d queue
 
 # Pruebas: ejecutar en el host (usa SQLite en memoria y APP_ENV=testing de phpunit.xml)
 php artisan test
