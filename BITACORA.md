@@ -30,13 +30,19 @@ Ordenados según el plan [2026-09-17-cierre-pendientes-plataforma](docs/superpow
 
 | # | Pendiente | Fase | Estado |
 | --- | --- | --- | --- |
-| 1 | Repositorio Git inexistente | Fase 1 | Completada (baseline en `master`) |
+| 1 | Repositorio Git inexistente | Fase 1 | Completada (remoto `origin` en `main`) |
 | 2 | Código muerto residual de tenancy/roles | Fase 2 | Completada (commit `b48b7c7`) |
 | 3 | Generación de Meta Ads síncrona (sin job en cola) | Fase 3 | Completada (commit `f190689`) |
 | 4 | Reporte de auditoría final `docs/audits/2026-08-23-platform-remediation.md` | Fase 4 | Completada (commit `399089b`) |
 | 5 | Planes/documentación desincronizados | Fase 5 | Completada (commit de cierre) |
 
 ## Registro de cambios
+
+### 2026-09-18
+
+- Se renombró la rama principal a `main` (`git branch -M main`).
+- Se configuró el repositorio remoto `origin` apuntando a `https://github.com/DonKamo-Dev/KostaAgency.git`.
+- Se autenticó Git con la cuenta `DonKamo-Dev` y se subió el código completo a la rama `main` (`git push -u origin main`).
 
 ### 2026-09-17
 
