@@ -2,18 +2,19 @@
 
 namespace App\Models;
 
+use Database\Factories\DocumentFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Document extends Model
 {
-    /** @use HasFactory<\Database\Factories\DocumentFactory> */
+    /** @use HasFactory<DocumentFactory> */
     use HasFactory;
 
     protected $fillable = [
         'client_id', 'type', 'date', 'due_date',
         'subtotal', 'tax', 'total', 'paid', 'status',
-        'related_doc_id', 'notes', 'pdf_path', 'doc_number'
+        'related_doc_id', 'notes', 'pdf_path', 'doc_number',
     ];
 
     protected $casts = [

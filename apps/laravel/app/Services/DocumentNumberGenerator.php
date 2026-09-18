@@ -8,16 +8,16 @@ use Illuminate\Support\Facades\DB;
 final class DocumentNumberGenerator
 {
     private const PREFIXES = [
-        'quote'   => 'COT',
+        'quote' => 'COT',
         'invoice' => 'FAC',
-        'bill'    => 'CC',
+        'bill' => 'CC',
     ];
 
     public function next(string $type): string
     {
         $prefix = self::PREFIXES[$type] ?? strtoupper(substr($type, 0, 3));
 
-        $lastNumber = DB::transaction(function () use ($type, $prefix) {
+        $lastNumber = DB::transaction(function () use ($type) {
             $last = Document::where('type', $type)
                 ->lockForUpdate()
                 ->orderByDesc('id')
@@ -30,6 +30,6 @@ final class DocumentNumberGenerator
             return 0;
         });
 
-        return $prefix . '-' . str_pad($lastNumber + 1, 4, '0', STR_PAD_LEFT);
+        return $prefix.'-'.str_pad($lastNumber + 1, 4, '0', STR_PAD_LEFT);
     }
 }

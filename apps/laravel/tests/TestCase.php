@@ -3,6 +3,10 @@
 namespace Tests;
 
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
+use Illuminate\Testing\TestResponse;
+use Livewire\Component;
+use Livewire\Mechanisms\ComponentRegistry;
+use PHPUnit\Framework\Assert;
 
 abstract class TestCase extends BaseTestCase
 {
@@ -10,14 +14,14 @@ abstract class TestCase extends BaseTestCase
     {
         parent::setUp();
 
-        if (! \Illuminate\Testing\TestResponse::hasMacro('assertSeeLivewire')) {
-            \Illuminate\Testing\TestResponse::macro('assertSeeLivewire', function ($component) {
-                if (is_subclass_of($component, \Livewire\Component::class)) {
-                    $component = app(\Livewire\Mechanisms\ComponentRegistry::class)->getName($component);
+        if (! TestResponse::hasMacro('assertSeeLivewire')) {
+            TestResponse::macro('assertSeeLivewire', function ($component) {
+                if (is_subclass_of($component, Component::class)) {
+                    $component = app(ComponentRegistry::class)->getName($component);
                 }
                 $escapedComponentName = trim(htmlspecialchars(json_encode(['name' => $component])), '{}');
 
-                \PHPUnit\Framework\Assert::assertStringContainsString(
+                Assert::assertStringContainsString(
                     $escapedComponentName,
                     $this->getContent(),
                     'Cannot find Livewire component ['.$component.'] rendered on page.'
@@ -27,14 +31,14 @@ abstract class TestCase extends BaseTestCase
             });
         }
 
-        if (! \Illuminate\Testing\TestResponse::hasMacro('assertDontSeeLivewire')) {
-            \Illuminate\Testing\TestResponse::macro('assertDontSeeLivewire', function ($component) {
-                if (is_subclass_of($component, \Livewire\Component::class)) {
-                    $component = app(\Livewire\Mechanisms\ComponentRegistry::class)->getName($component);
+        if (! TestResponse::hasMacro('assertDontSeeLivewire')) {
+            TestResponse::macro('assertDontSeeLivewire', function ($component) {
+                if (is_subclass_of($component, Component::class)) {
+                    $component = app(ComponentRegistry::class)->getName($component);
                 }
                 $escapedComponentName = trim(htmlspecialchars(json_encode(['name' => $component])), '{}');
 
-                \PHPUnit\Framework\Assert::assertStringNotContainsString(
+                Assert::assertStringNotContainsString(
                     $escapedComponentName,
                     $this->getContent(),
                     'Found Livewire component ['.$component.'] rendered on page.'

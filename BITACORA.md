@@ -21,7 +21,6 @@ Kamo Platform es una plataforma SaaS para la gestión operativa y financiera de 
 | Cuentas de cobro | Disponible | Gestión de documentos de cobro y registro de pagos. |
 | Facturas | Disponible | Creación, edición, anulación, PDF y registro de pagos. |
 | Gastos | Disponible | Registro por fecha, categoría y monto. |
-| Campañas IA | Disponible | Generación e historial de propuestas para Meta Ads. |
 | Casos de estudio | Disponible | Administración del portafolio público. |
 
 ## Pendientes
@@ -32,7 +31,7 @@ Ordenados según el plan [2026-09-17-cierre-pendientes-plataforma](docs/superpow
 | --- | --- | --- | --- |
 | 1 | Repositorio Git inexistente | Fase 1 | Completada (remoto `origin` en `main`) |
 | 2 | Código muerto residual de tenancy/roles | Fase 2 | Completada (commit `b48b7c7`) |
-| 3 | Generación de Meta Ads síncrona (sin job en cola) | Fase 3 | Completada (commit `f190689`) |
+| 3 | Generación de Meta Ads síncrona (sin job en cola) | Retirado | Módulo eliminado a solicitud del usuario |
 | 4 | Reporte de auditoría final `docs/audits/2026-08-23-platform-remediation.md` | Fase 4 | Completada (commit `399089b`) |
 | 5 | Planes/documentación desincronizados | Fase 5 | Completada (commit de cierre) |
 
@@ -40,6 +39,20 @@ Ordenados según el plan [2026-09-17-cierre-pendientes-plataforma](docs/superpow
 
 ### 2026-09-18
 
+- Se eliminó completamente el sistema de IA automático de Meta Ads:
+  - Eliminados: job `GenerateMetaAdsQuote`, servicio `ClaudeMetaAdsService`, modelo `AiMetaQuote`, factory `AiMetaQuoteFactory`, controlador `MetaAdsController`, componentes Livewire `Wizard` y `History`.
+  - Eliminadas: vistas de Livewire y plantilla PDF de cotización Meta Ads (`resources/views/livewire/meta-ads/`, `resources/views/pdf/meta-ads-quote.blade.php`).
+  - Eliminado el subenlace de navegación en el sidebar (`components/layouts/app.blade.php`), rutas en `routes/web.php`, y credenciales en `config/services.php` (`groq`, `anthropic`).
+  - Creada y ejecutada la migración `2026_09_18_000000_drop_ai_meta_quotes_table.php` para eliminar la tabla `ai_meta_quotes` en MySQL.
+  - Retirado el servicio worker `kamo_queue` de `docker-compose.yml`, liberando recursos de cómputo.
+- Formateo de código PHP heredado con Laravel Pint:
+  - Se ejecutó `vendor/bin/pint` sobre `app`, `bootstrap`, `config`, `database`, `routes` y `tests`.
+  - Verificación `vendor/bin/pint --test` con 0 archivos con advertencias (`passed`).
+- Smoke visual multi-viewport interactivo con subagente de navegador:
+  - Probado en Desktop (1440x900), Tablet (768x1024) y Mobile (375x667).
+  - Flujo autenticado en `/dashboard`, `/clients`, `/quotes`, `/invoices`.
+  - Verificada la correcta visualización de bottom nav móvil y FAB, sin desbordamiento horizontal (`scrollWidth <= innerWidth`).
+  - Pruebas automatizadas: 77/77 tests PHP en verde (273 aserciones) y 7/7 tests JS en verde.
 - Se renombró la rama principal a `main` (`git branch -M main`).
 - Se configuró el repositorio remoto `origin` apuntando a `https://github.com/DonKamo-Dev/KostaAgency.git`.
 - Se autenticó Git con la cuenta `DonKamo-Dev` y se subió el código completo a la rama `main` (`git push -u origin main`).

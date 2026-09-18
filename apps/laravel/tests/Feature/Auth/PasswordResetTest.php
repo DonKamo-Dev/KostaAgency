@@ -23,7 +23,7 @@ class PasswordResetTest extends TestCase
 
         $response = $this->get("/reset-password/{$user->id}/?token=test");
         $response->assertSee('Restablecer contraseña')
-                 ->assertSee('Correo electrónico')
-                 ->assertSee('Nueva contraseña');
+            ->assertSee('Correo electrónico')
+            ->assertSee('Nueva contraseña');
     }
 }

@@ -19,20 +19,20 @@ class DocumentTypeTest extends TestCase
     {
         parent::setUp();
 
-        $this->user    = User::factory()->create();
+        $this->user = User::factory()->create();
     }
 
     public function test_invoice_routes_reject_quote_ids(): void
     {
         $client = Client::factory()->create(['name' => 'Test']);
         $quote = Document::create([
-            'client_id'  => $client->id,
-            'type'       => 'quote',
-            'status'     => 'pending',
-            'date'       => now()->toDateString(),
-            'subtotal'   => 100,
-            'tax'        => 0,
-            'total'      => 100,
+            'client_id' => $client->id,
+            'type' => 'quote',
+            'status' => 'pending',
+            'date' => now()->toDateString(),
+            'subtotal' => 100,
+            'tax' => 0,
+            'total' => 100,
             'doc_number' => 'COT-0001',
         ]);
 
@@ -43,13 +43,13 @@ class DocumentTypeTest extends TestCase
     {
         $client = Client::factory()->create(['name' => 'Test']);
         $quote = Document::create([
-            'client_id'  => $client->id,
-            'type'       => 'quote',
-            'status'     => 'pending',
-            'date'       => now()->toDateString(),
-            'subtotal'   => 100,
-            'tax'        => 0,
-            'total'      => 100,
+            'client_id' => $client->id,
+            'type' => 'quote',
+            'status' => 'pending',
+            'date' => now()->toDateString(),
+            'subtotal' => 100,
+            'tax' => 0,
+            'total' => 100,
             'doc_number' => 'COT-0002',
         ]);
 
@@ -60,13 +60,13 @@ class DocumentTypeTest extends TestCase
     {
         $client = Client::factory()->create(['name' => 'Test']);
         $invoice = Document::create([
-            'client_id'  => $client->id,
-            'type'       => 'invoice',
-            'status'     => 'pending',
-            'date'       => now()->toDateString(),
-            'subtotal'   => 100,
-            'tax'        => 0,
-            'total'      => 100,
+            'client_id' => $client->id,
+            'type' => 'invoice',
+            'status' => 'pending',
+            'date' => now()->toDateString(),
+            'subtotal' => 100,
+            'tax' => 0,
+            'total' => 100,
             'doc_number' => 'FAC-0001',
         ]);
 
@@ -87,13 +87,13 @@ class DocumentTypeTest extends TestCase
         $client = Client::factory()->create(['name' => 'Test']);
 
         Document::create([
-            'client_id'  => $client->id,
-            'type'       => 'quote',
-            'status'     => 'pending',
-            'date'       => now()->toDateString(),
-            'subtotal'   => 100,
-            'tax'        => 0,
-            'total'      => 100,
+            'client_id' => $client->id,
+            'type' => 'quote',
+            'status' => 'pending',
+            'date' => now()->toDateString(),
+            'subtotal' => 100,
+            'tax' => 0,
+            'total' => 100,
             'doc_number' => 'COT-0001',
         ]);
 

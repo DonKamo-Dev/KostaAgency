@@ -18,32 +18,32 @@ class PdfTest extends TestCase
     {
         $this->fakePdfRenderer();
 
-        $user    = User::factory()->create();
+        $user = User::factory()->create();
 
         $client = Client::factory()->create([
-            'name'       => 'Test Client',
-            'email'      => 'test@example.com',
+            'name' => 'Test Client',
+            'email' => 'test@example.com',
         ]);
 
         $document = Document::create([
-            'client_id'  => $client->id,
-            'type'       => 'quote',
-            'date'       => now()->toDateString(),
-            'subtotal'   => 100.00,
-            'tax'        => 19.00,
-            'total'      => 119.00,
-            'paid'       => 0,
-            'status'     => 'pending',
+            'client_id' => $client->id,
+            'type' => 'quote',
+            'date' => now()->toDateString(),
+            'subtotal' => 100.00,
+            'tax' => 19.00,
+            'total' => 119.00,
+            'paid' => 0,
+            'status' => 'pending',
             'doc_number' => 'COT-0001',
         ]);
 
         DocumentItem::create([
-            'document_id'  => $document->id,
+            'document_id' => $document->id,
             'service_name' => 'Diseño Web',
-            'description'  => 'Landing page',
-            'quantity'     => 1,
-            'unit_price'   => 100.00,
-            'subtotal'     => 100.00,
+            'description' => 'Landing page',
+            'quantity' => 1,
+            'unit_price' => 100.00,
+            'subtotal' => 100.00,
         ]);
 
         $response = $this->actingAs($user)->get(route('documents.pdf', $document));
@@ -57,26 +57,26 @@ class PdfTest extends TestCase
         $html = view('pdf.quote', [
             'document' => (object) [
                 'doc_number' => 'COT-0001',
-                'type'       => 'quote',
-                'date'       => now(),
-                'due_date'   => null,
-                'subtotal'   => 100,
-                'tax'        => 19,
-                'total'      => 119,
-                'notes'      => null,
-                'client'     => (object) [
-                    'name'   => 'Test Client',
-                    'email'  => 'test@example.com',
-                    'phone'  => '123',
+                'type' => 'quote',
+                'date' => now(),
+                'due_date' => null,
+                'subtotal' => 100,
+                'tax' => 19,
+                'total' => 119,
+                'notes' => null,
+                'client' => (object) [
+                    'name' => 'Test Client',
+                    'email' => 'test@example.com',
+                    'phone' => '123',
                     'tax_id' => 'NIT-123',
-                    'address'=> 'Calle 1',
+                    'address' => 'Calle 1',
                 ],
-                'items'      => collect([(object) [
+                'items' => collect([(object) [
                     'service_name' => 'Servicio',
-                    'description'  => null,
-                    'quantity'     => 1,
-                    'unit_price'   => 100,
-                    'subtotal'     => 100,
+                    'description' => null,
+                    'quantity' => 1,
+                    'unit_price' => 100,
+                    'subtotal' => 100,
                 ]]),
             ],
         ])->render();

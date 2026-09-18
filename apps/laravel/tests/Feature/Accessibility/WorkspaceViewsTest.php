@@ -15,7 +15,7 @@ class WorkspaceViewsTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->user    = User::factory()->create();
+        $this->user = User::factory()->create();
     }
 
     public function test_workspace_search_controls_have_accessible_names(): void
@@ -61,7 +61,7 @@ class WorkspaceViewsTest extends TestCase
             'doc_number' => 'FAC-0001',
         ]);
 
-        foreach (['/quotes/create', "/quotes/{$quote->id}", "/invoices/create", "/invoices/{$invoice->id}"] as $path) {
+        foreach (['/quotes/create', "/quotes/{$quote->id}", '/invoices/create', "/invoices/{$invoice->id}"] as $path) {
             $this->actingAs($this->user)->get($path)->assertOk();
         }
     }

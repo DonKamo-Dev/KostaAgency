@@ -1,14 +1,12 @@
 <?php
 
 use App\Http\Controllers\BillController;
-use Inertia\Inertia;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\QuoteController;
-use App\Http\Controllers\MetaAdsController;
 use App\Http\Controllers\ServiceController;
 use App\Livewire\CaseStudies\Index as CaseStudiesIndex;
 use App\Livewire\Landing\Bento as LandingBento;
@@ -18,6 +16,7 @@ use App\Livewire\Landing\Portfolio as LandingPortfolio;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
 
 // ── Herramientas de desarrollo local ─────────────────────────────────────────
 if (app()->isLocal()) {
@@ -55,62 +54,56 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/documents/{document}/pdf', [DocumentController::class, 'pdf'])->name('documents.pdf');
 
     // ── Cotizaciones ──────────────────────────────────────────────────────────
-    Route::get('/quotes',                      [QuoteController::class, 'index'])->name('quotes.index');
-    Route::get('/quotes/create',               [QuoteController::class, 'create'])->name('quotes.create');
-    Route::get('/quotes/{document}',           [QuoteController::class, 'show'])->whereNumber('document')->name('quotes.show');
-    Route::get('/quotes/{document}/edit',      [QuoteController::class, 'edit'])->whereNumber('document')->name('quotes.edit');
-    Route::get('/quotes/form-data',            [QuoteController::class, 'formData'])->name('quotes.form-data');
+    Route::get('/quotes', [QuoteController::class, 'index'])->name('quotes.index');
+    Route::get('/quotes/create', [QuoteController::class, 'create'])->name('quotes.create');
+    Route::get('/quotes/{document}', [QuoteController::class, 'show'])->whereNumber('document')->name('quotes.show');
+    Route::get('/quotes/{document}/edit', [QuoteController::class, 'edit'])->whereNumber('document')->name('quotes.edit');
+    Route::get('/quotes/form-data', [QuoteController::class, 'formData'])->name('quotes.form-data');
     Route::get('/quotes/{document}/edit-data', [QuoteController::class, 'editData'])->name('quotes.edit-data');
-    Route::post('/quotes',                     [QuoteController::class, 'store'])->name('quotes.store');
-    Route::put('/quotes/{document}',           [QuoteController::class, 'update'])->name('quotes.update');
-    Route::delete('/quotes/{document}',        [QuoteController::class, 'destroy'])->name('quotes.destroy');
-    Route::post('/quotes/{document}/convert',   [QuoteController::class, 'convertToInvoice'])->name('quotes.convert');
+    Route::post('/quotes', [QuoteController::class, 'store'])->name('quotes.store');
+    Route::put('/quotes/{document}', [QuoteController::class, 'update'])->name('quotes.update');
+    Route::delete('/quotes/{document}', [QuoteController::class, 'destroy'])->name('quotes.destroy');
+    Route::post('/quotes/{document}/convert', [QuoteController::class, 'convertToInvoice'])->name('quotes.convert');
     Route::post('/quotes/{document}/duplicate', [QuoteController::class, 'duplicate'])->name('quotes.duplicate');
-    Route::post('/quotes/{document}/cancel',    [QuoteController::class, 'cancel'])->name('quotes.cancel');
+    Route::post('/quotes/{document}/cancel', [QuoteController::class, 'cancel'])->name('quotes.cancel');
 
     // ── Cuentas de Cobro ──────────────────────────────────────────────────────
-    Route::get('/bills',                      [BillController::class, 'index'])->name('bills.index');
-    Route::get('/bills/form-data',            [BillController::class, 'formData'])->name('bills.form-data');
+    Route::get('/bills', [BillController::class, 'index'])->name('bills.index');
+    Route::get('/bills/form-data', [BillController::class, 'formData'])->name('bills.form-data');
     Route::get('/bills/{document}/edit-data', [BillController::class, 'editData'])->name('bills.edit-data');
-    Route::post('/bills',                     [BillController::class, 'store'])->name('bills.store');
-    Route::put('/bills/{document}',           [BillController::class, 'update'])->name('bills.update');
-    Route::delete('/bills/{document}',        [BillController::class, 'destroy'])->name('bills.destroy');
-    Route::post('/bills/{document}/payment',  [BillController::class, 'registerPayment'])->name('bills.payment');
+    Route::post('/bills', [BillController::class, 'store'])->name('bills.store');
+    Route::put('/bills/{document}', [BillController::class, 'update'])->name('bills.update');
+    Route::delete('/bills/{document}', [BillController::class, 'destroy'])->name('bills.destroy');
+    Route::post('/bills/{document}/payment', [BillController::class, 'registerPayment'])->name('bills.payment');
 
     // ── Facturas ──────────────────────────────────────────────────────────────
-    Route::get('/invoices',                      [InvoiceController::class, 'index'])->name('invoices.index');
-    Route::get('/invoices/create',               [InvoiceController::class, 'create'])->name('invoices.create');
-    Route::get('/invoices/{document}',           [InvoiceController::class, 'show'])->whereNumber('document')->name('invoices.show');
-    Route::get('/invoices/{document}/edit',      [InvoiceController::class, 'edit'])->whereNumber('document')->name('invoices.edit');
-    Route::get('/invoices/form-data',            [InvoiceController::class, 'formData'])->name('invoices.form-data');
+    Route::get('/invoices', [InvoiceController::class, 'index'])->name('invoices.index');
+    Route::get('/invoices/create', [InvoiceController::class, 'create'])->name('invoices.create');
+    Route::get('/invoices/{document}', [InvoiceController::class, 'show'])->whereNumber('document')->name('invoices.show');
+    Route::get('/invoices/{document}/edit', [InvoiceController::class, 'edit'])->whereNumber('document')->name('invoices.edit');
+    Route::get('/invoices/form-data', [InvoiceController::class, 'formData'])->name('invoices.form-data');
     Route::get('/invoices/{document}/edit-data', [InvoiceController::class, 'editData'])->name('invoices.edit-data');
-    Route::post('/invoices',                     [InvoiceController::class, 'store'])->name('invoices.store');
-    Route::put('/invoices/{document}',           [InvoiceController::class, 'update'])->name('invoices.update');
-    Route::delete('/invoices/{document}',        [InvoiceController::class, 'destroy'])->name('invoices.destroy');
-    Route::post('/invoices/{document}/cancel',   [InvoiceController::class, 'cancel'])->name('invoices.cancel');
-    Route::post('/invoices/{document}/payment',  [InvoiceController::class, 'registerPayment'])->name('invoices.payment');
+    Route::post('/invoices', [InvoiceController::class, 'store'])->name('invoices.store');
+    Route::put('/invoices/{document}', [InvoiceController::class, 'update'])->name('invoices.update');
+    Route::delete('/invoices/{document}', [InvoiceController::class, 'destroy'])->name('invoices.destroy');
+    Route::post('/invoices/{document}/cancel', [InvoiceController::class, 'cancel'])->name('invoices.cancel');
+    Route::post('/invoices/{document}/payment', [InvoiceController::class, 'registerPayment'])->name('invoices.payment');
 
     // ── Clientes ──────────────────────────────────────────────────────────────
-    Route::get('/clients',          [ClientController::class, 'index'])->name('clients.index');
-    Route::post('/clients',         [ClientController::class, 'store'])->name('clients.store');
+    Route::get('/clients', [ClientController::class, 'index'])->name('clients.index');
+    Route::post('/clients', [ClientController::class, 'store'])->name('clients.store');
     Route::put('/clients/{client}', [ClientController::class, 'update'])->name('clients.update');
     Route::delete('/clients/{client}', [ClientController::class, 'destroy'])->name('clients.destroy');
 
     // ── Servicios ─────────────────────────────────────────────────────────────
-    Route::get('/services',           [ServiceController::class, 'index'])->name('services.index');
-    Route::post('/services',          [ServiceController::class, 'store'])->name('services.store');
+    Route::get('/services', [ServiceController::class, 'index'])->name('services.index');
+    Route::post('/services', [ServiceController::class, 'store'])->name('services.store');
     Route::put('/services/{service}', [ServiceController::class, 'update'])->name('services.update');
     Route::delete('/services/{service}', [ServiceController::class, 'destroy'])->name('services.destroy');
 
-    // ── IA Meta Ads ──────────────────────────────────────────────────────────────
-    Route::get('/servicios/meta-ads-ia',            \App\Livewire\MetaAds\Wizard::class)->name('meta-ads.wizard');
-    Route::get('/servicios/meta-ads-ia/historial',  \App\Livewire\MetaAds\History::class)->name('meta-ads.history');
-    Route::get('/servicios/meta-ads-ia/{id}/ver',   \App\Livewire\MetaAds\Wizard::class)->whereNumber('id')->name('meta-ads.view');
-    Route::get('/servicios/meta-ads-ia/{id}/pdf',   [\App\Http\Controllers\MetaAdsController::class, 'pdf'])->name('meta-ads.pdf');
-
     // ── Gastos ────────────────────────────────────────────────────────────────
-    Route::get('/expenses',           [ExpenseController::class, 'index'])->name('expenses.index');
-    Route::post('/expenses',          [ExpenseController::class, 'store'])->name('expenses.store');
+    Route::get('/expenses', [ExpenseController::class, 'index'])->name('expenses.index');
+    Route::post('/expenses', [ExpenseController::class, 'store'])->name('expenses.store');
     Route::put('/expenses/{expense}', [ExpenseController::class, 'update'])->name('expenses.update');
     Route::delete('/expenses/{expense}', [ExpenseController::class, 'destroy'])->name('expenses.destroy');
 });
@@ -120,7 +113,8 @@ Route::post('/logout', function () {
     Auth::guard('web')->logout();
     request()->session()->invalidate();
     request()->session()->regenerateToken();
+
     return redirect('/');
 })->middleware('auth')->name('logout');
 
-require __DIR__ . '/auth.php';
+require __DIR__.'/auth.php';

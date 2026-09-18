@@ -2,20 +2,20 @@
 
 namespace App\Models;
 
+use Database\Factories\ExpenseFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Expense extends Model
 {
-    /** @use HasFactory<\Database\Factories\ExpenseFactory> */
+    /** @use HasFactory<ExpenseFactory> */
     use HasFactory;
 
     protected $fillable = [
-        'date', 'category', 'description', 'amount', 'receipt_path'
+        'date', 'category', 'description', 'amount', 'receipt_path',
     ];
 
     protected $casts = [
         'date' => 'date',
     ];
-
 }

@@ -41,34 +41,8 @@ services:
         php-fpm
       "
 
-  # ── Queue Worker ─────────────────────────────────────────────────────────────
-  queue:
-    image: kamo-plataform-app
-    build:
-      context: apps/laravel
-      dockerfile: Dockerfile
-    container_name: kamo_queue
-    restart: unless-stopped
-    volumes:
-      - ./apps/laravel:/var/www/html
-      - storage_framework:/var/www/html/storage/framework
-    environment:
-      APP_ENV: local
-      APP_DEBUG: "true"
-      DB_CONNECTION: mysql
-      DB_HOST: db
-      DB_DATABASE: kamo_laravel
-      DB_USERNAME: user
-      DB_PASSWORD: user_password
-      SESSION_DRIVER: cookie
-      CACHE_STORE: file
-      QUEUE_CONNECTION: database
-    depends_on:
-      db:
-        condition: service_healthy
-    command: php artisan queue:work --sleep=3 --tries=3 --timeout=120
-
   # ── Nginx ────────────────────────────────────────────────────────────────────
+
   nginx:
     image: nginx:1.27-alpine
     container_name: kamo_nginx

@@ -299,15 +299,15 @@ class QuoteController extends Controller
             }
 
             $invoice = Document::create([
-                'client_id'  => $quote->client_id,
-                'type'       => 'invoice',
-                'date'       => now(),
-                'due_date'   => now()->addDays(30),
-                'notes'      => $quote->notes,
-                'subtotal'   => $quote->subtotal,
-                'tax'        => $quote->tax,
-                'total'      => $quote->total,
-                'status'     => 'pending',
+                'client_id' => $quote->client_id,
+                'type' => 'invoice',
+                'date' => now(),
+                'due_date' => now()->addDays(30),
+                'notes' => $quote->notes,
+                'subtotal' => $quote->subtotal,
+                'tax' => $quote->tax,
+                'total' => $quote->total,
+                'status' => 'pending',
                 'related_doc_id' => $quote->id,
                 'doc_number' => 'FAC-'.str_pad(5800 + Document::where('type', 'invoice')->count() + 1, 4, '0', STR_PAD_LEFT),
             ]);

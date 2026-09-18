@@ -53,8 +53,7 @@ return new class extends Migration
         string $tableName,
         bool $hasStandaloneIndex = false,
         bool $dropForeign = true,
-    ): void
-    {
+    ): void {
         if (! Schema::hasColumn($tableName, 'company_id')) {
             return;
         }

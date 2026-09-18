@@ -19,29 +19,29 @@ class QuoteConversionTest extends TestCase
     {
         parent::setUp();
 
-        $this->user    = User::factory()->create();
+        $this->user = User::factory()->create();
     }
 
     public function test_converted_quote_cannot_be_converted_twice(): void
     {
         $client = Client::factory()->create(['name' => 'Test']);
         $quote = Document::create([
-            'client_id'  => $client->id,
-            'type'       => 'quote',
-            'status'     => 'pending',
-            'date'       => now()->toDateString(),
-            'subtotal'   => 100,
-            'tax'        => 0,
-            'total'      => 100,
+            'client_id' => $client->id,
+            'type' => 'quote',
+            'status' => 'pending',
+            'date' => now()->toDateString(),
+            'subtotal' => 100,
+            'tax' => 0,
+            'total' => 100,
             'doc_number' => 'COT-0001',
         ]);
 
         DocumentItem::create([
-            'document_id'  => $quote->id,
+            'document_id' => $quote->id,
             'service_name' => 'Servicio',
-            'quantity'     => 1,
-            'unit_price'   => 100,
-            'subtotal'     => 100,
+            'quantity' => 1,
+            'unit_price' => 100,
+            'subtotal' => 100,
         ]);
 
         $this->actingAs($this->user)->postJson("/quotes/{$quote->id}/convert")->assertOk();
@@ -53,13 +53,13 @@ class QuoteConversionTest extends TestCase
     {
         $client = Client::factory()->create(['name' => 'Test']);
         $quote = Document::create([
-            'client_id'  => $client->id,
-            'type'       => 'quote',
-            'status'     => 'cancelled',
-            'date'       => now()->toDateString(),
-            'subtotal'   => 100,
-            'tax'        => 0,
-            'total'      => 100,
+            'client_id' => $client->id,
+            'type' => 'quote',
+            'status' => 'cancelled',
+            'date' => now()->toDateString(),
+            'subtotal' => 100,
+            'tax' => 0,
+            'total' => 100,
             'doc_number' => 'COT-0002',
         ]);
 

@@ -16,7 +16,7 @@ class LayoutAccessibilityTest extends TestCase
         $this->assertStringContainsString('href="#main"', $public);
         $this->assertStringContainsString('id="main"', $public);
 
-        $user    = User::factory()->create();
+        $user = User::factory()->create();
 
         $app = $this->actingAs($user)->get('/dashboard')->assertOk()->getContent();
         $this->assertStringContainsString('href="#main"', $app);

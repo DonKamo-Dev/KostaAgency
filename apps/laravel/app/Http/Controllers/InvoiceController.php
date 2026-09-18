@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Client;
 use App\Models\Document;
-use App\Models\Payment;
 use App\Models\Service;
 use App\Services\DocumentCalculator;
 use App\Services\RegisterDocumentPayment;
@@ -273,9 +272,9 @@ class InvoiceController extends Controller
 
         $data = $request->validate([
             'amount' => 'required|numeric|min:0.01',
-            'date'   => 'required|date',
+            'date' => 'required|date',
             'method' => 'required|string',
-            'notes'  => 'nullable|string',
+            'notes' => 'nullable|string',
         ]);
 
         $service = app(RegisterDocumentPayment::class);

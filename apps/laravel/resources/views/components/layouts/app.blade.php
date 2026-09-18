@@ -1184,10 +1184,6 @@
                     </svg>
                     Servicios
                 </a>
-                <a wire:navigate href="{{ route('meta-ads.wizard') }}"
-                   class="nav-sublink {{ request()->routeIs('meta-ads.*') ? 'active' : '' }}">
-                    ✦ IA Campañas Digitales
-                </a>
 
                 <!-- Nav Section: Sitio Web -->
                 <div class="sidebar-section-label" style="margin-top: 16px;">Sitio Web</div>

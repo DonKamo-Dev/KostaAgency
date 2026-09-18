@@ -16,7 +16,7 @@ final class RegisterDocumentPayment
             abort_unless(in_array($doc->status, ['pending', 'paid']), 422, 'No se pueden registrar pagos sobre un documento anulado.');
 
             $balance = (float) $doc->total - (float) $doc->paid;
-            $amount  = (float) $data['amount'];
+            $amount = (float) $data['amount'];
 
             if ($amount <= 0) {
                 abort(422, 'El monto del pago debe ser mayor a cero.');
@@ -28,14 +28,14 @@ final class RegisterDocumentPayment
 
             $payment = Payment::create([
                 'document_id' => $doc->id,
-                'date'        => $data['date'],
-                'amount'      => $data['amount'],
-                'method'      => $data['method'],
-                'notes'       => $data['notes'] ?? '',
+                'date' => $data['date'],
+                'amount' => $data['amount'],
+                'method' => $data['method'],
+                'notes' => $data['notes'] ?? '',
             ]);
 
-            $newPaid  = (float) $doc->paid + $amount;
-            $status   = $newPaid >= (float) $doc->total ? 'paid' : 'pending';
+            $newPaid = (float) $doc->paid + $amount;
+            $status = $newPaid >= (float) $doc->total ? 'paid' : 'pending';
 
             $doc->update(['paid' => $newPaid, 'status' => $status]);
 
