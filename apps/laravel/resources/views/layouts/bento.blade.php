@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="light">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="light" style="background-color: #FFFFFF !important;">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -20,15 +20,16 @@
             --accent-red: #E63946;
             --accent-red-hover: #D62839;
             --accent-red-soft: rgba(230, 57, 70, 0.08);
-            --bg-bento: #EEF0F4;
+            --bg-bento: #FFFFFF;
             --card-bg: #FFFFFF;
             --card-border: rgba(15, 23, 42, 0.08);
             --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.02), 0 6px 16px rgba(0, 0, 0, 0.04);
             --card-shadow-hover: 0 12px 28px rgba(0, 0, 0, 0.07);
         }
 
-        body {
-            background-color: var(--bg-bento);
+        html, body {
+            background-color: #FFFFFF !important;
+            background: #FFFFFF !important;
             color: #0F172A;
             font-family: 'Plus Jakarta Sans', sans-serif;
             margin: 0;
@@ -57,7 +58,7 @@
         }
     </style>
 </head>
-<body class="min-h-screen antialiased selection:bg-[#E63946] selection:text-white py-8 sm:py-14 px-4 sm:px-6 flex justify-center items-start">
+<body class="min-h-screen antialiased selection:bg-[#E63946] selection:text-white bg-white m-0 p-0 flex justify-center items-start">
     {{ $slot }}
 </body>
 </html>

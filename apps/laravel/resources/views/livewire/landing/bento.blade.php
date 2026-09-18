@@ -9,8 +9,8 @@
         .bento-canvas-wrapper {
             width: 100%;
             min-height: 100vh;
-            background: #F7F8FA;
-            padding: 40px 20px 80px;
+            background: #FFFFFF;
+            padding: 40px 24px 90px;
             font-family: 'Plus Jakarta Sans', sans-serif;
             color: #0F172A;
             display: flex;
@@ -20,10 +20,10 @@
 
         .bento-main-container {
             width: 100%;
-            max-width: 960px;
+            max-width: 1160px;
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 24px;
         }
 
         /* ── Top Nav Bar ── */
@@ -36,48 +36,48 @@
         .btn-top-back {
             display: inline-flex;
             align-items: center;
-            gap: 6px;
-            padding: 8px 16px;
+            gap: 8px;
+            padding: 9px 18px;
             border-radius: 999px;
             background: #FFFFFF;
-            border: 1px solid rgba(0,0,0,0.07);
+            border: 1px solid rgba(0, 0, 0, 0.08);
             color: #475569;
-            font-size: 12px;
+            font-size: 13px;
             font-weight: 700;
             text-decoration: none;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
             transition: all 0.2s ease;
         }
         .btn-top-back:hover {
             color: #0F172A;
             transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
         }
         .bento-url-pill {
             display: inline-flex;
             align-items: center;
-            gap: 6px;
-            padding: 6px 14px;
+            gap: 8px;
+            padding: 7px 16px;
             border-radius: 999px;
-            background: #FFFFFF;
-            border: 1px solid rgba(0,0,0,0.07);
-            font-size: 11.5px;
+            background: #F8FAFC;
+            border: 1px solid rgba(0, 0, 0, 0.07);
+            font-size: 12.5px;
             font-weight: 600;
             color: #64748B;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
         }
         .btn-top-cta {
             display: inline-flex;
             align-items: center;
-            gap: 6px;
-            padding: 8px 18px;
+            gap: 8px;
+            padding: 9px 22px;
             border-radius: 999px;
             background: #E63946;
             color: #FFFFFF;
-            font-size: 12px;
+            font-size: 13px;
             font-weight: 700;
             text-decoration: none;
-            box-shadow: 0 3px 10px rgba(230, 57, 70, 0.25);
+            box-shadow: 0 3px 12px rgba(230, 57, 70, 0.25);
             transition: all 0.2s ease;
         }
         .btn-top-cta:hover {
@@ -88,11 +88,11 @@
         /* ── Top Split: Left Bio (1 col) + Right Cards (2x2 flush grid) ── */
         .bento-top-section {
             display: grid;
-            grid-template-columns: 290px 1fr;
-            gap: 20px;
+            grid-template-columns: 330px 1fr;
+            gap: 24px;
             align-items: start;
         }
-        @media (max-width: 880px) {
+        @media (max-width: 920px) {
             .bento-top-section {
                 grid-template-columns: 1fr;
             }
@@ -102,14 +102,14 @@
         .bio-column {
             display: flex;
             flex-direction: column;
-            gap: 14px;
+            gap: 16px;
             padding: 4px 8px 10px 0;
         }
         .profile-avatar-circle {
-            width: 165px;
-            height: 165px;
+            width: 190px;
+            height: 190px;
             border-radius: 50%;
-            padding: 4px;
+            padding: 5px;
             background: linear-gradient(135deg, #E63946, #0F172A);
             box-shadow: 0 12px 36px rgba(230, 57, 70, 0.25);
             position: relative;
@@ -124,31 +124,31 @@
         }
         .avatar-live-indicator {
             position: absolute;
-            bottom: 8px;
-            right: 8px;
-            width: 26px;
-            height: 26px;
+            bottom: 10px;
+            right: 10px;
+            width: 30px;
+            height: 30px;
             border-radius: 50%;
             background: #FFFFFF;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
         }
         .live-dot-green {
-            width: 13px;
-            height: 13px;
+            width: 15px;
+            height: 15px;
             border-radius: 50%;
             background: #E63946;
         }
         .bio-name-row {
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
         }
         .bio-name {
             font-family: 'Outfit', sans-serif;
-            font-size: 26px;
+            font-size: 30px;
             font-weight: 800;
             color: #0F172A;
             letter-spacing: -0.03em;
@@ -157,18 +157,18 @@
         }
         .bio-lightning {
             color: #E63946;
-            font-size: 22px;
+            font-size: 26px;
         }
         .bio-role-badge {
             display: inline-block;
-            font-size: 13px;
+            font-size: 14.5px;
             font-weight: 700;
             color: #E63946;
-            margin-top: 2px;
+            margin-top: 3px;
         }
         .bio-description {
-            font-size: 13px;
-            line-height: 1.6;
+            font-size: 14px;
+            line-height: 1.65;
             color: #475569;
             margin: 0;
         }
@@ -178,13 +178,13 @@
             grid-column: 1 / -1;
             background: #FFFFFF;
             border: 1px solid #FECDD3;
-            border-radius: 18px;
-            padding: 12px 18px;
-            box-shadow: 0 4px 18px rgba(230, 57, 70, 0.07);
+            border-radius: 20px;
+            padding: 14px 22px;
+            box-shadow: 0 4px 20px rgba(230, 57, 70, 0.07);
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 12px;
+            gap: 16px;
             position: relative;
             overflow: hidden;
             transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
@@ -198,18 +198,18 @@
             .availability-highlight-card {
                 flex-direction: column;
                 align-items: flex-start;
-                padding: 14px;
+                padding: 16px;
             }
         }
         .availability-badge-header {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 9px;
         }
         .status-radar {
             position: relative;
-            width: 10px;
-            height: 10px;
+            width: 12px;
+            height: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -224,8 +224,8 @@
             animation: radar-wave 1.8s cubic-bezier(0, 0, 0.2, 1) infinite;
         }
         .radar-dot {
-            width: 7px;
-            height: 7px;
+            width: 8px;
+            height: 8px;
             border-radius: 50%;
             background: #E63946;
             z-index: 1;
@@ -235,7 +235,7 @@
             100% { transform: scale(2.8); opacity: 0; }
         }
         .availability-title {
-            font-size: 11px;
+            font-size: 12px;
             font-weight: 800;
             letter-spacing: 0.04em;
             text-transform: uppercase;
@@ -243,7 +243,7 @@
         }
         .availability-main-text {
             font-family: 'Outfit', sans-serif;
-            font-size: 13px;
+            font-size: 14.5px;
             font-weight: 800;
             color: #0F172A;
             line-height: 1.3;
@@ -252,18 +252,18 @@
         .availability-tags-row {
             display: flex;
             flex-wrap: wrap;
-            gap: 6px;
+            gap: 8px;
             margin-top: 0;
         }
         .avail-tag-pill {
             display: inline-flex;
             align-items: center;
-            gap: 4px;
-            padding: 4px 9px;
-            border-radius: 8px;
+            gap: 5px;
+            padding: 5px 12px;
+            border-radius: 9px;
             background: #F8FAFC;
             border: 1px solid #E2E8F0;
-            font-size: 11px;
+            font-size: 12px;
             font-weight: 700;
             color: #0F172A;
             transition: all 0.2s ease;
@@ -278,7 +278,7 @@
         .bento-cards-mosaic {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 16px;
+            gap: 18px;
             align-items: stretch;
         }
         @media (max-width: 600px) {
@@ -290,22 +290,22 @@
         /* ── Standard Bento Card ── */
         .bento-c-card {
             background: #FFFFFF;
-            border: 1px solid rgba(0, 0, 0, 0.07);
-            border-radius: 24px;
-            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.03);
-            padding: 20px;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            border-radius: 26px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+            padding: 24px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease;
             position: relative;
             overflow: hidden;
-            min-height: 225px;
+            min-height: 250px;
         }
         .bento-c-card:hover {
             transform: translateY(-3px);
-            box-shadow: 0 10px 28px rgba(0, 0, 0, 0.06);
-            border-color: rgba(0, 0, 0, 0.12);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+            border-color: rgba(0, 0, 0, 0.14);
         }
 
         /* ── Card Header Rows ── */
@@ -313,18 +313,18 @@
             display: flex;
             align-items: flex-start;
             justify-content: space-between;
-            gap: 10px;
-            margin-bottom: 12px;
+            gap: 12px;
+            margin-bottom: 14px;
         }
         .card-header-left {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
         }
         .card-app-icon {
-            width: 36px;
-            height: 36px;
-            border-radius: 11px;
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -332,14 +332,14 @@
         }
         .card-title-text {
             font-family: 'Outfit', sans-serif;
-            font-size: 14px;
+            font-size: 15.5px;
             font-weight: 800;
             color: #0F172A;
             line-height: 1.2;
             margin: 0;
         }
         .card-sub-domain {
-            font-size: 11px;
+            font-size: 12px;
             font-weight: 500;
             color: #94A3B8;
             margin: 0;
@@ -347,12 +347,12 @@
         .card-follow-pill {
             display: inline-flex;
             align-items: center;
-            gap: 4px;
-            padding: 4px 10px;
+            gap: 5px;
+            padding: 5px 12px;
             border-radius: 999px;
             background: #E63946;
             color: #FFFFFF;
-            font-size: 10.5px;
+            font-size: 11.5px;
             font-weight: 700;
             text-decoration: none;
             transition: all 0.2s ease;
@@ -366,14 +366,14 @@
         .project-links-list {
             display: flex;
             flex-direction: column;
-            gap: 7px;
+            gap: 8px;
             margin-top: auto;
         }
         .project-link-row {
             background: #F8FAFC;
             border: 1px solid #E2E8F0;
-            border-radius: 12px;
-            padding: 8px 10px;
+            border-radius: 14px;
+            padding: 9px 12px;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -389,12 +389,12 @@
         .project-row-left {
             display: flex;
             align-items: center;
-            gap: 9px;
+            gap: 10px;
         }
         .project-pill-icon {
-            width: 28px;
-            height: 28px;
-            border-radius: 8px;
+            width: 30px;
+            height: 30px;
+            border-radius: 9px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -407,13 +407,13 @@
         }
         .project-row-name {
             font-family: 'Outfit', sans-serif;
-            font-size: 12px;
+            font-size: 13px;
             font-weight: 800;
             color: #0F172A;
             line-height: 1.1;
         }
         .project-row-tag {
-            font-size: 9.5px;
+            font-size: 10.5px;
             font-weight: 600;
             color: #64748B;
         }
@@ -432,14 +432,14 @@
         /* ── Visual Showcase Inner Box ── */
         .showcase-inner-dark {
             width: 100%;
-            height: 120px;
-            border-radius: 16px;
+            height: 130px;
+            border-radius: 18px;
             background: #0F172A;
-            padding: 14px 16px;
+            padding: 16px 18px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 12px;
+            gap: 14px;
             margin-top: auto;
             position: relative;
             overflow: hidden;
@@ -449,15 +449,15 @@
             position: absolute;
             top: -40px;
             right: -40px;
-            width: 110px;
-            height: 110px;
+            width: 120px;
+            height: 120px;
             background: radial-gradient(circle, rgba(230, 57, 70, 0.3) 0%, transparent 70%);
             border-radius: 50%;
         }
         .showcase-avatar-sm {
-            width: 48px;
-            height: 48px;
-            border-radius: 13px;
+            width: 52px;
+            height: 52px;
+            border-radius: 14px;
             background: #E63946;
             display: flex;
             align-items: center;
@@ -473,7 +473,7 @@
         }
         .showcase-dark-title {
             font-family: 'Outfit', sans-serif;
-            font-size: 15px;
+            font-size: 16px;
             font-weight: 800;
             color: #FFFFFF;
             line-height: 1.2;
@@ -482,7 +482,7 @@
             color: #E63946;
         }
         .showcase-dark-sub {
-            font-size: 11px;
+            font-size: 11.5px;
             color: #94A3B8;
             margin-top: 3px;
         }
@@ -491,14 +491,14 @@
         .showcase-2x2-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 6px;
+            gap: 8px;
             margin-top: auto;
         }
         .mini-card-item {
             background: #F8FAFC;
             border: 1px solid #E2E8F0;
-            border-radius: 10px;
-            padding: 7px 9px;
+            border-radius: 12px;
+            padding: 8px 11px;
             display: flex;
             flex-direction: column;
             gap: 2px;
@@ -506,16 +506,16 @@
         .mini-card-header {
             display: flex;
             align-items: center;
-            gap: 5px;
+            gap: 6px;
         }
         .mini-card-title {
-            font-size: 11px;
+            font-size: 12px;
             font-weight: 800;
             color: #1E293B;
             line-height: 1.2;
         }
         .mini-card-tag {
-            font-size: 9px;
+            font-size: 10px;
             font-weight: 700;
             color: #E63946;
         }
@@ -524,15 +524,15 @@
         .social-split-container {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            min-height: 140px;
+            gap: 12px;
+            min-height: 160px;
         }
         .social-mini-link-card {
             background: #FFFFFF;
-            border: 1px solid rgba(0, 0, 0, 0.07);
-            border-radius: 20px;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.02);
-            padding: 14px;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            border-radius: 22px;
+            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.03);
+            padding: 16px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -544,21 +544,21 @@
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
         }
         .social-mini-icon {
-            width: 34px;
-            height: 34px;
+            width: 38px;
+            height: 38px;
             display: flex;
             align-items: center;
             justify-content: center;
         }
         .social-mini-title {
-            font-size: 11.5px;
+            font-size: 13px;
             font-weight: 700;
             color: #0F172A;
             line-height: 1.3;
-            margin-top: 6px;
+            margin-top: 8px;
         }
         .social-mini-sub {
-            font-size: 10px;
+            font-size: 11px;
             color: #94A3B8;
         }
 
@@ -570,19 +570,19 @@
         .social-sub-btn {
             flex: 1;
             background: #FFFFFF;
-            border: 1px solid rgba(0, 0, 0, 0.07);
-            border-radius: 14px;
-            padding: 8px 12px;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            border-radius: 16px;
+            padding: 10px 14px;
             display: flex;
             align-items: center;
             justify-content: space-between;
             text-decoration: none;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
             transition: all 0.2s ease;
         }
         .social-sub-btn:hover {
             transform: translateX(2px);
-            border-color: rgba(0,0,0,0.14);
+            border-color: rgba(0, 0, 0, 0.14);
         }
         .sub-btn-left {
             display: flex;
@@ -590,14 +590,14 @@
             gap: 8px;
         }
         .sub-btn-icon {
-            width: 22px;
-            height: 22px;
+            width: 26px;
+            height: 26px;
             display: flex;
             align-items: center;
             justify-content: center;
         }
         .sub-btn-name {
-            font-size: 11.5px;
+            font-size: 13px;
             font-weight: 700;
             color: #0F172A;
         }
@@ -605,16 +605,16 @@
         /* ── Map Graphic Card (Right Box in Row 2) ── */
         .map-card-container {
             background: #FFFFFF;
-            border: 1px solid rgba(0, 0, 0, 0.07);
-            border-radius: 20px;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.02);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            border-radius: 22px;
+            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.03);
             overflow: hidden;
-            min-height: 140px;
+            min-height: 160px;
             position: relative;
             display: flex;
             flex-direction: column;
             justify-content: flex-end;
-            padding: 12px;
+            padding: 16px;
             transition: all 0.25s ease;
             text-decoration: none;
         }
@@ -645,19 +645,19 @@
             background: rgba(255, 255, 255, 0.94);
             backdrop-filter: blur(8px);
             border: 1px solid rgba(0, 0, 0, 0.08);
-            border-radius: 10px;
-            padding: 6px 10px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+            border-radius: 12px;
+            padding: 8px 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
             width: fit-content;
         }
         .map-bubble-title {
             font-family: 'Outfit', sans-serif;
-            font-size: 12px;
+            font-size: 13.5px;
             font-weight: 800;
             color: #0F172A;
         }
         .map-bubble-sub {
-            font-size: 10px;
+            font-size: 11px;
             font-weight: 600;
             color: #64748B;
         }
@@ -665,8 +665,8 @@
             position: absolute;
             top: 28px;
             right: 36px;
-            width: 14px;
-            height: 14px;
+            width: 15px;
+            height: 15px;
             border-radius: 50%;
             background: #E63946;
             box-shadow: 0 0 0 4px rgba(230, 57, 70, 0.25);
@@ -682,7 +682,7 @@
         .tech-boxes-strip {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 12px;
+            gap: 14px;
             width: 100%;
         }
         @media (max-width: 720px) {
@@ -692,13 +692,13 @@
         }
         .tech-box-item {
             background: #FFFFFF;
-            border: 1px solid rgba(0, 0, 0, 0.07);
-            border-radius: 18px;
-            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.02);
-            padding: 12px 14px;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            border-radius: 20px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
+            padding: 14px 18px;
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 14px;
             transition: all 0.2s ease;
         }
         .tech-box-item:hover {
@@ -707,8 +707,8 @@
             border-color: rgba(0, 0, 0, 0.12);
         }
         .tech-box-icon {
-            width: 36px;
-            height: 36px;
+            width: 42px;
+            height: 42px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -721,13 +721,13 @@
         }
         .tech-box-title {
             font-family: 'Outfit', sans-serif;
-            font-size: 13px;
+            font-size: 14.5px;
             font-weight: 800;
             color: #0F172A;
             line-height: 1.1;
         }
         .tech-box-subtitle {
-            font-size: 10px;
+            font-size: 11px;
             font-weight: 600;
             color: #64748B;
         }
@@ -735,18 +735,18 @@
         /* ── Bottom Section: How Can I Help? ── */
         .section-separator-title {
             font-family: 'Outfit', sans-serif;
-            font-size: 17px;
+            font-size: 19px;
             font-weight: 800;
             color: #0F172A;
             margin: 0;
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
         }
         .bottom-cards-grid {
             display: grid;
             grid-template-columns: 1.4fr 1fr;
-            gap: 16px;
+            gap: 18px;
         }
         @media (max-width: 700px) {
             .bottom-cards-grid {
@@ -757,22 +757,22 @@
         /* ── Black Value Proposition Card ── */
         .card-value-dark {
             background: #0F172A;
-            border-radius: 24px;
-            padding: 24px;
+            border-radius: 26px;
+            padding: 28px;
             color: #FFFFFF;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            min-height: 180px;
-            box-shadow: 0 8px 24px rgba(15, 23, 42, 0.12);
+            min-height: 200px;
+            box-shadow: 0 10px 28px rgba(15, 23, 42, 0.14);
         }
         .card-value-text {
             font-family: 'Outfit', sans-serif;
-            font-size: 17px;
+            font-size: 19px;
             font-weight: 700;
             line-height: 1.4;
             color: #FFFFFF;
-            margin: 0 0 14px 0;
+            margin: 0 0 16px 0;
         }
         .card-value-text span {
             color: #E63946;
@@ -780,12 +780,12 @@
         .btn-work-together {
             display: inline-flex;
             align-items: center;
-            gap: 6px;
-            padding: 9px 18px;
+            gap: 8px;
+            padding: 10px 22px;
             border-radius: 999px;
             background: #E63946;
             color: #FFFFFF;
-            font-size: 12px;
+            font-size: 13.5px;
             font-weight: 700;
             text-decoration: none;
             width: fit-content;
@@ -799,13 +799,13 @@
         /* ── Pastel Email Card ── */
         .card-email-pastel {
             background: #FFF1F2;
-            border: 0;
-            border-radius: 24px;
-            padding: 22px;
+            border: 1px solid #FECDD3;
+            border-radius: 26px;
+            padding: 28px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            min-height: 180px;
+            min-height: 200px;
             text-decoration: none;
             cursor: pointer;
             position: relative;
@@ -817,8 +817,8 @@
         }
         .email-arrow-icon {
             align-self: flex-end;
-            width: 32px;
-            height: 32px;
+            width: 36px;
+            height: 36px;
             border-radius: 50%;
             background: rgba(230, 57, 70, 0.15);
             display: flex;
@@ -828,17 +828,17 @@
         }
         .email-big-text {
             font-family: 'Outfit', sans-serif;
-            font-size: 16.5px;
+            font-size: 18.5px;
             font-weight: 800;
             color: #0F172A;
             word-break: break-all;
             margin: 0;
         }
         .email-copy-hint {
-            font-size: 11px;
+            font-size: 12.5px;
             font-weight: 700;
             color: #E63946;
-            margin-top: 4px;
+            margin-top: 6px;
         }
 
         /* Toast */
