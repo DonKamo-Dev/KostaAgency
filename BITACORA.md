@@ -39,6 +39,8 @@ Ordenados según el plan [2026-09-17-cierre-pendientes-plataforma](docs/superpow
 
 ### 2026-09-18
 
+- Se agregó el enlace de acceso directo a **Bento** (`/bento`) en la barra lateral debajo de Dashboard en la sección "Principal".
+- Se actualizaron los archivos `README.md` (raíz y `apps/laravel`) retirando las instrucciones y comandos obsoletos del worker de cola.
 - Se eliminó completamente el sistema de IA automático de Meta Ads:
   - Eliminados: job `GenerateMetaAdsQuote`, servicio `ClaudeMetaAdsService`, modelo `AiMetaQuote`, factory `AiMetaQuoteFactory`, controlador `MetaAdsController`, componentes Livewire `Wizard` y `History`.
   - Eliminadas: vistas de Livewire y plantilla PDF de cotización Meta Ads (`resources/views/livewire/meta-ads/`, `resources/views/pdf/meta-ads-quote.blade.php`).

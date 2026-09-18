@@ -21,24 +21,10 @@ Laravel is a web application framework with expressive, elegant syntax. We belie
 
 Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
-## Background queue (Meta Ads generation)
-
-La generación de cotizaciones de Meta Ads corre en segundo plano mediante el job
-`App\Jobs\GenerateMetaAdsQuote`, que actualiza `ai_meta_quotes.generation_status`
-(`pending` → `processing` → `completed`/`failed`). El asistente hace polling con
-`wire:poll.3s="checkGeneration"` mientras espera.
-
-- **Docker:** el servicio `queue` de `docker-compose.yml` ejecuta
-  `php artisan queue:work --sleep=3 --tries=3 --timeout=120` sobre la misma imagen
-  que `app`. Levántalo con `docker compose up -d queue`.
-- **Local:** establece `QUEUE_CONNECTION=database` (o `redis`) en `.env` y ejecuta
-  `php artisan queue:work`.
-- **Tests:** `phpunit.xml` fuerza `QUEUE_CONNECTION=sync`, por lo que el job se
-  ejecuta en línea durante las pruebas.
-
 ## Learning Laravel
 
 Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+
 
 In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
 

@@ -31,12 +31,9 @@ docker compose exec app php artisan db:seed
 # Limpiar cachés
 docker compose exec app php artisan optimize:clear
 
-# Worker de cola (Meta Ads en segundo plano)
-docker compose up -d queue
-# o, en desarrollo local: php artisan queue:work
-
 # Acceder al contenedor
 docker compose exec app bash
+
 ```
 
 ## ✅ Verificación
