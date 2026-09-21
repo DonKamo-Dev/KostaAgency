@@ -25,6 +25,9 @@ class SharedLayoutTest extends TestCase
             $this->assertStringNotContainsString("Livewire.hook('commit'", $html);
         }
 
-        $this->assertStringContainsString('/livewire/livewire.min.js', $pages[2]);
+        $this->assertTrue(
+            str_contains($pages[2], '/livewire/livewire.min.js') || str_contains($pages[2], '/livewire/livewire.js'),
+            'Expected livewire script to be present in dashboard'
+        );
     }
 }

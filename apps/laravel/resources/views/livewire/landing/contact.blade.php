@@ -98,7 +98,7 @@
                             </div>
                             <div>
                                 <p class="text-xs text-white/40 font-medium uppercase tracking-wider mb-1">Email</p>
-                                <a href="mailto:hola@kamo.agency" class="text-white font-semibold hover:text-red-accent transition-colors">hola@kamo.agency</a>
+                                <a href="mailto:hola@kosta.studio" class="text-white font-semibold hover:text-white/80 transition-colors">hola@kosta.studio</a>
                             </div>
                         </div>
 

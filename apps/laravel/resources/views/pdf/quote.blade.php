@@ -61,17 +61,17 @@
             <td style="width: 50%; vertical-align: top;">
                 <div style="margin-bottom: 10px;">
                     <div style="display:inline-flex;align-items:center;gap:8px;">
-                        <div style="width:32px;height:32px;background:#E63946;border-radius:8px;display:flex;align-items:center;justify-content:center;">
+                        <div style="width:32px;height:32px;background:#111111;border-radius:8px;display:flex;align-items:center;justify-content:center;">
                             <span style="color:#fff;font-size:16px;font-weight:700;">K</span>
                         </div>
                         <div>
-                            <div style="font-size:18px;font-weight:700;color:#E63946;letter-spacing:-0.02em;line-height:1;">KAMO</div>
-                            <div style="font-size:8px;color:#888;text-transform:uppercase;letter-spacing:0.15em;">Agencia Digital</div>
+                            <div style="font-size:18px;font-weight:700;color:#111111;letter-spacing:-0.02em;line-height:1;">KOSTA</div>
+                            <div style="font-size:8px;color:#666;text-transform:uppercase;letter-spacing:0.18em;font-weight:600;">Studio Films</div>
                         </div>
                     </div>
                 </div>
                 <div style="font-size: 11px; color: #666; line-height: 1.4;">
-                    <div style="font-weight: bold; color: #333; font-size: 13px; margin-bottom: 4px;">Kamo Digital</div>
+                    <div style="font-weight: bold; color: #111; font-size: 13px; margin-bottom: 4px;">Kosta Studio Films</div>
                     yohanblaro18@gmail.com<br>
                     3113894136<br>
                     Cartagena, Bolivar
@@ -80,7 +80,7 @@
             <td style="width: 50%; text-align: right; vertical-align: top;">
                 <div style="margin-bottom: 15px;">
                     <div style="font-size: 10px; color: #888; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 4px;">{{ ['quote' => 'Cotización No.', 'invoice' => 'Factura No.', 'bill' => 'Cuenta de Cobro No.'][$document->type] ?? 'Documento No.' }}</div>
-                    <div style="font-size: 28px; font-weight: bold; color: #E63946;">{{ $document->doc_number }}</div>
+                    <div style="font-size: 28px; font-weight: bold; color: #111111;">{{ $document->doc_number }}</div>
                 </div>
                 
                 <div style="font-size: 12px;">
@@ -177,8 +177,8 @@
                             </tr>
                         @endif
                         <tr>
-                            <td style="padding: 10px 5px; font-weight: bold; color: #333; font-size: 13px; border-top: 2px solid #E63946; background: #fffafa;">TOTAL COP:</td>
-                            <td style="padding: 10px 5px; font-size: 20px; font-weight: bold; color: #E63946; text-align: right; border-top: 2px solid #E63946; background: #fffafa;">${{ number_format($document->total, 0, ',', '.') }}</td>
+                            <td style="padding: 10px 5px; font-weight: bold; color: #111; font-size: 13px; border-top: 2px solid #111111; background: #f8fafc;">TOTAL COP:</td>
+                            <td style="padding: 10px 5px; font-size: 20px; font-weight: bold; color: #111111; text-align: right; border-top: 2px solid #111111; background: #f8fafc;">${{ number_format($document->total, 0, ',', '.') }}</td>
                         </tr>
                     </table>
                 </td>
@@ -187,7 +187,7 @@
     </div>
 
     <div class="footer">
-        Generado automáticamente por Kamo Platform - Documento con validez comercial.
+        Generado automáticamente por Kosta Studio Films - Documento con validez comercial.
     </div>
 </body>
 </html>

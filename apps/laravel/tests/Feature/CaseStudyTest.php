@@ -31,6 +31,8 @@ class CaseStudyTest extends TestCase
             ->call('toggleActivo', $study->id)
             ->call('delete', $study->id);
 
-        $this->assertDatabaseMissing('case_studies', ['id' => $study->id]);
+        $this->assertSoftDeleted('case_studies', ['id' => $study->id]);
+        $this->assertNull(CaseStudy::find($study->id));
+        $this->assertNotNull(CaseStudy::withTrashed()->find($study->id));
     }
 }

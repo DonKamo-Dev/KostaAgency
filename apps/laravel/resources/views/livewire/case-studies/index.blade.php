@@ -198,9 +198,9 @@
 
     <!-- Bulk Actions Toolbar -->
     @if(count($selectedIds) > 0)
-        <div style="background:rgba(20,20,20,0.95);border:1px solid rgba(230,57,70,0.3);border-radius:14px;padding:12px 20px;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;box-shadow:0 8px 30px rgba(0,0,0,0.5),inset 0 0 30px rgba(230,57,70,0.06);animation:fadeIn 0.2s ease;">
+        <div style="background:rgba(20,20,20,0.95);border:1px solid rgba(255,255,255,0.2);border-radius:14px;padding:12px 20px;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;box-shadow:0 8px 30px rgba(0,0,0,0.5),inset 0 0 30px rgba(255,255,255,0.03);animation:fadeIn 0.2s ease;">
             <div style="display:flex;align-items:center;gap:12px;">
-                <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(230,57,70,0.15);border:1px solid rgba(230,57,70,0.35);border-radius:999px;padding:5px 14px;font-size:13px;font-weight:700;color:var(--red-primary);">
+                <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.25);border-radius:999px;padding:5px 14px;font-size:13px;font-weight:700;color:#FFFFFF;">
                     <span>{{ count($selectedIds) }}</span> seleccionado(s)
                 </div>
                 <button wire:click="clearSelection" type="button" style="background:none;border:none;color:var(--text-muted);font-size:12px;cursor:pointer;text-decoration:underline;">

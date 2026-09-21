@@ -18,6 +18,7 @@ class DevelopmentRoutesTest extends TestCase
         $this->reloadWebRoutesForEnvironment('production');
 
         $this->get('/entrar-kamo')->assertNotFound();
+        $this->get('/entrar-kosta')->assertNotFound();
         $this->get('/react-test')->assertNotFound();
     }
 
@@ -31,6 +32,27 @@ class DevelopmentRoutesTest extends TestCase
         $this->get('/entrar-kamo')->assertRedirect('/dashboard');
 
         $this->assertAuthenticatedAs($configuredUser);
+    }
+
+    public function test_local_access_alias_authenticates_the_configured_user(): void
+    {
+        $configuredUser = User::factory()->create(['email' => 'local@kosta.test']);
+        config(['kamo.local_access_email' => $configuredUser->email]);
+        $this->reloadWebRoutesForEnvironment('local');
+
+        $this->get('/entrar-kosta')->assertRedirect('/dashboard');
+
+        $this->assertAuthenticatedAs($configuredUser);
+    }
+
+    public function test_local_access_fails_closed_when_email_is_not_configured(): void
+    {
+        User::factory()->create();
+        config(['kamo.local_access_email' => null]);
+        $this->reloadWebRoutesForEnvironment('local');
+
+        $this->get('/entrar-kamo')->assertNotFound();
+        $this->assertGuest();
     }
 
     public function test_local_access_fails_closed_when_configured_email_does_not_match_a_user(): void

@@ -83,7 +83,7 @@ class PdfTest extends TestCase
 
         $this->assertStringNotContainsString('Imagotipo-DK.png', $html);
         $this->assertStringNotContainsString('base64', $html);
-        $this->assertStringContainsString('KAMO', $html);
+        $this->assertStringContainsString('KOSTA', $html);
     }
 
     private function fakePdfRenderer(): void

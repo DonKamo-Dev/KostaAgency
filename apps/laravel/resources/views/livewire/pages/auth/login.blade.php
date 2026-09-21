@@ -44,7 +44,7 @@ new #[Layout('layouts.guest')] class extends Component
     <div class="login-card">
         <!-- Session Status -->
         @if (session('status'))
-            <div class="mb-6 p-4 rounded-xl bg-opacity-20" style="background: rgba(230, 57, 70, 0.1); border: 1px solid var(--border-subtle);">
+            <div class="mb-6 p-4 rounded-xl" style="background: rgba(255, 255, 255, 0.08); border: 1px solid var(--border-subtle);">
                 <p class="text-sm" style="color: var(--text-secondary);">{{ session('status') }}</p>
             </div>
         @endif
@@ -155,7 +155,7 @@ new #[Layout('layouts.guest')] class extends Component
     <!-- Footer -->
     <div class="mt-8 text-center">
         <p class="text-xs" style="color: var(--text-muted);">
-            {{ config('app.name', 'Kamo') }} © {{ date('Y') }}
+            {{ config('app.name', 'Kosta') }} © {{ date('Y') }}
         </p>
     </div>
 </div>

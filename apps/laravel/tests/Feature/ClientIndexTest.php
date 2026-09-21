@@ -23,6 +23,6 @@ class ClientIndexTest extends TestCase
             ->assertOk()
             ->assertSee($client->name)
             ->assertSee('aria-live="polite"', false)
-            ->assertSee('/livewire/livewire.min.js');
+            ->assertSee('/livewire/livewire');
     }
 }

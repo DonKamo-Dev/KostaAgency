@@ -20,13 +20,18 @@ use Inertia\Inertia;
 
 // ── Herramientas de desarrollo local ─────────────────────────────────────────
 if (app()->isLocal()) {
-    Route::get('/entrar-kamo', function () {
-        $user = User::where('email', config('kamo.local_access_email'))->firstOrFail();
+    $localAuthHandler = function () {
+        $email = config('kamo.local_access_email');
+        abort_unless(filled($email), 404);
+
+        $user = User::where('email', $email)->firstOrFail();
         Auth::login($user);
         request()->session()->regenerate();
 
         return redirect()->route('dashboard');
-    });
+    };
+    Route::get('/entrar-kamo', $localAuthHandler);
+    Route::get('/entrar-kosta', $localAuthHandler);
 
     Route::get('/react-test', function () {
         return Inertia::render('ReactTest', [
@@ -40,7 +45,9 @@ Route::get('/', LandingIndex::class)->name('landing');
 Route::get('/portafolio', LandingPortfolio::class)->name('portfolio');
 Route::get('/contacto', LandingContact::class)->name('contact');
 Route::get('/cv', LandingBento::class)->name('cv');
-Route::get('/bento', LandingBento::class)->name('bento');
+Route::get('/kamo', LandingBento::class)->name('kamo');
+Route::get('/perfil', LandingBento::class)->name('perfil');
+Route::redirect('/bento', '/kamo');
 Route::view('/privacidad', 'privacy')->name('privacy');
 
 // ── Autenticadas ──────────────────────────────────────────────────────────────

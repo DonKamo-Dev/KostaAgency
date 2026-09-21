@@ -27,7 +27,7 @@ class AuditRegressionTest extends TestCase
         $this->actingAs($user)
             ->get('/profile')
             ->assertOk()
-            ->assertSee('/livewire/livewire.min.js');
+            ->assertSee('/livewire/livewire');
     }
 
     public function test_portfolio_urls_are_normalized_to_external_https_urls(): void

@@ -123,7 +123,7 @@
                     <div class="project-card" data-category="{{ $estudio->categoria }}">
                         <div class="browser-chrome">
                             <div class="browser-dots"><span class="browser-dot dot-red"></span><span class="browser-dot dot-yellow"></span><span class="browser-dot dot-green"></span></div>
-                            <div class="browser-url">{{ $estudio->url_demo ?? 'kamo.agency' }}</div>
+                            <div class="browser-url">{{ $estudio->url_demo ?? 'kosta.studio' }}</div>
                         </div>
                         <div class="browser-screen" style="background: linear-gradient(135deg, {{ $estudio->gradient_inicio }}, {{ $estudio->gradient_fin }});">
                             @if($estudio->imagen)

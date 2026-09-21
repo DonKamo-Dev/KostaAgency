@@ -37,13 +37,13 @@
 <nav class="floating-site-nav" aria-label="Navegación principal">
     <div class="relative max-w-7xl mx-auto container-pad floating-site-nav-frame">
         <div class="flex justify-between items-center h-16 sm:h-[68px]">
-            <a href="{{ route('landing') }}" class="flex items-center gap-3" aria-label="Kamo.Dev - Inicio">
-                <div class="w-10 h-10 rounded-xl flex items-center justify-center" style="background: linear-gradient(135deg, var(--accent-red-dark), var(--accent-red)); box-shadow: 0 4px 16px rgba(230,57,70,0.3);">
+            <a href="{{ route('landing') }}" class="flex items-center gap-3" aria-label="Kosta - Inicio">
+                <div class="w-10 h-10 rounded-xl flex items-center justify-center border border-white/20" style="background: linear-gradient(135deg, #18181B, #27272A); box-shadow: 0 4px 16px rgba(255,255,255,0.06);">
                     <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z"/>
                     </svg>
                 </div>
-                <span class="font-display text-2xl font-bold text-white">Kamo.Dev</span>
+                <span class="font-display text-2xl font-bold text-white tracking-tight">Kosta</span>
             </a>
 
             <div class="hidden md:flex items-center gap-8">
@@ -78,13 +78,13 @@
 <div id="mobileMenu" class="mobile-menu" role="dialog" aria-modal="true" aria-label="Menú de navegación" hidden>
     <div class="mobile-drawer">
         <div class="mobile-drawer-header">
-            <a href="{{ route('landing') }}" class="flex items-center gap-3" aria-label="Kamo.Dev - Inicio">
-                <div class="w-10 h-10 rounded-xl flex items-center justify-center" style="background: linear-gradient(135deg, var(--accent-red-dark), var(--accent-red));">
+            <a href="{{ route('landing') }}" class="flex items-center gap-3" aria-label="Kosta - Inicio">
+                <div class="w-10 h-10 rounded-xl flex items-center justify-center border border-white/20" style="background: linear-gradient(135deg, #18181B, #27272A);">
                     <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z"/>
                     </svg>
                 </div>
-                <span class="font-display text-2xl font-bold text-white">Kamo.Dev</span>
+                <span class="font-display text-2xl font-bold text-white tracking-tight">Kosta</span>
             </a>
             <button class="w-10 h-10 flex items-center justify-center text-white/60 hover:text-white transition-colors rounded-full hover:bg-white/10" id="menuClose" aria-label="Cerrar menú">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">

@@ -10,9 +10,8 @@ Plataforma SaaS de gestión para agencias digitales: clientes, servicios, cotiza
 docker compose up -d
 ```
 
-Levanta `app` (PHP-FPM), `db` (MySQL 8), `nginx` (host:8000) y `queue` (worker de
-cola para la generación de Meta Ads). La primera vez tardará unos minutos en
-instalar dependencias.
+Levanta `app` (PHP-FPM), `db` (MySQL 8) y `nginx` (host:8000). La primera vez
+tardará unos minutos en instalar dependencias.
 
 ## 🌐 Acceso
 
@@ -59,10 +58,9 @@ docker exec kamo_app php -m | grep intl
 ```
 apps/laravel/          → Aplicación Laravel
   app/Livewire/        → Componentes Livewire (CRUD)
-  app/Jobs/            → Jobs en cola (Meta Ads)
   resources/views/     → Vistas Blade
   database/migrations/ → Migraciones DB
-docker-compose.yml     → Orquestación Docker (app, db, nginx, queue)
+docker-compose.yml     → Orquestación Docker (app, db, nginx)
 ```
 
 ## ✨ Módulos
@@ -73,16 +71,15 @@ docker-compose.yml     → Orquestación Docker (app, db, nginx, queue)
 - **Cotizaciones** – Crear, editar, convertir a factura
 - **Facturas** – Pagos, anulaciones, balance
 - **Gastos** – Registro mensual con categorías
-- **Campañas IA** – Propuestas para Meta Ads en segundo plano e historial
 - **Casos de estudio** – Administración del portafolio público
 
 ## 🔖 Control de versiones
 
-Repositorio Git en la raíz, rama `master`. No se versionan `.env`, `.env.testing`,
+Repositorio Git en la raíz, rama `main`. No se versionan `.env`, `.env.testing`,
 `.env.docker`, dumps SQL ni `backups/`. Estado verificado en la
 [auditoría de remediación](docs/audits/2026-08-23-platform-remediation.md) y en
 [BITACORA.md](BITACORA.md).
 
 ## 🎨 Diseño
 
-Tema oscuro premium con paleta rojo coral (`#E63946`) y negro profundo. Glassmorphism sutil, tipografía Space Grotesk + Inter. Sidebar a la izquierda en desktop, bottom navigation en móvil.
+Tema oscuro premium con paleta monocromática en blanco y negro. Glassmorphism sutil, tipografía Space Grotesk + Inter. Sidebar a la izquierda en desktop, bottom navigation en móvil.

@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'Kamo') }} - Acceso</title>
+        <title>{{ config('app.name', 'Kosta') }} - Acceso</title>
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -16,19 +16,19 @@
         @vite(['resources/css/app.css', 'resources/js/app.jsx'])
 
         <style>
-            /* Red & Black Signature Design System */
+            /* Luxury Monochrome Design System */
             :root {
-                --bg-primary: #0A0A0A;
-                --bg-elevated: #111111;
-                --bg-card: rgba(17, 17, 17, 0.8);
-                --red-primary: #E63946;
-                --red-glow: rgba(230, 57, 70, 0.4);
-                --red-dark: #8B1A25;
-                --text-primary: #F5F5F5;
-                --text-secondary: rgba(245, 245, 245, 0.7);
-                --text-muted: rgba(245, 245, 245, 0.5);
-                --border-subtle: rgba(230, 57, 70, 0.2);
-                --border-focus: rgba(230, 57, 70, 0.6);
+                --bg-primary: #080808;
+                --bg-elevated: #101010;
+                --bg-card: rgba(18, 18, 18, 0.85);
+                --red-primary: #FFFFFF;
+                --red-glow: rgba(255, 255, 255, 0.12);
+                --red-dark: #27272A;
+                --text-primary: #FAFAFA;
+                --text-secondary: rgba(250, 250, 250, 0.75);
+                --text-muted: rgba(250, 250, 250, 0.48);
+                --border-subtle: rgba(255, 255, 255, 0.12);
+                --border-focus: rgba(255, 255, 255, 0.35);
             }
 
             * {
@@ -51,7 +51,7 @@
                 right: -10%;
                 width: 600px;
                 height: 600px;
-                background: radial-gradient(circle, var(--red-glow) 0%, transparent 70%);
+                background: radial-gradient(circle, rgba(255, 255, 255, 0.08) 0%, transparent 70%);
                 filter: blur(80px);
                 animation: pulse-glow 4s ease-in-out infinite;
             }
@@ -61,7 +61,7 @@
                 left: -20%;
                 width: 800px;
                 height: 800px;
-                background: radial-gradient(circle, rgba(139, 26, 37, 0.3) 0%, transparent 60%);
+                background: radial-gradient(circle, rgba(255, 255, 255, 0.05) 0%, transparent 60%);
                 filter: blur(100px);
                 animation: pulse-glow 6s ease-in-out infinite reverse;
             }
@@ -83,8 +83,8 @@
                 padding: 48px 44px;
                 box-shadow: 
                     0 25px 50px -12px rgba(0, 0, 0, 0.8),
-                    0 0 0 1px rgba(230, 57, 70, 0.1),
-                    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+                    0 0 0 1px rgba(255, 255, 255, 0.08),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.1);
             }
 
             @media (max-width: 480px) {
@@ -131,28 +131,29 @@
                 caret-color: var(--text-primary);
             }
 
-            /* Primary Button - Red Coral */
+            /* Primary Button - Luxury White */
             .btn-primary-red {
-                background: var(--red-primary);
-                color: white;
-                font-weight: 600;
+                background: #FFFFFF;
+                color: #000000;
+                font-weight: 700;
                 font-size: 15px;
                 padding: 14px 28px;
                 border-radius: 12px;
-                border: none;
+                border: 1px solid rgba(255, 255, 255, 0.9);
                 cursor: pointer;
                 transition: all 0.25s ease;
                 position: relative;
                 overflow: hidden;
                 box-shadow: 
-                    0 4px 20px rgba(230, 57, 70, 0.3),
+                    0 4px 20px rgba(255, 255, 255, 0.15),
                     0 1px 3px rgba(0, 0, 0, 0.3);
             }
 
             .btn-primary-red:hover {
+                background: #E4E4E7;
                 transform: translateY(-2px);
                 box-shadow: 
-                    0 8px 30px rgba(230, 57, 70, 0.4),
+                    0 8px 30px rgba(255, 255, 255, 0.25),
                     0 2px 4px rgba(0, 0, 0, 0.3);
             }
 
@@ -196,10 +197,11 @@
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                background: linear-gradient(135deg, var(--red-dark), var(--red-primary));
+                background: linear-gradient(135deg, #18181B, #27272A);
+                border: 1px solid rgba(255, 255, 255, 0.2);
                 box-shadow:
-                    0 18px 50px rgba(230, 57, 70, 0.34),
-                    inset 0 1px 0 rgba(255, 255, 255, 0.22);
+                    0 18px 50px rgba(0, 0, 0, 0.6),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.2);
                 animation: loading-float 1.4s ease-in-out infinite;
             }
 
@@ -288,13 +290,14 @@
             .logo-container {
                 width: 64px;
                 height: 64px;
-                background: linear-gradient(135deg, var(--red-dark), var(--red-primary));
+                background: linear-gradient(135deg, #18181B, #27272A);
+                border: 1px solid rgba(255, 255, 255, 0.2);
                 border-radius: 16px;
                 display: flex;
                 align-items: center;
                 justify-content: center;
                 box-shadow: 
-                    0 10px 40px rgba(230, 57, 70, 0.3),
+                    0 10px 40px rgba(0, 0, 0, 0.5),
                     inset 0 1px 0 rgba(255, 255, 255, 0.2);
             }
 

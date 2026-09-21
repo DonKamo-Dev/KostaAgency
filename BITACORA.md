@@ -37,6 +37,18 @@ Ordenados según el plan [2026-09-17-cierre-pendientes-plataforma](docs/superpow
 
 ## Registro de cambios
 
+### 2026-09-21 - Identidad Kosta, rutas y eliminación recuperable
+
+- Se consolidó la identidad visual monocromática de Kosta en las interfaces públicas, autenticadas, dashboard y documentos PDF.
+- Se estableció `Kosta` como nombre predeterminado de la aplicación y se actualizaron los textos de marca y navegación relacionados.
+- Se incorporaron las rutas públicas `/kamo` y `/perfil`; `/bento` permanece como redirección compatible hacia `/kamo`.
+- Se añadió el alias local `/entrar-kosta`. Los accesos locales requieren `KAMO_LOCAL_ACCESS_EMAIL` y fallan de forma cerrada si no está configurado o no corresponde a un usuario.
+- Se habilitó eliminación lógica para servicios y casos de estudio mediante la migración `2026_09_18_100000_add_soft_deletes_to_services_and_case_studies.php`.
+- Se completó `ServiceFactory` y se agregó cobertura de regresión para confirmar que los servicios eliminados quedan recuperables y fuera de las consultas normales.
+- Se protegió el entorno de producción contra comandos destructivos de base de datos mediante `DB::prohibitDestructiveCommands`.
+- Se retiraron de README y de esta bitácora las referencias obsoletas al worker y al módulo eliminado de Meta Ads.
+- Verificación: migración aplicada en MySQL; 80 pruebas PHP / 288 aserciones; 7 pruebas JavaScript; build de producción; Laravel Pint; smoke visual de `/kamo` en escritorio, 768x1024 y 375x667 sin overflow horizontal ni errores de consola.
+
 ### 2026-09-18
 
 - Se agregó el enlace de acceso directo a **Bento** (`/bento`) en la barra lateral debajo de Dashboard en la sección "Principal".
@@ -105,11 +117,12 @@ docker compose up -d
 # Migraciones (contenedor)
 docker compose exec app php artisan migrate
 
-# Worker de cola (generación de Meta Ads en segundo plano)
-docker compose up -d queue
-
 # Pruebas: ejecutar en el host (usa SQLite en memoria y APP_ENV=testing de phpunit.xml)
 php artisan test
+
+# Pruebas JavaScript y build de producción (desde apps/laravel)
+npm run test:js
+npm run build
 ```
 
 > Importante: `docker compose exec app php artisan test` (sin overrides) falla con errores `419`/CSRF porque el `APP_ENV=local` y `DB_CONNECTION=mysql` del compose pisan la configuración de PHPUnit. Para correr tests dentro del contenedor hay que forzar el entorno:

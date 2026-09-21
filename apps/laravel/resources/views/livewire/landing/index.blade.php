@@ -220,12 +220,12 @@
                     <div class="relative w-full max-w-lg ml-auto">
                         <div aria-hidden="true" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 rounded-full blur-[100px]" style="background: var(--accent-red-glow); opacity: 0.5;"></div>
 
-                        <div class="relative glass-card rounded-3xl p-6 shadow-2xl" style="border: 1px solid rgba(230, 57, 70, 0.2); background: rgba(20, 20, 20, 0.6);">
+                        <div class="relative glass-card rounded-3xl p-6 shadow-2xl" style="border: 1px solid rgba(255, 255, 255, 0.15); background: rgba(18, 18, 18, 0.7);">
                             <div class="flex items-center gap-2 mb-4 pb-3 border-b border-white/5">
-                                <span class="w-3 h-3 rounded-full bg-red-accent/60"></span>
-                                <span class="w-3 h-3 rounded-full bg-yellow-500/60"></span>
-                                <span class="w-3 h-3 rounded-full bg-green-500/60"></span>
-                                <div class="ml-3 px-3 py-1 rounded-md bg-white/5 text-xs text-white/40 flex-1 text-center font-mono">kamo.agency</div>
+                                <span class="w-3 h-3 rounded-full bg-white/40"></span>
+                                <span class="w-3 h-3 rounded-full bg-white/20"></span>
+                                <span class="w-3 h-3 rounded-full bg-white/10"></span>
+                                <div class="ml-3 px-3 py-1 rounded-md bg-white/5 text-xs text-white/50 flex-1 text-center font-mono">kosta.studio</div>
                             </div>
 
                             <div class="grid grid-cols-2 gap-3 mb-4">
@@ -434,7 +434,7 @@
             <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
                 @php
                     $testimonials = [
-                        ['quote' => 'Trabajar con Kamo transformó completamente nuestra presencia digital. Triplicamos las conversiones en 3 meses.', 'name' => 'María González', 'role' => 'CEO, Lumina Studio', 'initial' => 'M'],
+                        ['quote' => 'Trabajar con Kosta transformó completamente nuestra presencia digital. Triplicamos las conversiones en 3 meses.', 'name' => 'María González', 'role' => 'CEO, Lumina Studio', 'initial' => 'M'],
                         ['quote' => 'La atención al detalle y la estrategia detrás de cada decisión es impresionante. Súper recomendados.', 'name' => 'Andrés Pérez', 'role' => 'Founder, Verdex', 'initial' => 'A'],
                         ['quote' => 'Profesionales de primer nivel. Nos entregaron un sitio que no solo se ve bien, también vende.', 'name' => 'Laura Mendoza', 'role' => 'Marketing Lead, Atlas', 'initial' => 'L'],
                     ];
@@ -491,13 +491,13 @@
                         </svg>
                     </a>
                 @else
-                    <a href="mailto:hola@kamo.agency" class="btn-primary">
+                    <a href="mailto:hola@kosta.studio" class="btn-primary">
                         Hablemos de tu proyecto
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
                         </svg>
                     </a>
-                    <a href="mailto:hola@kamo.agency" class="btn-secondary">
+                    <a href="mailto:hola@kosta.studio" class="btn-secondary">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
                         </svg>

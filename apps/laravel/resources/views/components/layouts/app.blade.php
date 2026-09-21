@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'Kamo') }}</title>
+        <title>{{ config('app.name', 'Kosta') }}</title>
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -17,29 +17,30 @@
         <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
 
         <style>
-            /* ===== Design Tokens - Red & Black System ===== */
+            /* ===== Design Tokens - Luxury Monochrome System ===== */
             :root {
-                --bg-base: #0A0A0A;
-                --bg-elevated: #111111;
-                --bg-card: rgba(20, 20, 20, 0.7);
-                --bg-card-solid: #141414;
-                --bg-input: rgba(10, 10, 10, 0.6);
+                --bg-base: #080808;
+                --bg-elevated: #101010;
+                --bg-card: rgba(18, 18, 18, 0.85);
+                --bg-card-solid: #131313;
+                --bg-input: rgba(12, 12, 12, 0.7);
 
-                --red-primary: #E63946;
-                --red-bright: #FF4757;
-                --red-glow: rgba(230, 57, 70, 0.4);
-                --red-soft: rgba(230, 57, 70, 0.1);
-                --red-dark: #8B1A25;
+                /* Luxury Monochromatic Palette */
+                --red-primary: #FFFFFF;
+                --red-bright: #F4F4F5;
+                --red-glow: rgba(255, 255, 255, 0.12);
+                --red-soft: rgba(255, 255, 255, 0.07);
+                --red-dark: #27272A;
 
-                --text-primary: #F5F5F5;
-                --text-secondary: rgba(245, 245, 245, 0.7);
-                --text-muted: rgba(245, 245, 245, 0.5);
-                --text-subtle: rgba(245, 245, 245, 0.35);
+                --text-primary: #FAFAFA;
+                --text-secondary: rgba(250, 250, 250, 0.75);
+                --text-muted: rgba(250, 250, 250, 0.48);
+                --text-subtle: rgba(250, 250, 250, 0.32);
 
-                --border-subtle: rgba(245, 245, 245, 0.06);
-                --border-default: rgba(245, 245, 245, 0.1);
-                --border-red: rgba(230, 57, 70, 0.2);
-                --border-red-strong: rgba(230, 57, 70, 0.5);
+                --border-subtle: rgba(255, 255, 255, 0.07);
+                --border-default: rgba(255, 255, 255, 0.12);
+                --border-red: rgba(255, 255, 255, 0.22);
+                --border-red-strong: rgba(255, 255, 255, 0.45);
 
                 --positive: #10B981;
                 --negative: #EF4444;
@@ -76,18 +77,18 @@
             .ambient-glow-tl {
                 top: -200px;
                 right: -200px;
-                width: 400px;
-                height: 400px;
-                background: radial-gradient(circle, var(--red-glow) 0%, transparent 70%);
-                opacity: 0.15;
+                width: 450px;
+                height: 450px;
+                background: radial-gradient(circle, rgba(255, 255, 255, 0.08) 0%, transparent 70%);
+                opacity: 0.25;
             }
 
             .ambient-glow-br {
                 bottom: -200px;
                 left: -100px;
-                width: 400px;
-                height: 400px;
-                background: radial-gradient(circle, rgba(139, 26, 37, 0.2) 0%, transparent 70%);
+                width: 450px;
+                height: 450px;
+                background: radial-gradient(circle, rgba(255, 255, 255, 0.05) 0%, transparent 70%);
                 opacity: 0.2;
             }
 
@@ -121,7 +122,7 @@
                 flex-direction: column;
                 z-index: 50;
                 overflow: hidden;
-                box-shadow: -1px 0 0 rgba(230, 57, 70, 0.06);
+                box-shadow: -1px 0 0 rgba(255, 255, 255, 0.05);
             }
 
             /* Decorative accent line on right edge */
@@ -132,8 +133,8 @@
                 right: 0;
                 width: 1px;
                 height: 200px;
-                background: linear-gradient(180deg, transparent, var(--red-primary), transparent);
-                opacity: 0.4;
+                background: linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+                opacity: 0.6;
             }
 
             @media (max-width: 1023px) {
@@ -178,14 +179,15 @@
             .sidebar-brand-logo {
                 width: 42px;
                 height: 42px;
-                background: linear-gradient(135deg, var(--red-dark) 0%, var(--red-primary) 50%, #FF4757 100%);
+                background: linear-gradient(135deg, #18181B 0%, #27272A 50%, #3F3F46 100%);
+                border: 1px solid rgba(255, 255, 255, 0.15);
                 border-radius: 12px;
                 display: flex;
                 align-items: center;
                 justify-content: center;
                 box-shadow:
-                    0 4px 20px rgba(230, 57, 70, 0.35),
-                    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+                    0 4px 20px rgba(0, 0, 0, 0.6),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.2);
                 position: relative;
                 overflow: hidden;
             }
@@ -213,10 +215,10 @@
 
             .sidebar-brand-tag {
                 font-size: 10px;
-                color: var(--red-primary);
+                color: rgba(255, 255, 255, 0.5);
                 margin-top: 2px;
                 text-transform: uppercase;
-                letter-spacing: 0.12em;
+                letter-spacing: 0.14em;
                 font-weight: 600;
             }
 
@@ -261,7 +263,7 @@
                 position: absolute;
                 inset: 0;
                 border-radius: 10px;
-                background: linear-gradient(90deg, transparent, rgba(230, 57, 70, 0.04));
+                background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05));
                 opacity: 0;
                 transition: opacity 0.25s ease;
                 pointer-events: none;
@@ -277,13 +279,14 @@
             }
 
             .nav-link:hover svg {
-                color: var(--red-primary);
-                filter: drop-shadow(0 0 8px rgba(230, 57, 70, 0.65));
+                color: #FFFFFF;
+                filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.4));
             }
 
             .nav-link.active {
-                background: linear-gradient(90deg, transparent 0%, rgba(230, 57, 70, 0.12) 100%);
-                color: var(--red-primary);
+                background: linear-gradient(90deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0.10) 100%);
+                color: #FFFFFF;
+                border: 1px solid rgba(255, 255, 255, 0.12);
                 font-weight: 600;
             }
 
@@ -299,9 +302,9 @@
                 transform: translateY(-50%);
                 width: 3px;
                 height: 28px;
-                background: var(--red-primary);
+                background: #FFFFFF;
                 border-radius: 0 3px 3px 0;
-                box-shadow: 0 0 12px rgba(230, 57, 70, 0.5);
+                box-shadow: 0 0 12px rgba(255, 255, 255, 0.5);
             }
 
             .nav-link.active svg {
@@ -410,7 +413,7 @@
             }
 
             .sidebar-user:hover {
-                border-color: rgba(230, 57, 70, 0.24);
+                border-color: rgba(255, 255, 255, 0.2);
                 transform: translateY(-1px);
             }
 
@@ -418,12 +421,13 @@
                 width: 38px;
                 height: 38px;
                 border-radius: 50%;
-                background: linear-gradient(135deg, var(--red-primary), var(--red-dark));
+                background: linear-gradient(135deg, #27272A, #09090B);
+                border: 1px solid rgba(255, 255, 255, 0.2);
                 display: flex;
                 align-items: center;
                 justify-content: center;
                 font-weight: 600;
-                color: white;
+                color: #FFFFFF;
                 font-size: 14px;
                 flex-shrink: 0;
             }
@@ -624,25 +628,30 @@
             }
 
             .btn-primary {
-                background: var(--red-primary);
-                color: white;
-                box-shadow: 0 4px 16px rgba(230, 57, 70, 0.3);
+                background: #FFFFFF;
+                color: #0A0A0A;
+                font-weight: 700;
+                box-shadow: 0 4px 16px rgba(255, 255, 255, 0.12);
+                border: 1px solid rgba(255, 255, 255, 0.9);
             }
 
             .btn-primary:hover {
+                background: #E4E4E7;
+                color: #000000;
                 transform: translateY(-1px);
-                box-shadow: 0 6px 24px rgba(230, 57, 70, 0.4);
+                box-shadow: 0 6px 24px rgba(255, 255, 255, 0.18);
             }
 
             .btn-secondary {
-                background: var(--bg-card-solid);
+                background: rgba(255, 255, 255, 0.05);
                 color: var(--text-primary);
                 border: 1px solid var(--border-default);
             }
 
             .btn-secondary:hover {
-                border-color: var(--border-red);
-                color: var(--red-primary);
+                border-color: rgba(255, 255, 255, 0.3);
+                background: rgba(255, 255, 255, 0.1);
+                color: #FFFFFF;
             }
 
             /* ===== Scrollbar ===== */
@@ -1053,26 +1062,27 @@
 
             /* Modal CTAs */
             .btn-modal-primary {
-                background: var(--red-primary);
-                color: white;
+                background: #FFFFFF;
+                color: #0A0A0A;
                 padding: 11px 24px;
                 border-radius: 10px;
-                font-weight: 600;
+                font-weight: 700;
                 font-size: 14px;
-                border: none;
+                border: 1px solid rgba(255, 255, 255, 0.9);
                 cursor: pointer;
                 transition: all 0.2s ease;
-                box-shadow: 0 4px 16px rgba(230, 57, 70, 0.3);
+                box-shadow: 0 4px 16px rgba(255, 255, 255, 0.12);
             }
 
             .btn-modal-primary:hover {
-                background: var(--red-bright);
+                background: #E4E4E7;
+                color: #000000;
                 transform: translateY(-1px);
-                box-shadow: 0 6px 20px rgba(230, 57, 70, 0.4);
+                box-shadow: 0 6px 20px rgba(255, 255, 255, 0.18);
             }
 
             .btn-modal-secondary {
-                background: transparent;
+                background: rgba(255, 255, 255, 0.04);
                 color: var(--text-secondary);
                 padding: 11px 24px;
                 border-radius: 10px;
@@ -1084,8 +1094,9 @@
             }
 
             .btn-modal-secondary:hover {
-                border-color: var(--border-red);
-                color: var(--text-primary);
+                border-color: rgba(255, 255, 255, 0.3);
+                background: rgba(255, 255, 255, 0.08);
+                color: #FFFFFF;
             }
 
             /* Status Badges */
@@ -1128,8 +1139,8 @@
                         </svg>
                     </div>
                     <div>
-                        <div class="sidebar-brand-name">Kamo</div>
-                        <div class="sidebar-brand-tag">Agencia Digital</div>
+                        <div class="sidebar-brand-name">Kosta</div>
+                        <div class="sidebar-brand-tag">Studio Films</div>
                     </div>
                 </div>
 
@@ -1142,11 +1153,11 @@
                         </svg>
                         Dashboard
                     </a>
-                    <a href="{{ route('bento') }}" target="_blank" class="nav-link {{ request()->routeIs('bento') ? 'active' : '' }}" title="Ver Bento (perfil público)">
+                    <a href="{{ route('kamo') }}" target="_blank" class="nav-link {{ request()->routeIs('kamo', 'perfil', 'cv') ? 'active' : '' }}" title="Ver Perfil Kamo">
                         <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h4a1 1 0 011 1v5a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM14 5a1 1 0 011-1h4a1 1 0 011 1v2a1 1 0 01-1 1h-4a1 1 0 01-1-1V5zM4 15a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1H5a1 1 0 01-1-1v-4zM14 12a1 1 0 011-1h4a1 1 0 011 1v7a1 1 0 01-1 1h-4a1 1 0 01-1-1v-7z"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
                         </svg>
-                        Bento
+                        Kamo
                         <svg style="width: 12px; height: 12px; margin-left: auto; opacity: 0.4;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
                         </svg>
@@ -1257,7 +1268,7 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
                         </svg>
                     </div>
-                    <span class="font-display" style="font-size: 18px; font-weight: 700;">Kamo</span>
+                    <span class="font-display" style="font-size: 18px; font-weight: 700;">Kosta</span>
                 </div>
                 @auth
                     <div class="sidebar-user-avatar" style="width: 36px; height: 36px; font-size: 13px;">

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Kamo') }} - Agencia Digital</title>
+    <title>{{ config('app.name', 'Kosta') }} - Studio Films</title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -16,18 +16,18 @@
     @vite(['resources/css/app.css', 'resources/js/app.jsx'])
     <style>
         :root {
-            --bg-primary: #0A0A0A;
-            --bg-gradient-1: #1A0508;
-            --bg-gradient-2: #2A0A12;
-            --accent-red: #E63946;
-            --accent-red-bright: #FF4757;
-            --accent-red-dark: #8B1A25;
-            --accent-red-glow: rgba(230, 57, 70, 0.4);
-            --accent-red-soft: rgba(230, 57, 70, 0.1);
+            --bg-primary: #080808;
+            --bg-gradient-1: #121214;
+            --bg-gradient-2: #18181B;
+            --accent-red: #FFFFFF;
+            --accent-red-bright: #F4F4F5;
+            --accent-red-dark: #27272A;
+            --accent-red-glow: rgba(255, 255, 255, 0.15);
+            --accent-red-soft: rgba(255, 255, 255, 0.05);
             --text-primary: #FFFFFF;
-            --text-secondary: rgba(255, 255, 255, 0.7);
-            --text-muted: rgba(255, 255, 255, 0.5);
-            --text-subtle: rgba(255, 255, 255, 0.35);
+            --text-secondary: rgba(255, 255, 255, 0.75);
+            --text-muted: rgba(255, 255, 255, 0.48);
+            --text-subtle: rgba(255, 255, 255, 0.32);
             --glass-bg: rgba(255, 255, 255, 0.03);
             --glass-border: rgba(255, 255, 255, 0.08);
             --section-spacing: 140px;
@@ -119,8 +119,8 @@
         }
 
         .glass-card:hover {
-            border-color: var(--accent-red);
-            background: var(--accent-red-soft);
+            border-color: rgba(255, 255, 255, 0.35);
+            background: rgba(255, 255, 255, 0.06);
             transform: translateY(-4px);
         }
 
@@ -131,11 +131,11 @@
 
         .glass-card:hover .service-icon-wrapper {
             transform: scale(1.08);
-            background: rgba(230, 57, 70, 0.18);
+            background: rgba(255, 255, 255, 0.15);
         }
 
         .text-gradient {
-            background: linear-gradient(135deg, #FFFFFF 0%, var(--accent-red) 100%);
+            background: linear-gradient(135deg, #FFFFFF 0%, #A1A1AA 100%);
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -143,14 +143,14 @@
 
         /* ===== Buttons (CTA) ===== */
         .btn-primary {
-            background: var(--accent-red);
-            color: #FFFFFF;
+            background: #FFFFFF;
+            color: #000000;
             height: 56px;
             padding: 0 32px;
             font-size: 16px;
-            font-weight: 600;
+            font-weight: 700;
             border-radius: 999px;
-            border: none;
+            border: 1px solid rgba(255, 255, 255, 0.9);
             cursor: pointer;
             transition: transform var(--duration-fast) var(--ease-out),
                         box-shadow var(--duration-fast) var(--ease-out),
@@ -160,24 +160,24 @@
             justify-content: center;
             gap: 8px;
             text-decoration: none;
-            box-shadow: 0 4px 16px rgba(230, 57, 70, 0.25);
+            box-shadow: 0 4px 20px rgba(255, 255, 255, 0.15);
         }
 
         .btn-primary:hover {
-            background: var(--accent-red-bright);
+            background: #E4E4E7;
             transform: translateY(-2px);
-            box-shadow: 0 10px 32px rgba(230, 57, 70, 0.45);
+            box-shadow: 0 10px 32px rgba(255, 255, 255, 0.25);
         }
 
         .btn-primary:active { transform: scale(0.97); }
 
         .btn-primary:focus-visible {
-            outline: 3px solid var(--accent-red);
+            outline: 3px solid rgba(255, 255, 255, 0.6);
             outline-offset: 3px;
         }
 
         .btn-secondary {
-            background: transparent;
+            background: rgba(255, 255, 255, 0.04);
             border: 1px solid rgba(255, 255, 255, 0.18);
             color: #FFFFFF;
             height: 56px;
@@ -197,8 +197,9 @@
         }
 
         .btn-secondary:hover {
-            border-color: var(--accent-red);
-            background: var(--accent-red-soft);
+            border-color: rgba(255, 255, 255, 0.4);
+            background: rgba(255, 255, 255, 0.09);
+            transform: translateY(-2px);
         }
 
         .btn-secondary:active { transform: scale(0.97); }

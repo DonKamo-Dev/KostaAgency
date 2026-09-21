@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class CaseStudy extends Model
 {
+    use SoftDeletes;
+
     protected $fillable = [
         'titulo', 'descripcion', 'url_demo', 'categoria',
         'metrica_valor', 'metrica_label', 'tags',
