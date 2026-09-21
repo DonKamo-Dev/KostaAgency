@@ -17,5 +17,9 @@ class PublicViewsTest extends TestCase
 
         $this->get('/')->assertDontSee('href="https://wa.me/"', false);
         $this->get('/cv')->assertDontSee('<div onclick="copyEmailToClipboard()"', false);
+
+        $this->get('/portafolio')
+            ->assertSee('data-filter="all" aria-pressed="true"', false)
+            ->assertSee('.filter-btn.active { background: var(--accent-red); border-color: var(--accent-red); color: #0A0A0A;', false);
     }
 }

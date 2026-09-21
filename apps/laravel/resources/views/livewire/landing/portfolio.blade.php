@@ -5,7 +5,8 @@
         .filter-tabs { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; margin-bottom: 56px; }
         .filter-btn { padding: 9px 22px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.04); color: rgba(255,255,255,0.55); font-size: 14px; font-weight: 500; cursor: pointer; transition: all 0.2s ease; font-family: 'Inter', sans-serif; }
         .filter-btn:hover { border-color: rgba(255,255,255,0.2); color: rgba(255,255,255,0.85); background: rgba(255,255,255,0.07); }
-        .filter-btn.active { background: var(--accent-red); border-color: var(--accent-red); color: white; }
+        .filter-btn.active { background: var(--accent-red); border-color: var(--accent-red); color: #0A0A0A; font-weight: 700; }
+        .filter-btn:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
 
         /* ── Projects grid ── */
         .projects-grid { display: grid; grid-template-columns: 1fr; gap: 28px; }
@@ -102,11 +103,11 @@
 
             <!-- Filter tabs -->
             <div class="filter-tabs animate-fadeInUp delay-300">
-                <button class="filter-btn active" data-filter="all">Todos</button>
-                <button class="filter-btn" data-filter="web">Páginas Web</button>
-                <button class="filter-btn" data-filter="ecommerce">E-commerce</button>
-                <button class="filter-btn" data-filter="branding">Branding</button>
-                <button class="filter-btn" data-filter="social">Redes Sociales</button>
+                <button class="filter-btn active" data-filter="all" aria-pressed="true">Todos</button>
+                <button class="filter-btn" data-filter="web" aria-pressed="false">Páginas Web</button>
+                <button class="filter-btn" data-filter="ecommerce" aria-pressed="false">E-commerce</button>
+                <button class="filter-btn" data-filter="branding" aria-pressed="false">Branding</button>
+                <button class="filter-btn" data-filter="social" aria-pressed="false">Redes Sociales</button>
             </div>
         </div>
     </section>
@@ -221,8 +222,12 @@
 
         filterBtns.forEach(btn => {
             btn.addEventListener('click', () => {
-                filterBtns.forEach(b => b.classList.remove('active'));
+                filterBtns.forEach(b => {
+                    b.classList.remove('active');
+                    b.setAttribute('aria-pressed', 'false');
+                });
                 btn.classList.add('active');
+                btn.setAttribute('aria-pressed', 'true');
                 const filter = btn.dataset.filter;
 
                 // 2 cols para "Todos", 3 cols para categoría específica
