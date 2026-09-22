@@ -3,14 +3,43 @@
         $catNames = [
             'web' => 'Páginas Web',
             'ecommerce' => 'E-commerce',
+            'sistema' => 'Sistema',
             'branding' => 'Branding',
             'social' => 'Redes Sociales',
         ];
         $catColors = [
             'web'       => 'background:rgba(99,102,241,0.15);color:#818cf8;border-color:rgba(99,102,241,0.3);',
             'ecommerce' => 'background:rgba(245,158,11,0.15);color:#fbbf24;border-color:rgba(245,158,11,0.3);',
+            'sistema'   => 'background:rgba(14,165,233,0.15);color:#38bdf8;border-color:rgba(14,165,233,0.3);',
             'branding'  => 'background:rgba(16,185,129,0.15);color:#34d399;border-color:rgba(16,185,129,0.3);',
             'social'    => 'background:rgba(236,72,153,0.15);color:#f472b6;border-color:rgba(236,72,153,0.3);',
+        ];
+        $catOptions = [
+            'web' => [
+                'label' => 'Página Web',
+                'sub'   => 'Sitios web, landing pages y portales',
+                'dot'   => '#818cf8',
+            ],
+            'ecommerce' => [
+                'label' => 'E-commerce',
+                'sub'   => 'Tiendas virtuales, pasarelas y catálogos',
+                'dot'   => '#fbbf24',
+            ],
+            'sistema' => [
+                'label' => 'Sistema',
+                'sub'   => 'Software a medida, SaaS y paneles de control',
+                'dot'   => '#38bdf8',
+            ],
+            'branding' => [
+                'label' => 'Branding',
+                'sub'   => 'Identidad visual, diseño y logotipos',
+                'dot'   => '#34d399',
+            ],
+            'social' => [
+                'label' => 'Redes Sociales',
+                'sub'   => 'Estrategia de contenido, feed y pauta',
+                'dot'   => '#f472b6',
+            ],
         ];
     @endphp
 
@@ -124,14 +153,71 @@
                             @error('url_demo') <span class="form-error">{{ $message }}</span> @enderror
                         </div>
 
-                        <div class="form-group" style="margin-bottom:0;">
+                        <div class="form-group" style="margin-bottom:0;" x-data="{
+                            open: false,
+                            selected: @entangle('categoria').live,
+                            options: {{ json_encode($catOptions) }},
+                            get current() {
+                                return this.options[this.selected] || this.options['web'] || { label: 'Seleccionar...', dot: '#818cf8', sub: '' };
+                            }
+                        }" @click.outside="open = false" @keydown.escape.window="open = false">
                             <label class="form-label">Categoría <span class="required">*</span></label>
-                            <select wire:model.live="categoria" class="form-input" style="cursor:pointer;">
-                                <option value="web">Página Web</option>
-                                <option value="ecommerce">E-commerce</option>
-                                <option value="branding">Branding</option>
-                                <option value="social">Redes Sociales</option>
-                            </select>
+                            
+                            <div style="position:relative;">
+                                <!-- Trigger Button -->
+                                <button type="button"
+                                        @click="open = !open"
+                                        class="form-input custom-select-trigger"
+                                        :class="{ 'is-open': open }"
+                                        style="width:100%;height:44px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;padding:0 14px;border-radius:12px;text-align:left;background:var(--bg-input);user-select:none;box-sizing:border-box;">
+                                    <div style="display:flex;align-items:center;gap:10px;min-width:0;">
+                                        <span style="width:8px;height:8px;border-radius:50%;flex-shrink:0;transition:background 0.2s;"
+                                              :style="'background:' + current.dot + ';box-shadow:0 0 10px ' + current.dot + '90;'"></span>
+                                        <span x-text="current.label" style="font-size:13.5px;font-weight:600;color:#FAFAFA;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;"></span>
+                                    </div>
+                                    <svg class="custom-select-arrow"
+                                         :class="{ 'is-open': open }"
+                                         width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M19 9l-7 7-7-7"/>
+                                    </svg>
+                                </button>
+
+                                <!-- Dropdown Menu Panel -->
+                                <div x-show="open"
+                                     x-cloak
+                                     x-transition:enter="transition ease-out duration-150"
+                                     x-transition:enter-start="opacity-0 -translate-y-2 scale-95"
+                                     x-transition:enter-end="opacity-100 translate-y-0 scale-100"
+                                     x-transition:leave="transition ease-in duration-100"
+                                     x-transition:leave-start="opacity-100 translate-y-0 scale-100"
+                                     x-transition:leave-end="opacity-0 -translate-y-2 scale-95"
+                                     style="position:absolute;top:calc(100% + 6px);left:0;right:0;z-index:100;background:#141416;border:1px solid rgba(255,255,255,0.12);border-radius:14px;padding:6px;box-shadow:0 20px 45px rgba(0,0,0,0.85),0 0 0 1px rgba(255,255,255,0.06);backdrop-filter:blur(24px);">
+                                    @foreach($catOptions as $key => $opt)
+                                        <button type="button"
+                                                @click="selected = '{{ $key }}'; $wire.set('categoria', '{{ $key }}'); open = false;"
+                                                class="custom-select-opt"
+                                                :class="selected === '{{ $key }}' ? 'is-active' : ''"
+                                                style="width:100%;display:flex;align-items:center;justify-content:space-between;padding:9px 12px;border-radius:10px;border:none;background:transparent;cursor:pointer;text-align:left;margin-bottom:2px;transition:all .15s ease;">
+                                            <div style="display:flex;align-items:center;gap:10px;">
+                                                <span style="width:8px;height:8px;border-radius:50%;flex-shrink:0;background:{{ $opt['dot'] }};box-shadow:0 0 8px {{ $opt['dot'] }}80;"></span>
+                                                <div>
+                                                    <div style="font-size:13.5px;font-weight:600;color:{{ $opt['dot'] }};line-height:1.2;">
+                                                        {{ $opt['label'] }}
+                                                    </div>
+                                                    <div style="font-size:11px;color:rgba(255,255,255,0.45);margin-top:2px;">
+                                                        {{ $opt['sub'] }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <template x-if="selected === '{{ $key }}'">
+                                                <svg style="width:15px;height:15px;color:#FFFFFF;flex-shrink:0;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
+                                                </svg>
+                                            </template>
+                                        </button>
+                                    @endforeach
+                                </div>
+                            </div>
                             @error('categoria') <span class="form-error">{{ $message }}</span> @enderror
                         </div>
                     </div>
@@ -376,7 +462,7 @@
                         <!-- Simulated CTA -->
                         <div style="display:flex;gap:8px;">
                             <span style="padding:6px 14px;border-radius:999px;font-size:11.5px;font-weight:700;background:var(--accent-red);color:#0A0A0A;display:inline-flex;align-items:center;gap:6px;">
-                                {{ $categoria === 'social' ? 'Visitar red' : 'Visitar página' }}
+                                {{ $categoria === 'social' ? 'Visitar red' : ($categoria === 'sistema' ? 'Ver sistema' : 'Visitar página') }}
                                 <svg style="width:12px;height:12px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                             </span>
                         </div>
@@ -389,4 +475,48 @@
             </div>
         </div>
     </div>
+
+    <style>
+        .custom-select-trigger {
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+        .custom-select-trigger.is-open {
+            border-color: rgba(255, 255, 255, 0.4) !important;
+            box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.15) !important;
+        }
+        .custom-select-arrow {
+            width: 16px !important;
+            height: 16px !important;
+            min-width: 16px !important;
+            min-height: 16px !important;
+            max-width: 16px !important;
+            max-height: 16px !important;
+            color: var(--text-muted);
+            transition: transform 0.2s ease, color 0.2s ease;
+            flex-shrink: 0;
+            display: block;
+        }
+        .custom-select-arrow.is-open {
+            transform: rotate(180deg);
+            color: #FFFFFF !important;
+        }
+        .custom-select-opt {
+            transition: background 0.15s ease, transform 0.1s ease;
+        }
+        .custom-select-opt:hover {
+            background: rgba(255, 255, 255, 0.07) !important;
+        }
+        .custom-select-opt:active {
+            transform: scale(0.99);
+        }
+        .custom-select-opt.is-active {
+            background: rgba(255, 255, 255, 0.10) !important;
+        }
+        .custom-select-trigger:focus,
+        .custom-select-trigger:focus-visible {
+            outline: none;
+            border-color: rgba(255, 255, 255, 0.4) !important;
+            box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.15) !important;
+        }
+    </style>
 </div>

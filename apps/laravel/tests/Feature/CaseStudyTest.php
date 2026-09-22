@@ -59,6 +59,28 @@ class CaseStudyTest extends TestCase
         ]);
     }
 
+    public function test_admin_can_create_case_study_with_sistema_category(): void
+    {
+        $user = User::factory()->create();
+
+        Livewire::actingAs($user)
+            ->test(Form::class)
+            ->set('titulo', 'Plataforma SaaS Kamo')
+            ->set('descripcion', 'Sistema operativo para agencias digitales')
+            ->set('categoria', 'sistema')
+            ->set('metrica_valor', '10x')
+            ->set('metrica_label', 'eficiencia operativa')
+            ->call('save')
+            ->assertHasNoErrors()
+            ->assertRedirect(route('case-studies.index'));
+
+        $this->assertDatabaseHas('case_studies', [
+            'titulo' => 'Plataforma SaaS Kamo',
+            'categoria' => 'sistema',
+            'metrica_valor' => '10x',
+        ]);
+    }
+
     public function test_admin_can_update_case_study_via_dedicated_form(): void
     {
         $user = User::factory()->create();

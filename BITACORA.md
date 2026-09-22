@@ -38,6 +38,21 @@ Ordenados según el plan [2026-09-17-cierre-pendientes-plataforma](docs/superpow
 
 ## Registro de cambios
 
+### 2026-09-22 - Selector de Categorías Estilizado (Custom Select) y Nueva Opción 'Sistema'
+
+- **Selector personalizado moderno (Custom Select con Alpine.js):**
+  - Se sustituyó el elemento nativo `<select>` (cuyo menú emergente del sistema operativo era gris, rectangular y sin esquinas redondeadas) por un componente de selección personalizado y estilizado.
+  - El nuevo trigger y el menú desplegable cuentan con esquinas redondeadas (`12px` y `14px`), fondo oscuro obsidian (`#141416`), desenfoque glassmorphism (`backdrop-filter: blur(24px)`), flecha chevron animada con rotación suave y sombras de profundidad.
+  - Cada opción incluye bordes redondeados (`10px`), indicador de color luminoso con resplandor suave, título destacado, descripción de alcance y checkmark de estado activo.
+- **Incorporación de la categoría 'Sistema':**
+  - Se añadió la opción **Sistema** (`sistema`) orientada a plataformas SaaS, software a medida y paneles de control.
+  - Se configuró con acento celeste/cian (`#38bdf8` / `rgba(14,165,233,0.15)`), badge distintivo y llamada a la acción contextualizada *"Ver sistema ↗"*.
+  - Soporte integrado en reglas de validación de backend (`Form.php` e `Index.php`), listado administrativo (`index.blade.php`), vista previa en tiempo real y portafolio público (`portfolio.blade.php`) con pestaña de filtrado "Sistemas".
+- **Control de Calidad y Pruebas:**
+  - Nueva prueba automatizada `test_admin_can_create_case_study_with_sistema_category` en `CaseStudyTest.php` (5/5 tests pasados en verde).
+  - Laravel Pint validado (118/118 archivos superados).
+  - Inspección visual interactiva en navegador confirmando el despliegue del menú y la reactividad de la vista previa en vivo.
+
 ### 2026-09-22 - Corrección de Estado de Carga (wire:loading) en Botones de Formularios y Acciones Masivas
 
 - **Causa raíz identificada:** El layout administrativo (`components/layouts/app.blade.php`) incluía `@livewireScripts` pero omitía `@livewireStyles`. Sin los estilos base de Livewire ni reglas de ocultación para `[wire:loading]`, y debido a estilos en línea con `display: inline-flex` en elementos `wire:loading`, el navegador representaba simultáneamente el texto de acción ("Guardar Cambios" / "Crear Caso de Estudio") y el estado de carga ("Guardando proyecto...").

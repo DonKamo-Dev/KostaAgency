@@ -61,7 +61,7 @@ class Index extends Component
         'titulo' => 'required|string|max:255',
         'descripcion' => 'nullable|string|max:1000',
         'url_demo' => 'nullable|string|max:255',
-        'categoria' => 'required|in:web,ecommerce,branding,social',
+        'categoria' => 'required|in:web,ecommerce,sistema,branding,social',
         'metrica_valor' => 'nullable|string|max:50',
         'metrica_label' => 'nullable|string|max:100',
         'tags_input' => 'nullable|string|max:500',

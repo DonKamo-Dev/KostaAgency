@@ -1,7 +1,7 @@
 <div>
     <!-- Header -->
     @php
-        $catNames = ['web' => 'Páginas Web', 'ecommerce' => 'E-commerce', 'branding' => 'Branding', 'social' => 'Redes Sociales'];
+        $catNames = ['web' => 'Páginas Web', 'ecommerce' => 'E-commerce', 'sistema' => 'Sistema', 'branding' => 'Branding', 'social' => 'Redes Sociales'];
     @endphp
     <div class="crud-header">
         <div>
@@ -144,10 +144,11 @@
                                 $catColors = [
                                     'web'       => 'background:rgba(99,102,241,0.15);color:#818cf8;',
                                     'ecommerce' => 'background:rgba(245,158,11,0.15);color:#fbbf24;',
+                                    'sistema'   => 'background:rgba(14,165,233,0.15);color:#38bdf8;',
                                     'branding'  => 'background:rgba(16,185,129,0.15);color:#34d399;',
                                     'social'    => 'background:rgba(236,72,153,0.15);color:#f472b6;',
                                 ];
-                                $catNames = ['web' => 'Página Web', 'ecommerce' => 'E-commerce', 'branding' => 'Branding', 'social' => 'Redes'];
+                                $catNames = ['web' => 'Página Web', 'ecommerce' => 'E-commerce', 'sistema' => 'Sistema', 'branding' => 'Branding', 'social' => 'Redes'];
                             @endphp
                             <span class="badge" style="{{ $catColors[$study->categoria] ?? '' }}">
                                 {{ $catNames[$study->categoria] ?? $study->categoria }}

@@ -106,6 +106,7 @@
                 <button class="filter-btn active" data-filter="all" aria-pressed="true">Todos</button>
                 <button class="filter-btn" data-filter="web" aria-pressed="false">Páginas Web</button>
                 <button class="filter-btn" data-filter="ecommerce" aria-pressed="false">E-commerce</button>
+                <button class="filter-btn" data-filter="sistema" aria-pressed="false">Sistemas</button>
                 <button class="filter-btn" data-filter="social" aria-pressed="false">Redes Sociales</button>
                 <button class="filter-btn" data-filter="branding" aria-pressed="false">Branding</button>
             </div>
@@ -116,7 +117,7 @@
     <section class="relative pb-24">
         <div class="relative z-10 max-w-7xl mx-auto container-pad">
             @php
-                $catLabels = ['web' => 'Página Web', 'ecommerce' => 'E-commerce', 'branding' => 'Branding', 'social' => 'Redes Sociales'];
+                $catLabels = ['web' => 'Página Web', 'ecommerce' => 'E-commerce', 'sistema' => 'Sistema', 'branding' => 'Branding', 'social' => 'Redes Sociales'];
             @endphp
 
             <div class="projects-grid" id="projectsGrid">
@@ -157,7 +158,7 @@
                             <div class="project-actions">
                                 @if($estudio->public_url)
                                     <a href="{{ $estudio->public_url }}" target="_blank" rel="noopener noreferrer" class="project-link visit">
-                                        {{ $estudio->categoria === 'social' ? 'Visitar red' : 'Visitar página' }}
+                                        {{ $estudio->categoria === 'social' ? 'Visitar red' : ($estudio->categoria === 'sistema' ? 'Ver sistema' : 'Visitar página') }}
                                         <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M1.5 8.5L8.5 1.5M8.5 1.5H3M8.5 1.5v5.5"/></svg>
                                     </a>
                                 @endif
