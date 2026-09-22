@@ -15,8 +15,15 @@
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.jsx'])
         <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+        @livewireStyles
 
         <style>
+            /* Livewire Loading States & Cloak */
+            [x-cloak] { display: none !important; }
+            [wire\:loading], [wire\:loading\.delay], [wire\:loading\.inline-block], [wire\:loading\.inline], [wire\:loading\.block], [wire\:loading\.flex], [wire\:loading\.table], [wire\:loading\.grid], [wire\:loading\.inline-flex] {
+                display: none;
+            }
+
             /* ===== Design Tokens - Luxury Monochrome System ===== */
             :root {
                 --bg-base: #080808;

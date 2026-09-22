@@ -270,9 +270,11 @@
                         <span wire:loading.remove wire:target="save">
                             {{ $editingId ? 'Guardar Cambios' : 'Crear Caso de Estudio' }}
                         </span>
-                        <span wire:loading wire:target="save" style="display:inline-flex;align-items:center;gap:8px;">
-                            <thinking-orb state="working" size="16"></thinking-orb>
-                            <span>Guardando proyecto...</span>
+                        <span wire:loading wire:target="save">
+                            <span style="display:inline-flex;align-items:center;gap:8px;">
+                                <thinking-orb state="working" size="16"></thinking-orb>
+                                <span>Guardando proyecto...</span>
+                            </span>
                         </span>
                     </button>
                 </div>

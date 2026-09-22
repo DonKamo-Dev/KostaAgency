@@ -38,6 +38,15 @@ Ordenados según el plan [2026-09-17-cierre-pendientes-plataforma](docs/superpow
 
 ## Registro de cambios
 
+### 2026-09-22 - Corrección de Estado de Carga (wire:loading) en Botones de Formularios y Acciones Masivas
+
+- **Causa raíz identificada:** El layout administrativo (`components/layouts/app.blade.php`) incluía `@livewireScripts` pero omitía `@livewireStyles`. Sin los estilos base de Livewire ni reglas de ocultación para `[wire:loading]`, y debido a estilos en línea con `display: inline-flex` en elementos `wire:loading`, el navegador representaba simultáneamente el texto de acción ("Guardar Cambios" / "Crear Caso de Estudio") y el estado de carga ("Guardando proyecto...").
+- **Solución integral aplicada:**
+  - **Inyección de estilos y prevención de FOUC:** Se agregó `@livewireStyles` y la regla de protección `[wire:loading], [wire:loading.*] { display: none; }` en el `<head>` de `components/layouts/app.blade.php`.
+  - **Estructuración en `case-studies/form.blade.php`:** Se desacopló la propiedad de visualización del contenedor `wire:loading`, anidando el layout flex en un sub-elemento para que Livewire controle la visibilidad sin colisión de especificidad CSS.
+  - **Blindaje en acciones masivas (`case-studies/index.blade.php`):** Se aplicó el mismo patrón en los botones "Hacer Visibles", "Ocultar" y "Borrar seleccionados" de la vista de listado.
+- **Verificación:** Inspección interactiva y capturas de pantalla en navegador en rutas de creación (`/case-studies/create`) y edición (`/case-studies/1/edit`), confirmando que solo se muestra el texto correspondiente en reposo y el spinner únicamente durante el guardado. Pint validado (118/118 archivos OK).
+
 ### 2026-09-22 - Corrección de Contraste en Botones Primarios (Portafolio y Contacto)
 
 - **Botón 'Visitar página' en Tarjetas de Portafolio (`portfolio.blade.php`):**
