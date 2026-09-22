@@ -38,6 +38,20 @@ Ordenados según el plan [2026-09-17-cierre-pendientes-plataforma](docs/superpow
 
 ## Registro de cambios
 
+### 2026-09-22 - Integración de Header y Footer Idénticos en Páginas Internas de Servicios (/servicios/{slug})
+
+- **Header Global Flotante (`partials.landing-nav`):**
+  - Se integró la barra de navegación flotante con estética rojo vino/borgoña, logotipo Kosta, enlaces principales, botón *"Empezar proyecto ↗"*, enlace a WhatsApp oficial y drawer móvil interactivo con hamburguesa animada en `service-detail.blade.php`.
+  - Se añadió detección activa para `request()->is('servicios*')` tanto en escritorio como en móvil, resaltando visualmente el ítem de navegación "Servicios".
+  - Se incorporaron las orbes de fondo resplandecientes (`bg-red-accent`, `var(--accent-red-dark)`) y la trama sutil de cuadrícula (`grid-pattern`).
+- **Footer Global (`partials.landing-footer`):**
+  - Se integró el pie de página institucional en `service-detail.blade.php`, con el imagotipo Kosta, copyright oficial (`© 2026 Kosta Studio Films`) y enlaces de pie de página incluyendo "Servicios".
+  - Se incluyó el script de control de navegación interactiva y scroll suave (`partials.landing-nav-js`).
+- **Control de Calidad y Pruebas:**
+  - Se agregaron aserciones en `ServiceDetailTest.php` comprobando la presencia del navbar flotante, CTA de proyecto, copyright y firma Kosta Studio Films (3/3 tests, 23 aserciones en verde).
+  - Laravel Pint validado sin errores (`119/119 passed`).
+  - Verificación visual completa mediante subagente de navegador en `http://localhost:8000/servicios/desarrollo-web`, confirmando el renderizado nítido del header y footer.
+
 ### 2026-09-22 - Actualización de Tags Tech y Páginas Internas Dedicadas por Servicio (/servicios/{slug})
 
 - **Actualización de Etiquetas Tecnológicas en Desarrollo Web (`index.blade.php`):**

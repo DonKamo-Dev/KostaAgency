@@ -11,6 +11,7 @@
         <p class="text-xs text-white/30">© {{ date('Y') }} Kosta Studio Films. Todos los derechos reservados.</p>
         <div class="flex items-center gap-6 text-xs text-white/40">
             <a href="{{ route('landing') }}" class="hover:text-white transition-colors @if(request()->routeIs('landing')) text-white/70 @endif">Inicio</a>
+            <a href="/#servicios" class="hover:text-white transition-colors @if(request()->is('servicios*')) text-white/70 @endif">Servicios</a>
             <a href="{{ route('portfolio') }}" class="hover:text-white transition-colors @if(request()->routeIs('portfolio')) text-white/70 @endif">Portafolio</a>
             <a href="{{ route('contact') }}" class="hover:text-white transition-colors @if(request()->routeIs('contact')) text-white/70 @endif">Contacto</a>
         </div>

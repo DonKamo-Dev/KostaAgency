@@ -1,4 +1,4 @@
-<div>
+<div class="bg-dark-gradient min-h-screen relative">
     <!-- SEO / Head Meta via component -->
     <x-slot:title>{{ $service['title'] }} — Kosta Agency</x-slot:title>
 
@@ -118,6 +118,13 @@
             box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6), 0 0 50px rgba(230, 57, 70, 0.15);
         }
     </style>
+
+    <!-- Background orbs -->
+    <div aria-hidden="true" class="fixed top-0 left-1/4 w-[500px] h-[500px] bg-red-accent rounded-full blur-[180px] pointer-events-none animate-pulse-glow opacity-20"></div>
+    <div aria-hidden="true" class="fixed bottom-0 right-1/4 w-[400px] h-[400px] rounded-full blur-[150px] pointer-events-none opacity-15" style="background: var(--accent-red-dark);"></div>
+    <div aria-hidden="true" class="absolute inset-0 grid-pattern pointer-events-none"></div>
+
+    @include('partials.landing-nav')
 
     <!-- ── 1. HERO SECTION ── -->
     <section class="service-detail-hero">
@@ -353,7 +360,7 @@
                     <a href="{{ route('contact', ['servicio' => $service['contact_name']]) }}" wire:navigate class="btn-primary" style="padding:16px 36px;font-size:15px;font-weight:700;">
                         Iniciar Proyecto de {{ $service['title'] }}
                     </a>
-                    <a href="https://wa.me/573000000000?text={{ urlencode('Hola Kosta, me interesa el servicio de ' . $service['title']) }}" target="_blank" rel="noopener noreferrer" class="btn-secondary" style="padding:16px 28px;font-size:15px;font-weight:600;">
+                    <a href="https://wa.me/573113894136?text={{ urlencode('Hola Kosta, me interesa el servicio de ' . $service['title']) }}" target="_blank" rel="noopener noreferrer" class="btn-secondary" style="padding:16px 28px;font-size:15px;font-weight:600;">
                         Hablar por WhatsApp ↗
                     </a>
                 </div>
@@ -399,4 +406,7 @@
             </div>
         </div>
     </section>
+
+    @include('partials.landing-footer')
+    @include('partials.landing-nav-js')
 </div>

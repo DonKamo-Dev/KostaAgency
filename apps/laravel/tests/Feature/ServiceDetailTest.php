@@ -37,6 +37,12 @@ class ServiceDetailTest extends TestCase
         $response->assertSee('Laravel');
         $response->assertSee('PHP');
         $response->assertSee('Solicitar Cotización');
+
+        // Header and Footer assertions
+        $response->assertSee('floating-site-nav');
+        $response->assertSee('Empezar proyecto');
+        $response->assertSee('Todos los derechos reservados');
+        $response->assertSee('Kosta Studio Films');
     }
 
     public function test_invalid_service_slug_returns_404(): void

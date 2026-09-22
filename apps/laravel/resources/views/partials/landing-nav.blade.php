@@ -47,7 +47,7 @@
             </a>
 
             <div class="hidden md:flex items-center gap-8">
-                <a href="/#servicios" class="nav-link text-sm">Servicios</a>
+                <a href="/#servicios" class="nav-link text-sm" @if(request()->is('servicios*')) style="color:#fff;" @endif>Servicios</a>
                 <a href="{{ route('portfolio') }}" class="nav-link text-sm" @if(request()->routeIs('portfolio')) style="color:#fff;" @endif>Portafolio</a>
                 <a href="{{ route('contact') }}" class="nav-link text-sm" @if(request()->routeIs('contact')) style="color:#fff;" @endif>Contacto</a>
             </div>
@@ -96,7 +96,7 @@
         <div class="mobile-drawer-body">
             <nav class="flex flex-col">
                 <a href="{{ route('landing') }}" class="mobile-nav-link" @if(request()->routeIs('landing')) style="color:var(--accent-red)" @endif>Inicio</a>
-                <a href="/#servicios" class="mobile-nav-link">Servicios</a>
+                <a href="/#servicios" class="mobile-nav-link" @if(request()->is('servicios*')) style="color:var(--accent-red)" @endif>Servicios</a>
                 <a href="{{ route('portfolio') }}" class="mobile-nav-link" @if(request()->routeIs('portfolio')) style="color:var(--accent-red)" @endif>Portafolio</a>
                 <a href="{{ route('contact') }}" class="mobile-nav-link" @if(request()->routeIs('contact')) style="color:var(--accent-red)" @endif>Contacto</a>
             </nav>
