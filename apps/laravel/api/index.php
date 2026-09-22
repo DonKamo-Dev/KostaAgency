@@ -2,6 +2,10 @@
 
 declare(strict_types=1);
 
+// Prevent PHP deprecation notices from breaking HTTP headers in serverless output
+error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);
+ini_set('display_errors', '0');
+
 // Initialize writable directories in /tmp for Vercel Serverless environment
 $storageDirs = [
     '/tmp/views',
