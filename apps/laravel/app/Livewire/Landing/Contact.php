@@ -21,6 +21,13 @@ class Contact extends Component
 
     public bool $enviado = false;
 
+    public function mount(): void
+    {
+        if (request()->has('servicio')) {
+            $this->servicio = (string) request()->query('servicio');
+        }
+    }
+
     protected array $rules = [
         'nombre' => 'required|min:2|max:100',
         'email' => 'required|email|max:150',

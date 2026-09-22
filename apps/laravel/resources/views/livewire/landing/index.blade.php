@@ -166,6 +166,43 @@
             color: rgba(255, 255, 255, 0.85);
         }
 
+        .service-action-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            padding: 12px 18px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #FFFFFF;
+            font-size: 13.5px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .service-card:hover .service-action-btn {
+            border-color: rgba(230, 57, 70, 0.35);
+            background: rgba(230, 57, 70, 0.09);
+        }
+        .service-action-btn:hover {
+            background: rgba(230, 57, 70, 0.22) !important;
+            border-color: rgba(230, 57, 70, 0.6) !important;
+            box-shadow: 0 6px 20px rgba(230, 57, 70, 0.25);
+            transform: translateY(-2px);
+        }
+        .service-action-arrow {
+            width: 16px;
+            height: 16px;
+            color: rgba(255, 255, 255, 0.6);
+            transition: transform 0.3s ease, color 0.3s ease;
+            flex-shrink: 0;
+        }
+        .service-action-btn:hover .service-action-arrow {
+            transform: translateX(4px);
+            color: #FFFFFF;
+        }
+
         /* ===== COMPARISON SECTION (SIN KOSTA VS CON KOSTA) ===== */
         .comparison-card-kosta {
             background:
@@ -525,12 +562,60 @@
             <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
                 @php
                     $services = [
-                        ['pillar' => '01 · Desarrollo Web', 'title' => 'Desarrollo Web', 'desc' => 'Sitios web premium con UX/UI excepcional. Landing pages que convierten, sitios corporativos y plataformas custom.', 'icon' => 'M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z', 'tags' => ['Next.js', 'Laravel', 'Headless CMS']],
-                        ['pillar' => '01 · Desarrollo Web', 'title' => 'E-commerce', 'desc' => 'Tiendas virtuales optimizadas para conversión. Shopify, WooCommerce o soluciones custom de alto rendimiento.', 'icon' => 'M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z', 'tags' => ['Shopify', 'WooCommerce', 'Custom']],
-                        ['pillar' => '02 · Films', 'title' => 'Films & Contenido', 'desc' => 'Producción audiovisual profesional: reels, videos corporativos, motion graphics y relatos que conectan con tu audiencia.', 'icon' => 'M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664zM21 12a9 9 0 11-18 0 9 9 0 0118 0z', 'tags' => ['Reels', 'Motion', 'Storytelling']],
-                        ['pillar' => '03 · Estrategia', 'title' => 'Estrategia Digital', 'desc' => 'Definimos la ruta de crecimiento, optimizamos procesos y convertimos objetivos de negocio en decisiones accionables.', 'icon' => 'M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z', 'tags' => ['Strategy', 'Audit', 'Growth']],
-                        ['pillar' => '03 · Estrategia', 'title' => 'Performance Marketing', 'desc' => 'Campañas en Meta Ads, Google Ads y TikTok guiadas por datos para maximizar el retorno de cada inversión.', 'icon' => 'M13 7h8m0 0v8m0-8l-8 8-4-4-6 6', 'tags' => ['Meta Ads', 'Google Ads', 'Analytics']],
-                        ['pillar' => '04 · Diseño & Branding', 'title' => 'Diseño & Branding', 'desc' => 'Identidad visual completa, logos distintivos, sistemas de marca y piezas que comunican la esencia de tu negocio.', 'icon' => 'M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01', 'tags' => ['Logo', 'Identidad', 'Brand Guidelines']],
+                        [
+                            'slug' => 'desarrollo-web',
+                            'pillar' => '01 · Desarrollo Web',
+                            'title' => 'Desarrollo Web',
+                            'desc' => 'Sitios web premium con UX/UI excepcional. Landing pages que convierten, sitios corporativos y plataformas custom.',
+                            'icon' => 'M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z',
+                            'tags' => ['WordPress', 'React', 'Laravel', 'PHP'],
+                            'btn' => 'Explorar Desarrollo Web',
+                        ],
+                        [
+                            'slug' => 'ecommerce',
+                            'pillar' => '01 · Desarrollo Web',
+                            'title' => 'E-commerce',
+                            'desc' => 'Tiendas virtuales optimizadas para conversión. Shopify, WooCommerce o soluciones custom de alto rendimiento.',
+                            'icon' => 'M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z',
+                            'tags' => ['Shopify', 'WooCommerce', 'Custom'],
+                            'btn' => 'Explorar E-commerce',
+                        ],
+                        [
+                            'slug' => 'films-contenido',
+                            'pillar' => '02 · Films',
+                            'title' => 'Films & Contenido',
+                            'desc' => 'Producción audiovisual profesional: reels, videos corporativos, motion graphics y relatos que conectan con tu audiencia.',
+                            'icon' => 'M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664zM21 12a9 9 0 11-18 0 9 9 0 0118 0z',
+                            'tags' => ['Reels', 'Motion', 'Storytelling'],
+                            'btn' => 'Conocer Producción & Films',
+                        ],
+                        [
+                            'slug' => 'estrategia-digital',
+                            'pillar' => '03 · Estrategia',
+                            'title' => 'Estrategia Digital',
+                            'desc' => 'Definimos la ruta de crecimiento, optimizamos procesos y convertimos objetivos de negocio en decisiones accionables.',
+                            'icon' => 'M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z',
+                            'tags' => ['Strategy', 'Audit', 'Growth'],
+                            'btn' => 'Conocer Estrategia Digital',
+                        ],
+                        [
+                            'slug' => 'performance-marketing',
+                            'pillar' => '03 · Estrategia',
+                            'title' => 'Performance Marketing',
+                            'desc' => 'Campañas en Meta Ads, Google Ads y TikTok guiadas por datos para maximizar el retorno de cada inversión.',
+                            'icon' => 'M13 7h8m0 0v8m0-8l-8 8-4-4-6 6',
+                            'tags' => ['Meta Ads', 'Google Ads', 'Analytics'],
+                            'btn' => 'Ver Performance & Pauta',
+                        ],
+                        [
+                            'slug' => 'diseno-branding',
+                            'pillar' => '04 · Diseño & Branding',
+                            'title' => 'Diseño & Branding',
+                            'desc' => 'Identidad visual completa, logos distintivos, sistemas de marca y piezas que comunican la esencia de tu negocio.',
+                            'icon' => 'M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01',
+                            'tags' => ['Logo', 'Identidad', 'Brand Guidelines'],
+                            'btn' => 'Explorar Diseño & Branding',
+                        ],
                     ];
                 @endphp
 
@@ -544,10 +629,18 @@
                         <span class="service-pillar">{{ $service['pillar'] }}</span>
                         <h3 class="service-title">{{ $service['title'] }}</h3>
                         <p class="service-desc">{{ $service['desc'] }}</p>
-                        <div class="service-tags">
+                        <div class="service-tags" style="margin-bottom: 24px;">
                             @foreach($service['tags'] as $tag)
                                 <span class="service-tag">{{ $tag }}</span>
                             @endforeach
+                        </div>
+                        <div class="service-action-wrap" style="margin-top: auto; padding-top: 18px; border-top: 1px solid rgba(255,255,255,0.07); position: relative; z-index: 1;">
+                            <a href="{{ route('services.show', $service['slug']) }}" wire:navigate class="service-action-btn">
+                                <span>{{ $service['btn'] }}</span>
+                                <svg class="service-action-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                                </svg>
+                            </a>
                         </div>
                     </article>
                 @endforeach

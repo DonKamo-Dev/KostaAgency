@@ -38,6 +38,37 @@ Ordenados según el plan [2026-09-17-cierre-pendientes-plataforma](docs/superpow
 
 ## Registro de cambios
 
+### 2026-09-22 - Actualización de Tags Tech y Páginas Internas Dedicadas por Servicio (/servicios/{slug})
+
+- **Actualización de Etiquetas Tecnológicas en Desarrollo Web (`index.blade.php`):**
+  - Se sustituyeron las 3 etiquetas originales (`Next.js`, `Laravel`, `Headless CMS`) en la tarjeta de Desarrollo Web por: **WordPress**, **React**, **Laravel** y **PHP**.
+- **Llamadas a la Acción Atractivas en Tarjetas de Servicio:**
+  - Se incorporó un botón de acción estilizado con micro-animaciones en hover (`.service-action-btn`) en cada una de las 6 tarjetas de servicio de la landing principal:
+    - *Desarrollo Web:* `Explorar Desarrollo Web ↗`
+    - *E-commerce:* `Explorar E-commerce ↗`
+    - *Films & Contenido:* `Conocer Producción & Films ↗`
+    - *Estrategia Digital:* `Conocer Estrategia Digital ↗`
+    - *Performance Marketing:* `Ver Performance & Pauta ↗`
+    - *Diseño & Branding:* `Explorar Diseño & Branding ↗`
+  - Cada botón enlaza mediante navegación SPA instantánea (`wire:navigate`) a su página interna dedicada.
+- **Módulo de Detalle de Servicio Público (`/servicios/{slug}`):**
+  - **Componente Livewire:** `App\Livewire\Landing\ServiceDetail` (`apps/laravel/app/Livewire/Landing/ServiceDetail.php`) con catálogo estructurado para los 6 servicios (`desarrollo-web`, `ecommerce`, `films-contenido`, `estrategia-digital`, `performance-marketing`, `diseno-branding`).
+  - **Vista Detallada de Alto Impacto (`service-detail.blade.php`):**
+    - Migas de pan (Breadcrumb) y Badge de pilar editorial (`01 · DESARROLLO WEB`, etc.).
+    - Hero principal con título tipográfico `Syne`, descripción de alcance y 3 métricas de impacto clave.
+    - Rejilla de 4 entregables y beneficios de alto valor con fondo obsidiana y bordes glassmorphism.
+    - Nube de tecnologías y herramientas aplicadas.
+    - Proceso paso a paso en 4 etapas progresivas con línea de tiempo y acentos en rojo borgoña.
+    - Sección de Casos de Éxito relacionados obtenidos dinámicamente de la base de datos con fallback elegante.
+    - Banner de conversión inferior con botón directo a `/contacto?servicio=...`.
+    - Selector rápido de otros servicios para favorecer la navegación y el SEO interno.
+- **Preselección Reactiva en Formulario de Contacto (`Landing/Contact.php`):**
+  - Se agregó el método `mount()` en el componente de Contacto para detectar el parámetro `?servicio=...` y preseleccionar automáticamente el servicio de interés del visitante.
+- **Control de Calidad y Pruebas:**
+  - Suite de pruebas automatizadas en `ServiceDetailTest.php` (3 pruebas, 19 aserciones superadas).
+  - Formateo de código y estilo con Laravel Pint (119/119 archivos aprobados).
+  - Inspección visual interactiva en navegador verificando la landing, los tags, la animación del botón y el renderizado completo de la página de servicio.
+
 ### 2026-09-22 - Selector de Categorías Estilizado (Custom Select) y Nueva Opción 'Sistema'
 
 - **Selector personalizado moderno (Custom Select con Alpine.js):**

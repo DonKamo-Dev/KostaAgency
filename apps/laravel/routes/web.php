@@ -14,6 +14,7 @@ use App\Livewire\Landing\Bento as LandingBento;
 use App\Livewire\Landing\Contact as LandingContact;
 use App\Livewire\Landing\Index as LandingIndex;
 use App\Livewire\Landing\Portfolio as LandingPortfolio;
+use App\Livewire\Landing\ServiceDetail as LandingServiceDetail;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -48,6 +49,8 @@ Route::get('/contacto', LandingContact::class)->name('contact');
 Route::get('/cv', LandingBento::class)->name('cv');
 Route::get('/kamo', LandingBento::class)->name('kamo');
 Route::get('/perfil', LandingBento::class)->name('perfil');
+Route::get('/servicios/{slug}', LandingServiceDetail::class)->name('services.show');
+Route::redirect('/servicios', '/#servicios')->name('services.landing');
 Route::redirect('/bento', '/kamo');
 Route::view('/privacidad', 'privacy')->name('privacy');
 
