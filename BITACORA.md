@@ -38,6 +38,15 @@ Ordenados según el plan [2026-09-17-cierre-pendientes-plataforma](docs/superpow
 
 ## Registro de cambios
 
+### 2026-09-22 - Corrección de Contraste en Botones Primarios (Portafolio y Contacto)
+
+- **Botón 'Visitar página' en Tarjetas de Portafolio (`portfolio.blade.php`):**
+  - Se corrigió el estilo de `.project-link.visit` para evitar texto blanco sobre fondo blanco (`color: #09090B` sobre `background: #FFFFFF` con borde `#FFFFFF` y hover suave `#E4E4E7`).
+  - Ahora el texto *"Visitar página ↗"* (o *"Visitar red ↗"*) es 100% visible, nítido y con contraste accesible.
+- **Botón de Envío en Contacto (`contact.blade.php`):**
+  - Se ajustó `.btn-submit` y el botón de retorno en pantalla de éxito para mantener texto oscuro (`#000000`) sobre fondo blanco, asegurando legibilidad uniforme.
+- **Control de Calidad:** Validado con Laravel Pint (118/118 archivos aprobados) e inspección visual en navegador.
+
 ### 2026-09-21 - Optimización del Ritmo Vertical y Reducción de Espacios Entre Secciones
 
 - **Tokens de Espaciado Global (`landing.blade.php`):**

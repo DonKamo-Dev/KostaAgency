@@ -59,8 +59,8 @@
         .project-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 2px; }
         .project-link { min-height: 40px; display: inline-flex; align-items: center; justify-content: center; gap: 7px; padding: 0 14px; border-radius: 999px; font-size: 12.5px; font-weight: 700; color: rgba(255,255,255,0.78); text-decoration: none; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.04); transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease, transform 0.2s ease; }
         .project-link:hover { color: #fff; border-color: rgba(230,57,70,0.34); background: rgba(230,57,70,0.12); transform: translateY(-1px); }
-        .project-link.visit { color: #fff; background: var(--accent-red); border-color: var(--accent-red); box-shadow: 0 8px 24px rgba(230,57,70,0.22); }
-        .project-link.visit:hover { background: var(--accent-red-bright); border-color: var(--accent-red-bright); }
+        .project-link.visit { color: #09090B; background: #FFFFFF; border-color: #FFFFFF; box-shadow: 0 4px 16px rgba(255, 255, 255, 0.15); }
+        .project-link.visit:hover { color: #000000; background: #E4E4E7; border-color: #E4E4E7; }
         .project-link svg { width: 14px; height: 14px; flex-shrink: 0; transition: transform 0.2s ease; }
         .project-link:hover svg { transform: translate(2px, -2px); }
 

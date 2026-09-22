@@ -45,8 +45,8 @@
         @media (max-width: 580px) { .form-row { grid-template-columns: 1fr; } }
 
         /* ── Submit button ── */
-        .btn-submit { width: 100%; height: 54px; border-radius: 12px; background: var(--accent-red); border: none; color: #fff; font-size: 15px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: background 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease; box-shadow: 0 4px 20px rgba(230,57,70,0.3); font-family: 'Inter', sans-serif; }
-        .btn-submit:hover:not(:disabled) { background: var(--accent-red-bright); transform: translateY(-1px); box-shadow: 0 8px 28px rgba(230,57,70,0.4); }
+        .btn-submit { width: 100%; height: 54px; border-radius: 12px; background: #FFFFFF; border: none; color: #000000; font-size: 15px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: background 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease; box-shadow: 0 4px 20px rgba(255,255,255,0.15); font-family: 'Inter', sans-serif; }
+        .btn-submit:hover:not(:disabled) { background: #E4E4E7; transform: translateY(-1px); box-shadow: 0 8px 28px rgba(255,255,255,0.25); }
         .btn-submit:disabled { opacity: 0.6; cursor: not-allowed; }
 
         /* ── Success state ── */
@@ -158,7 +158,7 @@
                                 <a href="{{ route('portfolio') }}" class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl border border-white/10 bg-white/05 text-white/70 hover:text-white hover:border-white/20 transition-all text-sm font-medium">
                                     Ver nuestros proyectos
                                 </a>
-                                <a href="{{ route('landing') }}" class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-red-accent text-white text-sm font-semibold hover:bg-accent-red-bright transition-colors" style="background: var(--accent-red);">
+                                <a href="{{ route('landing') }}" class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-white text-zinc-950 text-sm font-semibold hover:bg-zinc-200 transition-colors">
                                     Volver al inicio
                                 </a>
                             </div>
