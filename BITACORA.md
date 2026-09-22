@@ -38,6 +38,19 @@ Ordenados según el plan [2026-09-17-cierre-pendientes-plataforma](docs/superpow
 
 ## Registro de cambios
 
+### 2026-09-22 - Configuración de Despliegue Serverless para Vercel
+
+- **Configuración de Vercel (`vercel.json` y `api/index.php`):**
+  - Se configuró el runtime serverless de PHP (`vercel-php@0.9.0`) para gestionar las peticiones a Laravel a través del puente `apps/laravel/api/index.php`.
+  - Se implementó la inicialización dinámica de directorios en el sistema de archivos efímero (`/tmp/views`, `/tmp/storage/...`) para mitigar las restricciones de solo lectura de AWS Lambda / Vercel.
+  - Se enrutaron los archivos estáticos de Vite (`/build/(.*)` -> `/public/build/$1`), favicon, robots y assets públicos.
+  - En `bootstrap/app.php`, se activó `$app->useStoragePath('/tmp/storage')` de manera condicional al detectar el entorno `VERCEL_ENV`.
+  - Se agregó `.vercelignore` para evitar subir tests, archivos de Docker y temporales locales.
+- **Control de Calidad:**
+  - Build de Vite exitoso (`npm run build`).
+  - Laravel Pint superado (120/120 archivos aprobados).
+  - Pruebas automatizadas en verde (3/3 tests, 23 aserciones).
+
 ### 2026-09-22 - Integración de Header y Footer Idénticos en Páginas Internas de Servicios (/servicios/{slug})
 
 - **Header Global Flotante (`partials.landing-nav`):**
