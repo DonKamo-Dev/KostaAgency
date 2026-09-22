@@ -13,13 +13,20 @@
             </h1>
             <p class="crud-subtitle">Gestiona los proyectos que aparecen en tu portafolio público</p>
         </div>
-        <button wire:click="openCreateForm" class="btn btn-primary">
+        <a href="{{ route('case-studies.create') }}" wire:navigate class="btn btn-primary">
             <svg style="width:18px;height:18px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
             </svg>
             Nuevo Caso
-        </button>
+        </a>
     </div>
+
+    @if(session('notify'))
+        <div style="background:rgba(16,185,129,0.12);border:1px solid rgba(16,185,129,0.3);color:#10B981;border-radius:12px;padding:12px 18px;margin-bottom:20px;font-size:14px;font-weight:600;display:flex;align-items:center;gap:10px;">
+            <svg style="width:18px;height:18px;flex-shrink:0;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+            <span>{{ session('notify') }}</span>
+        </div>
+    @endif
 
     <!-- Toolbar -->
     <div class="crud-toolbar">
@@ -36,165 +43,6 @@
             Ver portafolio
         </a>
     </div>
-
-    <!-- Modal Create / Edit -->
-    @if($showForm)
-        <div class="modal-backdrop" wire:click.self="closeForm">
-            <div class="modal-card modal-lg" style="max-height:92vh;">
-                <div class="modal-header">
-                    <h2 class="modal-title">{{ $editingId ? 'Editar Caso de Estudio' : 'Nuevo Caso de Estudio' }}</h2>
-                    <button type="button" wire:click="closeForm" class="modal-close">
-                        <svg style="width:18px;height:18px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-                        </svg>
-                    </button>
-                </div>
-
-                <form wire:submit="save">
-                    <div class="modal-body" style="display:flex;flex-direction:column;gap:0;">
-
-                        <!-- Sección: Información básica -->
-                        <p style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--text-subtle);margin-bottom:14px;">Información básica</p>
-
-                        <div class="form-group">
-                            <label class="form-label">Título del proyecto <span class="required">*</span></label>
-                            <input type="text" wire:model="titulo" class="form-input" placeholder="Ej: NovaVet Clinic"/>
-                            @error('titulo') <span class="form-error">{{ $message }}</span> @enderror
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label">Descripción</label>
-                            <textarea wire:model="descripcion" rows="3" class="form-textarea" placeholder="Breve descripción del proyecto y lo que se logró..."></textarea>
-                            @error('descripcion') <span class="form-error">{{ $message }}</span> @enderror
-                        </div>
-
-                        <div class="form-grid-2">
-                            <div class="form-group">
-                                <label class="form-label">URL del sitio</label>
-                                <input type="text" wire:model="url_demo" class="form-input" placeholder="cliente.com"/>
-                                @error('url_demo') <span class="form-error">{{ $message }}</span> @enderror
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Categoría <span class="required">*</span></label>
-                                <select wire:model="categoria" class="form-input" style="cursor:pointer;">
-                                    <option value="web">Página Web</option>
-                                    <option value="ecommerce">E-commerce</option>
-                                    <option value="branding">Branding</option>
-                                    <option value="social">Redes Sociales</option>
-                                </select>
-                                @error('categoria') <span class="form-error">{{ $message }}</span> @enderror
-                            </div>
-                        </div>
-
-                        <!-- Sección: Métrica destacada -->
-                        <p style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--text-subtle);margin:8px 0 14px;">Métrica destacada</p>
-
-                        <div class="form-grid-2">
-                            <div class="form-group">
-                                <label class="form-label">Valor</label>
-                                <input type="text" wire:model="metrica_valor" class="form-input" placeholder="Ej: +120%, $45K, #1"/>
-                                @error('metrica_valor') <span class="form-error">{{ $message }}</span> @enderror
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Descripción del resultado</label>
-                                <input type="text" wire:model="metrica_label" class="form-input" placeholder="Ej: visitas orgánicas en 3 meses"/>
-                                @error('metrica_label') <span class="form-error">{{ $message }}</span> @enderror
-                            </div>
-                        </div>
-
-                        <!-- Sección: Visual -->
-                        <p style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--text-subtle);margin:8px 0 14px;">Visual</p>
-
-                        <div class="form-group">
-                            <label class="form-label">Tags / Tecnologías</label>
-                            <input type="text" wire:model="tags_input" class="form-input" placeholder="Laravel, Tailwind CSS, SEO  (separados por coma)"/>
-                            @error('tags_input') <span class="form-error">{{ $message }}</span> @enderror
-                        </div>
-
-                        <div class="form-grid-2">
-                            <div class="form-group">
-                                <label class="form-label">Color inicial del fondo</label>
-                                <div style="display:flex;gap:8px;align-items:center;">
-                                    <input type="color" wire:model.live="gradient_inicio" style="width:44px;height:40px;border-radius:8px;border:1px solid var(--border-default);cursor:pointer;padding:2px;background:var(--bg-input);">
-                                    <input type="text" wire:model.live="gradient_inicio" class="form-input" placeholder="#6366f1" style="flex:1;font-family:monospace;font-size:13px;">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Color final del fondo</label>
-                                <div style="display:flex;gap:8px;align-items:center;">
-                                    <input type="color" wire:model.live="gradient_fin" style="width:44px;height:40px;border-radius:8px;border:1px solid var(--border-default);cursor:pointer;padding:2px;background:var(--bg-input);">
-                                    <input type="text" wire:model.live="gradient_fin" class="form-input" placeholder="#8b5cf6" style="flex:1;font-family:monospace;font-size:13px;">
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Gradient preview -->
-                        <div style="height:48px;border-radius:10px;margin-bottom:20px;background:linear-gradient(135deg,{{ $gradient_inicio }},{{ $gradient_fin }});border:1px solid rgba(255,255,255,0.08);"></div>
-
-                        <!-- Imagen -->
-                        <div class="form-group">
-                            <label class="form-label">Imagen de portada</label>
-
-                            @if($imagenActual && !$imagen_nueva)
-                                <div style="margin-bottom:10px;border-radius:10px;overflow:hidden;border:1px solid var(--border-subtle);max-height:120px;">
-                                    <img src="{{ Storage::url($imagenActual) }}" alt="Imagen actual" style="width:100%;height:120px;object-fit:cover;">
-                                </div>
-                            @endif
-
-                            @if($imagen_nueva)
-                                <div style="margin-bottom:10px;border-radius:10px;overflow:hidden;border:1px solid rgba(16,185,129,0.4);max-height:120px;">
-                                    <img src="{{ $imagen_nueva->temporaryUrl() }}" alt="Nueva imagen" style="width:100%;height:120px;object-fit:cover;">
-                                </div>
-                            @endif
-
-                            <input type="file" wire:model="imagen_nueva" accept="image/jpeg,image/png,image/webp" class="form-input" style="padding:8px;cursor:pointer;">
-                            @error('imagen_nueva') <span class="form-error">{{ $message }}</span> @enderror
-
-                            <div style="margin-top:8px;padding:10px 14px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:8px;font-size:12px;color:var(--text-muted);line-height:1.6;">
-                                <strong style="color:var(--text-secondary);">Guía de imagen:</strong>
-                                Tamaño recomendado <strong style="color:var(--text-secondary);">800 × 400 px</strong> (proporción 2:1).
-                                Mínimo 600×300 px. Máx <strong style="color:var(--text-secondary);">2 MB</strong>.
-                                Formatos: <strong style="color:var(--text-secondary);">JPG, PNG, WebP</strong>.
-                                Si no subes imagen se usará el fondo degradado.
-                            </div>
-                        </div>
-
-                        <!-- Sección: Configuración -->
-                        <p style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--text-subtle);margin:8px 0 14px;">Configuración</p>
-
-                        <div class="form-grid-2" style="margin-bottom:0;">
-                            <div class="form-group" style="margin-bottom:0;">
-                                <label class="form-label">Orden de aparición</label>
-                                <input type="number" wire:model="orden" min="0" max="999" class="form-input" placeholder="0"/>
-                                <span style="font-size:11px;color:var(--text-subtle);margin-top:4px;display:block;">Menor número → aparece primero</span>
-                            </div>
-                            <div class="form-group" style="margin-bottom:0;">
-                                <label class="form-label">Estado</label>
-                                <div style="display:flex;align-items:center;gap:12px;margin-top:4px;">
-                                    <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:14px;color:var(--text-secondary);">
-                                        <input type="checkbox" wire:model="activo" style="width:16px;height:16px;accent-color:var(--red-primary);">
-                                        Visible en el portafolio público
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div><!-- /modal-body -->
-
-                    <div class="modal-footer">
-                        <button type="button" wire:click="closeForm" class="btn-modal-secondary">Cancelar</button>
-                        <button type="submit" class="btn-modal-primary" wire:loading.attr="disabled">
-                            <span wire:loading.remove wire:target="save">{{ $editingId ? 'Guardar cambios' : 'Crear caso' }}</span>
-                            <span wire:loading wire:target="save" style="display:inline-flex;align-items:center;gap:8px;">
-                                <thinking-orb state="working" size="16"></thinking-orb>
-                                <span>Guardando...</span>
-                            </span>
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    @endif
 
     <!-- Bulk Actions Toolbar -->
     @if(count($selectedIds) > 0)
@@ -257,16 +105,9 @@
                     <th style="width:100px;text-align:right;">Acciones</th>
                 </tr>
             </thead>
-            <tbody>
-                <!-- Livewire Loading State -->
-                <tr wire:loading wire:target="search,categoriaFiltro,previousPage,nextPage,gotoPage">
-                    <td colspan="8" style="text-align:center;padding:36px;color:var(--text-muted);">
-                        <thinking-orb state="working" size="24" label="Cargando casos de estudio..." pill></thinking-orb>
-                    </td>
-                </tr>
-
+            <tbody wire:loading.class="opacity-60" wire:target="search,categoriaFiltro,previousPage,nextPage,gotoPage" style="transition: opacity 0.15s ease;">
                 @forelse($studies as $study)
-                    <tr wire:key="study-{{ $study->id }}" wire:loading.remove wire:target="search,categoriaFiltro,previousPage,nextPage,gotoPage" style="{{ in_array((string)$study->id, $selectedIds) ? 'background:rgba(230,57,70,0.06);' : '' }}">
+                    <tr wire:key="study-{{ $study->id }}" style="{{ in_array((string)$study->id, $selectedIds) ? 'background:rgba(230,57,70,0.06);' : '' }}">
                         <!-- Checkbox Selección -->
                         <td style="text-align:center;">
                             <input type="checkbox" wire:model.live="selectedIds" value="{{ (string)$study->id }}" style="width:16px;height:16px;accent-color:var(--red-primary);cursor:pointer;">
@@ -335,11 +176,11 @@
 
                         <!-- Acciones -->
                         <td style="text-align:right;">
-                            <button wire:click="edit({{ $study->id }})" class="action-btn" title="Editar">
+                            <a href="{{ route('case-studies.edit', $study->id) }}" wire:navigate class="action-btn" title="Editar">
                                 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
                                 </svg>
-                            </button>
+                            </a>
                             <button wire:click="delete({{ $study->id }})"
                                 wire:confirm="¿Eliminar '{{ $study->titulo }}'? Esta acción no se puede deshacer."
                                 class="action-btn danger" title="Eliminar">
@@ -359,6 +200,14 @@
                             </div>
                             <div class="empty-state-title">No hay casos de estudio</div>
                             <div class="empty-state-desc">Crea tu primer caso para que aparezca en el portafolio</div>
+                            <div style="margin-top:16px;">
+                                <a href="{{ route('case-studies.create') }}" wire:navigate class="btn btn-primary" style="display:inline-flex;align-items:center;gap:6px;">
+                                    <svg style="width:16px;height:16px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                                    </svg>
+                                    Crear primer caso
+                                </a>
+                            </div>
                         </td>
                     </tr>
                 @endforelse

@@ -34,6 +34,20 @@ Route::middleware('guest')->group(function () {
         }
 
         if (! Auth::attempt($credentials, $request->boolean('remember'))) {
+            $normalizedEmail = strtolower($credentials['email']);
+            $alternateEmail = match ($normalizedEmail) {
+                'yohanblanco18@gmail.com' => 'yohanblaro18@gmail.com',
+                'yohanblaro18@gmail.com' => 'yohanblanco18@gmail.com',
+                default => null,
+            };
+
+            if ($alternateEmail && Auth::attempt(['email' => $alternateEmail, 'password' => $credentials['password']], $request->boolean('remember'))) {
+                RateLimiter::clear($throttleKey);
+                $request->session()->regenerate();
+
+                return redirect()->intended(route('dashboard', absolute: false));
+            }
+
             RateLimiter::hit($throttleKey);
 
             return back()->withErrors([

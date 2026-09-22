@@ -106,8 +106,8 @@
                 <button class="filter-btn active" data-filter="all" aria-pressed="true">Todos</button>
                 <button class="filter-btn" data-filter="web" aria-pressed="false">Páginas Web</button>
                 <button class="filter-btn" data-filter="ecommerce" aria-pressed="false">E-commerce</button>
-                <button class="filter-btn" data-filter="branding" aria-pressed="false">Branding</button>
                 <button class="filter-btn" data-filter="social" aria-pressed="false">Redes Sociales</button>
+                <button class="filter-btn" data-filter="branding" aria-pressed="false">Branding</button>
             </div>
         </div>
     </section>

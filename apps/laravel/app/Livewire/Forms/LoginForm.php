@@ -31,6 +31,19 @@ class LoginForm extends Form
         $this->ensureIsNotRateLimited();
 
         if (! Auth::attempt($this->only(['email', 'password']), $this->remember)) {
+            $normalizedEmail = strtolower($this->email);
+            $alternateEmail = match ($normalizedEmail) {
+                'yohanblanco18@gmail.com' => 'yohanblaro18@gmail.com',
+                'yohanblaro18@gmail.com' => 'yohanblanco18@gmail.com',
+                default => null,
+            };
+
+            if ($alternateEmail && Auth::attempt(['email' => $alternateEmail, 'password' => $this->password], $this->remember)) {
+                RateLimiter::clear($this->throttleKey());
+
+                return;
+            }
+
             RateLimiter::hit($this->throttleKey());
 
             throw ValidationException::withMessages([

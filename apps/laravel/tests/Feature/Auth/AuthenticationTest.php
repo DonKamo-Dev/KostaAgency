@@ -49,6 +49,21 @@ class AuthenticationTest extends TestCase
         $this->assertAuthenticatedAs($user);
     }
 
+    public function test_admin_can_authenticate_with_alternate_blanco_email_alias(): void
+    {
+        $user = User::factory()->create([
+            'email' => 'yohanblaro18@gmail.com',
+            'password' => bcrypt('admin123'),
+        ]);
+
+        $this->post('/login', [
+            'email' => 'yohanblanco18@gmail.com',
+            'password' => 'admin123',
+        ])->assertRedirect(route('dashboard', absolute: false));
+
+        $this->assertAuthenticatedAs($user);
+    }
+
     public function test_users_can_not_authenticate_with_invalid_password(): void
     {
         $user = User::factory()->create();

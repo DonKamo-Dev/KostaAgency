@@ -129,6 +129,18 @@
         }
         @media (min-width: 768px) { .service-title { font-size: 24px; } }
 
+        .service-pillar {
+            display: inline-flex;
+            margin-bottom: 14px;
+            color: rgba(255,255,255,0.42);
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            position: relative;
+            z-index: 1;
+        }
+
         .service-desc {
             color: rgba(255,255,255,0.55);
             font-size: 15px; line-height: 1.65;
@@ -153,6 +165,176 @@
             background: rgba(230, 57, 70, 0.08);
             color: rgba(255, 255, 255, 0.85);
         }
+
+        /* ===== COMPARISON SECTION (SIN KOSTA VS CON KOSTA) ===== */
+        .comparison-card-kosta {
+            background:
+                radial-gradient(ellipse at 15% 0%, rgba(230, 57, 70, 0.32) 0%, transparent 60%),
+                radial-gradient(ellipse at 85% 100%, rgba(230, 57, 70, 0.16) 0%, transparent 50%),
+                linear-gradient(145deg, rgba(46, 17, 23, 0.98) 0%, rgba(24, 11, 14, 0.98) 55%, rgba(14, 8, 10, 0.99) 100%);
+            border: 1px solid rgba(230, 57, 70, 0.38);
+            border-radius: 24px;
+            padding: 40px 32px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            position: relative;
+            box-shadow: 0 24px 60px rgba(230, 57, 70, 0.18), 0 10px 28px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+        .comparison-card-kosta:hover {
+            transform: translateY(-4px);
+            border-color: rgba(230, 57, 70, 0.55);
+            box-shadow: 0 30px 70px rgba(230, 57, 70, 0.28), 0 14px 34px rgba(0, 0, 0, 0.5);
+        }
+        .comparison-card-sin {
+            background: rgba(18, 18, 20, 0.95);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 24px;
+            padding: 40px 32px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            position: relative;
+            box-shadow: 0 12px 36px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease;
+        }
+        .comparison-card-sin:hover {
+            transform: translateY(-4px);
+            border-color: rgba(255, 255, 255, 0.16);
+        }
+        .comparison-badge-kosta {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            border-radius: 999px;
+            background: rgba(230, 57, 70, 0.16);
+            border: 1px solid rgba(230, 57, 70, 0.35);
+            color: #FFFFFF;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.01em;
+            width: fit-content;
+            box-shadow: 0 2px 10px rgba(230, 57, 70, 0.15);
+        }
+        .comparison-badge-sin {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: #A1A1AA;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.01em;
+            width: fit-content;
+        }
+        .comparison-title-kosta {
+            font-family: 'Syne', sans-serif;
+            font-size: 30px;
+            font-weight: 800;
+            color: #FFFFFF;
+            letter-spacing: -0.025em;
+            margin: 18px 0 4px 0;
+            line-height: 1.15;
+        }
+        .comparison-subtitle-kosta {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 13.5px;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 24px;
+            line-height: 1.4;
+        }
+        .comparison-title-sin {
+            font-family: 'Syne', sans-serif;
+            font-size: 30px;
+            font-weight: 800;
+            color: #FFFFFF;
+            letter-spacing: -0.025em;
+            margin: 18px 0 4px 0;
+            line-height: 1.15;
+        }
+        .comparison-subtitle-sin {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 13.5px;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.52);
+            margin-bottom: 24px;
+            line-height: 1.4;
+        }
+        .comparison-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        .comparison-item-kosta {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: rgba(255, 255, 255, 0.84);
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 1.55;
+            letter-spacing: -0.01em;
+        }
+        .comparison-item-kosta strong {
+            font-weight: 600;
+            color: #FFFFFF;
+        }
+        .comparison-item-sin {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: rgba(255, 255, 255, 0.72);
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 1.55;
+            letter-spacing: -0.01em;
+        }
+        .comparison-item-sin strong {
+            font-weight: 600;
+            color: #FFFFFF;
+        }
+        .comp-icon-check {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: rgba(230, 57, 70, 0.22);
+            border: 1px solid rgba(230, 57, 70, 0.38);
+            color: #FF5A68;
+            font-size: 11px;
+            font-weight: 900;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+        .comp-icon-x {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.08);
+            color: rgba(255, 255, 255, 0.75);
+            font-size: 11px;
+            font-weight: 800;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
     </style>
 
     <div aria-hidden="true" class="fixed top-0 left-1/4 w-[500px] h-[500px] bg-red-accent rounded-full blur-[180px] pointer-events-none animate-pulse-glow opacity-30"></div>
@@ -176,12 +358,12 @@
                     </div>
 
                     <h1 id="hero-heading" class="font-display text-white mb-8 animate-fadeInUp delay-100">
-                        Diseño que <span class="text-red-accent">convierte.</span> Estrategia que <span class="text-gradient">escala.</span>
+                        Desarrollo web que <span class="text-red-accent">impulsa.</span> Ideas que <span class="text-gradient">conectan.</span>
                     </h1>
 
                     <p class="text-base sm:text-xl text-white/65 mb-10 max-w-xl leading-relaxed animate-fadeInUp delay-200">
-                        Somos una agencia digital especializada en transformar negocios a través de
-                        <strong class="text-white/90 font-medium">branding poderoso, desarrollo web premium y campañas que generan ROI real.</strong>
+                        Construimos experiencias digitales completas desde cuatro frentes:
+                        <strong class="text-white/90 font-medium">desarrollo web, films, estrategia y diseño &amp; branding.</strong>
                     </p>
 
                     <div class="cta-group mb-8 animate-fadeInUp delay-300">
@@ -329,26 +511,26 @@
         <div aria-hidden="true" class="absolute top-40 right-0 w-96 h-96 rounded-full blur-[150px]" style="background: var(--accent-red-soft);"></div>
 
         <div class="relative max-w-7xl mx-auto container-pad">
-            <div class="max-w-3xl mb-20 sm:mb-24">
+            <div class="max-w-3xl mb-12 sm:mb-16">
                 <span class="eyebrow">Nuestros servicios</span>
                 <h2 id="services-heading" class="font-display text-white mb-8">
-                    Soluciones digitales <span class="text-red-accent">end-to-end</span>
+                    Cuatro disciplinas. <span class="text-red-accent">Una sola visión.</span>
                 </h2>
                 <p class="text-white/60 text-base sm:text-xl leading-relaxed">
-                    Combinamos estrategia, diseño y tecnología para crear experiencias que destacan
-                    y generan resultados medibles para tu negocio.
+                    Empezamos por la tecnología, damos vida a las historias, definimos la dirección
+                    y construimos una identidad capaz de sostener el crecimiento.
                 </p>
             </div>
 
             <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
                 @php
                     $services = [
-                        ['title' => 'Branding & Identidad', 'desc' => 'Identidad visual completa, logos distintivos, sistemas de marca y guías que comunican la esencia de tu negocio.', 'icon' => 'M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01', 'tags' => ['Logo', 'Identidad', 'Brand Guidelines']],
-                        ['title' => 'Desarrollo Web', 'desc' => 'Sitios web premium con UX/UI excepcional. Landing pages que convierten, sitios corporativos y plataformas custom.', 'icon' => 'M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z', 'tags' => ['Next.js', 'Laravel', 'Headless CMS']],
-                        ['title' => 'E-commerce', 'desc' => 'Tiendas virtuales optimizadas para conversión. Shopify, WooCommerce o soluciones custom de alto rendimiento.', 'icon' => 'M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z', 'tags' => ['Shopify', 'WooCommerce', 'Custom']],
-                        ['title' => 'Performance Marketing', 'desc' => 'Campañas en Meta Ads, Google Ads y TikTok. Optimizamos hasta el último centavo para maximizar tu ROI.', 'icon' => 'M13 7h8m0 0v8m0-8l-8 8-4-4-6 6', 'tags' => ['Meta Ads', 'Google Ads', 'Analytics']],
-                        ['title' => 'Contenido & Video', 'desc' => 'Producción audiovisual profesional: reels virales, videos corporativos, motion graphics y estrategia de contenido.', 'icon' => 'M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664zM21 12a9 9 0 11-18 0 9 9 0 0118 0z', 'tags' => ['Reels', 'Motion', 'Storytelling']],
-                        ['title' => 'Consultoría Estratégica', 'desc' => 'Asesoría experta en transformación digital, optimización de procesos y estrategias de crecimiento sostenible.', 'icon' => 'M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z', 'tags' => ['Strategy', 'Audit', 'Growth']],
+                        ['pillar' => '01 · Desarrollo Web', 'title' => 'Desarrollo Web', 'desc' => 'Sitios web premium con UX/UI excepcional. Landing pages que convierten, sitios corporativos y plataformas custom.', 'icon' => 'M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z', 'tags' => ['Next.js', 'Laravel', 'Headless CMS']],
+                        ['pillar' => '01 · Desarrollo Web', 'title' => 'E-commerce', 'desc' => 'Tiendas virtuales optimizadas para conversión. Shopify, WooCommerce o soluciones custom de alto rendimiento.', 'icon' => 'M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z', 'tags' => ['Shopify', 'WooCommerce', 'Custom']],
+                        ['pillar' => '02 · Films', 'title' => 'Films & Contenido', 'desc' => 'Producción audiovisual profesional: reels, videos corporativos, motion graphics y relatos que conectan con tu audiencia.', 'icon' => 'M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664zM21 12a9 9 0 11-18 0 9 9 0 0118 0z', 'tags' => ['Reels', 'Motion', 'Storytelling']],
+                        ['pillar' => '03 · Estrategia', 'title' => 'Estrategia Digital', 'desc' => 'Definimos la ruta de crecimiento, optimizamos procesos y convertimos objetivos de negocio en decisiones accionables.', 'icon' => 'M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z', 'tags' => ['Strategy', 'Audit', 'Growth']],
+                        ['pillar' => '03 · Estrategia', 'title' => 'Performance Marketing', 'desc' => 'Campañas en Meta Ads, Google Ads y TikTok guiadas por datos para maximizar el retorno de cada inversión.', 'icon' => 'M13 7h8m0 0v8m0-8l-8 8-4-4-6 6', 'tags' => ['Meta Ads', 'Google Ads', 'Analytics']],
+                        ['pillar' => '04 · Diseño & Branding', 'title' => 'Diseño & Branding', 'desc' => 'Identidad visual completa, logos distintivos, sistemas de marca y piezas que comunican la esencia de tu negocio.', 'icon' => 'M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01', 'tags' => ['Logo', 'Identidad', 'Brand Guidelines']],
                     ];
                 @endphp
 
@@ -359,6 +541,7 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="{{ $service['icon'] }}"/>
                             </svg>
                         </div>
+                        <span class="service-pillar">{{ $service['pillar'] }}</span>
                         <h3 class="service-title">{{ $service['title'] }}</h3>
                         <p class="service-desc">{{ $service['desc'] }}</p>
                         <div class="service-tags">
@@ -372,12 +555,103 @@
         </div>
     </section>
 
+    <!-- COMPARATIVA: SIN KOSTA VS CON KOSTA -->
+    <section id="diferencia" class="relative section-spacing overflow-hidden" aria-labelledby="comparison-heading" style="scroll-margin-top: 110px;">
+        <div aria-hidden="true" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[380px] rounded-full blur-[180px] pointer-events-none" style="background: radial-gradient(circle, rgba(230, 57, 70, 0.15) 0%, rgba(34, 16, 19, 0.12) 50%, transparent 70%);"></div>
+
+        <div class="relative max-w-7xl mx-auto container-pad">
+            <div class="text-center mb-12 sm:mb-14 max-w-3xl mx-auto">
+                <span class="eyebrow">La diferencia Kosta</span>
+                <h2 id="comparison-heading" class="font-display text-white mb-6">
+                    Una sola agencia integral, <span class="text-red-accent">cero intermediarios</span>
+                </h2>
+                <p class="text-white/65 text-base sm:text-lg leading-relaxed">
+                    Comparativa real entre lidiar con proveedores fragmentados o plataformas cerradas frente a un ecosistema de tecnología, cine, pauta y diseño donde todo te pertenece.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-5xl mx-auto items-stretch">
+                {{-- Tarjeta 1 (Izquierda): Sin Kosta --}}
+                <div class="comparison-card-sin">
+                    <div class="comparison-badge-sin">
+                        <svg width="13" height="13" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                        </svg>
+                        <span>Sin Kosta</span>
+                    </div>
+
+                    <h3 class="comparison-title-sin">Sin Kosta</h3>
+                    <p class="comparison-subtitle-sin">Servicios fragmentados, código rehén y ataduras</p>
+
+                    <ul class="comparison-list">
+                        <li class="comparison-item-sin">
+                            <span class="comp-icon-x">✕</span>
+                            <span><strong>Presencia Digital:</strong> Google no sabe quién eres. Tus clientes tampoco.</span>
+                        </li>
+                        <li class="comparison-item-sin">
+                            <span class="comp-icon-x">✕</span>
+                            <span><strong>Redes & Contenido:</strong> Tener Instagram no significa tener presencia digital.</span>
+                        </li>
+                        <li class="comparison-item-sin">
+                            <span class="comp-icon-x">✕</span>
+                            <span><strong>Estrategia & Pauta:</strong> Sin estrategia, la pauta no es inversión. Es gasto.</span>
+                        </li>
+                        <li class="comparison-item-sin">
+                            <span class="comp-icon-x">✕</span>
+                            <span><strong>Diseño & Branding:</strong> Una marca que se ve amateur termina compitiendo por precio.</span>
+                        </li>
+                        <li class="comparison-item-sin">
+                            <span class="comp-icon-x">✕</span>
+                            <span><strong>Crecimiento Digital:</strong> Si cada canal va por su lado, tu negocio también.</span>
+                        </li>
+                    </ul>
+                </div>
+
+                {{-- Tarjeta 2 (Derecha): Con Kosta --}}
+                <div class="comparison-card-kosta">
+                    <div class="comparison-badge-kosta">
+                        <svg width="13" height="13" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/>
+                        </svg>
+                        <span>Kosta Studio</span>
+                    </div>
+
+                    <h3 class="comparison-title-kosta">Con Kosta</h3>
+                    <p class="comparison-subtitle-kosta">Ecosistema completo y propiedad total de tus activos</p>
+
+                    <ul class="comparison-list">
+                        <li class="comparison-item-kosta">
+                            <span class="comp-icon-check">✓</span>
+                            <span><strong>Presencia Digital:</strong> Hacemos que tu negocio exista donde tus clientes realmente te buscan.</span>
+                        </li>
+                        <li class="comparison-item-kosta">
+                            <span class="comp-icon-check">✓</span>
+                            <span><strong>Redes & Contenido:</strong> Creamos contenido con intención: pensado para atraer, posicionar y convertir.</span>
+                        </li>
+                        <li class="comparison-item-kosta">
+                            <span class="comp-icon-check">✓</span>
+                            <span><strong>Estrategia & Pauta:</strong> Diseñamos campañas con estrategia, seguimiento y optimización real.</span>
+                        </li>
+                        <li class="comparison-item-kosta">
+                            <span class="comp-icon-check">✓</span>
+                            <span><strong>Diseño & Branding:</strong> Construimos una identidad profesional, coherente y fácil de reconocer.</span>
+                        </li>
+                        <li class="comparison-item-kosta">
+                            <span class="comp-icon-check">✓</span>
+                            <span><strong>Crecimiento Digital:</strong> Conectamos branding, contenido, web y pauta para que todo trabaje hacia el mismo objetivo.</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- PROCESS -->
     <section id="proceso" class="relative section-spacing">
         <div class="absolute inset-0" style="background: linear-gradient(180deg, transparent 0%, rgba(230, 57, 70, 0.03) 50%, transparent 100%);"></div>
 
         <div class="relative max-w-7xl mx-auto container-pad">
-            <div class="text-center mb-20 sm:mb-24 max-w-3xl mx-auto">
+            <div class="text-center mb-12 sm:mb-16 max-w-3xl mx-auto">
                 <span class="eyebrow">Nuestro proceso</span>
                 <h2 class="font-display text-white mb-8">
                     De la idea al <span class="text-red-accent">lanzamiento</span>
@@ -424,7 +698,7 @@
     <!-- TESTIMONIALS -->
     <section id="testimonios" class="relative section-spacing">
         <div class="relative max-w-7xl mx-auto container-pad">
-            <div class="text-center mb-20 sm:mb-24 max-w-3xl mx-auto">
+            <div class="text-center mb-12 sm:mb-16 max-w-3xl mx-auto">
                 <span class="eyebrow">Testimonios</span>
                 <h2 class="font-display text-white mb-6">
                     Lo que dicen nuestros <span class="text-red-accent">clientes</span>
@@ -478,7 +752,7 @@
             <h2 class="font-display text-white mb-8">
                 ¿Listo para <span class="text-red-accent">escalar</span> tu negocio?
             </h2>
-            <p class="text-base sm:text-xl text-white/65 mb-12 max-w-2xl mx-auto leading-relaxed">
+            <p class="text-base sm:text-xl text-white/65 mb-8 max-w-2xl mx-auto leading-relaxed">
                 Cuéntanos sobre tu proyecto. Recibirás una propuesta inicial en menos de 48 horas, sin compromiso.
             </p>
 

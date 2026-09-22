@@ -8,6 +8,7 @@ use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\QuoteController;
 use App\Http\Controllers\ServiceController;
+use App\Livewire\CaseStudies\Form as CaseStudiesForm;
 use App\Livewire\CaseStudies\Index as CaseStudiesIndex;
 use App\Livewire\Landing\Bento as LandingBento;
 use App\Livewire\Landing\Contact as LandingContact;
@@ -55,6 +56,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('case-studies', CaseStudiesIndex::class)->name('case-studies.index');
+    Route::get('case-studies/create', CaseStudiesForm::class)->name('case-studies.create');
+    Route::get('case-studies/{caseStudy}/edit', CaseStudiesForm::class)->name('case-studies.edit');
     Route::view('profile', 'profile')->name('profile');
 
     // PDF (compartido por todos los documentos)

@@ -34,8 +34,125 @@ Ordenados según el plan [2026-09-17-cierre-pendientes-plataforma](docs/superpow
 | 3 | Generación de Meta Ads síncrona (sin job en cola) | Retirado | Módulo eliminado a solicitud del usuario |
 | 4 | Reporte de auditoría final `docs/audits/2026-08-23-platform-remediation.md` | Fase 4 | Completada (commit `399089b`) |
 | 5 | Planes/documentación desincronizados | Fase 5 | Completada (commit de cierre) |
+| 6 | Jerarquía editorial landing (Web → Films → Estrategia → Branding) | Landing | Completada |
 
 ## Registro de cambios
+
+### 2026-09-21 - Optimización del Ritmo Vertical y Reducción de Espacios Entre Secciones
+
+- **Tokens de Espaciado Global (`landing.blade.php`):**
+  - Se redujo `--section-spacing` de `140px` a `64px` en escritorio (reduciendo la brecha acumulada entre secciones contiguas de 280px a 128px).
+  - Se redujo `--section-spacing-mobile` de `96px` a `44px` en móviles (reduciendo la brecha de 192px a 88px).
+- **Márgenes de Cabecera Internos (`index.blade.php`):**
+  - Se calibraron los márgenes inferiores de los títulos y textos introductorios en cada sección (`servicios`, `diferencia`, `proceso`, `testimonios` y `contacto`) de `mb-20 sm:mb-24/28` a `mb-12 sm:mb-16`.
+  - El resultado es una navegación mucho más dinámica, cohesiva y continua sin vacíos excesivos de scroll.
+- **Control de Calidad:** Validado con Laravel Pint (118/118 archivos superados) e inspección visual en vivo con el subagente de navegador.
+
+### 2026-09-21 - Comparativa: Estilo Rojo Vino (Navbar), Inversión de Tarjetas y Espaciado Ampliado
+
+- **Paleta y Tonalidad (Rojo Vino / Burgundy del Navbar):**
+  - Se sustituyó el gradiente amarillo/ámbar de la tarjeta "Con Kosta" por el elegante rojo vino/borgoña de la barra de navegación superior (`rgba(46, 17, 23, 0.98)` a `rgba(14, 8, 10, 0.99)` con brillo radial carmesí `rgba(230, 57, 70, 0.32)` y borde sutil `rgba(230, 57, 70, 0.38)`).
+  - Se adaptaron los elementos internos: badge `✨ Kosta Studio` en vidrio carmesí, titular en blanco puro, subtítulo en blanco atenuado y micro-badges de verificación `✓` en rojo carmesí (`#FF5A68`).
+- **Inversión de Posiciones:**
+  - **Lado Izquierdo:** Tarjeta **"Sin Kosta"** (estilo oscuro grafito con iconos `✕` y puntos de dolor).
+  - **Lado Derecho:** Tarjeta **"Con Kosta"** (estilo rojo vino con iconos `✓` y propuesta integral).
+- **Espaciado Superior Ampliado:**
+  - Se incrementó la separación entre el párrafo superior descriptivo y las tarjetas a `mb-20 sm:mb-28` junto con `pt-4 sm:pt-6` en la rejilla para otorgar un flujo visual amplio y despejado.
+  - Se configuró `scroll-margin-top: 110px` en la sección `#diferencia` para evitar solapamientos con el navbar flotante al navegar por ancla.
+- **Control de Calidad:** Validado con Laravel Pint (118/118 archivos aprobados) e inspección visual en navegador.
+
+### 2026-09-21 - Actualización de Copy Comercial en la Comparativa (Con Kosta vs Sin Kosta)
+
+- **Actualización de Textos de Alto Impacto:**
+  - **Tarjeta Izquierda (`Con Kosta`):**
+    - *Presencia Digital:* Hacemos que tu negocio exista donde tus clientes realmente te buscan.
+    - *Redes & Contenido:* Creamos contenido con intención: pensado para atraer, posicionar y convertir.
+    - *Estrategia & Pauta:* Diseñamos campañas con estrategia, seguimiento y optimización real.
+    - *Diseño & Branding:* Construimos una identidad profesional, coherente y fácil de reconocer.
+    - *Crecimiento Digital:* Conectamos branding, contenido, web y pauta para que todo trabaje hacia el mismo objetivo.
+  - **Tarjeta Derecha (`Sin Kosta`):**
+    - *Presencia Digital:* Google no sabe quién eres. Tus clientes tampoco.
+    - *Redes & Contenido:* Tener Instagram no significa tener presencia digital.
+    - *Estrategia & Pauta:* Sin estrategia, la pauta no es inversión. Es gasto.
+    - *Diseño & Branding:* Una marca que se ve amateur termina compitiendo por precio.
+    - *Crecimiento Digital:* Si cada canal va por su lado, tu negocio también.
+- **Auditoría y Definición Tipográfica:**
+  - **Títulos y Encabezados (`h1`, `h2`, `h3`, `.font-display`):** `Syne` (Google Fonts, pesos 400 a 800).
+  - **Cuerpo, Párrafos y Listas (`body`, `p`, `.font-body`, `.comparison-item-*`):** `Inter` (Google Fonts, pesos 300 a 700).
+- **Control de Calidad:** Validado con Laravel Pint (118/118 archivos aprobados) e inspección con subagente de navegador.
+
+### 2026-09-21 - Sección de Alto Impacto: "Sin Kosta Studio vs Con Kosta Studio" en la Landing Principal (/)
+
+- **Componente de Comparación Integral:** Se implementó una nueva sección (`#diferencia`) ubicada estratégicamente entre *Servicios* y *Proceso* para contrastar los 4 servicios de Kosta Studio frente a agencias tradicionales:
+  - **Tarjeta "Sin Kosta Studio":** Tarjeta oscura obsidiana con badge `🔒 Sin Kosta Studio`, titular *"Servicios fragmentados y ataduras"* y 5 puntos de dolor con iconos `✕` abarcando Desarrollo Web (editores cerrados y código rehén), Films & Contenido (video de stock y sin másters), Estrategia & Pauta (presupuesto quemado a ciegas y cuentas ajenas), Diseño & Branding (logos genéricos de plantilla) y Gestión (4 proveedores desconectados).
+  - **Tarjeta "Con Kosta Studio":** Tarjeta destacada en gradiente ámbar/dorado de alto contraste con badge `✨ Con Kosta Studio`, titular *"Ecosistema completo y propiedad total"* y 5 ventajas con iconos `✓` cubriendo Desarrollo Web (código 100% en GitHub propio y libertad de servidor), Films & Contenido (producción audiovisual original y entrega de editables), Estrategia & Pauta (campañas en Meta y Google Ads optimizadas por ROI en tus cuentas), Diseño & Branding (sistemas de marca escalables y UI/UX a medida) y Gestión Integral con IA (un solo equipo ágil multidisciplinario).
+- **Diseño Responsivo:** Rejilla fluida de 2 columnas en escritorio y 1 columna en móviles, con micro-animaciones en hover y tipografía `Syne`.
+- **Verificación:** Validado con renderizado en navegador y pruebas de estilo con Laravel Pint.
+
+- **Esquinas estilizadas (no tan redondas):** Se redujeron radicalmente los radios de curvatura excesivos (de 26px / 22px / 999px) a esquinas arquitectónicas modernas:
+  - Tarjetas y contenedores: `12px` (`--radius-card`).
+  - Botones y acciones: `8px` (`--radius-btn`).
+  - Etiquetas, pills y badges: `6px` (`--radius-badge`).
+  - Marco del avatar de perfil: `16px` (`--radius-avatar`), sustituyendo el círculo burbuja flotante por un marco tech estructurado.
+- **Paleta 100% monocromática blanco y negro:**
+  - Se eliminaron por completo todos los acentos y fondos rojizos/corales (`#E63946`, `#FECDD3`, `#FFF1F2`).
+  - Sistema basado estrictamente en negro obsidiana (`#09090B`), gris carbón (`#121214`), bordes sutiles en zinc (`rgba(255,255,255,0.08)` / `rgba(0,0,0,0.08)`) y blanco puro con alto contraste.
+  - Iconos técnicos y enlaces sociales adaptados a monocromo de alta fidelidad.
+- **Modo oscuro nativo con conmutador claro/oscuro (Dark Mode por defecto):**
+  - Se implementó hidratación temprana antes del primer pintado en el layout `resources/views/layouts/bento.blade.php` para evitar FOUC.
+  - Se integró un botón interactivo en la barra superior con iconos dinámicos de Sol/Luna y persistencia en `localStorage`.
+- **Verificación visual:** Comprobación interactiva en navegador en ambos estados (Dark y Light Mode).
+
+### 2026-09-21 - Tipografía de alto impacto (Syne) en perfil Bento personal (/kamo)
+
+- **Sustitución de Outfit por Syne:** Se reemplazó la fuente `Outfit` por `Syne` (pesos 600, 700 y 800) en los titulares, cabeceras de tarjetas y números destacados en `resources/views/layouts/bento.blade.php` y `resources/views/livewire/landing/bento.blade.php`.
+- **Identidad unificada con Kosta:** Al utilizar `Syne`, la marca personal de Yohan Blanco se alinea estéticamente con el lenguaje de diseño editorial de vanguardia de la landing de Kosta.
+- **Jerarquía y legibilidad mejorada:**
+  - El nombre **Yohan Blanco ⚡** se calibró a 28px con peso 800 y `letter-spacing: -0.03em` para que respire en una sola línea dentro de la columna de bio sin desbordarse.
+  - El rol se transformó en un badge pill estilizado (`WORDPRESS DEVELOPER & DIGITAL MARKETING`) con fondo coral sutil, borde y espaciado en mayúsculas.
+  - Los títulos de las tarjetas del mosaico (*Últimos Proyectos*, *Proyectos & Métricas*, *Conectar*, etc.) ganaron peso, nitidez y carácter de agencia moderna.
+- **Verificación:** Comprobado mediante renderizado en navegador a través de subagente.
+
+### 2026-09-21 - Optimización de Casos de Estudio y estado vacío limpio
+
+- **Eliminación del indicador de carga engorroso:** Se removió la fila `<tr wire:loading>` con `<thinking-orb>` en `resources/views/livewire/case-studies/index.blade.php` que se mostraba en el render inicial y colisionaba con el estado vacío. Ahora se utiliza una transición suave de opacidad en el `<tbody>` (`wire:loading.class="opacity-60"`) sin saltos de maquetación ni elementos atascados.
+- **Purga total de datos de prueba:** Se vació la tabla `case_studies` en MySQL a solicitud del usuario, asegurando que la base de datos no contenga proyectos ficticios.
+- **Estado vacío impecable:** Se verificó que cuando no hay casos de estudio registrados, la interfaz muestra exclusivamente la tarjeta de estado vacío ("No hay casos de estudio - Crea tu primer caso para que aparezca en el portafolio") con su botón de acción directa hacia la página dedicada `/case-studies/create`.
+
+### 2026-09-21 - Corrección definitiva de acceso administrativo y blindaje de pruebas
+
+- **Descubrimiento de causa raíz profunda:** Cada vez que se ejecutaba `php artisan test` dentro del contenedor Docker, Laravel utilizaba las variables de entorno del contenedor (`DB_CONNECTION=mysql`, `DB_DATABASE=kamo_laravel`) en lugar de SQLite, debido a que las variables de Docker tienen precedencia sobre `phpunit.xml`. En consecuencia, el trait `RefreshDatabase` de los tests ejecutaba migraciones y vaciaba (`truncate`/`rollback`) la base de datos MySQL de desarrollo real, borrando al usuario cada vez que corrían los tests.
+- **Blindaje permanente en `TestCase.php` y `phpunit.xml`:** Se sobreescribió `createApplication()` en `tests/TestCase.php` para forzar programáticamente `config(['database.default' => 'sqlite', 'database.connections.sqlite.database' => ':memory:'])`, garantizando que ninguna prueba automatizada vuelva a tocar o borrar la base de datos MySQL local.
+- **Seeding restaurado y verificado:** Se ejecutó `php artisan db:seed --force`, restaurando al administrador (`yohanblaro18@gmail.com` con contraseña `admin123`) y se verificó que tras correr pruebas automatizadas, el usuario permanece intacto en MySQL.
+- **Tolerancia a alias de correo:** Compatibilidad bidireccional en `routes/auth.php` y `LoginForm.php` para que el sistema acepte indistintamente tanto `yohanblaro18@gmail.com` como `yohanblanco18@gmail.com` con la contraseña configurada (`admin123`).
+
+### 2026-09-21 - Módulo de Casos de Estudio: migración de modal a página dedicada
+
+- Se eliminó el modal de creación y edición en la vista principal (`/case-studies`) que presentaba latencia al abrirse (`wire:click="openCreateForm"`).
+- Se implementaron rutas dedicadas `case-studies.create` (`/case-studies/create`) y `case-studies.edit` (`/case-studies/{caseStudy}/edit`) utilizando `wire:navigate` para transiciones instantáneas sin recarga completa del navegador.
+- Se desarrolló el componente Livewire `App\Livewire\CaseStudies\Form` (`apps/laravel/app/Livewire/CaseStudies/Form.php`) y su vista `resources/views/livewire/case-studies/form.blade.php`.
+- Se diseñó un layout ergonómico de 2 columnas:
+  - Columna izquierda: formulario completo con validación reactiva en tiempo real (título, cliente, categoría, métrica destacada, etiquetas, URL y selector de imagen).
+  - Columna derecha: maqueta de tarjeta con cabecera de navegador (live preview) que renderiza de forma reactiva los datos del proyecto, badges, métricas y la imagen seleccionada o existente.
+- Manejo optimizado de carga de archivos mediante `WithFileUploads` con previsualización inmediata y limpieza de archivos anteriores al reemplazar imágenes.
+- Se actualizó `resources/views/livewire/case-studies/index.blade.php`: botones "+ Nuevo Caso" y "Editar" convertidos en enlaces directos con `wire:navigate`, remoción del modal residual y adición de banner flash para retroalimentación visual al guardar o actualizar.
+- Se expandió la suite de pruebas en `CaseStudyTest.php` cubriendo la visita a las rutas `/case-studies/create` y `/case-studies/{id}/edit`, creación con redirección y actualización exitosa.
+- Verificación completa: `php artisan test` (83 pruebas / 306 aserciones en verde), `vendor/bin/pint --test` (0 issues), `npm run test:js` (7 pruebas en verde), `npm run build` (build Vite exitoso) y sesión con navegador confirmando la ausencia de modales y la reactividad del formulario.
+
+### 2026-09-21 - Reorganización de jerarquía editorial de la landing
+
+- Se reestructuró la jerarquía editorial pública de Kosta para que la propuesta de valor y los servicios se presenten de manera consistente en el orden: **Desarrollo Web** → **Films** → **Estrategia** → **Diseño y Branding**.
+- Se reorganizó el catálogo de servicios en la landing principal bajo 4 pilares explícitos sin suprimir servicios:
+  - `01 · Desarrollo Web`: Desarrollo Web y E-commerce.
+  - `02 · Films`: Films & Contenido.
+  - `03 · Estrategia`: Estrategia Digital y Performance Marketing.
+  - `04 · Diseño & Branding`: Diseño & Branding.
+- Se agregó el indicador visual `.service-pillar` en las tarjetas de servicio y se actualizaron el titular y la descripción del Hero.
+- Se actualizaron el `<title>` y `<meta name="description">` en `layouts/landing.blade.php` para reflejar con precisión las cuatro disciplinas.
+- Se ordenaron las opciones del selector de servicios en el formulario de contacto (`/contacto`) siguiendo la misma jerarquía.
+- Se alinearon las pestañas de filtro en el portafolio público (`/portafolio`) con el orden editorial: Todos → Páginas Web → E-commerce → Redes Sociales → Branding.
+- Se amplió la cobertura en `PublicViewsTest` para verificar el orden de los 4 pilares en la página de inicio, el orden de opciones en contacto y el orden de filtros en portafolio.
+- Verificación ejecutada: `php artisan test` (80 pruebas / 293 aserciones en verde), `npm run test:js` (7 pruebas en verde), `npm run build` (build Vite exitoso), `vendor/bin/pint --test` (0 issues).
 
 ### 2026-09-21 - Identidad Kosta, rutas y eliminación recuperable
 

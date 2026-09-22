@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Kosta') }} - Studio Films</title>
+    <title>{{ config('app.name', 'Kosta') }} — Desarrollo Web, Films, Estrategia y Branding</title>
+    <meta name="description" content="Agencia digital especializada en desarrollo web, films y producción audiovisual, estrategia digital y branding de alto impacto.">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -30,8 +31,8 @@
             --text-subtle: rgba(255, 255, 255, 0.32);
             --glass-bg: rgba(255, 255, 255, 0.03);
             --glass-border: rgba(255, 255, 255, 0.08);
-            --section-spacing: 140px;
-            --section-spacing-mobile: 96px;
+            --section-spacing: 64px;
+            --section-spacing-mobile: 44px;
             --container-padding: 24px;
             --container-padding-md: 40px;
             --container-padding-lg: 56px;

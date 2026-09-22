@@ -194,12 +194,13 @@
                                     <label class="field-label" for="servicio">Servicio de interés <span class="req">*</span></label>
                                     <select id="servicio" wire:model.defer="servicio" class="field-select">
                                         <option value="">Selecciona un servicio</option>
-                                        <option value="Diseño Web">Diseño Web</option>
+                                        <option value="Desarrollo Web">Desarrollo Web</option>
                                         <option value="E-commerce">E-commerce</option>
-                                        <option value="Branding">Branding &amp; Identidad</option>
+                                        <option value="Films y Contenido">Films &amp; Contenido</option>
+                                        <option value="Estrategia Digital">Estrategia Digital</option>
+                                        <option value="Performance Marketing">Performance Marketing</option>
+                                        <option value="Diseño y Branding">Diseño &amp; Branding</option>
                                         <option value="Redes Sociales">Redes Sociales</option>
-                                        <option value="Marketing Digital">Marketing Digital</option>
-                                        <option value="Consultoría">Consultoría Estratégica</option>
                                         <option value="Otro">Otro</option>
                                     </select>
                                     @error('servicio') <span class="field-error">{{ $message }}</span> @enderror
