@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Kosta') }} — Desarrollo Web, Films, Estrategia y Branding</title>
-    <meta name="description" content="Agencia digital especializada en desarrollo web, films y producción audiovisual, estrategia digital y branding de alto impacto.">
+    <title>{{ $title ?? __('landing.seo.title') }}</title>
+    <meta name="description" content="{{ $description ?? __('landing.seo.description') }}">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -497,14 +497,14 @@
     </style>
 </head>
 <body class="font-body antialiased bg-dark text-white overflow-x-hidden">
-    <a href="#main" class="skip-link">Saltar al contenido principal</a>
+    <a href="#main" class="skip-link">{{ __('landing.nav.skip_main') }}</a>
     <div id="main">
     {{ $slot }}
     </div>
 
     {{-- Global Thinking Orb HUD --}}
     <div id="global-thinking-hud" class="global-thinking-hud">
-        <thinking-orb state="working" size="20" label="Procesando..." pill></thinking-orb>
+        <thinking-orb state="working" size="20" label="{{ __('landing.nav.hud_processing') }}" pill></thinking-orb>
     </div>
 </body>
 </html>

@@ -37,13 +37,16 @@ class Contact extends Component
         'mensaje' => 'nullable|max:2000',
     ];
 
-    protected array $messages = [
-        'nombre.required' => 'El nombre es obligatorio.',
-        'nombre.min' => 'El nombre debe tener al menos 2 caracteres.',
-        'email.required' => 'El correo electrónico es obligatorio.',
-        'email.email' => 'Ingresa un correo electrónico válido.',
-        'servicio.required' => 'Selecciona un servicio de interés.',
-    ];
+    protected function messages(): array
+    {
+        return [
+            'nombre.required' => __('landing.contact.validation.name_required'),
+            'nombre.min' => __('landing.contact.validation.name_min'),
+            'email.required' => __('landing.contact.validation.email_required'),
+            'email.email' => __('landing.contact.validation.email_valid'),
+            'servicio.required' => __('landing.contact.validation.service_required'),
+        ];
+    }
 
     public function enviar(): void
     {

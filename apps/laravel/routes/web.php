@@ -42,6 +42,18 @@ if (app()->isLocal()) {
     })->name('react.test');
 }
 
+// ── Cambio de idioma ─────────────────────────────────────────────────────────
+Route::get('/locale/{locale}', function (string $locale) {
+    $targetLocale = in_array($locale, \App\Http\Middleware\SetLocale::SUPPORTED, true)
+        ? $locale
+        : config('app.locale', 'es');
+
+    session(['locale' => $targetLocale]);
+    cookie()->queue(cookie()->forever('locale', $targetLocale));
+
+    return redirect()->back();
+})->name('locale.switch');
+
 // ── Pública ──────────────────────────────────────────────────────────────────
 Route::get('/', LandingIndex::class)->name('landing');
 Route::get('/portafolio', LandingPortfolio::class)->name('portfolio');

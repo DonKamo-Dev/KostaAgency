@@ -391,26 +391,26 @@
                             <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-accent opacity-75"></span>
                             <span class="relative inline-flex rounded-full h-2 w-2 bg-red-accent"></span>
                         </span>
-                        <span class="text-xs sm:text-sm text-white/85 font-medium">Aceptando 3 nuevos proyectos en {{ now()->locale('es')->isoFormat('MMMM') }}</span>
+                        <span class="text-xs sm:text-sm text-white/85 font-medium">{{ __('landing.hero.accepting_prefix') }} {{ now()->locale(app()->getLocale())->isoFormat('MMMM') }}</span>
                     </div>
 
                     <h1 id="hero-heading" class="font-display text-white mb-8 animate-fadeInUp delay-100">
-                        Desarrollo web que <span class="text-red-accent">impulsa.</span> Ideas que <span class="text-gradient">conectan.</span>
+                        {{ __('landing.hero.title_prefix') }} <span class="text-red-accent">{{ __('landing.hero.title_highlight_1') }}</span> {{ __('landing.hero.title_middle') }} <span class="text-gradient">{{ __('landing.hero.title_highlight_2') }}</span>
                     </h1>
 
                     <p class="text-base sm:text-xl text-white/65 mb-10 max-w-xl leading-relaxed animate-fadeInUp delay-200">
-                        Construimos experiencias digitales completas desde cuatro frentes:
-                        <strong class="text-white/90 font-medium">desarrollo web, films, estrategia y diseño &amp; branding.</strong>
+                        {{ __('landing.hero.subtitle') }}
+                        <strong class="text-white/90 font-medium">{{ __('landing.hero.subtitle_pillars') }}</strong>
                     </p>
 
                     <div class="cta-group mb-8 animate-fadeInUp delay-300">
                         <a href="#contacto" class="btn-primary">
-                            Empieza tu proyecto
+                            {{ __('landing.hero.cta_start') }}
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
                             </svg>
                         </a>
-                        <a href="#servicios" class="btn-secondary">Ver servicios</a>
+                        <a href="#servicios" class="btn-secondary">{{ __('landing.hero.cta_services') }}</a>
                     </div>
 
                     <div class="flex flex-wrap items-center gap-8 animate-fadeInUp delay-400">
@@ -422,14 +422,14 @@
                                 <div class="w-9 h-9 rounded-full border-2 border-black bg-white/10 backdrop-blur flex items-center justify-center text-xs font-bold text-white">+47</div>
                             </div>
                             <div>
-                                <div class="flex items-center gap-1" aria-label="5 estrellas">
+                                <div class="flex items-center gap-1" aria-label="{{ __('landing.hero.stars_aria') }}">
                                     @for($i = 0; $i < 5; $i++)
                                         <svg class="w-4 h-4 text-red-accent" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
                                             <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.176 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
                                         </svg>
                                     @endfor
                                 </div>
-                                <p class="text-xs text-white/55 mt-1">50+ clientes satisfechos</p>
+                                <p class="text-xs text-white/55 mt-1">{{ __('landing.hero.satisfied_clients') }}</p>
                             </div>
                         </div>
                     </div>
@@ -449,26 +449,26 @@
 
                             <div class="grid grid-cols-2 gap-3 mb-4">
                                 <div class="p-4 rounded-xl bg-white/5 border border-white/5">
-                                    <div class="text-xs text-white/50 mb-1 uppercase tracking-wider">Conversiones</div>
+                                    <div class="text-xs text-white/50 mb-1 uppercase tracking-wider">{{ __('landing.hero.mockup_conversions') }}</div>
                                     <div class="font-display text-2xl font-bold text-white">+247%</div>
                                     <div class="text-xs text-red-accent mt-1 flex items-center gap-1">
                                         <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 10l5-5 5 5H5z"/></svg>
-                                        vs. mes anterior
+                                        {{ __('landing.hero.mockup_vs_last_month') }}
                                     </div>
                                 </div>
                                 <div class="p-4 rounded-xl bg-white/5 border border-white/5">
-                                    <div class="text-xs text-white/50 mb-1 uppercase tracking-wider">ROI</div>
+                                    <div class="text-xs text-white/50 mb-1 uppercase tracking-wider">{{ __('landing.hero.mockup_roi') }}</div>
                                     <div class="font-display text-2xl font-bold text-white">4.8x</div>
                                     <div class="text-xs text-red-accent mt-1 flex items-center gap-1">
                                         <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 10l5-5 5 5H5z"/></svg>
-                                        Retorno
+                                        {{ __('landing.hero.mockup_return') }}
                                     </div>
                                 </div>
                             </div>
 
                             <div class="p-4 rounded-xl bg-white/5 border border-white/5">
                                 <div class="flex items-center justify-between mb-3">
-                                    <span class="text-xs text-white/60 font-medium">Crecimiento mensual</span>
+                                    <span class="text-xs text-white/60 font-medium">{{ __('landing.hero.mockup_monthly_growth') }}</span>
                                     <span class="text-xs text-red-accent font-bold">↗ 127%</span>
                                 </div>
                                 <div class="flex items-end gap-2 h-24">
@@ -491,8 +491,8 @@
                                     </svg>
                                 </div>
                                 <div>
-                                    <div class="text-sm font-semibold text-white">Proyecto entregado</div>
-                                    <div class="text-xs text-white/50">Hace 2 minutos</div>
+                                    <div class="text-sm font-semibold text-white">{{ __('landing.hero.mockup_project_delivered') }}</div>
+                                    <div class="text-xs text-white/50">{{ __('landing.hero.mockup_time_ago') }}</div>
                                 </div>
                             </div>
                         </div>
@@ -503,10 +503,10 @@
     </section>
 
     <!-- LOGO CLOUD -->
-    <section class="relative py-6 sm:py-8 border-y border-white/5" aria-label="Marcas que confían en nosotros">
+    <section class="relative py-6 sm:py-8 border-y border-white/5" aria-label="{{ __('landing.brands.eyebrow') }}">
         <div class="max-w-7xl mx-auto container-pad">
             <p class="text-center text-xs font-semibold text-white/40 uppercase tracking-[0.2em] mb-10">
-                Marcas que confían en nosotros
+                {{ __('landing.brands.eyebrow') }}
             </p>
             <div class="flex flex-wrap items-center justify-center gap-x-10 gap-y-8 sm:gap-x-16">
                 <span class="logo-item">Lumina</span>
@@ -520,28 +520,29 @@
     </section>
 
     <!-- STATS -->
-    <section class="stats-section section-spacing" aria-label="Resultados">
+    <section class="stats-section section-spacing" aria-label="{{ __('landing.stats.delivered_projects_label') }}">
         <div class="relative max-w-7xl mx-auto container-pad">
             <div class="grid grid-cols-2 md:grid-cols-4 gap-12 md:gap-8 lg:gap-12">
                 <div class="text-center">
-                    <div class="stats-number">150+</div>
-                    <div class="stats-label mt-3">Proyectos entregados</div>
+                    <div class="stats-number">{{ __('landing.stats.delivered_projects') }}</div>
+                    <div class="stats-label mt-3">{{ __('landing.stats.delivered_projects_label') }}</div>
                 </div>
                 <div class="text-center">
-                    <div class="stats-number">98%</div>
-                    <div class="stats-label mt-3">Clientes satisfechos</div>
+                    <div class="stats-number">{{ __('landing.stats.satisfied_rate') }}</div>
+                    <div class="stats-label mt-3">{{ __('landing.stats.satisfied_rate_label') }}</div>
                 </div>
                 <div class="text-center">
-                    <div class="stats-number">$2.5M+</div>
-                    <div class="stats-label mt-3">Generados para clientes</div>
+                    <div class="stats-number">{{ __('landing.stats.generated_revenue') }}</div>
+                    <div class="stats-label mt-3">{{ __('landing.stats.generated_revenue_label') }}</div>
                 </div>
                 <div class="text-center">
-                    <div class="stats-number">8 años</div>
-                    <div class="stats-label mt-3">Construyendo marcas</div>
+                    <div class="stats-number">{{ __('landing.stats.years_building') }}</div>
+                    <div class="stats-label mt-3">{{ __('landing.stats.years_building_label') }}</div>
                 </div>
             </div>
         </div>
     </section>
+
 
     <!-- SERVICES -->
     <section id="servicios" class="relative section-spacing" aria-labelledby="services-heading">
@@ -549,74 +550,18 @@
 
         <div class="relative max-w-7xl mx-auto container-pad">
             <div class="max-w-3xl mb-12 sm:mb-16">
-                <span class="eyebrow">Nuestros servicios</span>
+                <span class="eyebrow">{{ __('landing.services.eyebrow') }}</span>
                 <h2 id="services-heading" class="font-display text-white mb-8">
-                    Cuatro disciplinas. <span class="text-red-accent">Una sola visión.</span>
+                    {{ __('landing.services.title_prefix') }} <span class="text-red-accent">{{ __('landing.services.title_highlight') }}</span>
                 </h2>
                 <p class="text-white/60 text-base sm:text-xl leading-relaxed">
-                    Empezamos por la tecnología, damos vida a las historias, definimos la dirección
-                    y construimos una identidad capaz de sostener el crecimiento.
+                    {{ __('landing.services.subtitle') }}
                 </p>
             </div>
 
             <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
                 @php
-                    $services = [
-                        [
-                            'slug' => 'desarrollo-web',
-                            'pillar' => '01 · Desarrollo Web',
-                            'title' => 'Desarrollo Web',
-                            'desc' => 'Sitios web premium con UX/UI excepcional. Landing pages que convierten, sitios corporativos y plataformas custom.',
-                            'icon' => 'M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z',
-                            'tags' => ['WordPress', 'React', 'Laravel', 'PHP'],
-                            'btn' => 'Explorar Desarrollo Web',
-                        ],
-                        [
-                            'slug' => 'ecommerce',
-                            'pillar' => '01 · Desarrollo Web',
-                            'title' => 'E-commerce',
-                            'desc' => 'Tiendas virtuales optimizadas para conversión. Shopify, WooCommerce o soluciones custom de alto rendimiento.',
-                            'icon' => 'M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z',
-                            'tags' => ['Shopify', 'WooCommerce', 'Custom'],
-                            'btn' => 'Explorar E-commerce',
-                        ],
-                        [
-                            'slug' => 'films-contenido',
-                            'pillar' => '02 · Films',
-                            'title' => 'Films & Contenido',
-                            'desc' => 'Producción audiovisual profesional: reels, videos corporativos, motion graphics y relatos que conectan con tu audiencia.',
-                            'icon' => 'M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664zM21 12a9 9 0 11-18 0 9 9 0 0118 0z',
-                            'tags' => ['Reels', 'Motion', 'Storytelling'],
-                            'btn' => 'Conocer Producción & Films',
-                        ],
-                        [
-                            'slug' => 'estrategia-digital',
-                            'pillar' => '03 · Estrategia',
-                            'title' => 'Estrategia Digital',
-                            'desc' => 'Definimos la ruta de crecimiento, optimizamos procesos y convertimos objetivos de negocio en decisiones accionables.',
-                            'icon' => 'M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z',
-                            'tags' => ['Strategy', 'Audit', 'Growth'],
-                            'btn' => 'Conocer Estrategia Digital',
-                        ],
-                        [
-                            'slug' => 'performance-marketing',
-                            'pillar' => '03 · Estrategia',
-                            'title' => 'Performance Marketing',
-                            'desc' => 'Campañas en Meta Ads, Google Ads y TikTok guiadas por datos para maximizar el retorno de cada inversión.',
-                            'icon' => 'M13 7h8m0 0v8m0-8l-8 8-4-4-6 6',
-                            'tags' => ['Meta Ads', 'Google Ads', 'Analytics'],
-                            'btn' => 'Ver Performance & Pauta',
-                        ],
-                        [
-                            'slug' => 'diseno-branding',
-                            'pillar' => '04 · Diseño & Branding',
-                            'title' => 'Diseño & Branding',
-                            'desc' => 'Identidad visual completa, logos distintivos, sistemas de marca y piezas que comunican la esencia de tu negocio.',
-                            'icon' => 'M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01',
-                            'tags' => ['Logo', 'Identidad', 'Brand Guidelines'],
-                            'btn' => 'Explorar Diseño & Branding',
-                        ],
-                    ];
+                    $services = \App\Livewire\Landing\ServiceDetail::allServices();
                 @endphp
 
                 @foreach($services as $service)
@@ -628,7 +573,7 @@
                         </div>
                         <span class="service-pillar">{{ $service['pillar'] }}</span>
                         <h3 class="service-title">{{ $service['title'] }}</h3>
-                        <p class="service-desc">{{ $service['desc'] }}</p>
+                        <p class="service-desc">{{ $service['subtitle'] ?? ($service['desc'] ?? '') }}</p>
                         <div class="service-tags" style="margin-bottom: 24px;">
                             @foreach($service['tags'] as $tag)
                                 <span class="service-tag">{{ $tag }}</span>
@@ -636,7 +581,7 @@
                         </div>
                         <div class="service-action-wrap" style="margin-top: auto; padding-top: 18px; border-top: 1px solid rgba(255,255,255,0.07); position: relative; z-index: 1;">
                             <a href="{{ route('services.show', $service['slug']) }}" wire:navigate class="service-action-btn">
-                                <span>{{ $service['btn'] }}</span>
+                                <span>{{ $service['btn_text'] ?? ($service['btn'] ?? '') }}</span>
                                 <svg class="service-action-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
                                 </svg>
@@ -654,12 +599,12 @@
 
         <div class="relative max-w-7xl mx-auto container-pad">
             <div class="text-center mb-12 sm:mb-14 max-w-3xl mx-auto">
-                <span class="eyebrow">La diferencia Kosta</span>
+                <span class="eyebrow">{{ __('landing.comparison.eyebrow') }}</span>
                 <h2 id="comparison-heading" class="font-display text-white mb-6">
-                    Una sola agencia integral, <span class="text-red-accent">cero intermediarios</span>
+                    {{ __('landing.comparison.title_prefix') }} <span class="text-red-accent">{{ __('landing.comparison.title_highlight') }}</span>
                 </h2>
                 <p class="text-white/65 text-base sm:text-lg leading-relaxed">
-                    Comparativa real entre lidiar con proveedores fragmentados o plataformas cerradas frente a un ecosistema de tecnología, cine, pauta y diseño donde todo te pertenece.
+                    {{ __('landing.comparison.subtitle') }}
                 </p>
             </div>
 
@@ -670,32 +615,32 @@
                         <svg width="13" height="13" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
                         </svg>
-                        <span>Sin Kosta</span>
+                        <span>{{ __('landing.comparison.sin_kosta.badge') }}</span>
                     </div>
 
-                    <h3 class="comparison-title-sin">Sin Kosta</h3>
-                    <p class="comparison-subtitle-sin">Servicios fragmentados, código rehén y ataduras</p>
+                    <h3 class="comparison-title-sin">{{ __('landing.comparison.sin_kosta.title') }}</h3>
+                    <p class="comparison-subtitle-sin">{{ __('landing.comparison.sin_kosta.subtitle') }}</p>
 
                     <ul class="comparison-list">
                         <li class="comparison-item-sin">
                             <span class="comp-icon-x">✕</span>
-                            <span><strong>Presencia Digital:</strong> Google no sabe quién eres. Tus clientes tampoco.</span>
+                            <span><strong>{{ __('landing.comparison.sin_kosta.item1_label') }}</strong> {{ __('landing.comparison.sin_kosta.item1_text') }}</span>
                         </li>
                         <li class="comparison-item-sin">
                             <span class="comp-icon-x">✕</span>
-                            <span><strong>Redes & Contenido:</strong> Tener Instagram no significa tener presencia digital.</span>
+                            <span><strong>{{ __('landing.comparison.sin_kosta.item2_label') }}</strong> {{ __('landing.comparison.sin_kosta.item2_text') }}</span>
                         </li>
                         <li class="comparison-item-sin">
                             <span class="comp-icon-x">✕</span>
-                            <span><strong>Estrategia & Pauta:</strong> Sin estrategia, la pauta no es inversión. Es gasto.</span>
+                            <span><strong>{{ __('landing.comparison.sin_kosta.item3_label') }}</strong> {{ __('landing.comparison.sin_kosta.item3_text') }}</span>
                         </li>
                         <li class="comparison-item-sin">
                             <span class="comp-icon-x">✕</span>
-                            <span><strong>Diseño & Branding:</strong> Una marca que se ve amateur termina compitiendo por precio.</span>
+                            <span><strong>{{ __('landing.comparison.sin_kosta.item4_label') }}</strong> {{ __('landing.comparison.sin_kosta.item4_text') }}</span>
                         </li>
                         <li class="comparison-item-sin">
                             <span class="comp-icon-x">✕</span>
-                            <span><strong>Crecimiento Digital:</strong> Si cada canal va por su lado, tu negocio también.</span>
+                            <span><strong>{{ __('landing.comparison.sin_kosta.item5_label') }}</strong> {{ __('landing.comparison.sin_kosta.item5_text') }}</span>
                         </li>
                     </ul>
                 </div>
@@ -706,32 +651,32 @@
                         <svg width="13" height="13" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/>
                         </svg>
-                        <span>Kosta Studio</span>
+                        <span>{{ __('landing.comparison.con_kosta.badge') }}</span>
                     </div>
 
-                    <h3 class="comparison-title-kosta">Con Kosta</h3>
-                    <p class="comparison-subtitle-kosta">Ecosistema completo y propiedad total de tus activos</p>
+                    <h3 class="comparison-title-kosta">{{ __('landing.comparison.con_kosta.title') }}</h3>
+                    <p class="comparison-subtitle-kosta">{{ __('landing.comparison.con_kosta.subtitle') }}</p>
 
                     <ul class="comparison-list">
                         <li class="comparison-item-kosta">
                             <span class="comp-icon-check">✓</span>
-                            <span><strong>Presencia Digital:</strong> Hacemos que tu negocio exista donde tus clientes realmente te buscan.</span>
+                            <span><strong>{{ __('landing.comparison.con_kosta.item1_label') }}</strong> {{ __('landing.comparison.con_kosta.item1_text') }}</span>
                         </li>
                         <li class="comparison-item-kosta">
                             <span class="comp-icon-check">✓</span>
-                            <span><strong>Redes & Contenido:</strong> Creamos contenido con intención: pensado para atraer, posicionar y convertir.</span>
+                            <span><strong>{{ __('landing.comparison.con_kosta.item2_label') }}</strong> {{ __('landing.comparison.con_kosta.item2_text') }}</span>
                         </li>
                         <li class="comparison-item-kosta">
                             <span class="comp-icon-check">✓</span>
-                            <span><strong>Estrategia & Pauta:</strong> Diseñamos campañas con estrategia, seguimiento y optimización real.</span>
+                            <span><strong>{{ __('landing.comparison.con_kosta.item3_label') }}</strong> {{ __('landing.comparison.con_kosta.item3_text') }}</span>
                         </li>
                         <li class="comparison-item-kosta">
                             <span class="comp-icon-check">✓</span>
-                            <span><strong>Diseño & Branding:</strong> Construimos una identidad profesional, coherente y fácil de reconocer.</span>
+                            <span><strong>{{ __('landing.comparison.con_kosta.item4_label') }}</strong> {{ __('landing.comparison.con_kosta.item4_text') }}</span>
                         </li>
                         <li class="comparison-item-kosta">
                             <span class="comp-icon-check">✓</span>
-                            <span><strong>Crecimiento Digital:</strong> Conectamos branding, contenido, web y pauta para que todo trabaje hacia el mismo objetivo.</span>
+                            <span><strong>{{ __('landing.comparison.con_kosta.item5_label') }}</strong> {{ __('landing.comparison.con_kosta.item5_text') }}</span>
                         </li>
                     </ul>
                 </div>
@@ -745,23 +690,24 @@
 
         <div class="relative max-w-7xl mx-auto container-pad">
             <div class="text-center mb-12 sm:mb-16 max-w-3xl mx-auto">
-                <span class="eyebrow">Nuestro proceso</span>
+                <span class="eyebrow">{{ __('landing.process.eyebrow') }}</span>
                 <h2 class="font-display text-white mb-8">
-                    De la idea al <span class="text-red-accent">lanzamiento</span>
+                    {{ __('landing.process.title_prefix') }} <span class="text-red-accent">{{ __('landing.process.title_highlight') }}</span>
                 </h2>
                 <p class="text-white/60 text-base sm:text-lg leading-relaxed">
-                    Un proceso probado que combina estrategia, creatividad y ejecución impecable.
+                    {{ __('landing.process.subtitle') }}
                 </p>
             </div>
 
             <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-12 sm:gap-10 lg:gap-8">
                 @php
-                    $steps = [
-                        ['num' => '01', 'title' => 'Descubrimiento', 'desc' => 'Analizamos tu negocio, audiencia y objetivos para entender el panorama completo.', 'icon' => 'M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z'],
-                        ['num' => '02', 'title' => 'Estrategia', 'desc' => 'Definimos el roadmap creativo y técnico, alineando cada pieza con tus metas.', 'icon' => 'M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4'],
-                        ['num' => '03', 'title' => 'Ejecución', 'desc' => 'Diseñamos y desarrollamos cada pieza con atención meticulosa al detalle.', 'icon' => 'M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z'],
-                        ['num' => '04', 'title' => 'Lanzamiento', 'desc' => 'Desplegamos con soporte continuo y optimización basada en resultados reales.', 'icon' => 'M15.59 14.37a6 6 0 01-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 006.16-12.12A14.98 14.98 0 009.631 8.41m5.96 5.96a14.926 14.926 0 01-5.841 2.58'],
+                    $stepIcons = [
+                        'M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z',
+                        'M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4',
+                        'M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z',
+                        'M15.59 14.37a6 6 0 01-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 006.16-12.12A14.98 14.98 0 009.631 8.41m5.96 5.96a14.926 14.926 0 01-5.841 2.58',
                     ];
+                    $steps = trans('landing.process.steps');
                 @endphp
 
                 @foreach($steps as $i => $step)
@@ -774,7 +720,7 @@
                             <div aria-hidden="true" class="absolute inset-0 rounded-2xl blur-2xl group-hover:blur-3xl transition-all duration-500" style="background: var(--accent-red-glow); opacity: 0.4;"></div>
                             <div class="relative w-full h-full glass-card rounded-2xl flex items-center justify-center" style="border: 1px solid rgba(230, 57, 70, 0.3);">
                                 <svg class="w-8 h-8 text-red-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="{{ $step['icon'] }}"/>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="{{ $stepIcons[$i] ?? '' }}"/>
                                 </svg>
                             </div>
                             <span class="absolute -top-2 -right-2 w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold text-white" style="background: var(--accent-red);">{{ $step['num'] }}</span>
@@ -792,24 +738,20 @@
     <section id="testimonios" class="relative section-spacing">
         <div class="relative max-w-7xl mx-auto container-pad">
             <div class="text-center mb-12 sm:mb-16 max-w-3xl mx-auto">
-                <span class="eyebrow">Testimonios</span>
+                <span class="eyebrow">{{ __('landing.testimonials.eyebrow') }}</span>
                 <h2 class="font-display text-white mb-6">
-                    Lo que dicen nuestros <span class="text-red-accent">clientes</span>
+                    {{ __('landing.testimonials.title_prefix') }} <span class="text-red-accent">{{ __('landing.testimonials.title_highlight') }}</span>
                 </h2>
             </div>
 
             <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
                 @php
-                    $testimonials = [
-                        ['quote' => 'Trabajar con Kosta transformó completamente nuestra presencia digital. Triplicamos las conversiones en 3 meses.', 'name' => 'María González', 'role' => 'CEO, Lumina Studio', 'initial' => 'M'],
-                        ['quote' => 'La atención al detalle y la estrategia detrás de cada decisión es impresionante. Súper recomendados.', 'name' => 'Andrés Pérez', 'role' => 'Founder, Verdex', 'initial' => 'A'],
-                        ['quote' => 'Profesionales de primer nivel. Nos entregaron un sitio que no solo se ve bien, también vende.', 'name' => 'Laura Mendoza', 'role' => 'Marketing Lead, Atlas', 'initial' => 'L'],
-                    ];
+                    $testimonials = trans('landing.testimonials.items');
                 @endphp
 
                 @foreach($testimonials as $t)
                     <figure class="testimonial-card flex flex-col">
-                        <div class="flex items-center gap-1 mb-4" aria-label="5 estrellas">
+                        <div class="flex items-center gap-1 mb-4" aria-label="{{ __('landing.hero.stars_aria') }}">
                             @for($i = 0; $i < 5; $i++)
                                 <svg class="w-4 h-4 text-red-accent" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
                                     <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.176 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
@@ -841,25 +783,25 @@
         <div aria-hidden="true" class="absolute inset-0" style="background: radial-gradient(ellipse at center, var(--accent-red-soft) 0%, transparent 60%);"></div>
 
         <div class="relative max-w-3xl mx-auto container-pad text-center">
-            <span class="eyebrow">Empecemos hoy</span>
+            <span class="eyebrow">{{ __('landing.cta.eyebrow') }}</span>
             <h2 class="font-display text-white mb-8">
-                ¿Listo para <span class="text-red-accent">escalar</span> tu negocio?
+                {{ __('landing.cta.title_prefix') }} <span class="text-red-accent">{{ __('landing.cta.title_highlight') }}</span> {{ __('landing.cta.title_suffix') }}
             </h2>
             <p class="text-base sm:text-xl text-white/65 mb-8 max-w-2xl mx-auto leading-relaxed">
-                Cuéntanos sobre tu proyecto. Recibirás una propuesta inicial en menos de 48 horas, sin compromiso.
+                {{ __('landing.cta.subtitle') }}
             </p>
 
             <div class="cta-group justify-center" style="max-width: 480px; margin: 0 auto;">
                 @auth
                     <a href="{{ route('dashboard') }}" class="btn-primary">
-                        Ir al Dashboard
+                        {{ __('landing.cta.go_dashboard') }}
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
                         </svg>
                     </a>
                 @else
                     <a href="mailto:hola@kosta.studio" class="btn-primary">
-                        Hablemos de tu proyecto
+                        {{ __('landing.cta.btn_project') }}
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
                         </svg>
@@ -868,7 +810,7 @@
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
                         </svg>
-                        Escríbenos
+                        {{ __('landing.cta.btn_write') }}
                     </a>
                 @endauth
             </div>
@@ -876,15 +818,15 @@
             <div class="mt-12 sm:mt-14 flex flex-wrap items-center justify-center gap-x-8 gap-y-4 text-sm text-white/50">
                 <span class="flex items-center gap-2">
                     <svg class="w-4 h-4 text-red-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                    Respuesta en 48h
+                    {{ __('landing.cta.badge_48h') }}
                 </span>
                 <span class="flex items-center gap-2">
                     <svg class="w-4 h-4 text-red-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                    Sin compromiso
+                    {{ __('landing.cta.badge_no_obligation') }}
                 </span>
                 <span class="flex items-center gap-2">
                     <svg class="w-4 h-4 text-red-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                    Propuesta personalizada
+                    {{ __('landing.cta.badge_custom') }}
                 </span>
             </div>
         </div>

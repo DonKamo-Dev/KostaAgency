@@ -134,9 +134,9 @@
         <div class="relative max-w-7xl mx-auto container-pad">
             <!-- Breadcrumbs -->
             <nav style="display:flex;align-items:center;gap:10px;margin-bottom:28px;font-size:13px;color:rgba(255,255,255,0.4);">
-                <a href="{{ route('landing') }}" wire:navigate style="color:rgba(255,255,255,0.6);text-decoration:none;transition:color .2s;">Inicio</a>
+                <a href="{{ route('landing') }}" wire:navigate style="color:rgba(255,255,255,0.6);text-decoration:none;transition:color .2s;">{{ __('services.ui.breadcrumbs_home') }}</a>
                 <span>/</span>
-                <a href="{{ route('landing') }}#servicios" wire:navigate style="color:rgba(255,255,255,0.6);text-decoration:none;transition:color .2s;">Servicios</a>
+                <a href="{{ route('landing') }}#servicios" wire:navigate style="color:rgba(255,255,255,0.6);text-decoration:none;transition:color .2s;">{{ __('services.ui.breadcrumbs_services') }}</a>
                 <span>/</span>
                 <span style="color:#FFFFFF;font-weight:600;">{{ $service['title'] }}</span>
             </nav>
@@ -160,13 +160,13 @@
             <!-- Action Buttons -->
             <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:60px;">
                 <a href="{{ route('contact', ['servicio' => $service['contact_name']]) }}" wire:navigate class="btn-primary" style="padding:16px 36px;font-size:15px;font-weight:700;box-shadow:0 10px 30px rgba(255,255,255,0.15);">
-                    Solicitar Cotización de {{ $service['title'] }}
+                    {{ __('services.ui.request_quote', ['service' => $service['title']]) }}
                     <svg style="width:16px;height:16px;margin-left:8px;" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
                     </svg>
                 </a>
                 <a href="{{ route('portfolio') }}" wire:navigate class="btn-secondary" style="padding:16px 28px;font-size:15px;font-weight:600;">
-                    Ver Casos de Éxito
+                    {{ __('services.ui.view_success_cases') }}
                 </a>
             </div>
 
@@ -192,12 +192,12 @@
     <section class="relative section-spacing" style="border-top: 1px solid rgba(255,255,255,0.06);background:rgba(10,10,12,0.4);">
         <div class="relative max-w-7xl mx-auto container-pad">
             <div class="max-w-2xl mb-14">
-                <span class="eyebrow">Alcance & Soluciones</span>
+                <span class="eyebrow">{{ __('services.ui.deliverables_eyebrow') }}</span>
                 <h2 class="font-display text-white mb-6">
-                    Todo lo que incluye nuestro servicio de <span class="text-red-accent">{{ $service['title'] }}</span>
+                    {!! str_replace(':service', '<span class="text-red-accent">' . e($service['title']) . '</span>', e(__('services.ui.deliverables_title', ['service' => ':service']))) !!}
                 </h2>
                 <p class="text-white/60 text-base sm:text-lg leading-relaxed">
-                    Un modelo de entrega estructurado para que obtengas resultados tangibles, sin sorpresas ni costos ocultos.
+                    {{ __('services.ui.deliverables_subtitle') }}
                 </p>
             </div>
 
@@ -230,12 +230,12 @@
     <section class="relative section-spacing" style="border-top: 1px solid rgba(255,255,255,0.06);">
         <div class="relative max-w-7xl mx-auto container-pad">
             <div class="text-center max-w-2xl mx-auto mb-12">
-                <span class="eyebrow">Stack & Herramientas</span>
+                <span class="eyebrow">{{ __('services.ui.stack_eyebrow') }}</span>
                 <h2 class="font-display text-white mb-4">
-                    Tecnología y estándares <span class="text-red-accent">sin compromisos</span>
+                    {{ __('services.ui.stack_title_prefix') }} <span class="text-red-accent">{{ __('services.ui.stack_title_highlight') }}</span>
                 </h2>
                 <p class="text-white/60 text-base leading-relaxed">
-                    Utilizamos herramientas probadas en la industria para garantizar rendimiento, escalabilidad y propiedad total.
+                    {{ __('services.ui.stack_subtitle') }}
                 </p>
             </div>
 
@@ -253,12 +253,12 @@
     <section class="relative section-spacing" style="border-top: 1px solid rgba(255,255,255,0.06);background:rgba(10,10,12,0.5);">
         <div class="relative max-w-7xl mx-auto container-pad">
             <div class="max-w-2xl mb-14">
-                <span class="eyebrow">Metodología Kosta</span>
+                <span class="eyebrow">{{ __('services.ui.process_eyebrow') }}</span>
                 <h2 class="font-display text-white mb-6">
-                    Cómo trabajamos en <span class="text-red-accent">{{ $service['title'] }}</span>
+                    {{ __('services.ui.process_title_prefix') }} <span class="text-red-accent">{{ $service['title'] }}</span>
                 </h2>
                 <p class="text-white/60 text-base sm:text-lg leading-relaxed">
-                    Un proceso iterativo y transparente de 4 fases para garantizar entregas a tiempo y con la máxima calidad.
+                    {{ __('services.ui.process_subtitle') }}
                 </p>
             </div>
 
@@ -285,13 +285,13 @@
         <div class="relative max-w-7xl mx-auto container-pad">
             <div style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:20px;margin-bottom:36px;">
                 <div>
-                    <span class="eyebrow">Casos Reales</span>
+                    <span class="eyebrow">{{ __('services.ui.related_eyebrow') }}</span>
                     <h2 class="font-display text-white">
-                        Resultados en <span class="text-red-accent">{{ $service['title'] }}</span>
+                        {{ __('services.ui.related_title_prefix') }} <span class="text-red-accent">{{ $service['title'] }}</span>
                     </h2>
                 </div>
                 <a href="{{ route('portfolio') }}" wire:navigate class="btn-secondary" style="font-size:14px;padding:10px 20px;">
-                    Ver todos los proyectos ↗
+                    {{ __('services.ui.view_all_projects') }}
                 </a>
             </div>
 
@@ -332,13 +332,13 @@
             @else
                 <div style="background:rgba(18,18,22,0.6);border:1px dashed rgba(255,255,255,0.1);border-radius:18px;padding:48px 24px;text-align:center;">
                     <div style="font-family:'Syne',sans-serif;font-size:18px;font-weight:700;color:#FFFFFF;margin-bottom:8px;">
-                        Proyectos en producción
+                        {{ __('services.ui.empty_related_title') }}
                     </div>
                     <p style="font-size:14px;color:rgba(255,255,255,0.55);max-width:500px;margin:0 auto 20px;">
-                        Estamos finalizando nuevos casos de éxito para este servicio. Conoce nuestras soluciones globales en el portafolio.
+                        {{ __('services.ui.empty_related_desc') }}
                     </p>
                     <a href="{{ route('portfolio') }}" wire:navigate class="btn-primary" style="padding:10px 22px;font-size:13px;">
-                        Explorar Galería Completa
+                        {{ __('services.ui.explore_full_gallery') }}
                     </a>
                 </div>
             @endif
@@ -349,19 +349,19 @@
     <section class="relative section-spacing">
         <div class="relative max-w-7xl mx-auto container-pad">
             <div class="sd-cta-banner text-center max-w-5xl mx-auto">
-                <span class="eyebrow" style="color:rgba(255,255,255,0.7);">Siguiente Paso</span>
+                <span class="eyebrow" style="color:rgba(255,255,255,0.7);">{{ __('services.ui.cta_eyebrow') }}</span>
                 <h2 class="font-display text-white mb-6" style="font-size:clamp(30px, 4.5vw, 50px);line-height:1.15;">
-                    ¿Listo para llevar tu <span class="text-red-accent">{{ $service['title'] }}</span> al siguiente nivel?
+                    {{ __('services.ui.cta_title_prefix') }} <span class="text-red-accent">{{ $service['title'] }}</span> {{ __('services.ui.cta_title_suffix') }}
                 </h2>
                 <p class="text-white/75 text-base sm:text-lg max-w-2xl mx-auto mb-10 leading-relaxed">
-                    Cuéntanos tu reto. Diseñamos una propuesta clara con tiempos, arquitectura y presupuesto transparente en menos de 24 horas.
+                    {{ __('services.ui.cta_subtitle') }}
                 </p>
                 <div style="display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;">
                     <a href="{{ route('contact', ['servicio' => $service['contact_name']]) }}" wire:navigate class="btn-primary" style="padding:16px 36px;font-size:15px;font-weight:700;">
-                        Iniciar Proyecto de {{ $service['title'] }}
+                        {{ __('services.ui.cta_start_btn', ['service' => $service['title']]) }}
                     </a>
-                    <a href="https://wa.me/573113894136?text={{ urlencode('Hola Kosta, me interesa el servicio de ' . $service['title']) }}" target="_blank" rel="noopener noreferrer" class="btn-secondary" style="padding:16px 28px;font-size:15px;font-weight:600;">
-                        Hablar por WhatsApp ↗
+                    <a href="https://wa.me/573113894136?text={{ urlencode(__('services.ui.cta_whatsapp_msg', ['service' => $service['title']])) }}" target="_blank" rel="noopener noreferrer" class="btn-secondary" style="padding:16px 28px;font-size:15px;font-weight:600;">
+                        {{ __('services.ui.cta_whatsapp_btn') }}
                     </a>
                 </div>
             </div>
@@ -372,9 +372,9 @@
     <section class="relative section-spacing" style="border-top:1px solid rgba(255,255,255,0.06);background:#070708;">
         <div class="relative max-w-7xl mx-auto container-pad">
             <div class="mb-10 text-center">
-                <span class="eyebrow">Soluciones Complementarias</span>
+                <span class="eyebrow">{{ __('services.ui.other_eyebrow') }}</span>
                 <h3 class="font-display text-white" style="font-size:28px;">
-                    Explora otros servicios de <span class="text-red-accent">Kosta</span>
+                    {{ __('services.ui.other_title_prefix') }} <span class="text-red-accent">Kosta</span>
                 </h3>
             </div>
 
@@ -396,7 +396,7 @@
                             </p>
                         </div>
                         <div style="display:flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;color:var(--accent-red);">
-                            <span>{{ $other['btn_text'] ?? 'Conocer servicio' }}</span>
+                            <span>{{ $other['btn_text'] ?? __('services.ui.other_learn_more') }}</span>
                             <svg style="width:14px;height:14px;" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
                             </svg>

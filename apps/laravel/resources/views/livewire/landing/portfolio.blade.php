@@ -92,23 +92,23 @@
                     <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-accent opacity-75"></span>
                     <span class="relative inline-flex rounded-full h-2 w-2 bg-red-accent"></span>
                 </span>
-                <span class="text-xs sm:text-sm text-white/85 font-medium">+50 proyectos entregados</span>
+                <span class="text-xs sm:text-sm text-white/85 font-medium">{{ __('landing.portfolio.badge') }}</span>
             </div>
             <h1 class="font-display text-white mb-6 animate-fadeInUp delay-100">
-                Proyectos que <span class="text-red-accent">hablan</span><br>por sí solos
+                {{ __('landing.portfolio.title_prefix') }} <span class="text-red-accent">{{ __('landing.portfolio.title_highlight') }}</span><br>{{ __('landing.portfolio.title_suffix') }}
             </h1>
             <p class="text-lg sm:text-xl text-white/60 max-w-2xl mx-auto mb-14 animate-fadeInUp delay-200">
-                Cada proyecto es una historia de transformación. Aquí están los resultados que hemos logrado para nuestros clientes.
+                {{ __('landing.portfolio.subtitle') }}
             </p>
 
             <!-- Filter tabs -->
             <div class="filter-tabs animate-fadeInUp delay-300">
-                <button class="filter-btn active" data-filter="all" aria-pressed="true">Todos</button>
-                <button class="filter-btn" data-filter="web" aria-pressed="false">Páginas Web</button>
-                <button class="filter-btn" data-filter="ecommerce" aria-pressed="false">E-commerce</button>
-                <button class="filter-btn" data-filter="sistema" aria-pressed="false">Sistemas</button>
-                <button class="filter-btn" data-filter="social" aria-pressed="false">Redes Sociales</button>
-                <button class="filter-btn" data-filter="branding" aria-pressed="false">Branding</button>
+                <button class="filter-btn active" data-filter="all" aria-pressed="true">{{ __('landing.portfolio.filters.all') }}</button>
+                <button class="filter-btn" data-filter="web" aria-pressed="false">{{ __('landing.portfolio.filters.web') }}</button>
+                <button class="filter-btn" data-filter="ecommerce" aria-pressed="false">{{ __('landing.portfolio.filters.ecommerce') }}</button>
+                <button class="filter-btn" data-filter="sistema" aria-pressed="false">{{ __('landing.portfolio.filters.sistema') }}</button>
+                <button class="filter-btn" data-filter="social" aria-pressed="false">{{ __('landing.portfolio.filters.social') }}</button>
+                <button class="filter-btn" data-filter="branding" aria-pressed="false">{{ __('landing.portfolio.filters.branding') }}</button>
             </div>
         </div>
     </section>
@@ -117,7 +117,7 @@
     <section class="relative pb-24">
         <div class="relative z-10 max-w-7xl mx-auto container-pad">
             @php
-                $catLabels = ['web' => 'Página Web', 'ecommerce' => 'E-commerce', 'sistema' => 'Sistema', 'branding' => 'Branding', 'social' => 'Redes Sociales'];
+                $catLabels = __('landing.portfolio.cat_labels');
             @endphp
 
             <div class="projects-grid" id="projectsGrid">
@@ -158,12 +158,12 @@
                             <div class="project-actions">
                                 @if($estudio->public_url)
                                     <a href="{{ $estudio->public_url }}" target="_blank" rel="noopener noreferrer" class="project-link visit">
-                                        {{ $estudio->categoria === 'social' ? 'Visitar red' : ($estudio->categoria === 'sistema' ? 'Ver sistema' : 'Visitar página') }}
+                                        {{ $estudio->categoria === 'social' ? __('landing.portfolio.action_visit_social') : ($estudio->categoria === 'sistema' ? __('landing.portfolio.action_visit_system') : __('landing.portfolio.action_visit_web')) }}
                                         <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M1.5 8.5L8.5 1.5M8.5 1.5H3M8.5 1.5v5.5"/></svg>
                                     </a>
                                 @endif
                                 <a href="{{ route('contact') }}" class="project-link">
-                                    Solicitar proyecto similar
+                                    {{ __('landing.portfolio.action_request_similar') }}
                                     <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M1.5 8.5L8.5 1.5M8.5 1.5H3M8.5 1.5v5.5"/></svg>
                                 </a>
                             </div>
@@ -171,14 +171,14 @@
                     </div>
                 @empty
                     <div style="grid-column:1/-1;text-align:center;padding:80px 0;">
-                        <p style="color:rgba(255,255,255,0.35);font-size:16px;">No hay casos de estudio publicados aún.</p>
+                        <p style="color:rgba(255,255,255,0.35);font-size:16px;">{{ __('landing.portfolio.empty_case_studies') }}</p>
                     </div>
                 @endforelse
             </div><!-- /projects-grid -->
 
             <!-- No results (filter JS) -->
             <div id="noResults" class="hidden text-center py-24">
-                <p class="text-white/40 text-lg">No hay proyectos en esta categoría.</p>
+                <p class="text-white/40 text-lg">{{ __('landing.portfolio.empty_category') }}</p>
             </div>
         </div>
     </section>
@@ -187,10 +187,10 @@
     <section class="relative pb-24">
         <div class="relative z-10 max-w-7xl mx-auto container-pad">
             <div class="stats-bar">
-                <div class="stat-item"><div class="stat-number">50+</div><div class="stat-label">Proyectos entregados</div></div>
-                <div class="stat-item"><div class="stat-number">98%</div><div class="stat-label">Clientes satisfechos</div></div>
-                <div class="stat-item"><div class="stat-number">8</div><div class="stat-label">Países atendidos</div></div>
-                <div class="stat-item"><div class="stat-number">3×</div><div class="stat-label">ROI promedio</div></div>
+                <div class="stat-item"><div class="stat-number">{{ __('landing.portfolio.stats.stat1_num') }}</div><div class="stat-label">{{ __('landing.portfolio.stats.stat1_label') }}</div></div>
+                <div class="stat-item"><div class="stat-number">{{ __('landing.portfolio.stats.stat2_num') }}</div><div class="stat-label">{{ __('landing.portfolio.stats.stat2_label') }}</div></div>
+                <div class="stat-item"><div class="stat-number">{{ __('landing.portfolio.stats.stat3_num') }}</div><div class="stat-label">{{ __('landing.portfolio.stats.stat3_label') }}</div></div>
+                <div class="stat-item"><div class="stat-number">{{ __('landing.portfolio.stats.stat4_num') }}</div><div class="stat-label">{{ __('landing.portfolio.stats.stat4_label') }}</div></div>
             </div>
         </div>
     </section>
@@ -200,10 +200,10 @@
         <div class="relative z-10 max-w-7xl mx-auto container-pad">
             <div class="cta-banner">
                 <div class="relative z-10">
-                    <h2 class="font-display text-white mb-4" style="font-size: clamp(24px,4vw,40px);">¿Tu proyecto es el siguiente?</h2>
-                    <p class="text-white/75 text-lg mb-8 max-w-xl mx-auto">Cuéntanos tu idea y en menos de 24 horas te enviamos una propuesta personalizada sin costo.</p>
+                    <h2 class="font-display text-white mb-4" style="font-size: clamp(24px,4vw,40px);">{{ __('landing.portfolio.cta_banner.title') }}</h2>
+                    <p class="text-white/75 text-lg mb-8 max-w-xl mx-auto">{{ __('landing.portfolio.cta_banner.subtitle') }}</p>
                     <a href="{{ route('contact') }}" class="inline-flex items-center gap-3 bg-white text-gray-900 font-bold px-8 py-4 rounded-full text-base hover:bg-gray-100 transition-colors">
-                        Hablar con el equipo
+                        {{ __('landing.portfolio.cta_banner.btn') }}
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                     </a>
                 </div>

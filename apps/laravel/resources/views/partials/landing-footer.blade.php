@@ -8,12 +8,17 @@
             </div>
             <span class="font-display font-bold text-white text-lg tracking-tight">Kosta</span>
         </a>
-        <p class="text-xs text-white/30">© {{ date('Y') }} Kosta Studio Films. Todos los derechos reservados.</p>
+        <p class="text-xs text-white/30 text-center sm:text-left">© {{ date('Y') }} {{ __('landing.footer.agency_full') }}. {{ __('landing.footer.rights') }}</p>
         <div class="flex items-center gap-6 text-xs text-white/40">
-            <a href="{{ route('landing') }}" class="hover:text-white transition-colors @if(request()->routeIs('landing')) text-white/70 @endif">Inicio</a>
-            <a href="/#servicios" class="hover:text-white transition-colors @if(request()->is('servicios*')) text-white/70 @endif">Servicios</a>
-            <a href="{{ route('portfolio') }}" class="hover:text-white transition-colors @if(request()->routeIs('portfolio')) text-white/70 @endif">Portafolio</a>
-            <a href="{{ route('contact') }}" class="hover:text-white transition-colors @if(request()->routeIs('contact')) text-white/70 @endif">Contacto</a>
+            <a href="{{ route('landing') }}" class="hover:text-white transition-colors @if(request()->routeIs('landing')) text-white/70 @endif">{{ __('landing.nav.home') }}</a>
+            <a href="/#servicios" class="hover:text-white transition-colors @if(request()->is('servicios*')) text-white/70 @endif">{{ __('landing.nav.services') }}</a>
+            <a href="{{ route('portfolio') }}" class="hover:text-white transition-colors @if(request()->routeIs('portfolio')) text-white/70 @endif">{{ __('landing.nav.portfolio') }}</a>
+            <a href="{{ route('contact') }}" class="hover:text-white transition-colors @if(request()->routeIs('contact')) text-white/70 @endif">{{ __('landing.nav.contact') }}</a>
+            <div class="lang-switcher ml-1">
+                <a href="{{ route('locale.switch', 'es') }}" class="lang-btn {{ app()->getLocale() === 'es' ? 'active' : '' }}">ES</a>
+                <span class="lang-divider">/</span>
+                <a href="{{ route('locale.switch', 'en') }}" class="lang-btn {{ app()->getLocale() === 'en' ? 'active' : '' }}">EN</a>
+            </div>
         </div>
     </div>
 </footer>
