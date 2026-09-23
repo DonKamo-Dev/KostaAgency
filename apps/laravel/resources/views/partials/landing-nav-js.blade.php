@@ -1,4 +1,5 @@
 <script>
+(() => {
     const toggle   = document.getElementById('menuToggle');
     const menu     = document.getElementById('mobileMenu');
     const closeBtn = document.getElementById('menuClose');
@@ -8,7 +9,7 @@
     function openMenu() {
         clearTimeout(closeTimer);
         menu.hidden = false;
-        requestAnimationFrame(() => menu.classList.add('open'));
+        menu.classList.add('open');
         toggle.classList.add('open');
         toggle.setAttribute('aria-expanded', 'true');
         document.body.style.overflow = 'hidden';
@@ -48,4 +49,5 @@
             }
         });
     });
+})();
 </script>

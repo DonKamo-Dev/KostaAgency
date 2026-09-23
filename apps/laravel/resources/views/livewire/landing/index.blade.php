@@ -379,6 +379,7 @@
     <div aria-hidden="true" class="absolute inset-0 grid-pattern pointer-events-none"></div>
 
     @include('partials.landing-nav')
+    @include('partials.landing-nav-js')
 
     <!-- HERO -->
     <main id="main">
@@ -835,7 +836,6 @@
 
     @include('partials.landing-footer')
 
-    @include('partials.landing-nav-js')
 
     <script>
     document.addEventListener('DOMContentLoaded', () => {

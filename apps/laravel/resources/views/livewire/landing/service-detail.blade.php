@@ -125,6 +125,7 @@
     <div aria-hidden="true" class="absolute inset-0 grid-pattern pointer-events-none"></div>
 
     @include('partials.landing-nav')
+    @include('partials.landing-nav-js')
 
     <!-- ── 1. HERO SECTION ── -->
     <section class="service-detail-hero">
@@ -408,5 +409,4 @@
     </section>
 
     @include('partials.landing-footer')
-    @include('partials.landing-nav-js')
 </div>

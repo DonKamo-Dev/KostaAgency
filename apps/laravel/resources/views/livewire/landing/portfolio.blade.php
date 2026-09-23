@@ -83,6 +83,7 @@
     <div aria-hidden="true" class="absolute inset-0 grid-pattern pointer-events-none"></div>
 
     @include('partials.landing-nav')
+    @include('partials.landing-nav-js')
 
     <!-- ── HERO ── -->
     <section class="relative pt-64 pb-16">
@@ -212,7 +213,6 @@
     </section>
 
     @include('partials.landing-footer')
-    @include('partials.landing-nav-js')
 
     <script>
         // Project filter
