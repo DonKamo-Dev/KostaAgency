@@ -6,7 +6,7 @@
     /* ── Mobile Menu ── */
     .mobile-menu { position: fixed; inset: 0; z-index: 60; pointer-events: none; }
     .mobile-menu.open { pointer-events: auto; }
-    .mobile-drawer { position: absolute; inset: 0; width: 100%; height: 100%; background: rgba(10, 6, 8, 0.99); transform: translateX(100%); transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1); display: flex; flex-direction: column; }
+    .mobile-drawer { position: absolute; inset: 0; width: 100%; height: 100%; background: rgb(10, 6, 8); transform: translate3d(100%, 0, 0); transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1); display: flex; flex-direction: column; will-change: transform; contain: layout paint; }
     .mobile-menu.open .mobile-drawer { transform: translateX(0); }
     .mobile-drawer-header { display: flex; align-items: center; justify-content: space-between; padding: 0 20px; height: 64px; flex-shrink: 0; border-bottom: 1px solid rgba(255,255,255,0.06); }
     .mobile-drawer-body { flex: 1; overflow-y: auto; padding: 8px 28px 40px; display: flex; flex-direction: column; }
@@ -14,13 +14,17 @@
     .mobile-nav-link:hover { color: var(--accent-red); }
 
     /* ── Hamburger ── */
-    .hamburger-btn { display: flex; flex-direction: column; gap: 5px; width: 28px; padding: 4px 0; background: none; border: none; cursor: pointer; }
+    .hamburger-btn { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px; width: 44px; height: 44px; padding: 0 8px; margin-right: -8px; background: none; border: none; cursor: pointer; touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
     @media (min-width: 768px) { .hamburger-btn { display: none; } }
     @media (max-width: 767px) { .landing-nav-cta { display: none !important; } }
-    .hamburger-btn span { display: block; height: 2px; border-radius: 2px; background: white; transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); transform-origin: center; }
+    .hamburger-btn span { display: block; width: 28px; height: 2px; border-radius: 2px; background: white; transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.15s ease; transform-origin: center; }
     .hamburger-btn.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
     .hamburger-btn.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
     .hamburger-btn.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    @media (prefers-reduced-motion: reduce) {
+        .mobile-drawer, .hamburger-btn span { transition-duration: 0.01ms; }
+    }
 
     /* ── Ghost CTA ── */
     .btn-nav-ghost { display: inline-flex; align-items: center; gap: 6px; height: 40px; padding: 0 18px; border-radius: 999px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.13); color: rgba(255,255,255,0.9); font-size: 13.5px; font-weight: 500; text-decoration: none; white-space: nowrap; transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease; }
