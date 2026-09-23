@@ -36,6 +36,19 @@ Ordenados según el plan [2026-09-17-cierre-pendientes-plataforma](docs/superpow
 | 5 | Planes/documentación desincronizados | Fase 5 | Completada (commit de cierre) |
 | 6 | Jerarquía editorial landing (Web → Films → Estrategia → Branding) | Landing | Completada |
 
+### 2026-09-23 - Soporte Bilingüe Español / Inglés en Vistas Públicas de Kosta y Despliegue en Vercel
+
+- **Requerimiento:**
+  - Permitir a los usuarios navegar e interactuar en español o inglés en todas las páginas públicas de Kosta Agency (`/`, `/portafolio`, `/contacto`, `/servicios/{slug}`, `/privacidad`), manteniendo el panel administrativo (`/dashboard`) exclusivamente en español.
+- **Implementación:**
+  - Creado el middleware `App\Http\Middleware\SetLocale` registrado en `bootstrap/app.php` con fallback automático a `config('app.locale', 'es')`.
+  - Ruta `/locale/{locale}` que actualiza la sesión y asigna una cookie permanente de 1 año (`locale`), redirigiendo a la página previa.
+  - Diccionarios completos de traducción en `lang/es/` y `lang/en/` (`landing.php`, `services.php`).
+  - Selector glass segmentado `[ ES | EN ]` en la barra de navegación de escritorio, drawer móvil y footer.
+  - Componente Livewire `ServiceDetail` dinámico a partir de `trans('services.items')` y `Contact` con mensajes de validación internacionalizados.
+  - Suite de 9 pruebas dedicadas en `LocalizationTest.php` y 97/97 tests pasando en la aplicación.
+  - Desplegado y verificado en vivo en Vercel (`https://kosta-agency.vercel.app/` y `/locale/en`).
+
 ### 2026-09-23 - Sincronización de Casos de Estudio a TiDB Cloud, Soporte de Imágenes en Vercel y URL Bento a kosta.studio/kamo
 
 - **Causa Diagnosticada:**
