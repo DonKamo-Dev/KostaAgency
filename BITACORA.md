@@ -38,6 +38,19 @@ Ordenados según el plan [2026-09-17-cierre-pendientes-plataforma](docs/superpow
 
 ## Registro de cambios
 
+### 2026-09-22 - Corrección de Error 500 en Vercel: Compatibilidad con PHP 8.5 y Enrutamiento Serverless
+
+- **Causa Raíz Diagnosticada:**
+  - Vercel compila con PHP 8.5, versión en la cual la constante `PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT` fue deprecada en favor de `Pdo\Mysql::ATTR_SSL_VERIFY_SERVER_CERT`. El aviso de deprecación impreso antes del envío de cabeceras HTTP corrompía la respuesta en rutas con base de datos (`/login`, `/portafolio`), disparando un error 500.
+  - Además, las reglas iniciales de `rewrites` en `vercel.json` colisionaban con el archivo `public/index.php` al definir `outputDirectory: public`.
+- **Solución Implementada:**
+  - En `config/database.php`, se condicionó `MYSQL_ATTR_SSL_VERIFY_SERVER_CERT` y `MYSQL_ATTR_SSL_CA` con `PHP_VERSION_ID >= 80500 ? Mysql::ATTR_* : PDO::ATTR_*` y detección automática del certificado CA del sistema (`/etc/ssl/certs/ca-certificates.crt`).
+  - En `api/index.php`, se suprimió la salida visual de avisos de deprecación (`error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED)` y `display_errors: 0`).
+  - En `bootstrap/app.php` y `AppServiceProvider.php`, se configuró `trustProxies(at: '*')` y `URL::forceScheme('https')` para garantizar URLs seguras sin contenido mixto.
+  - En `vercel.json`, se migraron las directivas a `routes` jerárquicas garantizando que las peticiones se deleguen al runtime serverless `api/index.php`.
+- **Verificación en Vivo:**
+  - Comprobado en vivo: `https://kosta-agency.vercel.app/` (200 OK), `https://kosta-agency.vercel.app/login` (200 OK con formulario de acceso completo) y `https://kosta-agency.vercel.app/portafolio` (200 OK con conexión a TiDB Cloud activa).
+
 ### 2026-09-22 - Configuración de Despliegue Serverless para Vercel
 
 - **Configuración de Vercel (`vercel.json` y `api/index.php`):**
