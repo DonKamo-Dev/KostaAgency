@@ -36,7 +36,18 @@ Ordenados según el plan [2026-09-17-cierre-pendientes-plataforma](docs/superpow
 | 5 | Planes/documentación desincronizados | Fase 5 | Completada (commit de cierre) |
 | 6 | Jerarquía editorial landing (Web → Films → Estrategia → Branding) | Landing | Completada |
 
-## Registro de cambios
+### 2026-09-23 - Sincronización de Casos de Estudio a TiDB Cloud, Soporte de Imágenes en Vercel y URL Bento a kosta.studio/kamo
+
+- **Causa Diagnosticada:**
+  - Los casos de estudio creados localmente se guardaban en la base de datos MySQL local de Docker (`kamo_laravel`), mientras que Vercel se conecta a la base remota de TiDB Cloud Serverless (`gateway01.us-east-1.prod.aws.tidbcloud.com`), la cual aún no tenía registros en la tabla `case_studies`.
+  - Las imágenes subidas se guardaban en `storage/app/public/case-studies/`, ignoradas por `.gitignore` y con un symlink junction local que no se despliega en el runtime serverless de Vercel.
+- **Solución Implementada:**
+  - Se sincronizaron los 8 casos de estudio creados localmente (CLASSY CARTAGENA, CARTAGENA ENGLISH SPEAKING DENTIST, COMPULAGO, FIAO, SIT, LaLizas, Marine Center, HB Mantenimiento) directamente a la tabla `case_studies` en TiDB Cloud.
+  - En `bento.blade.php`, se actualizaron las menciones a `kosta.studio/kamo`, `kosta.studio/portafolio` y `Volver a Kosta`.
+  - Se copiaron y habilitaron para Git las imágenes de portada en `public/storage/case-studies/` y `storage/app/public/case-studies/`.
+  - En `routes/web.php`, se añadió una ruta de respaldo resiliente `Route::get('/storage/{path}')` que sirve archivos estáticos tanto desde `public/storage/` como desde `storage/app/public/`.
+  - En `CaseStudies/Form.php`, se añadió duplicación automática de subida hacia `public/storage/case-studies/` para compatibilidad local y de producción.
+  - En `config/database.php`, se condicionó el certificado SSL CA para que no intente usar SSL obligatorio en conexiones locales a contenedores Docker (`db`, `127.0.0.1`).
 
 ### 2026-09-22 - Corrección de Error 500 en Vercel: Compatibilidad con PHP 8.5 y Enrutamiento Serverless
 

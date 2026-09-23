@@ -1,2 +1,4 @@
 *
 !.gitignore
+!case-studies/
+!case-studies/**

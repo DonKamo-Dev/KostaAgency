@@ -110,8 +110,18 @@ class Form extends Component
         if ($this->imagen_nueva) {
             if ($study?->imagen) {
                 Storage::disk('public')->delete($study->imagen);
+                @unlink(public_path('storage/' . $study->imagen));
             }
             $data['imagen'] = $this->imagen_nueva->store('case-studies', 'public');
+            try {
+                $destDir = public_path('storage/case-studies');
+                if (! is_dir($destDir)) {
+                    @mkdir($destDir, 0755, true);
+                }
+                @copy(storage_path('app/public/' . $data['imagen']), public_path('storage/' . $data['imagen']));
+            } catch (\Throwable $e) {
+                // Ignore copy errors in environments without local file write
+            }
         }
 
         if ($study) {

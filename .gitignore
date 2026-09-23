@@ -22,7 +22,9 @@ apps/laravel/vendor/
 apps/laravel/node_modules/
 apps/laravel/public/build/
 apps/laravel/public/hot/
-apps/laravel/public/storage/
+apps/laravel/public/storage/*
+!apps/laravel/public/storage/case-studies/
+!apps/laravel/public/storage/case-studies/**
 apps/laravel/storage/*.key
 apps/laravel/test-output.txt
 

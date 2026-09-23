@@ -936,12 +936,12 @@
                     <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
                     </svg>
-                    <span>Volver a Kamo</span>
+                    <span>Volver a Kosta</span>
                 </a>
 
                 <div class="bento-url-pill">
                     <span class="live-dot-mono"></span>
-                    <span>kamo.agency / yohan</span>
+                    <span>kosta.studio/kamo</span>
                 </div>
             </div>
 
@@ -1012,7 +1012,7 @@
                             </div>
                             <div>
                                 <h3 class="card-title-text">Últimos Proyectos</h3>
-                                <p class="card-sub-domain">kamo.agency/portafolio</p>
+                                <p class="card-sub-domain">kosta.studio/portafolio</p>
                             </div>
                         </div>
                         <a href="{{ route('portfolio') }}" class="card-follow-pill">

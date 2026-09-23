@@ -54,6 +54,21 @@ Route::redirect('/servicios', '/#servicios')->name('services.landing');
 Route::redirect('/bento', '/kamo');
 Route::view('/privacidad', 'privacy')->name('privacy');
 
+// ── Archivos estáticos en /storage/... (resiliente para entornos serverless) ──
+Route::get('/storage/{path}', function (string $path) {
+    $publicFile = public_path('storage/' . $path);
+    if (file_exists($publicFile)) {
+        return response()->file($publicFile);
+    }
+
+    $storageFile = storage_path('app/public/' . $path);
+    if (file_exists($storageFile)) {
+        return response()->file($storageFile);
+    }
+
+    abort(404);
+})->where('path', '.*')->name('storage.file');
+
 // ── Autenticadas ──────────────────────────────────────────────────────────────
 Route::middleware(['auth', 'verified'])->group(function () {
 
