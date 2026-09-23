@@ -34,16 +34,19 @@
             justify-content: space-between;
             gap: 12px;
             padding: 0 2px;
+            width: 100%;
         }
         .nav-left-group {
             display: flex;
             align-items: center;
             gap: 10px;
+            flex-shrink: 0;
         }
         .nav-right-group {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
+            flex-shrink: 0;
         }
         .btn-top-back {
             display: inline-flex;
@@ -59,6 +62,7 @@
             text-decoration: none;
             box-shadow: var(--bento-card-shadow);
             transition: all 0.2s ease;
+            white-space: nowrap;
         }
         .btn-top-back:hover {
             color: var(--bento-text-main);
@@ -76,6 +80,7 @@
             font-size: 12px;
             font-weight: 600;
             color: var(--bento-text-muted);
+            white-space: nowrap;
         }
         .live-dot-mono {
             width: 6px;
@@ -87,8 +92,8 @@
         .btn-theme-toggle {
             display: inline-flex;
             align-items: center;
-            gap: 7px;
-            padding: 8px 14px;
+            gap: 6px;
+            padding: 8px 13px;
             border-radius: var(--radius-btn);
             background: var(--bento-surface);
             border: 1px solid var(--bento-border);
@@ -98,6 +103,7 @@
             cursor: pointer;
             box-shadow: var(--bento-card-shadow);
             transition: all 0.2s ease;
+            white-space: nowrap;
         }
         .btn-theme-toggle:hover {
             border-color: var(--bento-border-hover);
@@ -113,7 +119,7 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            padding: 8px 20px;
+            padding: 8px 18px;
             border-radius: var(--radius-btn);
             background: var(--bento-primary-btn-bg);
             color: var(--bento-primary-btn-text);
@@ -122,10 +128,142 @@
             text-decoration: none;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
             transition: all 0.2s ease;
+            white-space: nowrap;
         }
         .btn-top-cta:hover {
             opacity: 0.92;
             transform: translateY(-1px);
+        }
+
+        /* ── Bento Language Switcher ── */
+        .bento-lang-switcher {
+            display: inline-flex;
+            align-items: center;
+            gap: 2px;
+            padding: 3px 5px;
+            border-radius: var(--radius-btn);
+            background: var(--bento-surface);
+            border: 1px solid var(--bento-border);
+            font-size: 11px;
+            font-weight: 700;
+            box-shadow: var(--bento-card-shadow);
+            transition: all 0.2s ease;
+        }
+        .bento-lang-btn {
+            color: var(--bento-text-subtle);
+            text-decoration: none;
+            padding: 4px 7px;
+            border-radius: calc(var(--radius-btn) - 2px);
+            transition: all 0.2s ease;
+            line-height: 1;
+        }
+        .bento-lang-btn:hover {
+            color: var(--bento-text-main);
+        }
+        .bento-lang-btn.active {
+            background: var(--bento-primary-btn-bg);
+            color: var(--bento-primary-btn-text);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+        }
+        .bento-lang-divider {
+            color: var(--bento-border);
+            font-size: 10px;
+            user-select: none;
+        }
+
+        /* ── Responsive Top Nav & Layout ── */
+        @media (max-width: 640px) {
+            .bento-canvas-wrapper {
+                padding: 16px 12px 60px;
+            }
+            .bento-main-container {
+                gap: 14px;
+            }
+            .bento-top-nav {
+                gap: 8px;
+            }
+            .nav-left-group {
+                gap: 6px;
+            }
+            .nav-right-group {
+                gap: 6px;
+            }
+            .btn-top-back {
+                padding: 7px 11px;
+                font-size: 12px;
+                gap: 6px;
+            }
+            .bento-url-pill {
+                display: none !important; /* Critical: hide URL pill on mobile to prevent overflow and misalignment */
+            }
+            .btn-theme-toggle {
+                padding: 7px 9px;
+            }
+            .btn-theme-toggle .theme-label {
+                display: none; /* Icon-only on mobile for compact, clean look */
+            }
+            .bento-lang-btn {
+                padding: 4px 6px;
+                font-size: 10.5px;
+            }
+            .btn-top-cta {
+                padding: 7px 12px;
+                font-size: 12px;
+                gap: 5px;
+            }
+            .profile-avatar-frame {
+                width: 140px;
+                height: 140px;
+            }
+            .bio-name {
+                font-size: 24px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .social-split-container {
+                grid-template-columns: 1fr;
+            }
+            .tech-box-item {
+                padding: 10px 12px;
+                gap: 8px;
+            }
+            .tech-box-icon {
+                width: 32px;
+                height: 32px;
+            }
+            .tech-box-title {
+                font-size: 13px;
+            }
+            .tech-box-subtitle {
+                font-size: 10.5px;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .btn-top-back .back-text-full {
+                display: none;
+            }
+            .btn-top-back .back-text-short {
+                display: inline;
+            }
+            .btn-top-cta span {
+                font-size: 11px;
+            }
+            .bento-top-nav {
+                gap: 5px;
+            }
+            .tech-boxes-strip {
+                grid-template-columns: 1fr;
+            }
+        }
+        @media (min-width: 381px) {
+            .btn-top-back .back-text-full {
+                display: inline;
+            }
+            .btn-top-back .back-text-short {
+                display: none;
+            }
         }
 
         /* ── Top Split: Left Bio (1 col) + Right Cards (2x2 flush grid) ── */
@@ -936,18 +1074,26 @@
                     <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
                     </svg>
-                    <span>Volver a Kosta</span>
+                    <span class="back-text-full">{{ __('bento.nav.back_to_kosta') }}</span>
+                    <span class="back-text-short">{{ __('bento.nav.back_short') }}</span>
                 </a>
 
                 <div class="bento-url-pill">
                     <span class="live-dot-mono"></span>
-                    <span>kosta.studio/kamo</span>
+                    <span>{{ __('bento.nav.url_label') }}</span>
                 </div>
             </div>
 
             <div class="nav-right-group">
+                {{-- Language Switcher [ ES | EN ] --}}
+                <div class="bento-lang-switcher" role="group" aria-label="{{ __('landing.nav.lang_switch') }}">
+                    <a href="{{ route('locale.switch', 'es') }}" class="bento-lang-btn {{ app()->getLocale() === 'es' ? 'active' : '' }}" aria-label="Español" title="Español">ES</a>
+                    <span class="bento-lang-divider">/</span>
+                    <a href="{{ route('locale.switch', 'en') }}" class="bento-lang-btn {{ app()->getLocale() === 'en' ? 'active' : '' }}" aria-label="English" title="English">EN</a>
+                </div>
+
                 {{-- Theme Switch Button --}}
-                <button type="button" id="theme-toggle-btn" class="btn-theme-toggle" aria-label="Cambiar tema" title="Alternar entre modo oscuro y claro">
+                <button type="button" id="theme-toggle-btn" class="btn-theme-toggle" aria-label="{{ __('bento.nav.theme_aria') }}" title="{{ __('bento.nav.theme_title') }}">
                     <span class="theme-toggle-icon">
                         <!-- Sun Icon (visible in dark mode) -->
                         <svg class="icon-sun" width="15" height="15" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="display: none;">
@@ -959,11 +1105,11 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
                         </svg>
                     </span>
-                    <span class="theme-label" style="font-size: 11.5px;">Tema</span>
+                    <span class="theme-label" style="font-size: 11.5px;">{{ __('bento.nav.theme_label') }}</span>
                 </button>
 
                 <a href="https://wa.me/573113894136" target="_blank" rel="noopener noreferrer" class="btn-top-cta">
-                    <span>Contactar</span>
+                    <span>{{ __('bento.nav.contact') }}</span>
                     <svg width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M7 17L17 7M17 7H7M17 7V17"/></svg>
                 </a>
             </div>
@@ -978,23 +1124,23 @@
                     <img src="{{ asset('img/profile-pic.jpg') }}?v={{ time() }}" alt="Yohan Blanco" class="avatar-photo-img">
                     <div class="avatar-live-indicator">
                         <span class="avatar-live-dot"></span>
-                        <span>Activo</span>
+                        <span>{{ __('bento.bio.avatar_status') }}</span>
                     </div>
                 </div>
 
                 <div>
                     <div class="bio-name-row">
-                        <h1 class="bio-name">Yohan Blanco</h1>
+                        <h1 class="bio-name">{{ __('bento.bio.name') }}</h1>
                     </div>
-                    <span class="bio-role-badge">WordPress Developer & Digital Marketing</span>
+                    <span class="bio-role-badge">{{ __('bento.bio.role') }}</span>
                 </div>
 
                 <p class="bio-description">
-                    Especialista en desarrollo web de alto impacto con WordPress y estratega de pauta digital (Google & Meta Ads).
+                    {{ __('bento.bio.desc_1') }}
                 </p>
 
                 <p class="bio-description">
-                    Mi gran diferenciador es el uso avanzado de Inteligencia Artificial como copiloto para acelerar código, optimizar procesos y construir plataformas completas en tiempo récord.
+                    {{ __('bento.bio.desc_2') }}
                 </p>
             </div>
 
@@ -1011,12 +1157,12 @@
                                 </svg>
                             </div>
                             <div>
-                                <h3 class="card-title-text">Últimos Proyectos</h3>
-                                <p class="card-sub-domain">kosta.studio/portafolio</p>
+                                <h3 class="card-title-text">{{ __('bento.projects.title') }}</h3>
+                                <p class="card-sub-domain">{{ __('bento.projects.sub') }}</p>
                             </div>
                         </div>
                         <a href="{{ route('portfolio') }}" class="card-follow-pill">
-                            <span>Ver todos</span>
+                            <span>{{ __('bento.projects.view_all') }}</span>
                             <svg width="8" height="8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M7 17L17 7M17 7H7M17 7V17"/></svg>
                         </a>
                     </div>
@@ -1037,13 +1183,13 @@
                                     </div>
                                 </div>
                                 <div class="project-row-action">
-                                    <span class="project-status-dot" title="Activo"></span>
+                                    <span class="project-status-dot" title="{{ __('bento.projects.status_active') }}"></span>
                                     <svg width="11" height="11" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M7 17L17 7M17 7H7M17 7V17"/></svg>
                                 </div>
                             </a>
                         @empty
                             <div style="padding: 16px 10px; text-align: center; color: var(--bento-text-subtle); font-size: 11.5px;">
-                                No hay proyectos publicados activos aún.
+                                {{ __('bento.projects.empty') }}
                             </div>
                         @endforelse
                     </div>
@@ -1059,37 +1205,37 @@
                                 </svg>
                             </div>
                             <div>
-                                <h3 class="card-title-text">Métricas & Hitos</h3>
-                                <p class="card-sub-domain">@yohanblanco</p>
+                                <h3 class="card-title-text">{{ __('bento.metrics.title') }}</h3>
+                                <p class="card-sub-domain">{{ __('bento.metrics.handle') }}</p>
                             </div>
                         </div>
-                        <span class="card-follow-pill">+10 Sitios</span>
+                        <span class="card-follow-pill">{{ __('bento.metrics.badge') }}</span>
                     </div>
 
                     <div class="showcase-2x2-grid">
                         <div class="mini-card-item">
                             <div class="mini-card-header">
-                                <span class="mini-card-title">Proyectos USA</span>
+                                <span class="mini-card-title">{{ __('bento.metrics.usa_title') }}</span>
                             </div>
-                            <span class="mini-card-tag">3 en el Exterior</span>
+                            <span class="mini-card-tag">{{ __('bento.metrics.usa_sub') }}</span>
                         </div>
                         <div class="mini-card-item">
                             <div class="mini-card-header">
-                                <span class="mini-card-title">Citas & Reservas</span>
+                                <span class="mini-card-title">{{ __('bento.metrics.bookings_title') }}</span>
                             </div>
-                            <span class="mini-card-tag">2 Plataformas</span>
+                            <span class="mini-card-tag">{{ __('bento.metrics.bookings_sub') }}</span>
                         </div>
                         <div class="mini-card-item">
                             <div class="mini-card-header">
-                                <span class="mini-card-title">Corporativos</span>
+                                <span class="mini-card-title">{{ __('bento.metrics.corp_title') }}</span>
                             </div>
-                            <span class="mini-card-tag">WordPress & Headless</span>
+                            <span class="mini-card-tag">{{ __('bento.metrics.corp_sub') }}</span>
                         </div>
                         <div class="mini-card-item">
                             <div class="mini-card-header">
-                                <span class="mini-card-title">Google & Meta</span>
+                                <span class="mini-card-title">{{ __('bento.metrics.ads_title') }}</span>
                             </div>
-                            <span class="mini-card-tag">Pauta & Ads</span>
+                            <span class="mini-card-tag">{{ __('bento.metrics.ads_sub') }}</span>
                         </div>
                     </div>
                 </div>
@@ -1104,8 +1250,8 @@
                             </svg>
                         </div>
                         <div>
-                            <div class="social-mini-title">LinkedIn</div>
-                            <div class="social-mini-sub">linkedin.com/in/yohanblaro</div>
+                            <div class="social-mini-title">{{ __('bento.social.linkedin_title') }}</div>
+                            <div class="social-mini-sub">{{ __('bento.social.linkedin_sub') }}</div>
                         </div>
                     </a>
 
@@ -1118,7 +1264,7 @@
                                         <path d="M22 7h-7V5h7v2zm1.726 10c-.442 1.297-2.029 3-5.101 3-3.074 0-5.564-1.729-5.564-5.675 0-3.91 2.325-5.92 5.466-5.92 3.082 0 4.964 1.782 5.375 4.426.078.506.104 1.195.074 1.834h-8.082c.045 1.797 1.229 2.729 2.812 2.729 1.248 0 2.036-.566 2.352-1.394h2.668zm-7.694-4.148h5.304c-.063-1.425-.97-2.28-2.607-2.28-1.554 0-2.52.825-2.697 2.28zM2 3h6.425c2.453 0 4.148.973 4.148 3.125 0 1.233-.615 2.193-1.656 2.657 1.348.455 2.083 1.586 2.083 3.141 0 2.453-1.895 3.877-4.482 3.877H2V3zm3.172 6.848h2.934c1.17 0 1.85-.504 1.85-1.492 0-.986-.68-1.467-1.85-1.467H5.172v2.959zm0 5.426h3.268c1.293 0 2.023-.557 2.023-1.643 0-1.084-.73-1.641-2.023-1.641H5.172v3.284z"/>
                                     </svg>
                                 </div>
-                                <span class="sub-btn-name">Behance</span>
+                                <span class="sub-btn-name">{{ __('bento.social.behance') }}</span>
                             </div>
                             <svg width="11" height="11" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
                         </a>
@@ -1130,7 +1276,7 @@
                                         <path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.1-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z"/>
                                     </svg>
                                 </div>
-                                <span class="sub-btn-name">GitHub</span>
+                                <span class="sub-btn-name">{{ __('bento.social.github') }}</span>
                             </div>
                             <svg width="11" height="11" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
                         </a>
@@ -1147,8 +1293,8 @@
                     </svg>
                     <div class="map-pulsing-pin"></div>
                     <div class="map-location-bubble">
-                        <div class="map-bubble-title">Cartagena, Colombia</div>
-                        <div class="map-bubble-sub">UTC-5 (Caribe / EST / CST)</div>
+                        <div class="map-bubble-title">{{ __('bento.location.city') }}</div>
+                        <div class="map-bubble-sub">{{ __('bento.location.timezone') }}</div>
                     </div>
                 </div>
 
@@ -1160,18 +1306,18 @@
                                 <span class="radar-ping"></span>
                                 <span class="radar-dot"></span>
                             </div>
-                            <span class="availability-title">Disponible para contratación</span>
+                            <span class="availability-title">{{ __('bento.availability.title') }}</span>
                         </div>
                         <p class="availability-main-text">
-                            Proyectos Remotos & Consultoría Técnica
+                            {{ __('bento.availability.main') }}
                         </p>
                     </div>
-                    {{-- Botón de agendamiento (Enlace temporal a Google Meet/Calendar) --}}
-                    <a href="https://meet.google.com" target="_blank" rel="noopener noreferrer" class="btn-book-meeting" id="btn-book-meeting" title="Reserva tu cita por Google Meet">
+                    {{-- Botón de agendamiento --}}
+                    <a href="https://meet.google.com" target="_blank" rel="noopener noreferrer" class="btn-book-meeting" id="btn-book-meeting" title="{{ __('bento.availability.book_title') }}">
                         <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
                         </svg>
-                        <span>Reserva tu cita</span>
+                        <span>{{ __('bento.availability.book_btn') }}</span>
                         <svg width="10" height="10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M7 17L17 7M17 7H7M17 7V17"/></svg>
                     </a>
                 </div>
@@ -1194,8 +1340,8 @@
                     </svg>
                 </div>
                 <div class="tech-box-content">
-                    <span class="tech-box-title">WordPress</span>
-                    <span class="tech-box-subtitle">Core CMS & Custom</span>
+                    <span class="tech-box-title">{{ __('bento.tech.wordpress_title') }}</span>
+                    <span class="tech-box-subtitle">{{ __('bento.tech.wordpress_sub') }}</span>
                 </div>
             </div>
 
@@ -1210,8 +1356,8 @@
                     </svg>
                 </div>
                 <div class="tech-box-content">
-                    <span class="tech-box-title">Google Ads</span>
-                    <span class="tech-box-subtitle">SEM & Search Pauta</span>
+                    <span class="tech-box-title">{{ __('bento.tech.google_ads_title') }}</span>
+                    <span class="tech-box-subtitle">{{ __('bento.tech.google_ads_sub') }}</span>
                 </div>
             </div>
 
@@ -1223,8 +1369,8 @@
                     </svg>
                 </div>
                 <div class="tech-box-content">
-                    <span class="tech-box-title">Meta Ads</span>
-                    <span class="tech-box-subtitle">FB & Instagram Ads</span>
+                    <span class="tech-box-title">{{ __('bento.tech.meta_ads_title') }}</span>
+                    <span class="tech-box-subtitle">{{ __('bento.tech.meta_ads_sub') }}</span>
                 </div>
             </div>
 
@@ -1236,25 +1382,25 @@
                     </svg>
                 </div>
                 <div class="tech-box-content">
-                    <span class="tech-box-title">AI Assisted</span>
-                    <span class="tech-box-subtitle">Speed & Co-pilot</span>
+                    <span class="tech-box-title">{{ __('bento.tech.ai_title') }}</span>
+                    <span class="tech-box-subtitle">{{ __('bento.tech.ai_sub') }}</span>
                 </div>
             </div>
         </div>
 
         {{-- Bottom Section: How Can I Help? --}}
         <div>
-            <h2 class="section-separator-title">¿Cómo puedo ayudarte?</h2>
+            <h2 class="section-separator-title">{{ __('bento.help.title') }}</h2>
         </div>
 
         <div class="bottom-cards-grid">
             {{-- Monochrome Value Proposition Card --}}
             <div class="card-value-dark">
                 <p class="card-value-text">
-                    Si buscas un <span>WordPress Developer & Especialista Digital</span> que trabaje con la velocidad y precisión de la IA para construir plataformas y maximizar tus conversiones, conversemos.
+                    {{ __('bento.help.value_p1') }} <span>{{ __('bento.help.value_highlight') }}</span> {{ __('bento.help.value_p2') }}
                 </p>
                 <a href="https://wa.me/573113894136" target="_blank" rel="noopener noreferrer" class="btn-work-together">
-                    <span>Hablemos por WhatsApp</span>
+                    <span>{{ __('bento.help.btn_whatsapp') }}</span>
                     <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M7 17L17 7M17 7H7M17 7V17"/></svg>
                 </a>
             </div>
@@ -1268,7 +1414,7 @@
                 </div>
                 <div>
                     <p class="email-big-text">yohanblaro18@gmail.com</p>
-                    <p id="copy-hint-text" class="email-copy-hint">Haz clic para copiar email</p>
+                    <p id="copy-hint-text" class="email-copy-hint">{{ __('bento.help.copy_email_hint') }}</p>
                 </div>
             </button>
         </div>
@@ -1280,11 +1426,14 @@
         <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
         </svg>
-        <span>Email copiado al portapapeles</span>
+        <span>{{ __('bento.help.toast_copied') }}</span>
     </div>
 
     {{-- Interactive Theme & Clipboard Scripts --}}
     <script>
+        const themeTextLight = '{{ __('bento.nav.theme_light') }}';
+        const themeTextDark = '{{ __('bento.nav.theme_dark') }}';
+
         function updateThemeIcons() {
             const isDark = document.documentElement.classList.contains('dark');
             const sunIcon = document.querySelector('.icon-sun');
@@ -1294,11 +1443,11 @@
                 if (isDark) {
                     sunIcon.style.display = 'block';
                     moonIcon.style.display = 'none';
-                    if (themeLabel) themeLabel.textContent = 'Claro';
+                    if (themeLabel) themeLabel.textContent = themeTextLight;
                 } else {
                     sunIcon.style.display = 'none';
                     moonIcon.style.display = 'block';
-                    if (themeLabel) themeLabel.textContent = 'Oscuro';
+                    if (themeLabel) themeLabel.textContent = themeTextDark;
                 }
             }
         }
@@ -1321,17 +1470,20 @@
         document.addEventListener('DOMContentLoaded', updateThemeIcons);
         updateThemeIcons();
 
+        const copySuccessText = '{{ __('bento.help.copied_email_hint') }}';
+        const copyDefaultText = '{{ __('bento.help.copy_email_hint') }}';
+
         function copyEmailToClipboard() {
             const email = 'yohanblaro18@gmail.com';
             navigator.clipboard.writeText(email).then(() => {
                 const toast = document.getElementById('toast-copied');
                 const hint = document.getElementById('copy-hint-text');
-                if (hint) hint.textContent = '¡Email copiado al portapapeles! ✨';
+                if (hint) hint.textContent = copySuccessText;
                 if (toast) {
                     toast.classList.add('show');
                     setTimeout(() => {
                         toast.classList.remove('show');
-                        if (hint) hint.textContent = 'Haz clic para copiar email';
+                        if (hint) hint.textContent = copyDefaultText;
                     }, 2500);
                 }
             });

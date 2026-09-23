@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Yohan Blanco - WordPress Developer & Digital Marketing Specialist</title>
+    <title>{{ __('bento.seo.title') }}</title>
+    <meta name="description" content="{{ __('bento.seo.description') }}">
 
     <!-- Theme hydration before paint (defaults to dark mode) -->
     <script>
