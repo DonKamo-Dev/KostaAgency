@@ -36,6 +36,29 @@ Ordenados según el plan [2026-09-17-cierre-pendientes-plataforma](docs/superpow
 | 5 | Planes/documentación desincronizados | Fase 5 | Completada (commit de cierre) |
 | 6 | Jerarquía editorial landing (Web → Films → Estrategia → Branding) | Landing | Completada |
 
+### 2026-09-23 - Soporte Bilingüe (ES/EN) y Corrección de Responsividad Móvil en Página Bento / CV (/kamo)
+
+- **Requerimiento:**
+  - Agregar soporte bilingüe completo (Español e Inglés) a la página interactiva Bento / CV (`/kamo`, `/cv`, `/perfil`) con selector de idioma interactivo `[ ES | EN ]`.
+  - Corregir el descuadre y desbordamiento de la barra superior en dispositivos móviles señalado en capturas de pantalla.
+- **Causa Raíz de Descuadre Móvil:**
+  - En desktop, los componentes de la barra (`[← Volver a Kosta]`, pastilla `[• kosta.studio/kamo]`, botón de tema `[☼ Claro]` y botón `[Contactar ↗]`) sumaban más de 535px de ancho fijo. En anchos de pantalla móvil (320px a 414px), los elementos colisionaban y generaban scroll horizontal y desajuste visual.
+- **Implementación y Solución:**
+  - **Diccionarios Bilingües Dedicados:** Creados `lang/es/bento.php` y `lang/en/bento.php` cubriendo metadatos SEO (`<title>`, `<meta name="description">`), biografía, tags de estado, proyectos recientes, métricas/hitos, enlaces sociales, horario/zona horaria, tarjeta de disponibilidad/radar, stack tecnológico, propuesta de valor, botón de WhatsApp, avisos dinámicos de copiado de email y tooltips de modo Claro/Oscuro.
+  - **Selector de Idioma `[ ES | EN ]`:** Integrado en la barra superior con variables CSS del sistema Bento (`--bento-surface`, `--bento-border`, `--bento-primary-btn-bg`), adaptándose automáticamente tanto en modo Claro como Oscuro.
+  - **Responsividad Móvil de la Barra Superior:**
+    - En pantallas `<= 640px`, la pastilla URL decorativa `.bento-url-pill` se oculta (`display: none;`).
+    - El botón de cambio de tema `.btn-theme-toggle` pasa a modo solo-ícono en móvil, ocultando el texto (`.theme-label`).
+    - El botón de volver adapta su texto según viewport: *"Volver a Kosta"* / *"Back to Kosta"* en desktop y *"Volver"* / *"Back"* en móvil mediante clases responsive.
+    - El ancho total de la barra se redujo de ~535px a ~250px en móvil, permitiendo una convivencia espaciosa y sin desbordamiento desde pantallas de 320px.
+    - Cuadrícula de enlaces sociales adaptada a 1 columna en pantallas `< 500px`.
+  - **Control de Calidad y Pruebas:**
+    - Se incorporaron pruebas específicas en `tests/Feature/LocalizationTest.php` comprobando la traducción exacta en español e inglés en `/kamo`.
+    - 99 de 99 pruebas del proyecto aprobadas sin fallos (392 aserciones en verde).
+  - **Despliegue Vercel:**
+    - Build de Vite generado limpiamente (`npm run build`).
+    - Cambios desplegados y comprobados en vivo en producción: `https://kosta-agency.vercel.app/kamo` y `https://kosta-agency.vercel.app/locale/en`.
+
 ### 2026-09-23 - Soporte Bilingüe Español / Inglés en Vistas Públicas de Kosta y Despliegue en Vercel
 
 - **Requerimiento:**
