@@ -87,6 +87,15 @@ class PdfTest extends TestCase
         $this->assertStringContainsString('Kosta Studio Films', $html);
     }
 
+    public function test_document_summary_is_anchored_above_the_footer(): void
+    {
+        $template = file_get_contents(resource_path('views/pdf/quote.blade.php'));
+
+        $this->assertStringContainsString('class="document-summary"', $template);
+        $this->assertMatchesRegularExpression('/\.document-summary\s*\{[^}]*position:\s*absolute;[^}]*bottom:\s*58px;/s', $template);
+        $this->assertStringContainsString('padding: 28px 36px 250px 36px;', $template);
+    }
+
     private function fakePdfRenderer(): void
     {
         $pdf = \Mockery::mock(PDF::class);

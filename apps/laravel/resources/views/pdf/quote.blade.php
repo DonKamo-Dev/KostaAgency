@@ -10,7 +10,7 @@
         body {
             font-family: 'Helvetica', sans-serif;
             margin: 0;
-            padding: 28px 36px 50px 36px;
+            padding: 28px 36px 250px 36px;
             color: #333;
             background: #fff;
         }
@@ -52,6 +52,12 @@
             color: #aaa;
             border-top: 1px solid #eee;
             padding-top: 6px;
+        }
+        .document-summary {
+            position: absolute;
+            right: 36px;
+            bottom: 58px;
+            left: 36px;
         }
     </style>
 </head>
@@ -153,7 +159,7 @@
         </tbody>
     </table>
 
-    <div style="margin-top: 14px;">
+    <div class="document-summary">
         <table style="width: 100%; border-collapse: collapse;">
             <tr>
                 <td style="width: 60%; vertical-align: top; padding-right: 20px;">
