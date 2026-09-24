@@ -355,29 +355,27 @@
                             @error('video_orientation') <span class="form-error">{{ $message }}</span> @enderror
                         </div>
 
-                        <!-- Métodos de Entrada de Video -->
-                        <div class="form-grid-2">
-                            <div class="form-group" style="margin-bottom:0;">
-                                <label class="form-label">Subir Archivo de Video</label>
-                                <input type="file" wire:model="video_file" accept="video/mp4,video/webm,video/quicktime,video/ogg" class="form-input" style="padding:10px;cursor:pointer;">
-                                <div wire:loading wire:target="video_file" style="font-size:12px;color:#f43f5e;margin-top:6px;display:flex;align-items:center;gap:6px;">
-                                    <svg class="animate-spin" width="14" height="14" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" opacity="0.25"></circle><path fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path></svg>
-                                    Cargando video en el servidor...
-                                </div>
-                                <span style="font-size:11px;color:var(--text-subtle);margin-top:4px;display:block;">Soporta MP4, WebM o MOV (reproducción instantánea)</span>
-                                @error('video_file') <span class="form-error">{{ $message }}</span> @enderror
+                        <!-- Enlace de Video / CDN / Streaming -->
+                        <div class="form-group" style="margin-bottom:16px;">
+                            <label class="form-label">Enlace de Video / Streaming <span class="required">*</span></label>
+                            <div style="position:relative;">
+                                <input type="text"
+                                       wire:model.live.debounce.250ms="video_url"
+                                       class="form-input"
+                                       style="height:46px;padding-left:42px;font-size:13.5px;"
+                                       placeholder="https://pub-...r2.dev/video.mp4 o https://videodelivery.net/..."/>
+                                <span style="position:absolute;left:14px;top:50%;transform:translateY(-50%);color:#f43f5e;display:flex;align-items:center;pointer-events:none;">
+                                    <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+                                </span>
                             </div>
-
-                            <div class="form-group" style="margin-bottom:0;">
-                                <label class="form-label">O Enlace de Video / CDN / Redes</label>
-                                <input type="text" wire:model.live.debounce.250ms="video_url" class="form-input" placeholder="https://pub-...r2.dev/video.mp4 o enlace de video"/>
-                                <span style="font-size:11px;color:var(--text-subtle);margin-top:4px;display:block;">Soporta Cloudflare R2 / Stream, Cloudinary, AWS S3, YouTube Shorts o Vimeo</span>
-                                @error('video_url') <span class="form-error">{{ $message }}</span> @enderror
-                            </div>
+                            <span style="font-size:11.5px;color:rgba(255,255,255,0.55);margin-top:6px;display:block;">
+                                Pega la URL de tu video en <strong>Cloudflare R2</strong>, <strong>Cloudflare Stream</strong>, <strong>AWS S3</strong>, <strong>YouTube Shorts</strong>, <strong>Vimeo</strong> o archivo directo <code>.mp4</code> / <code>.webm</code>. Carga y reproduce al instante.
+                            </span>
+                            @error('video_url') <span class="form-error">{{ $message }}</span> @enderror
                         </div>
 
                         <!-- Duración Estimada y Tags -->
-                        <div class="form-grid-2" style="margin-top:16px;">
+                        <div class="form-grid-2">
                             <div class="form-group" style="margin-bottom:0;">
                                 <label class="form-label">Duración del Reel/Video</label>
                                 <input type="text" wire:model.live.debounce.250ms="video_duration" class="form-input" placeholder="Ej: 0:45, 1:15"/>
@@ -393,16 +391,16 @@
                         </div>
 
                         <!-- Previsualización de Video en el Formulario -->
-                        @if($video_file || filled($video_url))
+                        @if(filled($video_url))
                             <div style="margin-top:16px;padding:14px;background:rgba(0,0,0,0.5);border:1px solid rgba(244,63,94,0.3);border-radius:12px;">
                                 <div style="font-size:12px;font-weight:700;color:#f43f5e;margin-bottom:8px;display:flex;align-items:center;gap:6px;">
                                     <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-                                    Video Detectado y Listo para Reproducción Rápida
+                                    Video Conectado y Listo para Reproducción Rápida
                                 </div>
-                                @if($video_file)
-                                    <video src="{{ $video_file->temporaryUrl() }}" controls preload="metadata" playsinline style="max-height:220px;border-radius:8px;background:#000;width:auto;"></video>
-                                @elseif(filled($video_url) && \App\Support\CaseStudyVideo::isDirectVideo($video_url))
-                                    <video src="{{ $video_url }}" controls preload="metadata" playsinline style="max-height:220px;border-radius:8px;background:#000;width:auto;"></video>
+                                @if(\App\Support\CaseStudyVideo::isDirectVideo($video_url))
+                                    <video src="{{ $video_url }}" controls preload="metadata" playsinline style="max-height:220px;border-radius:8px;background:#000;width:auto;max-width:100%;"></video>
+                                @elseif(\App\Support\CaseStudyVideo::resolveEmbedUrl($video_url))
+                                    <iframe src="{{ \App\Support\CaseStudyVideo::resolveEmbedUrl($video_url) }}" style="width:100%;height:220px;border-radius:8px;border:none;" allow="autoplay; fullscreen" allowfullscreen></iframe>
                                 @else
                                     <div style="font-size:12px;color:rgba(255,255,255,0.7);">
                                         URL configurada: <a href="{{ $video_url }}" target="_blank" style="color:#f43f5e;text-decoration:underline;">{{ $video_url }}</a>
@@ -565,9 +563,7 @@
 
                         <!-- Video Screen -->
                         <div style="height:{{ $video_orientation === 'vertical' ? '220px' : '175px' }};position:relative;overflow:hidden;background:#09090b;display:flex;align-items:center;justify-content:center;">
-                            @if($video_file)
-                                <video src="{{ $video_file->temporaryUrl() }}" autoplay muted loop playsinline style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;"></video>
-                            @elseif(filled($video_url) && \App\Support\CaseStudyVideo::isDirectVideo($video_url))
+                            @if(filled($video_url) && \App\Support\CaseStudyVideo::isDirectVideo($video_url))
                                 <video src="{{ $video_url }}" autoplay muted loop playsinline style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;"></video>
                             @else
                                 <div style="position:absolute;inset:0;background:radial-gradient(circle at center, rgba(244,63,94,0.18) 0%, rgba(9,9,11,0.95) 75%);"></div>

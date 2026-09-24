@@ -40,8 +40,6 @@ class Form extends Component
 
     public string $video_duration = '';
 
-    public $video_file = null;
-
     public string $metrica_valor = '';
 
     public string $metrica_label = '';
@@ -69,7 +67,6 @@ class Form extends Component
         'video_url' => 'nullable|string|max:1000',
         'video_orientation' => 'nullable|in:vertical,horizontal',
         'video_duration' => 'nullable|string|max:50',
-        'video_file' => 'nullable|mimes:mp4,webm,mov,ogg,m4v|max:51200',
         'metrica_valor' => 'nullable|string|max:50',
         'metrica_label' => 'nullable|string|max:100',
         'tags_input' => 'nullable|string|max:500',
@@ -87,8 +84,6 @@ class Form extends Component
         'source_type.in' => 'El tipo de anclaje debe ser Empresa o Sitio Web.',
         'client_id.exists' => 'La empresa seleccionada no es válida.',
         'linked_case_study_id.exists' => 'El sitio web seleccionado no es válido.',
-        'video_file.mimes' => 'El video debe ser en formato MP4, WebM o MOV.',
-        'video_file.max' => 'El archivo de video no puede superar los 50 MB.',
         'imagen_nueva.image' => 'El archivo debe ser una imagen (JPG, PNG, WebP).',
         'imagen_nueva.max' => 'La imagen no puede superar 2 MB.',
     ];
@@ -151,14 +146,9 @@ class Form extends Component
             'orden' => $this->orden,
         ];
 
-        // Configuración específica de Videos para Films
+        // Configuración específica de Videos para Films (enlace directo o streaming ultra-rápido)
         if ($categoriaEfectiva === 'films') {
-            if ($this->video_file) {
-                $storedVideo = \App\Support\CaseStudyVideo::storeUploaded($this->video_file);
-                $data['video_url'] = $storedVideo;
-            } else {
-                $data['video_url'] = trim($this->video_url) ?: null;
-            }
+            $data['video_url'] = trim($this->video_url) ?: null;
             $data['video_orientation'] = $this->video_orientation ?: 'vertical';
             $data['video_duration'] = trim($this->video_duration) ?: null;
         }

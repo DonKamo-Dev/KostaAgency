@@ -50,8 +50,8 @@ Ordenados según el plan [2026-09-17-cierre-pendientes-plataforma](docs/superpow
   - **Formulario Dinámico (`CaseStudies\Form` & `form.blade.php`):**
     - Al seleccionar `films`, la sección de portada estática se oculta y se transforma automáticamente en **Video & Producción (Films / Reels)**.
     - Selector interactivo de orientación: **Reel / Vertical (9:16)** vs **Horizontal (16:9)**.
-    - Soporte dual de entrada: carga de archivo de video directo (hasta 50 MB con indicador de progreso) o URL de CDN/streaming.
-    - Campo de duración estimada para badges tipo Reel (`0:45`, `1:15`).
+    - Configuración simplificada a solo **Enlace de Video (URL / Streaming)**: eliminada la subida de archivos y spinners residuales de carga en el servidor, garantizando compatibilidad total con Cloudflare R2 / Stream, AWS S3, Vimeo, etc., sin saturar el servidor ni tropezar con límites de carga serverless.
+    - Campo de duración estimada para badges tipo Reel (`0:45`, `1:15`) y tags.
     - Previsualización en vivo (columna derecha) adaptada: muestra un reproductor tipo smartphone/reel para videos verticales o pantalla cinemática para horizontales, con botón de reproducción interactivo.
   - **Portafolio Público (`portfolio.blade.php` y `components/film-viewer.blade.php`):**
     - En `/portafolio`, las tarjetas de films se adaptan con encabezado de grabación tipo claqueta (`REEL 9:16` / `FILM 16:9`) y badge de tiempo.
