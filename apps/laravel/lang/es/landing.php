@@ -287,6 +287,7 @@ return [
             'email_required' => 'El correo electrónico es obligatorio.',
             'email_valid' => 'Ingresa un correo electrónico válido.',
             'service_required' => 'Selecciona un servicio de interés.',
+            'too_many' => 'Has enviado varias solicitudes. Espera unos minutos antes de intentarlo nuevamente.',
         ],
     ],
 

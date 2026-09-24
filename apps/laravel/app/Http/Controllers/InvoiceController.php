@@ -6,6 +6,7 @@ use App\Models\Client;
 use App\Models\Document;
 use App\Models\Service;
 use App\Services\DocumentCalculator;
+use App\Services\DocumentNumberGenerator;
 use App\Services\RegisterDocumentPayment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -111,6 +112,7 @@ class InvoiceController extends Controller
 
     public function editData(Document $document)
     {
+        abort_unless($document->type === 'invoice', 404);
         $document->load('items', 'payments');
 
         return response()->json($this->formPayload($document) + [
@@ -184,10 +186,9 @@ class InvoiceController extends Controller
             'items.*.unit_price' => 'required|numeric|min:0',
         ]);
 
-        $doc = DB::transaction(function () use ($data) {
+        $doc = app(DocumentNumberGenerator::class)->create('invoice', function (string $docNumber) use ($data) {
             $calculator = new DocumentCalculator;
             $subtotal = (float) $calculator->subtotal($data['items']);
-            $count = Document::where('type', 'invoice')->count() + 1;
 
             $doc = Document::create([
                 'client_id' => $data['client_id'],
@@ -199,7 +200,7 @@ class InvoiceController extends Controller
                 'subtotal' => $subtotal,
                 'tax' => 0,
                 'total' => $subtotal,
-                'doc_number' => 'FAC-'.str_pad(5800 + $count, 4, '0', STR_PAD_LEFT),
+                'doc_number' => $docNumber,
             ]);
 
             $this->saveItems($doc, $data['items']);

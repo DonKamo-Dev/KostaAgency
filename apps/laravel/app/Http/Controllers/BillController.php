@@ -6,6 +6,7 @@ use App\Models\Client;
 use App\Models\Document;
 use App\Models\Service;
 use App\Services\DocumentCalculator;
+use App\Services\DocumentNumberGenerator;
 use App\Services\RegisterDocumentPayment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -70,6 +71,7 @@ class BillController extends Controller
 
     public function editData(Document $document)
     {
+        abort_unless($document->type === 'bill', 404);
         $document->load('items');
 
         return response()->json([
@@ -107,10 +109,9 @@ class BillController extends Controller
             'items.*.unit_price' => 'required|numeric|min:0',
         ]);
 
-        $doc = DB::transaction(function () use ($data) {
+        $doc = app(DocumentNumberGenerator::class)->create('bill', function (string $docNumber) use ($data) {
             $calculator = new DocumentCalculator;
             $subtotal = (float) $calculator->subtotal($data['items']);
-            $count = Document::where('type', 'bill')->count() + 1;
 
             $doc = Document::create([
                 'client_id' => $data['client_id'],
@@ -122,7 +123,7 @@ class BillController extends Controller
                 'subtotal' => $subtotal,
                 'tax' => 0,
                 'total' => $subtotal,
-                'doc_number' => 'CC-'.str_pad($count, 4, '0', STR_PAD_LEFT),
+                'doc_number' => $docNumber,
             ]);
 
             $this->saveItems($doc, $data['items']);

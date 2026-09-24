@@ -172,6 +172,11 @@
                         </div>
 
                         <form wire:submit.prevent="enviar" novalidate>
+                            <div aria-hidden="true" style="position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden;">
+                                <label for="website">Website</label>
+                                <input id="website" type="text" wire:model.defer="website" tabindex="-1" autocomplete="off">
+                            </div>
+                            @error('form') <p class="field-error mb-4" role="alert">{{ $message }}</p> @enderror
                             <div class="form-row">
                                 <div class="field-group">
                                     <label class="field-label" for="nombre">{{ __('landing.contact.field_name') }} <span class="req">*</span></label>

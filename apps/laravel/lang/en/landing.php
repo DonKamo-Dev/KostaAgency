@@ -287,6 +287,7 @@ return [
             'email_required' => 'Your email address is required.',
             'email_valid' => 'Please provide a valid email address.',
             'service_required' => 'Please select a service of interest.',
+            'too_many' => 'You have submitted several requests. Please wait a few minutes before trying again.',
         ],
     ],
 

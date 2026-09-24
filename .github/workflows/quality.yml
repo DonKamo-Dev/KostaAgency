@@ -1,0 +1,50 @@
+name: Quality
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: apps/laravel
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          coverage: none
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: apps/laravel/package-lock.json
+
+      - name: Install PHP dependencies
+        run: composer install --prefer-dist --no-interaction --no-progress
+
+      - name: Install JavaScript dependencies
+        run: npm ci
+
+      - name: Audit dependencies
+        run: |
+          composer audit --locked --no-interaction
+          npm audit --omit=dev
+
+      - name: Check PHP formatting
+        run: php vendor/bin/pint --test
+
+      - name: Build production assets
+        run: npm run build
+
+      - name: Run PHP tests
+        run: php artisan test
+
+      - name: Run JavaScript tests
+        run: npm run test:js

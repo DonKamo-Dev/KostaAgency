@@ -8,6 +8,7 @@ use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\QuoteController;
 use App\Http\Controllers\ServiceController;
+use App\Http\Middleware\SetLocale;
 use App\Livewire\CaseStudies\Form as CaseStudiesForm;
 use App\Livewire\CaseStudies\Index as CaseStudiesIndex;
 use App\Livewire\Landing\Bento as LandingBento;
@@ -44,7 +45,7 @@ if (app()->isLocal()) {
 
 // ── Cambio de idioma ─────────────────────────────────────────────────────────
 Route::get('/locale/{locale}', function (string $locale) {
-    $targetLocale = in_array($locale, \App\Http\Middleware\SetLocale::SUPPORTED, true)
+    $targetLocale = in_array($locale, SetLocale::SUPPORTED, true)
         ? $locale
         : config('app.locale', 'es');
 
@@ -65,21 +66,6 @@ Route::get('/servicios/{slug}', LandingServiceDetail::class)->name('services.sho
 Route::redirect('/servicios', '/#servicios')->name('services.landing');
 Route::redirect('/bento', '/kamo');
 Route::view('/privacidad', 'privacy')->name('privacy');
-
-// ── Archivos estáticos en /storage/... (resiliente para entornos serverless) ──
-Route::get('/storage/{path}', function (string $path) {
-    $publicFile = public_path('storage/' . $path);
-    if (file_exists($publicFile)) {
-        return response()->file($publicFile);
-    }
-
-    $storageFile = storage_path('app/public/' . $path);
-    if (file_exists($storageFile)) {
-        return response()->file($storageFile);
-    }
-
-    abort(404);
-})->where('path', '.*')->name('storage.file');
 
 // ── Autenticadas ──────────────────────────────────────────────────────────────
 Route::middleware(['auth', 'verified'])->group(function () {

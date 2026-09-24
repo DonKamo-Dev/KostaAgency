@@ -3,6 +3,8 @@
 namespace App\Livewire\Landing;
 
 use App\Models\Lead;
+use Illuminate\Support\Facades\RateLimiter;
+use Illuminate\Validation\ValidationException;
 use Livewire\Component;
 
 class Contact extends Component
@@ -18,6 +20,8 @@ class Contact extends Component
     public string $presupuesto = '';
 
     public string $mensaje = '';
+
+    public string $website = '';
 
     public bool $enviado = false;
 
@@ -50,7 +54,23 @@ class Contact extends Component
 
     public function enviar(): void
     {
+        if (filled($this->website)) {
+            $this->enviado = true;
+            $this->reset(['nombre', 'email', 'telefono', 'servicio', 'presupuesto', 'mensaje', 'website']);
+
+            return;
+        }
+
         $this->validate();
+
+        $rateLimitKey = 'contact-form:'.sha1(request()->ip().'|'.strtolower($this->email));
+        if (RateLimiter::tooManyAttempts($rateLimitKey, 3)) {
+            throw ValidationException::withMessages([
+                'form' => __('landing.contact.validation.too_many'),
+            ]);
+        }
+
+        RateLimiter::hit($rateLimitKey, 300);
 
         Lead::create([
             'nombre' => $this->nombre,
@@ -62,7 +82,7 @@ class Contact extends Component
         ]);
 
         $this->enviado = true;
-        $this->reset(['nombre', 'email', 'telefono', 'servicio', 'presupuesto', 'mensaje']);
+        $this->reset(['nombre', 'email', 'telefono', 'servicio', 'presupuesto', 'mensaje', 'website']);
     }
 
     public function render()

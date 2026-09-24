@@ -49,7 +49,7 @@ class AuthenticationTest extends TestCase
         $this->assertAuthenticatedAs($user);
     }
 
-    public function test_admin_can_authenticate_with_alternate_blanco_email_alias(): void
+    public function test_login_does_not_substitute_a_different_email_address(): void
     {
         $user = User::factory()->create([
             'email' => 'yohanblaro18@gmail.com',
@@ -59,9 +59,9 @@ class AuthenticationTest extends TestCase
         $this->post('/login', [
             'email' => 'yohanblanco18@gmail.com',
             'password' => 'admin123',
-        ])->assertRedirect(route('dashboard', absolute: false));
+        ])->assertSessionHasErrors('email');
 
-        $this->assertAuthenticatedAs($user);
+        $this->assertGuest();
     }
 
     public function test_users_can_not_authenticate_with_invalid_password(): void

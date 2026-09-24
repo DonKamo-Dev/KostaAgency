@@ -73,6 +73,32 @@ class DocumentTypeTest extends TestCase
         $this->actingAs($this->user)->deleteJson("/quotes/{$invoice->id}")->assertNotFound();
     }
 
+    public function test_edit_data_routes_reject_the_wrong_document_type(): void
+    {
+        $client = Client::factory()->create(['name' => 'Test']);
+        $quote = Document::create([
+            'client_id' => $client->id,
+            'type' => 'quote',
+            'status' => 'pending',
+            'date' => now()->toDateString(),
+            'subtotal' => 100,
+            'tax' => 0,
+            'total' => 100,
+            'doc_number' => 'COT-0099',
+        ]);
+
+        $this->actingAs($this->user)->getJson("/invoices/{$quote->id}/edit-data")->assertNotFound();
+        $this->actingAs($this->user)->getJson("/bills/{$quote->id}/edit-data")->assertNotFound();
+
+        $invoice = $quote->replicate()->fill([
+            'type' => 'invoice',
+            'doc_number' => 'FAC-0099',
+        ]);
+        $invoice->save();
+
+        $this->actingAs($this->user)->getJson("/quotes/{$invoice->id}/edit-data")->assertNotFound();
+    }
+
     public function test_number_generator_returns_type_prefixes(): void
     {
         $generator = app(DocumentNumberGenerator::class);

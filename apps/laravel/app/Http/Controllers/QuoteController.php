@@ -6,6 +6,7 @@ use App\Models\Client;
 use App\Models\Document;
 use App\Models\Service;
 use App\Services\DocumentCalculator;
+use App\Services\DocumentNumberGenerator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -113,6 +114,7 @@ class QuoteController extends Controller
     /** Datos de una cotización para el formulario de edición */
     public function editData(Document $document)
     {
+        abort_unless($document->type === 'quote', 404);
         $document->load('items');
 
         return response()->json($this->formPayload($document));
@@ -166,7 +168,7 @@ class QuoteController extends Controller
             'items.*.unit_price' => 'required|numeric|min:0',
         ]);
 
-        $doc = DB::transaction(function () use ($data) {
+        $doc = app(DocumentNumberGenerator::class)->create('quote', function (string $docNumber) use ($data) {
             $calculator = new DocumentCalculator;
             $subtotal = (float) $calculator->subtotal($data['items']);
 
@@ -180,7 +182,7 @@ class QuoteController extends Controller
                 'subtotal' => $subtotal,
                 'tax' => 0,
                 'total' => $subtotal,
-                'doc_number' => $this->docNumber(),
+                'doc_number' => $docNumber,
             ]);
 
             $this->saveItems($doc, $data['items']);
@@ -255,14 +257,14 @@ class QuoteController extends Controller
         abort_unless($document->type === 'quote', 404);
         $this->ensurePending($document);
 
-        $copy = DB::transaction(function () use ($document) {
+        $copy = app(DocumentNumberGenerator::class)->create('quote', function (string $docNumber) use ($document) {
             $document->load('items');
 
             $copy = Document::create([
                 'client_id' => $document->client_id,
                 'type' => 'quote',
                 'status' => 'pending',
-                'doc_number' => $this->docNumber(),
+                'doc_number' => $docNumber,
                 'date' => now()->format('Y-m-d'),
                 'due_date' => null,
                 'notes' => $document->notes,
@@ -287,7 +289,7 @@ class QuoteController extends Controller
     {
         abort_unless($document->type === 'quote', 404);
 
-        $invoice = DB::transaction(function () use ($document) {
+        $invoice = app(DocumentNumberGenerator::class)->create('invoice', function (string $docNumber) use ($document) {
             $quote = Document::where('id', $document->id)->lockForUpdate()->first();
 
             abort_unless($quote->type === 'quote', 404);
@@ -309,7 +311,7 @@ class QuoteController extends Controller
                 'total' => $quote->total,
                 'status' => 'pending',
                 'related_doc_id' => $quote->id,
-                'doc_number' => 'FAC-'.str_pad(5800 + Document::where('type', 'invoice')->count() + 1, 4, '0', STR_PAD_LEFT),
+                'doc_number' => $docNumber,
             ]);
 
             foreach ($quote->items as $item) {
@@ -340,13 +342,6 @@ class QuoteController extends Controller
                 ]);
             }
         }
-    }
-
-    private function docNumber(): string
-    {
-        $count = Document::where('type', 'quote')->count() + 1;
-
-        return 'COT-'.str_pad(2400 + $count, 4, '0', STR_PAD_LEFT);
     }
 
     private function ensurePending(Document $document): void
