@@ -9,8 +9,10 @@
  */
 function documentFormPage(cfg) {
     const TOKEN = document.querySelector('meta[name="csrf-token"]')?.content || '';
+    const moneyFormatter = new Intl.NumberFormat('es-CO', { maximumFractionDigits: 0 });
+    const formatMoneyInput = value => moneyFormatter.format(Number(value) || 0);
 
-    const blankItem = () => ({ service_id: null, service_name: '', description: '', quantity: 1, unit_price: 0, subtotal: 0 });
+    const blankItem = () => ({ service_id: null, service_name: '', description: '', quantity: 1, unit_price: 0, unit_price_display: '0', subtotal: 0 });
 
     const blankForm = () => ({
         client_id: '',
@@ -25,7 +27,11 @@ function documentFormPage(cfg) {
         date: doc.date ?? new Date().toISOString().slice(0, 10),
         due_date: doc.due_date ?? '',
         notes: doc.notes ?? '',
-        items: (doc.items && doc.items.length) ? doc.items.map(i => ({ ...blankItem(), ...i })) : [blankItem()],
+        items: (doc.items && doc.items.length) ? doc.items.map(i => ({
+            ...blankItem(),
+            ...i,
+            unit_price_display: formatMoneyInput(i.unit_price),
+        })) : [blankItem()],
     });
 
     return {
@@ -77,11 +83,23 @@ function documentFormPage(cfg) {
         calcRow(item) {
             item.subtotal = (parseFloat(item.quantity) || 0) * (parseFloat(item.unit_price) || 0);
         },
+        syncMoney(item, event) {
+            const digits = event.target.value.replace(/\D/g, '');
+            item.unit_price = digits ? Number(digits) : 0;
+            item.unit_price_display = formatMoneyInput(item.unit_price);
+            this.calcRow(item);
+
+            this.$nextTick(() => {
+                const end = event.target.value.length;
+                event.target.setSelectionRange(end, end);
+            });
+        },
         pickService(i, svc) {
             const item = this.form.items[i];
             item.service_id   = svc.id;
             item.service_name = svc.name;
             item.unit_price   = svc.unit_price;
+            item.unit_price_display = formatMoneyInput(svc.unit_price);
             item.description  = svc.description || item.description;
             this.calcRow(item);
         },
@@ -193,7 +211,7 @@ function documentFormPage(cfg) {
         },
 
         /* Helpers */
-        fmt(v) { return '$' + new Intl.NumberFormat('es-CO', { maximumFractionDigits: 0 }).format(v || 0); },
+        fmt(v) { return '$' + moneyFormatter.format(v || 0); },
         methodLabel(m) {
             return { transfer: 'Transferencia', nequi: 'Nequi', cash: 'Efectivo', card: 'Tarjeta' }[m] || m;
         },

@@ -94,12 +94,15 @@
                 <input type="number" step="0.01" min="0.01" x-model="item.quantity"
                        @input="calcRow(item)"
                        :disabled="readOnly"
-                       class="form-input" style="font-size:13px;padding:9px 10px;text-align:center;margin-top:0;" placeholder="1"/>
+                       class="form-input numeric-input" style="font-size:13px;padding:9px 10px;text-align:center;margin-top:0;" placeholder="1"
+                       :aria-label="'Cantidad del ítem ' + (i + 1)"/>
 
-                <input type="number" step="0.01" min="0" x-model="item.unit_price"
-                       @input="calcRow(item)"
+                <input type="text" inputmode="numeric" x-model="item.unit_price_display"
+                       @input="syncMoney(item, $event)"
+                       @focus="$event.target.select()"
                        :disabled="readOnly"
-                       class="form-input" style="font-size:13px;padding:9px 10px;text-align:right;" placeholder="0"/>
+                       class="form-input money-input" style="font-size:13px;padding:9px 12px;text-align:right;" placeholder="0"
+                       autocomplete="off" :aria-label="'Precio unitario del ítem ' + (i + 1)"/>
 
                 <div style="text-align:right;padding-top:11px;">
                     <span x-text="fmt(item.subtotal)"

@@ -1037,6 +1037,24 @@
             .form-input::placeholder,
             .form-textarea::placeholder { color: var(--text-subtle); }
 
+            .numeric-input {
+                appearance: textfield;
+                -moz-appearance: textfield;
+                font-variant-numeric: tabular-nums;
+            }
+
+            .numeric-input::-webkit-outer-spin-button,
+            .numeric-input::-webkit-inner-spin-button {
+                appearance: none;
+                -webkit-appearance: none;
+                margin: 0;
+            }
+
+            .money-input {
+                font-variant-numeric: tabular-nums;
+                letter-spacing: 0.01em;
+            }
+
             .form-input:focus,
             .form-textarea:focus,
             .form-select:focus {
