@@ -121,7 +121,11 @@
 
                         <!-- Preview -->
                         <td>
-                            @if($study->image_url)
+                            @if($study->categoria === 'films')
+                                <div style="width:48px;height:32px;border-radius:6px;background:rgba(244,63,94,0.15);border:1px solid rgba(244,63,94,0.3);display:flex;align-items:center;justify-content:center;color:#f43f5e;">
+                                    <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                                </div>
+                            @elseif($study->image_url)
                                 <div style="width:48px;height:32px;border-radius:6px;overflow:hidden;border:1px solid var(--border-subtle);">
                                     <img src="{{ $study->image_url }}" alt="" style="width:100%;height:100%;object-fit:cover;">
                                 </div>
@@ -132,7 +136,14 @@
 
                         <!-- Título + URL + Enlace Empresa / Web -->
                         <td>
-                            <div class="crud-row-name">{{ $study->titulo }}</div>
+                            <div style="display:flex;align-items:center;gap:6px;">
+                                <div class="crud-row-name">{{ $study->titulo }}</div>
+                                @if($study->categoria === 'films' && ($study->video_orientation ?? 'vertical') === 'vertical')
+                                    <span style="font-size:10px;font-weight:700;padding:1px 6px;border-radius:4px;background:rgba(244,63,94,0.18);color:#f43f5e;border:1px solid rgba(244,63,94,0.3);">REEL</span>
+                                @elseif($study->categoria === 'films')
+                                    <span style="font-size:10px;font-weight:700;padding:1px 6px;border-radius:4px;background:rgba(244,63,94,0.18);color:#f43f5e;border:1px solid rgba(244,63,94,0.3);">16:9</span>
+                                @endif
+                            </div>
                             @if($study->url_demo)
                                 <div class="crud-row-meta">{{ $study->url_demo }}</div>
                             @endif

@@ -34,6 +34,14 @@ class Form extends Component
 
     public ?int $linked_case_study_id = null;
 
+    public string $video_url = '';
+
+    public string $video_orientation = 'vertical';
+
+    public string $video_duration = '';
+
+    public $video_file = null;
+
     public string $metrica_valor = '';
 
     public string $metrica_label = '';
@@ -58,6 +66,10 @@ class Form extends Component
         'source_type' => 'nullable|in:client,website',
         'client_id' => 'nullable|integer|exists:clients,id',
         'linked_case_study_id' => 'nullable|integer|exists:case_studies,id',
+        'video_url' => 'nullable|string|max:1000',
+        'video_orientation' => 'nullable|in:vertical,horizontal',
+        'video_duration' => 'nullable|string|max:50',
+        'video_file' => 'nullable|mimes:mp4,webm,mov,ogg,m4v|max:51200',
         'metrica_valor' => 'nullable|string|max:50',
         'metrica_label' => 'nullable|string|max:100',
         'tags_input' => 'nullable|string|max:500',
@@ -75,6 +87,8 @@ class Form extends Component
         'source_type.in' => 'El tipo de anclaje debe ser Empresa o Sitio Web.',
         'client_id.exists' => 'La empresa seleccionada no es válida.',
         'linked_case_study_id.exists' => 'El sitio web seleccionado no es válido.',
+        'video_file.mimes' => 'El video debe ser en formato MP4, WebM o MOV.',
+        'video_file.max' => 'El archivo de video no puede superar los 50 MB.',
         'imagen_nueva.image' => 'El archivo debe ser una imagen (JPG, PNG, WebP).',
         'imagen_nueva.max' => 'La imagen no puede superar 2 MB.',
     ];
@@ -92,6 +106,9 @@ class Form extends Component
             $this->source_type = $caseStudy->source_type;
             $this->client_id = $caseStudy->client_id;
             $this->linked_case_study_id = $caseStudy->linked_case_study_id;
+            $this->video_url = $caseStudy->video_url ?? '';
+            $this->video_orientation = $caseStudy->video_orientation ?? 'vertical';
+            $this->video_duration = $caseStudy->video_duration ?? '';
             $this->metrica_valor = $caseStudy->metrica_valor ?? '';
             $this->metrica_label = $caseStudy->metrica_label ?? '';
             $this->tags_input = implode(', ', $caseStudy->tags ?? []);
@@ -133,6 +150,18 @@ class Form extends Component
             'activo' => $this->activo,
             'orden' => $this->orden,
         ];
+
+        // Configuración específica de Videos para Films
+        if ($categoriaEfectiva === 'films') {
+            if ($this->video_file) {
+                $storedVideo = \App\Support\CaseStudyVideo::storeUploaded($this->video_file);
+                $data['video_url'] = $storedVideo;
+            } else {
+                $data['video_url'] = trim($this->video_url) ?: null;
+            }
+            $data['video_orientation'] = $this->video_orientation ?: 'vertical';
+            $data['video_duration'] = trim($this->video_duration) ?: null;
+        }
 
         // Si vincula un sitio web y no escribió URL propia, autovincular la URL del sitio
         if ($categoriaEfectiva === 'films' && $this->source_type === 'website' && empty($data['url_demo']) && $this->linked_case_study_id) {

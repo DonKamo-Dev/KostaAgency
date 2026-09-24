@@ -36,6 +36,31 @@ Ordenados según el plan [2026-09-17-cierre-pendientes-plataforma](docs/superpow
 | 5 | Planes/documentación desincronizados | Fase 5 | Completada (commit de cierre) |
 | 6 | Jerarquía editorial landing (Web → Films → Estrategia → Branding) | Landing | Completada |
 
+### 2026-09-24 - Soporte Dinámico de Videos (Reels 9:16 y Horizontales 16:9) con Reproducción Rápida en Films
+
+- **Requerimiento:**
+  - En la categoría **Films & Reels**, prescindir de subida de imágenes de portada estáticas y permitir la carga y reproducción interactiva directa de videos (reels verticales 9:16 y videos panorámicos horizontales 16:9).
+  - La plataforma debe soportar subida directa y enlaces streaming de alta velocidad, garantizando reproducción rápida y fluida sin bloqueos.
+- **Solución e Implementación:**
+  - **Base de Datos y Modelos:**
+    - Creada migración `database/migrations/2026_09_24_000003_add_video_fields_to_case_studies.php` añadiendo `video_url`, `video_orientation` ('vertical' | 'horizontal') y `video_duration`.
+    - Auto-aprovisionamiento defensivo en `App\Support\CaseStudySource::ensureSchema()` para entornos serverless (TiDB Cloud / Vercel).
+    - Métodos y accessors en `CaseStudy`: `video_stream_url`, `is_reel`, `is_horizontal`, `is_direct_video`, `video_embed_url`.
+    - Clase de soporte `App\Support\CaseStudyVideo` para almacenamiento seguro de video (MP4, WebM, MOV) con reflejo estático en `public/storage/case-studies/videos/` y resolución de embeds (YouTube Shorts, Vimeo, Instagram Reels).
+  - **Formulario Dinámico (`CaseStudies\Form` & `form.blade.php`):**
+    - Al seleccionar `films`, la sección de portada estática se oculta y se transforma automáticamente en **Video & Producción (Films / Reels)**.
+    - Selector interactivo de orientación: **Reel / Vertical (9:16)** vs **Horizontal (16:9)**.
+    - Soporte dual de entrada: carga de archivo de video directo (hasta 50 MB con indicador de progreso) o URL de CDN/streaming.
+    - Campo de duración estimada para badges tipo Reel (`0:45`, `1:15`).
+    - Previsualización en vivo (columna derecha) adaptada: muestra un reproductor tipo smartphone/reel para videos verticales o pantalla cinemática para horizontales, con botón de reproducción interactivo.
+  - **Portafolio Público (`portfolio.blade.php` y `components/film-viewer.blade.php`):**
+    - En `/portafolio`, las tarjetas de films se adaptan con encabezado de grabación tipo claqueta (`REEL 9:16` / `FILM 16:9`) y badge de tiempo.
+    - Reproducción ultrarrápida: videos con `preload="metadata"` y `playsinline muted loop` que se previsualizan instantáneamente al pasar el mouse (hover preview).
+    - Componente cinemático `<x-film-viewer />` (lightbox modal) con backdrop blur, proporción aspect-ratio adaptativa (smartphone vertical para reels o widescreen para horizontales), control de audio, teclado Escape y prevención de fugas de sonido al cerrar.
+  - **Control de Calidad:**
+    - 109 de 109 pruebas pasadas exitosamente (455 aserciones).
+    - Build de Vite (`npm run build`) completado limpiamente en 2.16s.
+
 ### 2026-09-24 - Transición de Categoría 'Social' a 'Films & Reels' y Anclaje Dinámico a Empresa o Sitio Web
 
 - **Requerimiento:**

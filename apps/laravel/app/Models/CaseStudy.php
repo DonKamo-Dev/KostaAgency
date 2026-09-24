@@ -15,6 +15,7 @@ class CaseStudy extends Model
     protected $fillable = [
         'titulo', 'descripcion', 'url_demo', 'categoria', 'source_type',
         'client_id', 'linked_case_study_id',
+        'video_url', 'video_orientation', 'video_duration',
         'metrica_valor', 'metrica_label', 'tags',
         'gradient_inicio', 'gradient_fin', 'imagen', 'imagen_data', 'imagen_mime',
         'activo', 'orden',
@@ -49,6 +50,41 @@ class CaseStudy extends Model
         return $this->imagen ? Storage::disk('public')->url($this->imagen) : null;
     }
 
+    public function getVideoStreamUrlAttribute(): ?string
+    {
+        $url = trim((string) $this->video_url);
+
+        if ($url === '') {
+            return null;
+        }
+
+        if (str_starts_with($url, '/storage/') || str_starts_with($url, 'storage/')) {
+            return asset(ltrim($url, '/'));
+        }
+
+        return $url;
+    }
+
+    public function getIsReelAttribute(): bool
+    {
+        return ($this->video_orientation ?? 'vertical') === 'vertical';
+    }
+
+    public function getIsHorizontalAttribute(): bool
+    {
+        return ($this->video_orientation ?? '') === 'horizontal';
+    }
+
+    public function getIsDirectVideoAttribute(): bool
+    {
+        return \App\Support\CaseStudyVideo::isDirectVideo($this->video_url);
+    }
+
+    public function getVideoEmbedUrlAttribute(): ?string
+    {
+        return \App\Support\CaseStudyVideo::resolveEmbedUrl($this->video_url);
+    }
+
     public function client()
     {
         return $this->belongsTo(Client::class);
@@ -79,6 +115,15 @@ class CaseStudy extends Model
             }
             if (\Illuminate\Support\Facades\Schema::hasColumn('case_studies', 'linked_case_study_id')) {
                 $columns[] = 'linked_case_study_id';
+            }
+            if (\Illuminate\Support\Facades\Schema::hasColumn('case_studies', 'video_url')) {
+                $columns[] = 'video_url';
+            }
+            if (\Illuminate\Support\Facades\Schema::hasColumn('case_studies', 'video_orientation')) {
+                $columns[] = 'video_orientation';
+            }
+            if (\Illuminate\Support\Facades\Schema::hasColumn('case_studies', 'video_duration')) {
+                $columns[] = 'video_duration';
             }
         } catch (\Throwable) {
             // Graceful fallback

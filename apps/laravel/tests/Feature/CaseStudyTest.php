@@ -230,4 +230,42 @@ class CaseStudyTest extends TestCase
             ->assertOk()
             ->assertSee('Portal Turístico Cartagena');
     }
+
+    public function test_admin_can_create_films_case_study_with_video_and_orientation(): void
+    {
+        $user = User::factory()->create();
+
+        Livewire::actingAs($user)
+            ->test(Form::class)
+            ->set('titulo', 'Reel Gastronómico 4K')
+            ->set('categoria', 'films')
+            ->set('video_url', 'https://cdn.ejemplo.com/videos/reel-promo.mp4')
+            ->set('video_orientation', 'vertical')
+            ->set('video_duration', '0:45')
+            ->call('save')
+            ->assertHasNoErrors()
+            ->assertRedirect(route('case-studies.index'));
+
+        $this->assertDatabaseHas('case_studies', [
+            'titulo' => 'Reel Gastronómico 4K',
+            'categoria' => 'films',
+            'video_url' => 'https://cdn.ejemplo.com/videos/reel-promo.mp4',
+            'video_orientation' => 'vertical',
+            'video_duration' => '0:45',
+        ]);
+
+        $study = CaseStudy::where('titulo', 'Reel Gastronómico 4K')->firstOrFail();
+        $this->assertTrue($study->is_reel);
+        $this->assertFalse($study->is_horizontal);
+        $this->assertTrue($study->is_direct_video);
+
+        $this->get(route('portfolio'))
+            ->assertOk()
+            ->assertSee('data-film-viewer', false)
+            ->assertSee('data-film-play', false)
+            ->assertSee('Reel 9:16')
+            ->assertSee('0:45')
+            ->assertSee('Reel Gastronómico 4K');
+    }
 }
+

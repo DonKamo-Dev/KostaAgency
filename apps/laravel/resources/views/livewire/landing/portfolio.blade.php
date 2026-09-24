@@ -64,6 +64,19 @@
         .project-link svg { width: 14px; height: 14px; flex-shrink: 0; transition: transform 0.2s ease; }
         .project-link:hover svg { transform: translate(2px, -2px); }
 
+        /* ── Film & Reel Card Elements ── */
+        .film-card-chrome { display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; background: rgba(0,0,0,0.7); border-bottom: 1px solid rgba(244,63,94,0.22); }
+        .film-screen { position: relative; overflow: hidden; background: #09090b; }
+        .film-screen.reel-height { height: 260px; }
+        .film-screen.horizontal-height { height: 185px; }
+        .film-video-preview { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+        .film-play-trigger { position: absolute; inset: 0; width: 100%; height: 100%; border: none; background: rgba(0,0,0,0.25); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.25s ease; }
+        .film-play-trigger:hover { background: rgba(0,0,0,0.45); }
+        .film-play-btn { width: 54px; height: 54px; border-radius: 50%; background: #f43f5e; color: #fff; border: 2px solid rgba(255,255,255,0.4); display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 30px rgba(244,63,94,0.5); transition: transform 0.25s cubic-bezier(0.16,1,0.3,1), box-shadow 0.25s ease; }
+        .film-play-trigger:hover .film-play-btn { transform: scale(1.12); box-shadow: 0 12px 35px rgba(244,63,94,0.7); }
+        .film-hover-label { position: absolute; bottom: 12px; left: 14px; font-size: 11px; font-weight: 700; color: #fff; background: rgba(0,0,0,0.75); padding: 4px 10px; border-radius: 999px; backdrop-filter: blur(8px); opacity: 0; transform: translateY(4px); transition: all 0.2s ease; }
+        .film-play-trigger:hover .film-hover-label, .film-play-trigger:focus-visible .film-hover-label { opacity: 1; transform: translateY(0); }
+
         /* ── Stats bar ── */
         .stats-bar { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: rgba(255,255,255,0.06); border-radius: 16px; overflow: hidden; margin-bottom: 80px; }
         @media (min-width: 640px) { .stats-bar { grid-template-columns: repeat(4, 1fr); } }
@@ -124,25 +137,86 @@
             <div class="projects-grid" id="projectsGrid">
                 @forelse($estudios as $estudio)
                     <div class="project-card" data-category="{{ in_array($estudio->categoria, ['films', 'social'], true) ? 'films social' : $estudio->categoria }}">
-                        <div class="browser-chrome">
-                            <div class="browser-dots"><span class="browser-dot dot-red"></span><span class="browser-dot dot-yellow"></span><span class="browser-dot dot-green"></span></div>
-                            <div class="browser-url">{{ $estudio->url_demo ?? 'kosta.studio' }}</div>
-                        </div>
-                        <div class="browser-screen" style="background: linear-gradient(135deg, {{ $estudio->gradient_inicio }}, {{ $estudio->gradient_fin }});">
-                            @if($estudio->image_url)
-                                <button type="button" class="case-preview-trigger" data-case-preview data-image="{{ $estudio->image_url }}" data-title="{{ $estudio->titulo }}" aria-label="Ver imagen ampliada de {{ $estudio->titulo }}">
-                                    <img src="{{ $estudio->image_url }}" alt="{{ $estudio->titulo }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
-                                    <span class="case-preview-hint">
-                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
-                                        Ampliar
+                        @if($estudio->categoria === 'films')
+                            <!-- Film Card Chrome -->
+                            <div class="film-card-chrome">
+                                <div style="display:flex;align-items:center;gap:7px;">
+                                    <span style="width:8px;height:8px;border-radius:50%;background:#f43f5e;box-shadow:0 0 8px #f43f5e;display:inline-block;"></span>
+                                    <span style="font-size:11px;font-weight:700;color:#f43f5e;letter-spacing:0.06em;text-transform:uppercase;">
+                                        {{ $estudio->is_reel ? 'Reel 9:16' : 'Film 16:9' }}
                                     </span>
-                                </button>
-                            @else
-                                <div class="mock-nav"><span class="mock-nav-dot wide"></span><span class="mock-nav-dot"></span><span class="mock-nav-dot"></span><span class="mock-nav-dot end"></span></div>
-                                <div class="mock-hero"><div class="mock-h1"></div><div class="mock-h1 short"></div><div class="mock-p w80"></div><div class="mock-p w60"></div><div class="mock-btn"></div></div>
-                                <div class="mock-cards"><div class="mock-card-sm"></div><div class="mock-card-sm"></div><div class="mock-card-sm"></div></div>
-                            @endif
-                        </div>
+                                </div>
+                                @if($estudio->video_duration)
+                                    <span style="font-size:11px;color:rgba(255,255,255,0.6);font-family:monospace;background:rgba(255,255,255,0.08);padding:2px 7px;border-radius:4px;">
+                                        {{ $estudio->video_duration }}
+                                    </span>
+                                @endif
+                            </div>
+
+                            <!-- Film Screen -->
+                            <div class="film-screen {{ $estudio->is_reel ? 'reel-height' : 'horizontal-height' }}">
+                                @if($estudio->video_stream_url)
+                                    @if($estudio->is_direct_video)
+                                        <video src="{{ $estudio->video_stream_url }}"
+                                               preload="metadata"
+                                               playsinline
+                                               muted
+                                               loop
+                                               class="film-video-preview"
+                                               onmouseenter="this.play().catch(()=>{})"
+                                               onmouseleave="this.pause();this.currentTime=0;">
+                                        </video>
+                                    @else
+                                        <div style="position:absolute;inset:0;background:radial-gradient(circle at center, rgba(244,63,94,0.18) 0%, rgba(9,9,11,0.95) 80%);"></div>
+                                    @endif
+
+                                    <button type="button"
+                                            class="film-play-trigger"
+                                            data-film-play
+                                            data-video-url="{{ $estudio->video_stream_url }}"
+                                            data-orientation="{{ $estudio->video_orientation ?? 'vertical' }}"
+                                            data-title="{{ $estudio->titulo }}"
+                                            data-type="{{ $estudio->is_direct_video ? 'direct' : 'embed' }}"
+                                            data-embed-url="{{ $estudio->video_embed_url }}"
+                                            aria-label="Reproducir film {{ $estudio->titulo }}">
+                                        <div class="film-play-btn">
+                                            <svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24" style="margin-left:3px;"><path d="M8 5v14l11-7z"/></svg>
+                                        </div>
+                                        <span class="film-hover-label">
+                                            Click para reproducir con audio
+                                        </span>
+                                    </button>
+                                @else
+                                    <div style="position:absolute;inset:0;background:radial-gradient(circle at center, rgba(244,63,94,0.16) 0%, rgba(9,9,11,0.95) 75%);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;">
+                                        <div style="width:48px;height:48px;border-radius:50%;background:rgba(244,63,94,0.15);border:1px solid #f43f5e;display:flex;align-items:center;justify-content:center;">
+                                            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24" style="color:#f43f5e;margin-left:2px;"><path d="M8 5v14l11-7z"/></svg>
+                                        </div>
+                                        <span style="font-size:11px;font-weight:600;color:rgba(255,255,255,0.5);">Film & Reel</span>
+                                    </div>
+                                @endif
+                            </div>
+                        @else
+                            <div class="browser-chrome">
+                                <div class="browser-dots"><span class="browser-dot dot-red"></span><span class="browser-dot dot-yellow"></span><span class="browser-dot dot-green"></span></div>
+                                <div class="browser-url">{{ $estudio->url_demo ?? 'kosta.studio' }}</div>
+                            </div>
+                            <div class="browser-screen" style="background: linear-gradient(135deg, {{ $estudio->gradient_inicio }}, {{ $estudio->gradient_fin }});">
+                                @if($estudio->image_url)
+                                    <button type="button" class="case-preview-trigger" data-case-preview data-image="{{ $estudio->image_url }}" data-title="{{ $estudio->titulo }}" aria-label="Ver imagen ampliada de {{ $estudio->titulo }}">
+                                        <img src="{{ $estudio->image_url }}" alt="{{ $estudio->titulo }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+                                        <span class="case-preview-hint">
+                                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+                                            Ampliar
+                                        </span>
+                                    </button>
+                                @else
+                                    <div class="mock-nav"><span class="mock-nav-dot wide"></span><span class="mock-nav-dot"></span><span class="mock-nav-dot"></span><span class="mock-nav-dot end"></span></div>
+                                    <div class="mock-hero"><div class="mock-h1"></div><div class="mock-h1 short"></div><div class="mock-p w80"></div><div class="mock-p w60"></div><div class="mock-btn"></div></div>
+                                    <div class="mock-cards"><div class="mock-card-sm"></div><div class="mock-card-sm"></div><div class="mock-card-sm"></div></div>
+                                @endif
+                            </div>
+                        @endif
+
                         <div class="project-body">
                             <span class="project-cat">{{ $catLabels[$estudio->categoria] ?? $estudio->categoria }}</span>
                             <h3 class="project-title">{{ $estudio->titulo }}</h3>
@@ -176,7 +250,19 @@
                                 </div>
                             @endif
                             <div class="project-actions">
-                                @if($estudio->public_url)
+                                @if($estudio->categoria === 'films' && $estudio->video_stream_url)
+                                    <button type="button"
+                                            class="project-link visit"
+                                            data-film-play
+                                            data-video-url="{{ $estudio->video_stream_url }}"
+                                            data-orientation="{{ $estudio->video_orientation ?? 'vertical' }}"
+                                            data-title="{{ $estudio->titulo }}"
+                                            data-type="{{ $estudio->is_direct_video ? 'direct' : 'embed' }}"
+                                            data-embed-url="{{ $estudio->video_embed_url }}">
+                                        {{ __('landing.portfolio.action_visit_films') }}
+                                        <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                                    </button>
+                                @elseif($estudio->public_url)
                                     <a href="{{ $estudio->public_url }}" target="_blank" rel="noopener noreferrer" class="project-link visit">
                                         {{ in_array($estudio->categoria, ['films', 'social'], true) ? __('landing.portfolio.action_visit_films') : ($estudio->categoria === 'sistema' ? __('landing.portfolio.action_visit_system') : __('landing.portfolio.action_visit_web')) }}
                                         <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M1.5 8.5L8.5 1.5M8.5 1.5H3M8.5 1.5v5.5"/></svg>
@@ -233,6 +319,7 @@
 
     @include('partials.landing-footer')
     <x-case-study-viewer />
+    <x-film-viewer />
 
     <script>
         // Project filter

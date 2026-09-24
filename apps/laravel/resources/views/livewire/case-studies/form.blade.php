@@ -312,82 +312,182 @@
                     </div>
                 </div>
 
-                <!-- 3. Estilo Visual & Portada -->
-                <div class="form-card-section">
-                    <div class="section-badge-title">
-                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-                        Visual & Portada
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label">Tags / Tecnologías</label>
-                        <input type="text" wire:model.live.debounce.250ms="tags_input" class="form-input" placeholder="Next.js, Laravel, Shopify, UI/UX (separados por coma)"/>
-                        <span style="font-size:11px;color:var(--text-subtle);margin-top:4px;display:block;">Escribe los tags separados por coma</span>
-                        @error('tags_input') <span class="form-error">{{ $message }}</span> @enderror
-                    </div>
-
-                    <div class="form-grid-2" style="margin-bottom:14px;">
-                        <div class="form-group" style="margin-bottom:0;">
-                            <label class="form-label">Color Inicial (Gradiente)</label>
-                            <div style="display:flex;gap:8px;align-items:center;">
-                                <input type="color" wire:model.live="gradient_inicio" style="width:46px;height:42px;border-radius:10px;border:1px solid var(--border-default);cursor:pointer;padding:2px;background:#1a1a1a;">
-                                <input type="text" wire:model.live="gradient_inicio" class="form-input" placeholder="#6366f1" style="flex:1;font-family:monospace;font-size:13px;">
-                            </div>
+                <!-- 3. Estilo Visual & Portada / Video (Dinámico según Categoría) -->
+                @if($categoria === 'films')
+                    <div class="form-card-section" style="border:1px solid rgba(244,63,94,0.3);background:linear-gradient(180deg, rgba(244,63,94,0.03) 0%, transparent 100%);">
+                        <div class="section-badge-title" style="color:#f43f5e;">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+                            Video & Producción (Films / Reels)
                         </div>
 
-                        <div class="form-group" style="margin-bottom:0;">
-                            <label class="form-label">Color Final (Gradiente)</label>
-                            <div style="display:flex;gap:8px;align-items:center;">
-                                <input type="color" wire:model.live="gradient_fin" style="width:46px;height:42px;border-radius:10px;border:1px solid var(--border-default);cursor:pointer;padding:2px;background:#1a1a1a;">
-                                <input type="text" wire:model.live="gradient_fin" class="form-input" placeholder="#8b5cf6" style="flex:1;font-family:monospace;font-size:13px;">
-                            </div>
+                        <div style="font-size:12.5px;color:rgba(255,255,255,0.7);margin-bottom:18px;line-height:1.5;">
+                            Para <strong>Films & Reels</strong> la plataforma reproduce directamente el video interactivo (no se requieren fotos de portada estáticas). Elige el formato y carga tu video o ingresa la URL de streaming.
                         </div>
-                    </div>
 
-                    <!-- Gradiente Preview Bar -->
-                    <div style="height:36px;border-radius:8px;margin-bottom:20px;background:linear-gradient(135deg, {{ $gradient_inicio }}, {{ $gradient_fin }});border:1px solid rgba(255,255,255,0.12);"></div>
-
-                    <!-- Imagen de Portada -->
-                    <div class="form-group" style="margin-bottom:0;">
-                        <label class="form-label">Imagen de Portada (Opcional)</label>
-
-                        <div style="display:flex;flex-direction:column;gap:12px;">
-                            @if($imagenActual && !$imagen_nueva)
-                                <div style="display:flex;align-items:center;gap:14px;padding:12px;background:rgba(255,255,255,0.03);border:1px solid var(--border-default);border-radius:12px;">
-                                    <div style="width:80px;height:48px;border-radius:8px;overflow:hidden;border:1px solid rgba(255,255,255,0.1);flex-shrink:0;">
-                                        <img src="{{ $imagenActual }}" alt="Imagen actual" style="width:100%;height:100%;object-fit:cover;">
+                        <!-- Selector de Formato: Reel (9:16) vs Horizontal (16:9) -->
+                        <div class="form-group" style="margin-bottom:18px;">
+                            <label class="form-label">Formato de Video / Orientación <span class="required">*</span></label>
+                            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px;">
+                                <button type="button"
+                                        wire:click="$set('video_orientation', 'vertical')"
+                                        style="padding:14px 16px;border-radius:12px;border:1px solid {{ $video_orientation === 'vertical' ? '#f43f5e' : 'rgba(255,255,255,0.1)' }};background:{{ $video_orientation === 'vertical' ? 'rgba(244,63,94,0.15)' : 'rgba(255,255,255,0.03)' }};cursor:pointer;display:flex;align-items:center;gap:12px;text-align:left;transition:all 0.2s;">
+                                    <div style="width:36px;height:48px;border:2px solid {{ $video_orientation === 'vertical' ? '#f43f5e' : 'rgba(255,255,255,0.3)' }};border-radius:6px;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.4);flex-shrink:0;">
+                                        <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24" style="color:{{ $video_orientation === 'vertical' ? '#f43f5e' : 'rgba(255,255,255,0.6)' }};"><path d="M14.75 2h-5.5C7.46 2 6 3.46 6 5.25v13.5C6 20.54 7.46 22 9.25 22h5.5c1.79 0 3.25-1.46 3.25-3.25V5.25C18 3.46 16.54 2 14.75 2zm-2.75 18.5a1.25 1.25 0 110-2.5 1.25 1.25 0 010 2.5z"/></svg>
                                     </div>
-                                    <div style="font-size:12px;color:var(--text-secondary);flex:1;">
-                                        <div style="font-weight:600;color:#fff;">Imagen actual guardada</div>
-                                        <div style="color:var(--text-muted);">Puedes subir una nueva imagen abajo para reemplazarla.</div>
+                                    <div>
+                                        <div style="font-size:14px;font-weight:700;color:{{ $video_orientation === 'vertical' ? '#fff' : 'rgba(255,255,255,0.8)' }};">Reel / Vertical (9:16)</div>
+                                        <div style="font-size:11.5px;color:rgba(255,255,255,0.5);margin-top:2px;">Reels de Instagram, TikToks, Shorts</div>
                                     </div>
+                                </button>
+
+                                <button type="button"
+                                        wire:click="$set('video_orientation', 'horizontal')"
+                                        style="padding:14px 16px;border-radius:12px;border:1px solid {{ $video_orientation === 'horizontal' ? '#f43f5e' : 'rgba(255,255,255,0.1)' }};background:{{ $video_orientation === 'horizontal' ? 'rgba(244,63,94,0.15)' : 'rgba(255,255,255,0.03)' }};cursor:pointer;display:flex;align-items:center;gap:12px;text-align:left;transition:all 0.2s;">
+                                    <div style="width:48px;height:32px;border:2px solid {{ $video_orientation === 'horizontal' ? '#f43f5e' : 'rgba(255,255,255,0.3)' }};border-radius:6px;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.4);flex-shrink:0;">
+                                        <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color:{{ $video_orientation === 'horizontal' ? '#f43f5e' : 'rgba(255,255,255,0.6)' }};"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+                                    </div>
+                                    <div>
+                                        <div style="font-size:14px;font-weight:700;color:{{ $video_orientation === 'horizontal' ? '#fff' : 'rgba(255,255,255,0.8)' }};">Horizontal (16:9)</div>
+                                        <div style="font-size:11.5px;color:rgba(255,255,255,0.5);margin-top:2px;">Cinemático, comercial, video de marca</div>
+                                    </div>
+                                </button>
+                            </div>
+                            @error('video_orientation') <span class="form-error">{{ $message }}</span> @enderror
+                        </div>
+
+                        <!-- Métodos de Entrada de Video -->
+                        <div class="form-grid-2">
+                            <div class="form-group" style="margin-bottom:0;">
+                                <label class="form-label">Subir Archivo de Video</label>
+                                <input type="file" wire:model="video_file" accept="video/mp4,video/webm,video/quicktime,video/ogg" class="form-input" style="padding:10px;cursor:pointer;">
+                                <div wire:loading wire:target="video_file" style="font-size:12px;color:#f43f5e;margin-top:6px;display:flex;align-items:center;gap:6px;">
+                                    <svg class="animate-spin" width="14" height="14" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" opacity="0.25"></circle><path fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path></svg>
+                                    Cargando video en el servidor...
                                 </div>
-                            @endif
+                                <span style="font-size:11px;color:var(--text-subtle);margin-top:4px;display:block;">Soporta MP4, WebM o MOV (reproducción instantánea)</span>
+                                @error('video_file') <span class="form-error">{{ $message }}</span> @enderror
+                            </div>
 
-                            @if($imagen_nueva)
-                                <div style="display:flex;align-items:center;gap:14px;padding:12px;background:rgba(16,185,129,0.05);border:1px solid rgba(16,185,129,0.3);border-radius:12px;">
-                                    <div style="width:80px;height:48px;border-radius:8px;overflow:hidden;border:1px solid rgba(16,185,129,0.3);flex-shrink:0;">
-                                        <img src="{{ $imagen_nueva->temporaryUrl() }}" alt="Nueva imagen" style="width:100%;height:100%;object-fit:cover;">
-                                    </div>
-                                    <div style="font-size:12px;color:var(--text-secondary);flex:1;">
-                                        <div style="font-weight:600;color:#10B981;">Nueva imagen seleccionada</div>
-                                        <div style="color:var(--text-muted);">Lista para subir al guardar.</div>
-                                    </div>
-                                    <button type="button" wire:click="$set('imagen_nueva', null)" class="btn btn-sm btn-secondary" style="font-size:11px;padding:4px 8px;">Quitar</button>
+                            <div class="form-group" style="margin-bottom:0;">
+                                <label class="form-label">O Enlace de Video / CDN / Redes</label>
+                                <input type="text" wire:model.live.debounce.250ms="video_url" class="form-input" placeholder="https://... o enlace de reel/video"/>
+                                <span style="font-size:11px;color:var(--text-subtle);margin-top:4px;display:block;">URL directa MP4, Cloudinary, S3, YouTube Shorts o Vimeo</span>
+                                @error('video_url') <span class="form-error">{{ $message }}</span> @enderror
+                            </div>
+                        </div>
+
+                        <!-- Duración Estimada y Tags -->
+                        <div class="form-grid-2" style="margin-top:16px;">
+                            <div class="form-group" style="margin-bottom:0;">
+                                <label class="form-label">Duración del Reel/Video</label>
+                                <input type="text" wire:model.live.debounce.250ms="video_duration" class="form-input" placeholder="Ej: 0:45, 1:15"/>
+                                <span style="font-size:11px;color:var(--text-subtle);margin-top:4px;display:block;">Se mostrará como badge en el reproductor</span>
+                                @error('video_duration') <span class="form-error">{{ $message }}</span> @enderror
+                            </div>
+
+                            <div class="form-group" style="margin-bottom:0;">
+                                <label class="form-label">Tags / Especialidad</label>
+                                <input type="text" wire:model.live.debounce.250ms="tags_input" class="form-input" placeholder="Reels, Edición, Drone, Color Grading, 4K"/>
+                                @error('tags_input') <span class="form-error">{{ $message }}</span> @enderror
+                            </div>
+                        </div>
+
+                        <!-- Previsualización de Video en el Formulario -->
+                        @if($video_file || filled($video_url))
+                            <div style="margin-top:16px;padding:14px;background:rgba(0,0,0,0.5);border:1px solid rgba(244,63,94,0.3);border-radius:12px;">
+                                <div style="font-size:12px;font-weight:700;color:#f43f5e;margin-bottom:8px;display:flex;align-items:center;gap:6px;">
+                                    <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                                    Video Detectado y Listo para Reproducción Rápida
                                 </div>
-                            @endif
+                                @if($video_file)
+                                    <video src="{{ $video_file->temporaryUrl() }}" controls preload="metadata" playsinline style="max-height:220px;border-radius:8px;background:#000;width:auto;"></video>
+                                @elseif(filled($video_url) && \App\Support\CaseStudyVideo::isDirectVideo($video_url))
+                                    <video src="{{ $video_url }}" controls preload="metadata" playsinline style="max-height:220px;border-radius:8px;background:#000;width:auto;"></video>
+                                @else
+                                    <div style="font-size:12px;color:rgba(255,255,255,0.7);">
+                                        URL configurada: <a href="{{ $video_url }}" target="_blank" style="color:#f43f5e;text-decoration:underline;">{{ $video_url }}</a>
+                                    </div>
+                                @endif
+                            </div>
+                        @endif
+                    </div>
+                @else
+                    <div class="form-card-section">
+                        <div class="section-badge-title">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                            Visual & Portada
+                        </div>
 
-                            <input type="file" wire:model="imagen_nueva" accept="image/jpeg,image/png,image/webp" class="form-input" style="padding:10px;cursor:pointer;">
-                            @error('imagen_nueva') <span class="form-error">{{ $message }}</span> @enderror
+                        <div class="form-group">
+                            <label class="form-label">Tags / Tecnologías</label>
+                            <input type="text" wire:model.live.debounce.250ms="tags_input" class="form-input" placeholder="Next.js, Laravel, Shopify, UI/UX (separados por coma)"/>
+                            <span style="font-size:11px;color:var(--text-subtle);margin-top:4px;display:block;">Escribe los tags separados por coma</span>
+                            @error('tags_input') <span class="form-error">{{ $message }}</span> @enderror
+                        </div>
 
-                            <div style="padding:10px 14px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:8px;font-size:12px;color:var(--text-muted);line-height:1.6;">
-                                <strong style="color:var(--text-secondary);">Guía de formato:</strong>
-                                Recomendado <strong style="color:var(--text-secondary);">800 × 400 px</strong> (2:1). Máx <strong>2 MB</strong> en <strong>JPG, PNG o WebP</strong>.
-                                Si no subes imagen, se utilizará el degradado seleccionado.
+                        <div class="form-grid-2" style="margin-bottom:14px;">
+                            <div class="form-group" style="margin-bottom:0;">
+                                <label class="form-label">Color Inicial (Gradiente)</label>
+                                <div style="display:flex;gap:8px;align-items:center;">
+                                    <input type="color" wire:model.live="gradient_inicio" style="width:46px;height:42px;border-radius:10px;border:1px solid var(--border-default);cursor:pointer;padding:2px;background:#1a1a1a;">
+                                    <input type="text" wire:model.live="gradient_inicio" class="form-input" placeholder="#6366f1" style="flex:1;font-family:monospace;font-size:13px;">
+                                </div>
+                            </div>
+
+                            <div class="form-group" style="margin-bottom:0;">
+                                <label class="form-label">Color Final (Gradiente)</label>
+                                <div style="display:flex;gap:8px;align-items:center;">
+                                    <input type="color" wire:model.live="gradient_fin" style="width:46px;height:42px;border-radius:10px;border:1px solid var(--border-default);cursor:pointer;padding:2px;background:#1a1a1a;">
+                                    <input type="text" wire:model.live="gradient_fin" class="form-input" placeholder="#8b5cf6" style="flex:1;font-family:monospace;font-size:13px;">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Gradiente Preview Bar -->
+                        <div style="height:36px;border-radius:8px;margin-bottom:20px;background:linear-gradient(135deg, {{ $gradient_inicio }}, {{ $gradient_fin }});border:1px solid rgba(255,255,255,0.12);"></div>
+
+                        <!-- Imagen de Portada -->
+                        <div class="form-group" style="margin-bottom:0;">
+                            <label class="form-label">Imagen de Portada (Opcional)</label>
+
+                            <div style="display:flex;flex-direction:column;gap:12px;">
+                                @if($imagenActual && !$imagen_nueva)
+                                    <div style="display:flex;align-items:center;gap:14px;padding:12px;background:rgba(255,255,255,0.03);border:1px solid var(--border-default);border-radius:12px;">
+                                        <div style="width:80px;height:48px;border-radius:8px;overflow:hidden;border:1px solid rgba(255,255,255,0.1);flex-shrink:0;">
+                                            <img src="{{ $imagenActual }}" alt="Imagen actual" style="width:100%;height:100%;object-fit:cover;">
+                                        </div>
+                                        <div style="font-size:12px;color:var(--text-secondary);flex:1;">
+                                            <div style="font-weight:600;color:#fff;">Imagen actual guardada</div>
+                                            <div style="color:var(--text-muted);">Puedes subir una nueva imagen abajo para reemplazarla.</div>
+                                        </div>
+                                    </div>
+                                @endif
+
+                                @if($imagen_nueva)
+                                    <div style="display:flex;align-items:center;gap:14px;padding:12px;background:rgba(16,185,129,0.05);border:1px solid rgba(16,185,129,0.3);border-radius:12px;">
+                                        <div style="width:80px;height:48px;border-radius:8px;overflow:hidden;border:1px solid rgba(16,185,129,0.3);flex-shrink:0;">
+                                            <img src="{{ $imagen_nueva->temporaryUrl() }}" alt="Nueva imagen" style="width:100%;height:100%;object-fit:cover;">
+                                        </div>
+                                        <div style="font-size:12px;color:var(--text-secondary);flex:1;">
+                                            <div style="font-weight:600;color:#10B981;">Nueva imagen seleccionada</div>
+                                            <div style="color:var(--text-muted);">Lista para subir al guardar.</div>
+                                        </div>
+                                        <button type="button" wire:click="$set('imagen_nueva', null)" class="btn btn-sm btn-secondary" style="font-size:11px;padding:4px 8px;">Quitar</button>
+                                    </div>
+                                @endif
+
+                                <input type="file" wire:model="imagen_nueva" accept="image/jpeg,image/png,image/webp" class="form-input" style="padding:10px;cursor:pointer;">
+                                @error('imagen_nueva') <span class="form-error">{{ $message }}</span> @enderror
+
+                                <div style="padding:10px 14px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:8px;font-size:12px;color:var(--text-muted);line-height:1.6;">
+                                    <strong style="color:var(--text-secondary);">Guía de formato:</strong>
+                                    Recomendado <strong style="color:var(--text-secondary);">800 × 400 px</strong> (2:1). Máx <strong>2 MB</strong> en <strong>JPG, PNG o WebP</strong>.
+                                    Si no subes imagen, se utilizará el degradado seleccionado.
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                @endif
 
                 <!-- 4. Configuración -->
                 <div class="form-card-section">
@@ -449,38 +549,72 @@
 
                 <!-- Card Replica from /portafolio -->
                 <div class="mockup-preview-card">
-                    <!-- Browser Chrome -->
-                    <div style="display:flex;align-items:center;gap:8px;padding:10px 14px;background:rgba(0,0,0,0.6);border-bottom:1px solid rgba(255,255,255,0.06);">
-                        <div style="display:flex;gap:5px;">
-                            <span style="width:8px;height:8px;border-radius:50%;background:#ff5f57;display:block;"></span>
-                            <span style="width:8px;height:8px;border-radius:50%;background:#febc2e;display:block;"></span>
-                            <span style="width:8px;height:8px;border-radius:50%;background:#28c840;display:block;"></span>
+                    @if($categoria === 'films')
+                        <!-- Video Player Header -->
+                        <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:rgba(0,0,0,0.85);border-bottom:1px solid rgba(244,63,94,0.25);">
+                            <div style="display:flex;align-items:center;gap:7px;">
+                                <span style="width:8px;height:8px;border-radius:50%;background:#f43f5e;box-shadow:0 0 8px #f43f5e;display:block;"></span>
+                                <span style="font-size:11px;font-weight:700;color:#f43f5e;letter-spacing:0.06em;text-transform:uppercase;">
+                                    {{ $video_orientation === 'vertical' ? 'REEL 9:16' : 'FILM 16:9' }}
+                                </span>
+                            </div>
+                            <div style="font-size:11px;color:rgba(255,255,255,0.45);font-family:monospace;">
+                                {{ filled($video_duration) ? $video_duration : '0:30' }}
+                            </div>
                         </div>
-                        <div style="flex:1;background:rgba(255,255,255,0.07);border-radius:4px;padding:3px 10px;font-size:11px;color:rgba(255,255,255,0.35);font-family:monospace;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">
-                            {{ filled($url_demo) ? $url_demo : 'kosta.studio' }}
-                        </div>
-                    </div>
 
-                    <!-- Screen with Gradient / Image -->
-                    <div style="height:175px;position:relative;overflow:hidden;background:linear-gradient(135deg, {{ $gradient_inicio }}, {{ $gradient_fin }});">
-                        @if($imagen_nueva)
-                            <img src="{{ $imagen_nueva->temporaryUrl() }}" alt="Preview" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
-                        @elseif($imagenActual)
-                            <img src="{{ $imagenActual }}" alt="Preview" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
-                        @else
-                            <!-- Mock UI wireframe -->
-                            <div style="position:absolute;top:0;left:0;right:0;height:24px;background:rgba(0,0,0,0.25);display:flex;align-items:center;padding:0 12px;gap:6px;">
-                                <div style="width:20px;height:4px;border-radius:2px;background:rgba(255,255,255,0.3);"></div>
-                                <div style="width:36px;height:4px;border-radius:2px;background:rgba(255,255,255,0.3);"></div>
+                        <!-- Video Screen -->
+                        <div style="height:{{ $video_orientation === 'vertical' ? '220px' : '175px' }};position:relative;overflow:hidden;background:#09090b;display:flex;align-items:center;justify-content:center;">
+                            @if($video_file)
+                                <video src="{{ $video_file->temporaryUrl() }}" autoplay muted loop playsinline style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;"></video>
+                            @elseif(filled($video_url) && \App\Support\CaseStudyVideo::isDirectVideo($video_url))
+                                <video src="{{ $video_url }}" autoplay muted loop playsinline style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;"></video>
+                            @else
+                                <div style="position:absolute;inset:0;background:radial-gradient(circle at center, rgba(244,63,94,0.18) 0%, rgba(9,9,11,0.95) 75%);"></div>
+                                <div style="z-index:2;display:flex;flex-direction:column;align-items:center;gap:8px;">
+                                    <div style="width:48px;height:48px;border-radius:50%;background:rgba(244,63,94,0.2);border:2px solid #f43f5e;display:flex;align-items:center;justify-content:center;box-shadow:0 0 20px rgba(244,63,94,0.4);">
+                                        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24" style="color:#fff;margin-left:2px;"><path d="M8 5v14l11-7z"/></svg>
+                                    </div>
+                                    <span style="font-size:11px;font-weight:600;color:rgba(255,255,255,0.7);letter-spacing:0.04em;">
+                                        {{ filled($video_url) ? 'Video Enlazado' : 'Reproductor de Video' }}
+                                    </span>
+                                </div>
+                            @endif
+                        </div>
+                    @else
+                        <!-- Browser Chrome -->
+                        <div style="display:flex;align-items:center;gap:8px;padding:10px 14px;background:rgba(0,0,0,0.6);border-bottom:1px solid rgba(255,255,255,0.06);">
+                            <div style="display:flex;gap:5px;">
+                                <span style="width:8px;height:8px;border-radius:50%;background:#ff5f57;display:block;"></span>
+                                <span style="width:8px;height:8px;border-radius:50%;background:#febc2e;display:block;"></span>
+                                <span style="width:8px;height:8px;border-radius:50%;background:#28c840;display:block;"></span>
                             </div>
-                            <div style="position:absolute;top:38px;left:18px;right:18px;">
-                                <div style="height:8px;width:70%;border-radius:4px;background:rgba(255,255,255,0.7);margin-bottom:6px;"></div>
-                                <div style="height:5px;width:85%;border-radius:3px;background:rgba(255,255,255,0.3);margin-bottom:4px;"></div>
-                                <div style="height:5px;width:55%;border-radius:3px;background:rgba(255,255,255,0.3);"></div>
-                                <div style="margin-top:12px;width:56px;height:16px;border-radius:12px;background:rgba(255,255,255,0.5);"></div>
+                            <div style="flex:1;background:rgba(255,255,255,0.07);border-radius:4px;padding:3px 10px;font-size:11px;color:rgba(255,255,255,0.35);font-family:monospace;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">
+                                {{ filled($url_demo) ? $url_demo : 'kosta.studio' }}
                             </div>
-                        @endif
-                    </div>
+                        </div>
+
+                        <!-- Screen with Gradient / Image -->
+                        <div style="height:175px;position:relative;overflow:hidden;background:linear-gradient(135deg, {{ $gradient_inicio }}, {{ $gradient_fin }});">
+                            @if($imagen_nueva)
+                                <img src="{{ $imagen_nueva->temporaryUrl() }}" alt="Preview" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+                            @elseif($imagenActual)
+                                <img src="{{ $imagenActual }}" alt="Preview" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+                            @else
+                                <!-- Mock UI wireframe -->
+                                <div style="position:absolute;top:0;left:0;right:0;height:24px;background:rgba(0,0,0,0.25);display:flex;align-items:center;padding:0 12px;gap:6px;">
+                                    <div style="width:20px;height:4px;border-radius:2px;background:rgba(255,255,255,0.3);"></div>
+                                    <div style="width:36px;height:4px;border-radius:2px;background:rgba(255,255,255,0.3);"></div>
+                                </div>
+                                <div style="position:absolute;top:38px;left:18px;right:18px;">
+                                    <div style="height:8px;width:70%;border-radius:4px;background:rgba(255,255,255,0.7);margin-bottom:6px;"></div>
+                                    <div style="height:5px;width:85%;border-radius:3px;background:rgba(255,255,255,0.3);margin-bottom:4px;"></div>
+                                    <div style="height:5px;width:55%;border-radius:3px;background:rgba(255,255,255,0.3);"></div>
+                                    <div style="margin-top:12px;width:56px;height:16px;border-radius:12px;background:rgba(255,255,255,0.5);"></div>
+                                </div>
+                            @endif
+                        </div>
+                    @endif
 
                     <!-- Card Body -->
                     <div style="padding:20px 22px;">
