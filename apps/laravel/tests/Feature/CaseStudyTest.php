@@ -97,7 +97,7 @@ class CaseStudyTest extends TestCase
 
         $study = CaseStudy::where('titulo', 'Caso con imagen persistente')->sole();
 
-        $this->assertNull($study->imagen);
+        $this->assertSame('__database__', $study->imagen);
         $this->assertNotEmpty($study->imagen_data);
         $this->assertSame('image/png', $study->imagen_mime);
 

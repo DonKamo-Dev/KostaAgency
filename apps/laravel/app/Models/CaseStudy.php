@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Support\CaseStudyImage;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -37,7 +38,7 @@ class CaseStudy extends Model
 
     public function getImageUrlAttribute(): ?string
     {
-        if ($this->imagen_mime) {
+        if ($this->imagen === CaseStudyImage::DATABASE_MARKER) {
             return route('case-studies.image', [
                 'caseStudy' => $this,
                 'v' => $this->updated_at?->timestamp,
@@ -52,7 +53,7 @@ class CaseStudy extends Model
         return $query->select([
             'id', 'titulo', 'descripcion', 'url_demo', 'categoria',
             'metrica_valor', 'metrica_label', 'tags', 'gradient_inicio',
-            'gradient_fin', 'imagen', 'imagen_mime', 'activo', 'orden',
+            'gradient_fin', 'imagen', 'activo', 'orden',
             'created_at', 'updated_at', 'deleted_at',
         ]);
     }
