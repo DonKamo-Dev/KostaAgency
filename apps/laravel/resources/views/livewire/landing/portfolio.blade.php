@@ -129,8 +129,8 @@
                             <div class="browser-url">{{ $estudio->url_demo ?? 'kosta.studio' }}</div>
                         </div>
                         <div class="browser-screen" style="background: linear-gradient(135deg, {{ $estudio->gradient_inicio }}, {{ $estudio->gradient_fin }});">
-                            @if($estudio->imagen)
-                                <img src="{{ Storage::url($estudio->imagen) }}" alt="{{ $estudio->titulo }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+                            @if($estudio->image_url)
+                                <img src="{{ $estudio->image_url }}" alt="{{ $estudio->titulo }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
                             @else
                                 <div class="mock-nav"><span class="mock-nav-dot wide"></span><span class="mock-nav-dot"></span><span class="mock-nav-dot"></span><span class="mock-nav-dot end"></span></div>
                                 <div class="mock-hero"><div class="mock-h1"></div><div class="mock-h1 short"></div><div class="mock-p w80"></div><div class="mock-p w60"></div><div class="mock-btn"></div></div>

@@ -121,9 +121,9 @@
 
                         <!-- Preview -->
                         <td>
-                            @if($study->imagen)
+                            @if($study->image_url)
                                 <div style="width:48px;height:32px;border-radius:6px;overflow:hidden;border:1px solid var(--border-subtle);">
-                                    <img src="{{ Storage::url($study->imagen) }}" alt="" style="width:100%;height:100%;object-fit:cover;">
+                                    <img src="{{ $study->image_url }}" alt="" style="width:100%;height:100%;object-fit:cover;">
                                 </div>
                             @else
                                 <div style="width:48px;height:32px;border-radius:6px;background:linear-gradient(135deg,{{ $study->gradient_inicio }},{{ $study->gradient_fin }});border:1px solid rgba(255,255,255,0.08);"></div>

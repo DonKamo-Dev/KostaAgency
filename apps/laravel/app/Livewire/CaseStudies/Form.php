@@ -3,6 +3,7 @@
 namespace App\Livewire\CaseStudies;
 
 use App\Models\CaseStudy;
+use App\Support\CaseStudyImage;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Attributes\Locked;
 use Livewire\Component;
@@ -79,7 +80,7 @@ class Form extends Component
             $this->gradient_fin = $caseStudy->gradient_fin ?? '#8b5cf6';
             $this->activo = (bool) $caseStudy->activo;
             $this->orden = (int) $caseStudy->orden;
-            $this->imagenActual = $caseStudy->imagen;
+            $this->imagenActual = $caseStudy->image_url;
         }
     }
 
@@ -112,16 +113,7 @@ class Form extends Component
                 Storage::disk('public')->delete($study->imagen);
                 @unlink(public_path('storage/'.$study->imagen));
             }
-            $data['imagen'] = $this->imagen_nueva->store('case-studies', 'public');
-            try {
-                $destDir = public_path('storage/case-studies');
-                if (! is_dir($destDir)) {
-                    @mkdir($destDir, 0755, true);
-                }
-                @copy(storage_path('app/public/'.$data['imagen']), public_path('storage/'.$data['imagen']));
-            } catch (\Throwable $e) {
-                // Ignore copy errors in environments without local file write
-            }
+            $data = array_merge($data, CaseStudyImage::attributesFrom($this->imagen_nueva));
         }
 
         if ($study) {

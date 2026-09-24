@@ -287,7 +287,7 @@
                             @if($imagenActual && !$imagen_nueva)
                                 <div style="display:flex;align-items:center;gap:14px;padding:12px;background:rgba(255,255,255,0.03);border:1px solid var(--border-default);border-radius:12px;">
                                     <div style="width:80px;height:48px;border-radius:8px;overflow:hidden;border:1px solid rgba(255,255,255,0.1);flex-shrink:0;">
-                                        <img src="{{ Storage::url($imagenActual) }}" alt="Imagen actual" style="width:100%;height:100%;object-fit:cover;">
+                                        <img src="{{ $imagenActual }}" alt="Imagen actual" style="width:100%;height:100%;object-fit:cover;">
                                     </div>
                                     <div style="font-size:12px;color:var(--text-secondary);flex:1;">
                                         <div style="font-weight:600;color:#fff;">Imagen actual guardada</div>
@@ -398,7 +398,7 @@
                         @if($imagen_nueva)
                             <img src="{{ $imagen_nueva->temporaryUrl() }}" alt="Preview" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
                         @elseif($imagenActual)
-                            <img src="{{ Storage::url($imagenActual) }}" alt="Preview" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+                            <img src="{{ $imagenActual }}" alt="Preview" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
                         @else
                             <!-- Mock UI wireframe -->
                             <div style="position:absolute;top:0;left:0;right:0;height:24px;background:rgba(0,0,0,0.25);display:flex;align-items:center;padding:0 12px;gap:6px;">

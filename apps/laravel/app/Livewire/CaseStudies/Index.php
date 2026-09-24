@@ -3,6 +3,7 @@
 namespace App\Livewire\CaseStudies;
 
 use App\Models\CaseStudy;
+use App\Support\CaseStudyImage;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Attributes\Locked;
@@ -137,7 +138,7 @@ class Index extends Component
         $this->activo = $study->activo;
         $this->orden = $study->orden;
         $this->imagen_nueva = null;
-        $this->imagenActual = $study->imagen;
+        $this->imagenActual = $study->image_url;
         $this->showForm = true;
     }
 
@@ -169,7 +170,7 @@ class Index extends Component
             if ($study?->imagen) {
                 Storage::disk('public')->delete($study->imagen);
             }
-            $data['imagen'] = $this->imagen_nueva->store('case-studies', 'public');
+            $data = array_merge($data, CaseStudyImage::attributesFrom($this->imagen_nueva));
         }
 
         if ($study) {
@@ -272,7 +273,7 @@ class Index extends Component
 
     private function studiesQuery(): Builder
     {
-        return CaseStudy::query();
+        return CaseStudy::query()->forDisplay();
     }
 
     private function filteredStudiesQuery(): Builder

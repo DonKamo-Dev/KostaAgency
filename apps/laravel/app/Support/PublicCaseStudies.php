@@ -11,6 +11,7 @@ final class PublicCaseStudies
     public function active(?int $limit = null): Collection
     {
         $query = CaseStudy::query()
+            ->forDisplay()
             ->where('activo', true)
             ->orderBy('orden')
             ->orderBy('created_at', 'desc');

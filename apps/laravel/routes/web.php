@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BillController;
+use App\Http\Controllers\CaseStudyImageController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DocumentController;
@@ -63,6 +64,7 @@ Route::get('/cv', LandingBento::class)->name('cv');
 Route::get('/kamo', LandingBento::class)->name('kamo');
 Route::get('/perfil', LandingBento::class)->name('perfil');
 Route::get('/servicios/{slug}', LandingServiceDetail::class)->name('services.show');
+Route::get('/case-studies/{caseStudy}/image', CaseStudyImageController::class)->name('case-studies.image');
 Route::redirect('/servicios', '/#servicios')->name('services.landing');
 Route::redirect('/bento', '/kamo');
 Route::view('/privacidad', 'privacy')->name('privacy');

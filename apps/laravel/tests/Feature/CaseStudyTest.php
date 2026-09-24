@@ -7,6 +7,7 @@ use App\Livewire\CaseStudies\Index;
 use App\Models\CaseStudy;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Http\UploadedFile;
 use Livewire\Livewire;
 use Tests\TestCase;
 
@@ -79,6 +80,31 @@ class CaseStudyTest extends TestCase
             'categoria' => 'sistema',
             'metrica_valor' => '10x',
         ]);
+    }
+
+    public function test_case_study_image_is_persisted_and_served_from_the_database(): void
+    {
+        $user = User::factory()->create();
+        $image = UploadedFile::fake()->image('case-study.png', 1200, 630);
+
+        Livewire::actingAs($user)
+            ->test(Form::class)
+            ->set('titulo', 'Caso con imagen persistente')
+            ->set('categoria', 'sistema')
+            ->set('imagen_nueva', $image)
+            ->call('save')
+            ->assertHasNoErrors();
+
+        $study = CaseStudy::where('titulo', 'Caso con imagen persistente')->sole();
+
+        $this->assertNull($study->imagen);
+        $this->assertNotEmpty($study->imagen_data);
+        $this->assertSame('image/png', $study->imagen_mime);
+
+        $this->get(route('case-studies.image', $study))
+            ->assertOk()
+            ->assertHeader('Content-Type', 'image/png')
+            ->assertHeader('X-Content-Type-Options', 'nosniff');
     }
 
     public function test_admin_can_update_case_study_via_dedicated_form(): void

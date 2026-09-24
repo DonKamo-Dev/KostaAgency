@@ -303,8 +303,8 @@
                              onmouseenter="this.style.borderColor='rgba(230,57,70,0.4)';this.style.transform='translateY(-4px)'"
                              onmouseleave="this.style.borderColor='rgba(255,255,255,0.08)';this.style.transform='translateY(0)'">
                             <div style="height:180px;position:relative;background:linear-gradient(135deg, {{ $st->gradient_inicio }}, {{ $st->gradient_fin }});overflow:hidden;">
-                                @if($st->imagen)
-                                    <img src="{{ Storage::url($st->imagen) }}" alt="{{ $st->titulo }}" style="width:100%;height:100%;object-fit:cover;">
+                                @if($st->image_url)
+                                    <img src="{{ $st->image_url }}" alt="{{ $st->titulo }}" style="width:100%;height:100%;object-fit:cover;">
                                 @else
                                     <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.7);font-family:'Syne',sans-serif;font-weight:700;">
                                         {{ $st->titulo }}

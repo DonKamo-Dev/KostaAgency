@@ -25,6 +25,7 @@ class ServiceDetail extends Component
         try {
             $this->relatedStudies = $cat
                 ? CaseStudy::where('activo', true)
+                    ->forDisplay()
                     ->where('categoria', $cat)
                     ->orderBy('orden')
                     ->take(3)
