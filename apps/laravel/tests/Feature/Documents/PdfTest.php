@@ -85,6 +85,10 @@ class PdfTest extends TestCase
         $this->assertStringNotContainsString('base64', $html);
         $this->assertStringNotContainsString('>KOSTA<', $html);
         $this->assertStringContainsString('Kosta Studio Films', $html);
+        $this->assertStringContainsString('table-shell', $html);
+        $this->assertStringContainsString('table-modern', $html);
+        $this->assertStringContainsString('item-index', $html);
+        $this->assertStringContainsString('>01<', $html);
     }
 
     public function test_document_summary_is_anchored_above_the_footer(): void

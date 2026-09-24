@@ -42,6 +42,57 @@
         .table td.desc-cell {
             vertical-align: top;
         }
+        .table-shell {
+            overflow: hidden;
+            border: 1px solid #e3e5e8;
+            border-radius: 9px;
+            margin-bottom: 10px;
+        }
+        .table.table-modern {
+            margin-bottom: 0;
+        }
+        .table.table-modern th {
+            padding: 11px 10px;
+            background: #17191c;
+            color: #f7f7f8;
+            border-bottom: 0;
+            font-size: 9px;
+            letter-spacing: 0.08em;
+        }
+        .table.table-modern td {
+            padding: 13px 10px;
+            border-bottom: 1px solid #eceef0;
+            font-size: 11px;
+        }
+        .table.table-modern tbody tr:nth-child(even) {
+            background: #fbfbfc;
+        }
+        .table.table-modern tbody tr:last-child td {
+            border-bottom: 0;
+        }
+        .table.table-modern tbody tr {
+            page-break-inside: avoid;
+        }
+        .item-index {
+            display: inline-block;
+            min-width: 20px;
+            padding: 4px 5px;
+            border-radius: 10px;
+            background: #fff0f1;
+            color: #d72f3d;
+            font-size: 9px;
+            font-weight: bold;
+        }
+        .item-quantity {
+            display: inline-block;
+            min-width: 18px;
+            padding: 4px 6px;
+            border-radius: 5px;
+            background: #f1f3f5;
+            color: #4a4e54;
+            font-size: 10px;
+            font-weight: bold;
+        }
         .footer {
             position: absolute;
             bottom: 16px;
@@ -131,7 +182,8 @@
 
     <div class="clear"></div>
 
-    <table class="table">
+    <div class="{{ $document->type === 'quote' ? 'table-shell' : '' }}">
+    <table class="table {{ $document->type === 'quote' ? 'table-modern' : '' }}">
         <thead>
             <tr>
                 <th style="width: 30px; text-align: center;">#</th>
@@ -144,20 +196,33 @@
         <tbody>
             @foreach($document->items as $index => $item)
                 <tr>
-                    <td style="text-align: center; color: #888;">{{ $index + 1 }}</td>
+                    <td style="text-align: center; color: #888;">
+                        @if($document->type === 'quote')
+                            <span class="item-index">{{ str_pad((string) ($index + 1), 2, '0', STR_PAD_LEFT) }}</span>
+                        @else
+                            {{ $index + 1 }}
+                        @endif
+                    </td>
                     <td class="desc-cell">
                         <div style="font-weight: bold;">{{ $item->service_name }}</div>
                         @if($item->description)
                             <div style="font-size: 10px; color: #666; margin-top: 3px; line-height: 1.3;">{{ $item->description }}</div>
                         @endif
                     </td>
-                    <td style="text-align: center;">{{ $item->quantity }}</td>
+                    <td style="text-align: center;">
+                        @if($document->type === 'quote')
+                            <span class="item-quantity">{{ $item->quantity }}</span>
+                        @else
+                            {{ $item->quantity }}
+                        @endif
+                    </td>
                     <td style="text-align: right;">${{ number_format($item->unit_price, 0, ',', '.') }}</td>
                     <td style="text-align: right; font-weight: bold;">${{ number_format($item->subtotal, 0, ',', '.') }}</td>
                 </tr>
             @endforeach
         </tbody>
     </table>
+    </div>
 
     <div class="document-summary">
         <table style="width: 100%; border-collapse: collapse;">
