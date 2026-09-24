@@ -36,6 +36,34 @@ Ordenados según el plan [2026-09-17-cierre-pendientes-plataforma](docs/superpow
 | 5 | Planes/documentación desincronizados | Fase 5 | Completada (commit de cierre) |
 | 6 | Jerarquía editorial landing (Web → Films → Estrategia → Branding) | Landing | Completada |
 
+### 2026-09-24 - Transición de Categoría 'Social' a 'Films & Reels' y Anclaje Dinámico a Empresa o Sitio Web
+
+- **Requerimiento:**
+  - Sustituir la categoría `social` ("Redes Sociales") por `films` ("Films & Reels") en casos de estudio y portafolio público para destacar reels y producciones audiovisuales.
+  - Implementar anclaje de proyectos de films con dos opciones: vincular a una **Empresa** registrada (cliente con NIT) o a un **Sitio Web** existente en la plataforma.
+- **Implementación y Solución:**
+  - **Base de Datos y Modelos:**
+    - Creada migración `database/migrations/2026_09_24_000002_add_source_links_to_case_studies.php` añadiendo `source_type` (varchar 20), `client_id` (foreignId nullOnDelete) y `linked_case_study_id` (foreignId nullOnDelete) a `case_studies`, y migrando registros existentes de `social` a `films`.
+    - Clase de soporte resiliente `App\Support\CaseStudySource::ensureSchema()` para garantizar columnas y sincronización automática en entornos serverless (TiDB Cloud / Vercel).
+    - Modelo `CaseStudy` actualizado con `$fillable`, relaciones `client()` y `linkedCaseStudy()`, y `scopeForDisplay()` con eager loading.
+  - **Formulario Administrativo (`CaseStudies\Form` & `form.blade.php`):**
+    - Opción `films` ("Films & Reels") incorporada al selector de categorías personalizado con acento rose/crimson (`#f43f5e`).
+    - Al seleccionar `films`, se despliega automáticamente el panel interactivo "Anclar Caso de Films" con selector tipo pastilla: **Empresa (Cliente)** vs **Sitio Web**.
+    - Al elegir Empresa, se carga el selector de clientes con su nombre y NIT (`tax_id`).
+    - Al elegir Sitio Web, se carga el selector de sitios web existentes con su título y URL demo (autovinculando la demo si no se especifica una manual).
+  - **Listado Administrativo (`CaseStudies\Index` & `index.blade.php`):**
+    - Pestaña y badges actualizados a `Films & Reels`.
+    - Visualización del anclaje (empresa con NIT o sitio web vinculado) directamente en la tabla de casos.
+    - Menú lateral del panel con acceso directo a `Films & Reels`.
+  - **Portafolio Público (`portfolio.blade.php` y `services.blade.php`):**
+    - Pestaña de filtrado `Films` en `/portafolio` con soporte bidireccional (`films`/`social`).
+    - Tarjeta de proyecto con badge institucional y mención del cliente o sitio web vinculado.
+    - Botones de acción contextualizados ("Ver film" / "Watch film").
+    - Diccionarios en español e inglés (`lang/es/landing.php`, `lang/en/landing.php`, `lang/es/services.php`, `lang/en/services.php`) actualizados.
+  - **Control de Calidad y Pruebas:**
+    - 108 de 108 pruebas superadas (442 aserciones) en PHPUnit, incluyendo tests dedicados para anclaje a cliente y a sitio web.
+    - Build de producción con Vite (`npm run build`) validado en 10.1s.
+
 ### 2026-09-23 - Soporte Bilingüe (ES/EN) y Corrección de Responsividad Móvil en Página Bento / CV (/kamo)
 
 - **Requerimiento:**

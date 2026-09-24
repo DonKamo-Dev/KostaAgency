@@ -1251,13 +1251,17 @@
                    class="nav-sublink {{ request()->get('cat') === 'ecommerce' ? 'active' : '' }}">
                     E-commerce
                 </a>
+                <a wire:navigate href="{{ route('case-studies.index') }}?cat=sistema"
+                   class="nav-sublink {{ request()->get('cat') === 'sistema' ? 'active' : '' }}">
+                    Sistemas
+                </a>
+                <a wire:navigate href="{{ route('case-studies.index') }}?cat=films"
+                   class="nav-sublink {{ in_array(request()->get('cat'), ['films', 'social'], true) ? 'active' : '' }}">
+                    Films & Reels
+                </a>
                 <a wire:navigate href="{{ route('case-studies.index') }}?cat=branding"
                    class="nav-sublink {{ request()->get('cat') === 'branding' ? 'active' : '' }}">
                     Branding
-                </a>
-                <a wire:navigate href="{{ route('case-studies.index') }}?cat=social"
-                   class="nav-sublink {{ request()->get('cat') === 'social' ? 'active' : '' }}">
-                    Redes Sociales
                 </a>
                 </div>
 

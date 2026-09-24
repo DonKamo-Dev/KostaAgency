@@ -5,14 +5,14 @@
             'ecommerce' => 'E-commerce',
             'sistema' => 'Sistema',
             'branding' => 'Branding',
-            'social' => 'Redes Sociales',
+            'films' => 'Films & Reels',
         ];
         $catColors = [
             'web'       => 'background:rgba(99,102,241,0.15);color:#818cf8;border-color:rgba(99,102,241,0.3);',
             'ecommerce' => 'background:rgba(245,158,11,0.15);color:#fbbf24;border-color:rgba(245,158,11,0.3);',
             'sistema'   => 'background:rgba(14,165,233,0.15);color:#38bdf8;border-color:rgba(14,165,233,0.3);',
             'branding'  => 'background:rgba(16,185,129,0.15);color:#34d399;border-color:rgba(16,185,129,0.3);',
-            'social'    => 'background:rgba(236,72,153,0.15);color:#f472b6;border-color:rgba(236,72,153,0.3);',
+            'films'     => 'background:rgba(244,63,94,0.15);color:#fb7185;border-color:rgba(244,63,94,0.3);',
         ];
         $catOptions = [
             'web' => [
@@ -35,10 +35,10 @@
                 'sub'   => 'Identidad visual, diseño y logotipos',
                 'dot'   => '#34d399',
             ],
-            'social' => [
-                'label' => 'Redes Sociales',
-                'sub'   => 'Estrategia de contenido, feed y pauta',
-                'dot'   => '#f472b6',
+            'films' => [
+                'label' => 'Films & Reels',
+                'sub'   => 'Producción audiovisual, reels y video publicitario',
+                'dot'   => '#f43f5e',
             ],
         ];
     @endphp
@@ -221,6 +221,74 @@
                             @error('categoria') <span class="form-error">{{ $message }}</span> @enderror
                         </div>
                     </div>
+
+                    @if($categoria === 'films')
+                    <!-- Card de anclaje para caso de Films -->
+                    <div style="margin-top:20px;padding:18px 20px;background:rgba(244,63,94,0.06);border:1px solid rgba(244,63,94,0.25);border-radius:14px;animation:fadeIn 0.25s ease;">
+                        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:10px;">
+                            <div style="display:flex;align-items:center;gap:8px;">
+                                <span style="display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:6px;background:rgba(244,63,94,0.18);color:#f43f5e;">
+                                    <svg width="15" height="15" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
+                                </span>
+                                <div>
+                                    <h4 style="font-size:13px;font-weight:700;color:#FAFAFA;margin:0;">Anclar Caso de Films</h4>
+                                    <p style="font-size:11px;color:rgba(255,255,255,0.5);margin:2px 0 0 0;">Vincula este reel a una empresa registrada o a un sitio web de la plataforma</p>
+                                </div>
+                            </div>
+                            
+                            <!-- Selector: Empresa vs Sitio Web -->
+                            <div style="display:inline-flex;background:rgba(0,0,0,0.4);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:3px;">
+                                <button type="button" 
+                                        wire:click="$set('source_type', 'client')" 
+                                        style="padding:6px 14px;border-radius:8px;border:none;font-size:12px;font-weight:700;cursor:pointer;transition:all .15s ease;display:flex;align-items:center;gap:6px; {{ $source_type === 'client' ? 'background:#f43f5e;color:#FFFFFF;box-shadow:0 2px 8px rgba(244,63,94,0.4);' : 'background:transparent;color:rgba(255,255,255,0.6);' }}">
+                                    <svg width="13" height="13" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+                                    Empresa (Cliente)
+                                </button>
+                                <button type="button" 
+                                        wire:click="$set('source_type', 'website')" 
+                                        style="padding:6px 14px;border-radius:8px;border:none;font-size:12px;font-weight:700;cursor:pointer;transition:all .15s ease;display:flex;align-items:center;gap:6px; {{ $source_type === 'website' ? 'background:#f43f5e;color:#FFFFFF;box-shadow:0 2px 8px rgba(244,63,94,0.4);' : 'background:transparent;color:rgba(255,255,255,0.6);' }}">
+                                    <svg width="13" height="13" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/></svg>
+                                    Sitio Web
+                                </button>
+                            </div>
+                        </div>
+
+                        @if($source_type === 'client')
+                            <div style="margin-top:12px;">
+                                <label class="form-label" style="font-size:12px;color:rgba(255,255,255,0.85);margin-bottom:6px;">Empresa registrada (con NIT)</label>
+                                <select wire:model.live="client_id" class="form-input" style="width:100%;height:44px;background:#18181b;color:#FAFAFA;border-radius:10px;padding:0 12px;font-size:13px;border-color:rgba(244,63,94,0.3);">
+                                    <option value="">-- Seleccionar empresa registrada --</option>
+                                    @foreach($clients as $c)
+                                        <option value="{{ $c->id }}">{{ $c->name }} {{ $c->tax_id ? '(NIT: ' . $c->tax_id . ')' : '' }}</option>
+                                    @endforeach
+                                </select>
+                                @if($clients->isEmpty())
+                                    <span style="font-size:11px;color:#fca5a5;margin-top:4px;display:block;">No hay empresas registradas aún en el módulo de Clientes.</span>
+                                @endif
+                                @error('client_id') <span class="form-error">{{ $message }}</span> @enderror
+                            </div>
+                        @elseif($source_type === 'website')
+                            <div style="margin-top:12px;">
+                                <label class="form-label" style="font-size:12px;color:rgba(255,255,255,0.85);margin-bottom:6px;">Sitio Web ya creado en la plataforma</label>
+                                <select wire:model.live="linked_case_study_id" class="form-input" style="width:100%;height:44px;background:#18181b;color:#FAFAFA;border-radius:10px;padding:0 12px;font-size:13px;border-color:rgba(244,63,94,0.3);">
+                                    <option value="">-- Seleccionar sitio web existente --</option>
+                                    @foreach($existingWebsites as $w)
+                                        <option value="{{ $w->id }}">{{ $w->titulo }} {{ $w->url_demo ? '(' . $w->url_demo . ')' : '' }}</option>
+                                    @endforeach
+                                </select>
+                                @if($existingWebsites->isEmpty())
+                                    <span style="font-size:11px;color:#fca5a5;margin-top:4px;display:block;">No hay sitios web creados aún en categorías web, ecommerce o sistema.</span>
+                                @endif
+                                @error('linked_case_study_id') <span class="form-error">{{ $message }}</span> @enderror
+                            </div>
+                        @else
+                            <div style="font-size:12px;color:rgba(255,255,255,0.5);font-style:italic;padding:6px 0;">
+                                Selecciona si este film está vinculado a una <strong>Empresa (Cliente)</strong> o a un <strong>Sitio Web</strong> existente.
+                            </div>
+                        @endif
+                        @error('source_type') <span class="form-error">{{ $message }}</span> @enderror
+                    </div>
+                    @endif
                 </div>
 
                 <!-- 2. Métrica Destacada -->
@@ -462,7 +530,7 @@
                         <!-- Simulated CTA -->
                         <div style="display:flex;gap:8px;">
                             <span style="padding:6px 14px;border-radius:999px;font-size:11.5px;font-weight:700;background:var(--accent-red);color:#0A0A0A;display:inline-flex;align-items:center;gap:6px;">
-                                {{ $categoria === 'social' ? 'Visitar red' : ($categoria === 'sistema' ? 'Ver sistema' : 'Visitar página') }}
+                                {{ $categoria === 'films' ? 'Ver film' : ($categoria === 'social' ? 'Visitar red' : ($categoria === 'sistema' ? 'Ver sistema' : 'Visitar página')) }}
                                 <svg style="width:12px;height:12px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                             </span>
                         </div>

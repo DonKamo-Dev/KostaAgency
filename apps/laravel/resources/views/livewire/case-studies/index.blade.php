@@ -1,7 +1,7 @@
 <div>
     <!-- Header -->
     @php
-        $catNames = ['web' => 'Páginas Web', 'ecommerce' => 'E-commerce', 'sistema' => 'Sistema', 'branding' => 'Branding', 'social' => 'Redes Sociales'];
+        $catNames = ['web' => 'Páginas Web', 'ecommerce' => 'E-commerce', 'sistema' => 'Sistema', 'branding' => 'Branding', 'films' => 'Films & Reels', 'social' => 'Films'];
     @endphp
     <div class="crud-header">
         <div>
@@ -130,11 +130,27 @@
                             @endif
                         </td>
 
-                        <!-- Título + URL -->
+                        <!-- Título + URL + Enlace Empresa / Web -->
                         <td>
                             <div class="crud-row-name">{{ $study->titulo }}</div>
                             @if($study->url_demo)
                                 <div class="crud-row-meta">{{ $study->url_demo }}</div>
+                            @endif
+                            @if($study->categoria === 'films')
+                                @if($study->source_type === 'client' && $study->client)
+                                    <div style="font-size:11.5px;color:#fb7185;margin-top:3px;display:flex;align-items:center;gap:4px;">
+                                        <span>🏢 Empresa:</span>
+                                        <strong style="color:#FAFAFA;">{{ $study->client->name }}</strong>
+                                        @if($study->client->tax_id)
+                                            <span style="opacity:0.75;">(NIT: {{ $study->client->tax_id }})</span>
+                                        @endif
+                                    </div>
+                                @elseif($study->source_type === 'website' && $study->linkedCaseStudy)
+                                    <div style="font-size:11.5px;color:#38bdf8;margin-top:3px;display:flex;align-items:center;gap:4px;">
+                                        <span>🌐 Sitio web:</span>
+                                        <strong style="color:#FAFAFA;">{{ $study->linkedCaseStudy->titulo }}</strong>
+                                    </div>
+                                @endif
                             @endif
                         </td>
 
@@ -146,9 +162,10 @@
                                     'ecommerce' => 'background:rgba(245,158,11,0.15);color:#fbbf24;',
                                     'sistema'   => 'background:rgba(14,165,233,0.15);color:#38bdf8;',
                                     'branding'  => 'background:rgba(16,185,129,0.15);color:#34d399;',
-                                    'social'    => 'background:rgba(236,72,153,0.15);color:#f472b6;',
+                                    'films'     => 'background:rgba(244,63,94,0.15);color:#fb7185;',
+                                    'social'    => 'background:rgba(244,63,94,0.15);color:#fb7185;',
                                 ];
-                                $catNames = ['web' => 'Página Web', 'ecommerce' => 'E-commerce', 'sistema' => 'Sistema', 'branding' => 'Branding', 'social' => 'Redes'];
+                                $catNames = ['web' => 'Página Web', 'ecommerce' => 'E-commerce', 'sistema' => 'Sistema', 'branding' => 'Branding', 'films' => 'Films & Reels', 'social' => 'Films'];
                             @endphp
                             <span class="badge" style="{{ $catColors[$study->categoria] ?? '' }}">
                                 {{ $catNames[$study->categoria] ?? $study->categoria }}

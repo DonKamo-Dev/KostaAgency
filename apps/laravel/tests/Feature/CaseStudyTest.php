@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Livewire\CaseStudies\Form;
 use App\Livewire\CaseStudies\Index;
 use App\Models\CaseStudy;
+use App\Models\Client;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
@@ -160,5 +161,73 @@ class CaseStudyTest extends TestCase
         $this->assertSoftDeleted('case_studies', ['id' => $study->id]);
         $this->assertNull(CaseStudy::find($study->id));
         $this->assertNotNull(CaseStudy::withTrashed()->find($study->id));
+    }
+
+    public function test_admin_can_create_films_case_study_linked_to_client(): void
+    {
+        $user = User::factory()->create();
+        $client = Client::create([
+            'name' => 'Restaurante El Caribe',
+            'tax_id' => '901234567-1',
+            'email' => 'contacto@elcaribe.com',
+        ]);
+
+        Livewire::actingAs($user)
+            ->test(Form::class)
+            ->set('titulo', 'Reel Promocional Verano')
+            ->set('descripcion', 'Producción de 3 reels para campaña de alta temporada')
+            ->set('categoria', 'films')
+            ->set('source_type', 'client')
+            ->set('client_id', $client->id)
+            ->call('save')
+            ->assertHasNoErrors()
+            ->assertRedirect(route('case-studies.index'));
+
+        $this->assertDatabaseHas('case_studies', [
+            'titulo' => 'Reel Promocional Verano',
+            'categoria' => 'films',
+            'source_type' => 'client',
+            'client_id' => $client->id,
+        ]);
+
+        $this->actingAs($user)
+            ->get(route('case-studies.index'))
+            ->assertOk()
+            ->assertSee('Restaurante El Caribe')
+            ->assertSee('901234567-1');
+    }
+
+    public function test_admin_can_create_films_case_study_linked_to_website(): void
+    {
+        $user = User::factory()->create();
+        $website = CaseStudy::create([
+            'titulo' => 'Portal Turístico Cartagena',
+            'categoria' => 'web',
+            'url_demo' => 'turismocartagena.com',
+            'gradient_inicio' => '#000000',
+            'gradient_fin' => '#333333',
+        ]);
+
+        Livewire::actingAs($user)
+            ->test(Form::class)
+            ->set('titulo', 'Film Cinematográfico Destino')
+            ->set('categoria', 'films')
+            ->set('source_type', 'website')
+            ->set('linked_case_study_id', $website->id)
+            ->call('save')
+            ->assertHasNoErrors()
+            ->assertRedirect(route('case-studies.index'));
+
+        $this->assertDatabaseHas('case_studies', [
+            'titulo' => 'Film Cinematográfico Destino',
+            'categoria' => 'films',
+            'source_type' => 'website',
+            'linked_case_study_id' => $website->id,
+        ]);
+
+        $this->actingAs($user)
+            ->get(route('case-studies.index'))
+            ->assertOk()
+            ->assertSee('Portal Turístico Cartagena');
     }
 }

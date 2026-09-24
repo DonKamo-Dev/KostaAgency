@@ -23,14 +23,13 @@ class ServiceDetail extends Component
 
         $cat = $this->service['category_key'] ?? null;
         try {
-            $this->relatedStudies = $cat
-                ? CaseStudy::where('activo', true)
-                    ->forDisplay()
-                    ->where('categoria', $cat)
-                    ->orderBy('orden')
-                    ->take(3)
-                    ->get()
-                : collect();
+            $query = CaseStudy::where('activo', true)->forDisplay()->with(['client', 'linkedCaseStudy']);
+            if ($cat === 'films') {
+                $query->whereIn('categoria', ['films', 'social']);
+            } elseif ($cat) {
+                $query->where('categoria', $cat);
+            }
+            $this->relatedStudies = $cat ? $query->orderBy('orden')->take(3)->get() : collect();
         } catch (\Throwable) {
             $this->relatedStudies = collect();
         }

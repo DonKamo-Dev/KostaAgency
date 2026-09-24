@@ -13,7 +13,8 @@ class CaseStudy extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'titulo', 'descripcion', 'url_demo', 'categoria',
+        'titulo', 'descripcion', 'url_demo', 'categoria', 'source_type',
+        'client_id', 'linked_case_study_id',
         'metrica_valor', 'metrica_label', 'tags',
         'gradient_inicio', 'gradient_fin', 'imagen', 'imagen_data', 'imagen_mime',
         'activo', 'orden',
@@ -48,10 +49,21 @@ class CaseStudy extends Model
         return $this->imagen ? Storage::disk('public')->url($this->imagen) : null;
     }
 
+    public function client()
+    {
+        return $this->belongsTo(Client::class);
+    }
+
+    public function linkedCaseStudy()
+    {
+        return $this->belongsTo(self::class, 'linked_case_study_id');
+    }
+
     public function scopeForDisplay(Builder $query): Builder
     {
         return $query->select([
-            'id', 'titulo', 'descripcion', 'url_demo', 'categoria',
+            'id', 'titulo', 'descripcion', 'url_demo', 'categoria', 'source_type',
+            'client_id', 'linked_case_study_id',
             'metrica_valor', 'metrica_label', 'tags', 'gradient_inicio',
             'gradient_fin', 'imagen', 'activo', 'orden',
             'created_at', 'updated_at', 'deleted_at',

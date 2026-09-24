@@ -42,6 +42,12 @@ class Index extends Component
 
     public string $categoria = 'web';
 
+    public ?string $source_type = null;
+
+    public ?int $client_id = null;
+
+    public ?int $linked_case_study_id = null;
+
     public string $metrica_valor = '';
 
     public string $metrica_label = '';
@@ -62,7 +68,10 @@ class Index extends Component
         'titulo' => 'required|string|max:255',
         'descripcion' => 'nullable|string|max:1000',
         'url_demo' => 'nullable|string|max:255',
-        'categoria' => 'required|in:web,ecommerce,sistema,branding,social',
+        'categoria' => 'required|in:web,ecommerce,sistema,branding,films,social',
+        'source_type' => 'nullable|in:client,website',
+        'client_id' => 'nullable|integer|exists:clients,id',
+        'linked_case_study_id' => 'nullable|integer|exists:case_studies,id',
         'metrica_valor' => 'nullable|string|max:50',
         'metrica_label' => 'nullable|string|max:100',
         'tags_input' => 'nullable|string|max:500',
@@ -83,6 +92,8 @@ class Index extends Component
 
     public function render()
     {
+        \App\Support\CaseStudySource::ensureSchema();
+
         $studies = $this->filteredStudiesQuery()
             ->orderBy('orden')
             ->orderBy('created_at', 'desc')
@@ -273,7 +284,7 @@ class Index extends Component
 
     private function studiesQuery(): Builder
     {
-        return CaseStudy::query()->forDisplay();
+        return CaseStudy::query()->forDisplay()->with(['client', 'linkedCaseStudy']);
     }
 
     private function filteredStudiesQuery(): Builder
@@ -286,7 +297,9 @@ class Index extends Component
             ))
             ->when(
                 $this->categoriaFiltro,
-                fn (Builder $query) => $query->where('categoria', $this->categoriaFiltro)
+                fn (Builder $query) => in_array($this->categoriaFiltro, ['films', 'social'], true)
+                    ? $query->whereIn('categoria', ['films', 'social'])
+                    : $query->where('categoria', $this->categoriaFiltro)
             );
     }
 
