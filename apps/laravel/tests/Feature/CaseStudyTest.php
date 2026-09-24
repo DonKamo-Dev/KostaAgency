@@ -105,6 +105,12 @@ class CaseStudyTest extends TestCase
             ->assertOk()
             ->assertHeader('Content-Type', 'image/png')
             ->assertHeader('X-Content-Type-Options', 'nosniff');
+
+        $this->get(route('portfolio'))
+            ->assertOk()
+            ->assertSee('data-case-preview', false)
+            ->assertSee('data-case-viewer', false)
+            ->assertSee('Ver imagen ampliada de Caso con imagen persistente');
     }
 
     public function test_admin_can_update_case_study_via_dedicated_form(): void

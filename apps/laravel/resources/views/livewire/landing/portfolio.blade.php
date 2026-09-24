@@ -130,7 +130,13 @@
                         </div>
                         <div class="browser-screen" style="background: linear-gradient(135deg, {{ $estudio->gradient_inicio }}, {{ $estudio->gradient_fin }});">
                             @if($estudio->image_url)
-                                <img src="{{ $estudio->image_url }}" alt="{{ $estudio->titulo }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+                                <button type="button" class="case-preview-trigger" data-case-preview data-image="{{ $estudio->image_url }}" data-title="{{ $estudio->titulo }}" aria-label="Ver imagen ampliada de {{ $estudio->titulo }}">
+                                    <img src="{{ $estudio->image_url }}" alt="{{ $estudio->titulo }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+                                    <span class="case-preview-hint">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+                                        Ampliar
+                                    </span>
+                                </button>
                             @else
                                 <div class="mock-nav"><span class="mock-nav-dot wide"></span><span class="mock-nav-dot"></span><span class="mock-nav-dot"></span><span class="mock-nav-dot end"></span></div>
                                 <div class="mock-hero"><div class="mock-h1"></div><div class="mock-h1 short"></div><div class="mock-p w80"></div><div class="mock-p w60"></div><div class="mock-btn"></div></div>
@@ -213,6 +219,7 @@
     </section>
 
     @include('partials.landing-footer')
+    <x-case-study-viewer />
 
     <script>
         // Project filter

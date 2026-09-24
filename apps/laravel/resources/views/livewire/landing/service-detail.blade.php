@@ -304,7 +304,10 @@
                              onmouseleave="this.style.borderColor='rgba(255,255,255,0.08)';this.style.transform='translateY(0)'">
                             <div style="height:180px;position:relative;background:linear-gradient(135deg, {{ $st->gradient_inicio }}, {{ $st->gradient_fin }});overflow:hidden;">
                                 @if($st->image_url)
-                                    <img src="{{ $st->image_url }}" alt="{{ $st->titulo }}" style="width:100%;height:100%;object-fit:cover;">
+                                    <button type="button" class="case-preview-trigger" data-case-preview data-image="{{ $st->image_url }}" data-title="{{ $st->titulo }}" aria-label="Ver imagen ampliada de {{ $st->titulo }}">
+                                        <img src="{{ $st->image_url }}" alt="{{ $st->titulo }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+                                        <span class="case-preview-hint">Ampliar</span>
+                                    </button>
                                 @else
                                     <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.7);font-family:'Syne',sans-serif;font-weight:700;">
                                         {{ $st->titulo }}
@@ -409,4 +412,5 @@
     </section>
 
     @include('partials.landing-footer')
+    <x-case-study-viewer />
 </div>
