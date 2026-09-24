@@ -370,8 +370,8 @@
 
                             <div class="form-group" style="margin-bottom:0;">
                                 <label class="form-label">O Enlace de Video / CDN / Redes</label>
-                                <input type="text" wire:model.live.debounce.250ms="video_url" class="form-input" placeholder="https://... o enlace de reel/video"/>
-                                <span style="font-size:11px;color:var(--text-subtle);margin-top:4px;display:block;">URL directa MP4, Cloudinary, S3, YouTube Shorts o Vimeo</span>
+                                <input type="text" wire:model.live.debounce.250ms="video_url" class="form-input" placeholder="https://pub-...r2.dev/video.mp4 o enlace de video"/>
+                                <span style="font-size:11px;color:var(--text-subtle);margin-top:4px;display:block;">Soporta Cloudflare R2 / Stream, Cloudinary, AWS S3, YouTube Shorts o Vimeo</span>
                                 @error('video_url') <span class="form-error">{{ $message }}</span> @enderror
                             </div>
                         </div>

@@ -57,9 +57,13 @@ Ordenados según el plan [2026-09-17-cierre-pendientes-plataforma](docs/superpow
     - En `/portafolio`, las tarjetas de films se adaptan con encabezado de grabación tipo claqueta (`REEL 9:16` / `FILM 16:9`) y badge de tiempo.
     - Reproducción ultrarrápida: videos con `preload="metadata"` y `playsinline muted loop` que se previsualizan instantáneamente al pasar el mouse (hover preview).
     - Componente cinemático `<x-film-viewer />` (lightbox modal) con backdrop blur, proporción aspect-ratio adaptativa (smartphone vertical para reels o widescreen para horizontales), control de audio, teclado Escape y prevención de fugas de sonido al cerrar.
+  - **Soporte y Optimización Cloudflare (R2 y Stream):**
+    - Compatibilidad nativa de streaming para almacenamiento de objetos Cloudflare R2 (`r2.dev`, `cloudflarestorage`, dominios personalizados con 0 costos de salida y caché perimetral edge).
+    - Soporte para Cloudflare Stream (`videodelivery.net`, `cloudflarestream.com`) con resolución automática a embed responsivo y reproducción adaptativa.
+    - Placeholder y textos de ayuda en el formulario actualizados.
   - **Control de Calidad:**
-    - 109 de 109 pruebas pasadas exitosamente (455 aserciones).
-    - Build de Vite (`npm run build`) completado limpiamente en 2.16s.
+    - 110 de 110 pruebas pasadas exitosamente (459 aserciones).
+    - Build de Vite (`npm run build`) completado limpiamente.
 
 ### 2026-09-24 - Transición de Categoría 'Social' a 'Films & Reels' y Anclaje Dinámico a Empresa o Sitio Web
 

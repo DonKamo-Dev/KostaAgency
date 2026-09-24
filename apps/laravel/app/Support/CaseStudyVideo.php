@@ -50,8 +50,12 @@ final class CaseStudyVideo
             return true;
         }
 
-        // Direct CDN streams (Cloudinary, AWS S3, BunnyCDN, etc.)
-        if (preg_match('#(cloudinary|s3|amazonaws|digitaloceanspaces|bunnycdn|supabase|blob\.core\.windows\.net)#i', $url)) {
+        // Direct CDN & Object storage streams (Cloudflare R2, Cloudinary, AWS S3, BunnyCDN, Supabase, Azure Blob, etc.)
+        if (preg_match('#(cloudinary|s3|amazonaws|digitaloceanspaces|bunnycdn|supabase|blob\.core\.windows\.net|r2\.dev|cloudflarestorage|cloudflare)#i', $url)) {
+            // If it's a Cloudflare Stream landing or watch page without a direct video extension, let resolveEmbedUrl handle it
+            if (preg_match('#(?:videodelivery\.net|cloudflarestream\.com)#i', $url) && ! Str::endsWith($clean, ['.mp4', '.webm', '.m3u8', '.mpd'])) {
+                return false;
+            }
             return true;
         }
 
@@ -59,7 +63,7 @@ final class CaseStudyVideo
     }
 
     /**
-     * Generates a safe embed URL for YouTube, Vimeo, etc., if applicable.
+     * Generates a safe embed URL for YouTube, Vimeo, Cloudflare Stream, etc., if applicable.
      */
     public static function resolveEmbedUrl(?string $url): ?string
     {
@@ -68,6 +72,11 @@ final class CaseStudyVideo
         }
 
         $trimmed = trim($url);
+
+        // Cloudflare Stream
+        if (preg_match('#(?:videodelivery\.net|cloudflarestream\.com)(?:/[^/]+)*/([a-f0-9]{32})#i', $trimmed, $matches)) {
+            return "https://iframe.videodelivery.net/{$matches[1]}?autoplay=true&muted=false&preload=true";
+        }
 
         // YouTube Shorts or standard videos
         if (preg_match('#(?:youtube\.com/(?:watch\?v=|shorts/|embed/)|youtu\.be/)([\w\-]+)#i', $trimmed, $matches)) {
