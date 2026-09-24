@@ -52,7 +52,7 @@ class PdfTest extends TestCase
         $response->assertHeader('Content-Type', 'application/pdf');
     }
 
-    public function test_document_pdf_template_uses_lightweight_brand_mark(): void
+    public function test_quote_pdf_template_hides_the_temporary_brand_mark(): void
     {
         $html = view('pdf.quote', [
             'document' => (object) [
@@ -83,7 +83,8 @@ class PdfTest extends TestCase
 
         $this->assertStringNotContainsString('Imagotipo-DK.png', $html);
         $this->assertStringNotContainsString('base64', $html);
-        $this->assertStringContainsString('KOSTA', $html);
+        $this->assertStringNotContainsString('>KOSTA<', $html);
+        $this->assertStringContainsString('Kosta Studio Films', $html);
     }
 
     private function fakePdfRenderer(): void

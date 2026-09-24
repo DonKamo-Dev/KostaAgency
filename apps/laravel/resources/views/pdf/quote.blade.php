@@ -59,17 +59,19 @@
     <table style="width: 100%; margin-bottom: 16px;">
         <tr>
             <td style="width: 50%; vertical-align: top;">
-                <div style="margin-bottom: 10px;">
-                    <div style="display:inline-flex;align-items:center;gap:8px;">
-                        <div style="width:32px;height:32px;background:#111111;border-radius:8px;display:flex;align-items:center;justify-content:center;">
-                            <span style="color:#fff;font-size:16px;font-weight:700;">K</span>
-                        </div>
-                        <div>
-                            <div style="font-size:18px;font-weight:700;color:#111111;letter-spacing:-0.02em;line-height:1;">KOSTA</div>
-                            <div style="font-size:8px;color:#666;text-transform:uppercase;letter-spacing:0.18em;font-weight:600;">Studio Films</div>
+                @if($document->type !== 'quote')
+                    <div style="margin-bottom: 10px;">
+                        <div style="display:inline-flex;align-items:center;gap:8px;">
+                            <div style="width:32px;height:32px;background:#111111;border-radius:8px;display:flex;align-items:center;justify-content:center;">
+                                <span style="color:#fff;font-size:16px;font-weight:700;">K</span>
+                            </div>
+                            <div>
+                                <div style="font-size:18px;font-weight:700;color:#111111;letter-spacing:-0.02em;line-height:1;">KOSTA</div>
+                                <div style="font-size:8px;color:#666;text-transform:uppercase;letter-spacing:0.18em;font-weight:600;">Studio Films</div>
+                            </div>
                         </div>
                     </div>
-                </div>
+                @endif
                 <div style="font-size: 11px; color: #666; line-height: 1.4;">
                     <div style="font-weight: bold; color: #111; font-size: 13px; margin-bottom: 4px;">Kosta Studio Films</div>
                     yohanblaro18@gmail.com<br>
