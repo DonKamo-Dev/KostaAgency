@@ -52,7 +52,7 @@ Ordenados según el plan [2026-09-17-cierre-pendientes-plataforma](docs/superpow
     - Selector interactivo de orientación: **Reel / Vertical (9:16)** vs **Horizontal (16:9)**.
     - Configuración simplificada a solo **Enlace de Video (URL / Streaming)**: eliminada la subida de archivos y spinners residuales de carga en el servidor, garantizando compatibilidad total con Cloudflare R2 / Stream, AWS S3, Vimeo, etc., sin saturar el servidor ni tropezar con límites de carga serverless.
     - Campo de duración estimada para badges tipo Reel (`0:45`, `1:15`) y tags.
-    - Previsualización en vivo (columna derecha) adaptada: muestra un reproductor tipo smartphone/reel para videos verticales o pantalla cinemática para horizontales, con botón de reproducción interactivo.
+    - Previsualización en vivo (columna derecha) adaptada: cuando el film es vertical (**Reel 9:16**), se transforma en un **Mockup de Smartphone realista** completo con Dynamic Island, barra de estado, botones físicos laterales de titanio, overlay social tipo Instagram/TikTok (Likes, Comentarios, Compartir, Disco de audio giratorio, título, descripción y tags) y barra home inferior. En el portafolio público (`/portafolio`), las tarjetas de Reels adoptan un marco de smartphone con Dynamic Island y proporción de pantalla vertical.
   - **Portafolio Público (`portfolio.blade.php` y `components/film-viewer.blade.php`):**
     - En `/portafolio`, las tarjetas de films se adaptan con encabezado de grabación tipo claqueta (`REEL 9:16` / `FILM 16:9`) y badge de tiempo.
     - Reproducción ultrarrápida: videos con `preload="metadata"` y `playsinline muted loop` que se previsualizan instantáneamente al pasar el mouse (hover preview).

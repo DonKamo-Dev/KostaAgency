@@ -120,6 +120,221 @@
                 box-shadow: 0 20px 50px rgba(0,0,0,0.5);
                 transition: all .3s ease;
             }
+
+            /* ── Smartphone Reel Mockup ── */
+            .smartphone-mockup-frame {
+                position: relative;
+                max-width: 275px;
+                margin: 0 auto;
+                background: #09090b;
+                border-radius: 42px;
+                padding: 10px;
+                border: 3.5px solid #27272a;
+                box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1), 0 25px 65px -10px rgba(0, 0, 0, 0.95), 0 0 40px rgba(244, 63, 94, 0.15);
+                transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            }
+            .smartphone-btn-vol-up {
+                position: absolute;
+                left: -7px;
+                top: 85px;
+                width: 4px;
+                height: 36px;
+                background: #3f3f46;
+                border-radius: 3px 0 0 3px;
+            }
+            .smartphone-btn-vol-down {
+                position: absolute;
+                left: -7px;
+                top: 130px;
+                width: 4px;
+                height: 36px;
+                background: #3f3f46;
+                border-radius: 3px 0 0 3px;
+            }
+            .smartphone-btn-power {
+                position: absolute;
+                right: -7px;
+                top: 105px;
+                width: 4px;
+                height: 50px;
+                background: #3f3f46;
+                border-radius: 0 3px 3px 0;
+            }
+            .smartphone-screen {
+                position: relative;
+                width: 100%;
+                aspect-ratio: 9 / 16;
+                height: 480px;
+                border-radius: 34px;
+                overflow: hidden;
+                background: #000;
+                display: flex;
+                flex-direction: column;
+            }
+            .smartphone-island {
+                position: absolute;
+                top: 8px;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 78px;
+                height: 18px;
+                background: #000;
+                border-radius: 20px;
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                z-index: 30;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 0 7px;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.6);
+            }
+            .smartphone-island-cam {
+                width: 7px;
+                height: 7px;
+                border-radius: 50%;
+                background: #111;
+                border: 1.5px solid #1e1e24;
+            }
+            .smartphone-island-sensor {
+                width: 5px;
+                height: 5px;
+                border-radius: 50%;
+                background: #080811;
+            }
+            .smartphone-status-bar {
+                position: absolute;
+                top: 8px;
+                left: 18px;
+                right: 18px;
+                height: 18px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                z-index: 25;
+                pointer-events: none;
+                font-size: 11px;
+                font-weight: 700;
+                color: #ffffff;
+                text-shadow: 0 1px 4px rgba(0,0,0,0.9);
+            }
+            .smartphone-video-stage {
+                position: absolute;
+                inset: 0;
+                width: 100%;
+                height: 100%;
+                background: #000;
+            }
+            .smartphone-video-el {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+            .smartphone-reel-overlay {
+                position: absolute;
+                inset: 0;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                padding: 34px 14px 14px;
+                z-index: 20;
+                pointer-events: none;
+                background: linear-gradient(180deg, rgba(0,0,0,0.55) 0%, transparent 22%, transparent 55%, rgba(0,0,0,0.92) 100%);
+            }
+            .smartphone-actions-col {
+                position: absolute;
+                right: 8px;
+                bottom: 55px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 13px;
+                z-index: 22;
+            }
+            .smartphone-action-item {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 2px;
+                color: #ffffff;
+                filter: drop-shadow(0 2px 4px rgba(0,0,0,0.85));
+            }
+            .smartphone-action-item svg {
+                width: 20px;
+                height: 20px;
+            }
+            .smartphone-action-item span {
+                font-size: 9.5px;
+                font-weight: 700;
+            }
+            .smartphone-sound-disc {
+                width: 26px;
+                height: 26px;
+                border-radius: 50%;
+                background: conic-gradient(from 0deg, #18181b, #3f3f46, #18181b);
+                border: 2px solid rgba(255,255,255,0.7);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                animation: spinPhoneDisc 3s linear infinite;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.8);
+            }
+            @keyframes spinPhoneDisc {
+                from { transform: rotate(0deg); }
+                to { transform: rotate(360deg); }
+            }
+            .smartphone-bottom-meta {
+                margin-top: auto;
+                max-width: 82%;
+                text-align: left;
+            }
+            .smartphone-user-badge {
+                display: inline-flex;
+                align-items: center;
+                gap: 5px;
+                margin-bottom: 5px;
+                font-size: 11px;
+                font-weight: 700;
+                color: #ffffff;
+                text-shadow: 0 1px 4px rgba(0,0,0,0.9);
+            }
+            .smartphone-reel-title {
+                font-family: 'Syne', sans-serif;
+                font-size: 14px;
+                font-weight: 700;
+                color: #ffffff;
+                margin: 0 0 3px;
+                line-height: 1.25;
+                text-shadow: 0 2px 6px rgba(0,0,0,0.95);
+            }
+            .smartphone-reel-desc {
+                font-size: 11px;
+                color: rgba(255, 255, 255, 0.88);
+                line-height: 1.35;
+                margin: 0 0 7px;
+                text-shadow: 0 1px 4px rgba(0,0,0,0.9);
+                display: -webkit-box;
+                -webkit-line-clamp: 2;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+            }
+            .smartphone-audio-row {
+                display: flex;
+                align-items: center;
+                gap: 5px;
+                font-size: 9.5px;
+                color: rgba(255,255,255,0.8);
+            }
+            .smartphone-home-bar {
+                position: absolute;
+                bottom: 6px;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 80px;
+                height: 3.5px;
+                background: rgba(255, 255, 255, 0.7);
+                border-radius: 3px;
+                z-index: 25;
+            }
         </style>
 
         <!-- FORM COLUMN -->
@@ -545,127 +760,235 @@
                     <span style="font-size:11px;color:var(--text-subtle);">Portafolio Público</span>
                 </div>
 
-                <!-- Card Replica from /portafolio -->
-                <div class="mockup-preview-card">
-                    @if($categoria === 'films')
-                        <!-- Video Player Header -->
-                        <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:rgba(0,0,0,0.85);border-bottom:1px solid rgba(244,63,94,0.25);">
-                            <div style="display:flex;align-items:center;gap:7px;">
-                                <span style="width:8px;height:8px;border-radius:50%;background:#f43f5e;box-shadow:0 0 8px #f43f5e;display:block;"></span>
-                                <span style="font-size:11px;font-weight:700;color:#f43f5e;letter-spacing:0.06em;text-transform:uppercase;">
-                                    {{ $video_orientation === 'vertical' ? 'REEL 9:16' : 'FILM 16:9' }}
-                                </span>
-                            </div>
-                            <div style="font-size:11px;color:rgba(255,255,255,0.45);font-family:monospace;">
-                                {{ filled($video_duration) ? $video_duration : '0:30' }}
-                            </div>
-                        </div>
+                @if($categoria === 'films' && $video_orientation === 'vertical')
+                    <!-- SMARTPHONE REEL MOCKUP -->
+                    <div class="smartphone-mockup-frame">
+                        <span class="smartphone-btn-vol-up"></span>
+                        <span class="smartphone-btn-vol-down"></span>
+                        <span class="smartphone-btn-power"></span>
 
-                        <!-- Video Screen -->
-                        <div style="height:{{ $video_orientation === 'vertical' ? '220px' : '175px' }};position:relative;overflow:hidden;background:#09090b;display:flex;align-items:center;justify-content:center;">
-                            @if(filled($video_url) && \App\Support\CaseStudyVideo::isDirectVideo($video_url))
-                                <video src="{{ $video_url }}" autoplay muted loop playsinline style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;"></video>
-                            @else
-                                <div style="position:absolute;inset:0;background:radial-gradient(circle at center, rgba(244,63,94,0.18) 0%, rgba(9,9,11,0.95) 75%);"></div>
-                                <div style="z-index:2;display:flex;flex-direction:column;align-items:center;gap:8px;">
-                                    <div style="width:48px;height:48px;border-radius:50%;background:rgba(244,63,94,0.2);border:2px solid #f43f5e;display:flex;align-items:center;justify-content:center;box-shadow:0 0 20px rgba(244,63,94,0.4);">
-                                        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24" style="color:#fff;margin-left:2px;"><path d="M8 5v14l11-7z"/></svg>
+                        <div class="smartphone-screen">
+                            <!-- Dynamic Island -->
+                            <div class="smartphone-island">
+                                <span class="smartphone-island-cam"></span>
+                                <span class="smartphone-island-sensor"></span>
+                            </div>
+
+                            <!-- Status Bar -->
+                            <div class="smartphone-status-bar">
+                                <span>9:41</span>
+                                <div style="display:flex;align-items:center;gap:4px;">
+                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3c-4.97 0-9 4.03-9 9 0 2.12.74 4.07 1.97 5.61L4.35 19.4c-.39.39-.39 1.02 0 1.41.39.39 1.02.39 1.41 0l1.9-1.9C9.17 19.64 10.53 20 12 20c4.97 0 9-4.03 9-9s-4.03-9-9-9z"/></svg>
+                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M15.67 4H14V2h-4v2H8.33C7.6 4 7 4.6 7 5.33v15.33C7 21.4 7.6 22 8.33 22h7.33c.74 0 1.34-.6 1.34-1.33V5.33C17 4.6 16.4 4 15.67 4z"/></svg>
+                                </div>
+                            </div>
+
+                            <!-- Video Stage -->
+                            <div class="smartphone-video-stage">
+                                @if(filled($video_url) && \App\Support\CaseStudyVideo::isDirectVideo($video_url))
+                                    <video src="{{ $video_url }}" autoplay muted loop playsinline class="smartphone-video-el"></video>
+                                @elseif(filled($video_url) && \App\Support\CaseStudyVideo::resolveEmbedUrl($video_url))
+                                    <iframe src="{{ \App\Support\CaseStudyVideo::resolveEmbedUrl($video_url) }}" style="width:100%;height:100%;border:none;" allow="autoplay; fullscreen" allowfullscreen></iframe>
+                                @else
+                                    <div style="position:absolute;inset:0;background:radial-gradient(circle at center, rgba(244,63,94,0.22) 0%, rgba(9,9,11,0.96) 80%);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px;">
+                                        <div style="width:54px;height:54px;border-radius:50%;background:rgba(244,63,94,0.18);border:2px solid #f43f5e;display:flex;align-items:center;justify-content:center;box-shadow:0 0 25px rgba(244,63,94,0.45);">
+                                            <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24" style="color:#fff;margin-left:3px;"><path d="M8 5v14l11-7z"/></svg>
+                                        </div>
+                                        <span style="font-size:11px;font-weight:700;color:rgba(255,255,255,0.7);letter-spacing:0.04em;">
+                                            {{ filled($video_url) ? 'Video Conectado' : 'Reproductor Reel 9:16' }}
+                                        </span>
                                     </div>
-                                    <span style="font-size:11px;font-weight:600;color:rgba(255,255,255,0.7);letter-spacing:0.04em;">
-                                        {{ filled($video_url) ? 'Video Enlazado' : 'Reproductor de Video' }}
+                                @endif
+                            </div>
+
+                            <!-- Reel Overlay -->
+                            <div class="smartphone-reel-overlay">
+                                <!-- Top Bar -->
+                                <div style="display:flex;align-items:center;justify-content:space-between;width:100%;">
+                                    <div style="display:flex;align-items:center;gap:6px;background:rgba(0,0,0,0.6);padding:3px 8px;border-radius:6px;border:1px solid rgba(255,255,255,0.15);backdrop-filter:blur(4px);">
+                                        <span style="width:6px;height:6px;border-radius:50%;background:#f43f5e;box-shadow:0 0 6px #f43f5e;"></span>
+                                        <span style="font-size:10px;font-weight:800;color:#fff;letter-spacing:0.06em;">REEL 9:16</span>
+                                    </div>
+                                    <span style="font-size:10px;color:rgba(255,255,255,0.85);font-family:monospace;background:rgba(0,0,0,0.6);padding:2px 7px;border-radius:4px;backdrop-filter:blur(4px);">
+                                        {{ filled($video_duration) ? $video_duration : '0:30' }}
                                     </span>
                                 </div>
-                            @endif
-                        </div>
-                    @else
-                        <!-- Browser Chrome -->
-                        <div style="display:flex;align-items:center;gap:8px;padding:10px 14px;background:rgba(0,0,0,0.6);border-bottom:1px solid rgba(255,255,255,0.06);">
-                            <div style="display:flex;gap:5px;">
-                                <span style="width:8px;height:8px;border-radius:50%;background:#ff5f57;display:block;"></span>
-                                <span style="width:8px;height:8px;border-radius:50%;background:#febc2e;display:block;"></span>
-                                <span style="width:8px;height:8px;border-radius:50%;background:#28c840;display:block;"></span>
-                            </div>
-                            <div style="flex:1;background:rgba(255,255,255,0.07);border-radius:4px;padding:3px 10px;font-size:11px;color:rgba(255,255,255,0.35);font-family:monospace;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">
-                                {{ filled($url_demo) ? $url_demo : 'kosta.studio' }}
-                            </div>
-                        </div>
 
-                        <!-- Screen with Gradient / Image -->
-                        <div style="height:175px;position:relative;overflow:hidden;background:linear-gradient(135deg, {{ $gradient_inicio }}, {{ $gradient_fin }});">
-                            @if($imagen_nueva)
-                                <img src="{{ $imagen_nueva->temporaryUrl() }}" alt="Preview" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
-                            @elseif($imagenActual)
-                                <img src="{{ $imagenActual }}" alt="Preview" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
-                            @else
-                                <!-- Mock UI wireframe -->
-                                <div style="position:absolute;top:0;left:0;right:0;height:24px;background:rgba(0,0,0,0.25);display:flex;align-items:center;padding:0 12px;gap:6px;">
-                                    <div style="width:20px;height:4px;border-radius:2px;background:rgba(255,255,255,0.3);"></div>
-                                    <div style="width:36px;height:4px;border-radius:2px;background:rgba(255,255,255,0.3);"></div>
+                                <!-- Floating Actions -->
+                                <div class="smartphone-actions-col">
+                                    <div class="smartphone-action-item">
+                                        <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                                        <span>24.5k</span>
+                                    </div>
+                                    <div class="smartphone-action-item">
+                                        <svg fill="currentColor" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z"/></svg>
+                                        <span>680</span>
+                                    </div>
+                                    <div class="smartphone-action-item">
+                                        <svg fill="currentColor" viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+                                        <span>Share</span>
+                                    </div>
+                                    <div class="smartphone-sound-disc">
+                                        <div style="width:10px;height:10px;border-radius:50%;background:#f43f5e;"></div>
+                                    </div>
                                 </div>
-                                <div style="position:absolute;top:38px;left:18px;right:18px;">
-                                    <div style="height:8px;width:70%;border-radius:4px;background:rgba(255,255,255,0.7);margin-bottom:6px;"></div>
-                                    <div style="height:5px;width:85%;border-radius:3px;background:rgba(255,255,255,0.3);margin-bottom:4px;"></div>
-                                    <div style="height:5px;width:55%;border-radius:3px;background:rgba(255,255,255,0.3);"></div>
-                                    <div style="margin-top:12px;width:56px;height:16px;border-radius:12px;background:rgba(255,255,255,0.5);"></div>
+
+                                <!-- Bottom Metadata -->
+                                <div class="smartphone-bottom-meta">
+                                    <div class="smartphone-user-badge">
+                                        <span style="width:18px;height:18px;border-radius:50%;background:#f43f5e;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:900;color:#fff;">K</span>
+                                        <span>@kosta.studio</span>
+                                        <svg width="12" height="12" fill="#38bdf8" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                                    </div>
+
+                                    <h4 class="smartphone-reel-title">
+                                        {{ filled($titulo) ? $titulo : 'Título del Reel' }}
+                                    </h4>
+
+                                    <p class="smartphone-reel-desc">
+                                        {{ filled($descripcion) ? \Illuminate\Support\Str::limit($descripcion, 85) : 'Producción audiovisual y reels de alto impacto para marcas...' }}
+                                    </p>
+
+                                    @if(filled($metrica_valor))
+                                        <div style="display:inline-flex;align-items:center;gap:5px;background:rgba(244,63,94,0.3);border:1px solid rgba(244,63,94,0.5);padding:2px 8px;border-radius:6px;margin-bottom:6px;font-size:10px;color:#fff;font-weight:700;">
+                                            <span>{{ $metrica_valor }}</span> {{ $metrica_label }}
+                                        </div>
+                                    @endif
+
+                                    <div class="smartphone-audio-row">
+                                        <svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+                                        <span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:180px;">Audio Original - Kosta Films</span>
+                                    </div>
                                 </div>
-                            @endif
+                            </div>
+
+                            <!-- Bottom Home Bar -->
+                            <div class="smartphone-home-bar"></div>
                         </div>
-                    @endif
-
-                    <!-- Card Body -->
-                    <div style="padding:20px 22px;">
-                        <!-- Category Badge -->
-                        <span style="display:inline-flex;align-items:center;padding:3px 10px;border-radius:999px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:10px;border:1px solid transparent;{{ $catColors[(string)$categoria] ?? '' }}">
-                            {{ $catNames[(string)$categoria] ?? (string)$categoria }}
-                        </span>
-
-                        <!-- Title -->
-                        <h3 style="font-family:'Syne',sans-serif;font-size:17px;font-weight:700;color:#fff;margin:0 0 6px;line-height:1.2;">
-                            {{ filled($titulo) ? $titulo : 'Título del Proyecto' }}
-                        </h3>
-
-                        <!-- Description -->
-                        <p style="font-size:13px;color:rgba(255,255,255,0.5);line-height:1.5;margin:0 0 14px;">
-                            {{ filled($descripcion) ? \Illuminate\Support\Str::limit($descripcion, 120) : 'Breve descripción del resultado y valor entregado al cliente...' }}
-                        </p>
-
-                        <!-- Metric -->
-                        @if(filled($metrica_valor))
-                            <div style="display:flex;align-items:baseline;gap:6px;margin-bottom:14px;padding:8px 12px;background:rgba(255,255,255,0.03);border-radius:8px;border:1px solid rgba(255,255,255,0.06);">
-                                <span style="font-family:'Syne',sans-serif;font-size:18px;font-weight:700;color:var(--accent-red);">
-                                    {{ $metrica_valor }}
-                                </span>
-                                @if(filled($metrica_label))
-                                    <span style="font-size:11.5px;color:rgba(255,255,255,0.45);">
-                                        {{ $metrica_label }}
+                    </div>
+                @else
+                    <!-- Card Replica from /portafolio -->
+                    <div class="mockup-preview-card">
+                        @if($categoria === 'films')
+                            <!-- Video Player Header (16:9 Cinema) -->
+                            <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:rgba(0,0,0,0.85);border-bottom:1px solid rgba(244,63,94,0.25);">
+                                <div style="display:flex;align-items:center;gap:7px;">
+                                    <span style="width:8px;height:8px;border-radius:50%;background:#f43f5e;box-shadow:0 0 8px #f43f5e;display:block;"></span>
+                                    <span style="font-size:11px;font-weight:700;color:#f43f5e;letter-spacing:0.06em;text-transform:uppercase;">
+                                        FILM 16:9 (CINEMA)
                                     </span>
+                                </div>
+                                <div style="font-size:11px;color:rgba(255,255,255,0.45);font-family:monospace;">
+                                    {{ filled($video_duration) ? $video_duration : '1:30' }}
+                                </div>
+                            </div>
+
+                            <!-- Video Screen -->
+                            <div style="height:185px;position:relative;overflow:hidden;background:#09090b;display:flex;align-items:center;justify-content:center;">
+                                @if(filled($video_url) && \App\Support\CaseStudyVideo::isDirectVideo($video_url))
+                                    <video src="{{ $video_url }}" autoplay muted loop playsinline style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;"></video>
+                                @else
+                                    <div style="position:absolute;inset:0;background:radial-gradient(circle at center, rgba(244,63,94,0.18) 0%, rgba(9,9,11,0.95) 75%);"></div>
+                                    <div style="z-index:2;display:flex;flex-direction:column;align-items:center;gap:8px;">
+                                        <div style="width:48px;height:48px;border-radius:50%;background:rgba(244,63,94,0.2);border:2px solid #f43f5e;display:flex;align-items:center;justify-content:center;box-shadow:0 0 20px rgba(244,63,94,0.4);">
+                                            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24" style="color:#fff;margin-left:2px;"><path d="M8 5v14l11-7z"/></svg>
+                                        </div>
+                                        <span style="font-size:11px;font-weight:600;color:rgba(255,255,255,0.7);letter-spacing:0.04em;">
+                                            {{ filled($video_url) ? 'Video Enlazado' : 'Reproductor Cinemático 16:9' }}
+                                        </span>
+                                    </div>
+                                @endif
+                            </div>
+                        @else
+                            <!-- Browser Chrome -->
+                            <div style="display:flex;align-items:center;gap:8px;padding:10px 14px;background:rgba(0,0,0,0.6);border-bottom:1px solid rgba(255,255,255,0.06);">
+                                <div style="display:flex;gap:5px;">
+                                    <span style="width:8px;height:8px;border-radius:50%;background:#ff5f57;display:block;"></span>
+                                    <span style="width:8px;height:8px;border-radius:50%;background:#febc2e;display:block;"></span>
+                                    <span style="width:8px;height:8px;border-radius:50%;background:#28c840;display:block;"></span>
+                                </div>
+                                <div style="flex:1;background:rgba(255,255,255,0.07);border-radius:4px;padding:3px 10px;font-size:11px;color:rgba(255,255,255,0.35);font-family:monospace;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">
+                                    {{ filled($url_demo) ? $url_demo : 'kosta.studio' }}
+                                </div>
+                            </div>
+
+                            <!-- Screen with Gradient / Image -->
+                            <div style="height:175px;position:relative;overflow:hidden;background:linear-gradient(135deg, {{ $gradient_inicio }}, {{ $gradient_fin }});">
+                                @if($imagen_nueva)
+                                    <img src="{{ $imagen_nueva->temporaryUrl() }}" alt="Preview" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+                                @elseif($imagenActual)
+                                    <img src="{{ $imagenActual }}" alt="Preview" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+                                @else
+                                    <!-- Mock UI wireframe -->
+                                    <div style="position:absolute;top:0;left:0;right:0;height:24px;background:rgba(0,0,0,0.25);display:flex;align-items:center;padding:0 12px;gap:6px;">
+                                        <div style="width:20px;height:4px;border-radius:2px;background:rgba(255,255,255,0.3);"></div>
+                                        <div style="width:36px;height:4px;border-radius:2px;background:rgba(255,255,255,0.3);"></div>
+                                    </div>
+                                    <div style="position:absolute;top:38px;left:18px;right:18px;">
+                                        <div style="height:8px;width:70%;border-radius:4px;background:rgba(255,255,255,0.7);margin-bottom:6px;"></div>
+                                        <div style="height:5px;width:85%;border-radius:3px;background:rgba(255,255,255,0.3);margin-bottom:4px;"></div>
+                                        <div style="height:5px;width:55%;border-radius:3px;background:rgba(255,255,255,0.3);"></div>
+                                        <div style="margin-top:12px;width:56px;height:16px;border-radius:12px;background:rgba(255,255,255,0.5);"></div>
+                                    </div>
                                 @endif
                             </div>
                         @endif
 
-                        <!-- Tags -->
-                        @php
-                            $previewTags = array_values(array_filter(array_map('trim', explode(',', $tags_input))));
-                        @endphp
-                        @if(count($previewTags) > 0)
-                            <div style="display:flex;flex-wrap:wrap;gap:5px;margin-bottom:16px;">
-                                @foreach(array_slice($previewTags, 0, 4) as $tag)
-                                    <span style="padding:3px 8px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:5px;font-size:10.5px;color:rgba(255,255,255,0.5);">
-                                        {{ $tag }}
-                                    </span>
-                                @endforeach
-                            </div>
-                        @endif
-
-                        <!-- Simulated CTA -->
-                        <div style="display:flex;gap:8px;">
-                            <span style="padding:6px 14px;border-radius:999px;font-size:11.5px;font-weight:700;background:var(--accent-red);color:#0A0A0A;display:inline-flex;align-items:center;gap:6px;">
-                                {{ $categoria === 'films' ? 'Ver film' : ($categoria === 'social' ? 'Visitar red' : ($categoria === 'sistema' ? 'Ver sistema' : 'Visitar página')) }}
-                                <svg style="width:12px;height:12px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                        <!-- Card Body -->
+                        <div style="padding:20px 22px;">
+                            <!-- Category Badge -->
+                            <span style="display:inline-flex;align-items:center;padding:3px 10px;border-radius:999px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:10px;border:1px solid transparent;{{ $catColors[(string)$categoria] ?? '' }}">
+                                {{ $catNames[(string)$categoria] ?? (string)$categoria }}
                             </span>
+
+                            <!-- Title -->
+                            <h3 style="font-family:'Syne',sans-serif;font-size:17px;font-weight:700;color:#fff;margin:0 0 6px;line-height:1.2;">
+                                {{ filled($titulo) ? $titulo : 'Título del Proyecto' }}
+                            </h3>
+
+                            <!-- Description -->
+                            <p style="font-size:13px;color:rgba(255,255,255,0.5);line-height:1.5;margin:0 0 14px;">
+                                {{ filled($descripcion) ? \Illuminate\Support\Str::limit($descripcion, 120) : 'Breve descripción del resultado y valor entregado al cliente...' }}
+                            </p>
+
+                            <!-- Metric -->
+                            @if(filled($metrica_valor))
+                                <div style="display:flex;align-items:baseline;gap:6px;margin-bottom:14px;padding:8px 12px;background:rgba(255,255,255,0.03);border-radius:8px;border:1px solid rgba(255,255,255,0.06);">
+                                    <span style="font-family:'Syne',sans-serif;font-size:18px;font-weight:700;color:var(--accent-red);">
+                                        {{ $metrica_valor }}
+                                    </span>
+                                    @if(filled($metrica_label))
+                                        <span style="font-size:11.5px;color:rgba(255,255,255,0.45);">
+                                            {{ $metrica_label }}
+                                        </span>
+                                    @endif
+                                </div>
+                            @endif
+
+                            <!-- Tags -->
+                            @php
+                                $previewTags = array_values(array_filter(array_map('trim', explode(',', $tags_input))));
+                            @endphp
+                            @if(count($previewTags) > 0)
+                                <div style="display:flex;flex-wrap:wrap;gap:5px;margin-bottom:16px;">
+                                    @foreach(array_slice($previewTags, 0, 4) as $tag)
+                                        <span style="padding:3px 8px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:5px;font-size:10.5px;color:rgba(255,255,255,0.5);">
+                                            {{ $tag }}
+                                        </span>
+                                    @endforeach
+                                </div>
+                            @endif
+
+                            <!-- Simulated CTA -->
+                            <div style="display:flex;gap:8px;">
+                                <span style="padding:6px 14px;border-radius:999px;font-size:11.5px;font-weight:700;background:var(--accent-red);color:#0A0A0A;display:inline-flex;align-items:center;gap:6px;">
+                                    {{ $categoria === 'films' ? 'Ver film' : ($categoria === 'social' ? 'Visitar red' : ($categoria === 'sistema' ? 'Ver sistema' : 'Visitar página')) }}
+                                    <svg style="width:12px;height:12px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                                </span>
+                            </div>
                         </div>
                     </div>
-                </div>
+                @endif
 
                 <div style="margin-top:14px;font-size:11.5px;color:var(--text-subtle);text-align:center;">
                     Los cambios se reflejan aquí mientras escribes.

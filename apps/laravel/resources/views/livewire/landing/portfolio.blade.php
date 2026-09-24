@@ -67,8 +67,50 @@
         /* ── Film & Reel Card Elements ── */
         .film-card-chrome { display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; background: rgba(0,0,0,0.7); border-bottom: 1px solid rgba(244,63,94,0.22); }
         .film-screen { position: relative; overflow: hidden; background: #09090b; }
-        .film-screen.reel-height { height: 260px; }
-        .film-screen.horizontal-height { height: 185px; }
+        .film-screen.horizontal-height { height: 195px; }
+        .film-screen.reel-height {
+            height: 380px;
+            margin: 14px 16px 4px;
+            border-radius: 28px;
+            border: 2.5px solid rgba(255, 255, 255, 0.16);
+            box-shadow: 0 16px 45px rgba(0, 0, 0, 0.9), inset 0 0 0 1px rgba(0, 0, 0, 0.9);
+        }
+        .film-phone-island {
+            position: absolute;
+            top: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 66px;
+            height: 15px;
+            background: #000000;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            z-index: 15;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.8);
+        }
+        .film-phone-cam {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #111116;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .film-phone-home {
+            position: absolute;
+            bottom: 7px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 72px;
+            height: 3.5px;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 2px;
+            z-index: 15;
+            pointer-events: none;
+        }
         .film-video-preview { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
         .film-play-trigger { position: absolute; inset: 0; width: 100%; height: 100%; border: none; background: rgba(0,0,0,0.25); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.25s ease; }
         .film-play-trigger:hover { background: rgba(0,0,0,0.45); }
@@ -155,6 +197,10 @@
 
                             <!-- Film Screen -->
                             <div class="film-screen {{ $estudio->is_reel ? 'reel-height' : 'horizontal-height' }}">
+                                @if($estudio->is_reel)
+                                    <div class="film-phone-island" aria-hidden="true"><span class="film-phone-cam"></span></div>
+                                    <div class="film-phone-home" aria-hidden="true"></div>
+                                @endif
                                 @if($estudio->video_stream_url)
                                     @if($estudio->is_direct_video)
                                         <video src="{{ $estudio->video_stream_url }}"
