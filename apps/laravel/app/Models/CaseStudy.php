@@ -61,12 +61,29 @@ class CaseStudy extends Model
 
     public function scopeForDisplay(Builder $query): Builder
     {
-        return $query->select([
-            'id', 'titulo', 'descripcion', 'url_demo', 'categoria', 'source_type',
-            'client_id', 'linked_case_study_id',
+        \App\Support\CaseStudySource::ensureSchema();
+
+        $columns = [
+            'id', 'titulo', 'descripcion', 'url_demo', 'categoria',
             'metrica_valor', 'metrica_label', 'tags', 'gradient_inicio',
             'gradient_fin', 'imagen', 'activo', 'orden',
             'created_at', 'updated_at', 'deleted_at',
-        ]);
+        ];
+
+        try {
+            if (\Illuminate\Support\Facades\Schema::hasColumn('case_studies', 'source_type')) {
+                $columns[] = 'source_type';
+            }
+            if (\Illuminate\Support\Facades\Schema::hasColumn('case_studies', 'client_id')) {
+                $columns[] = 'client_id';
+            }
+            if (\Illuminate\Support\Facades\Schema::hasColumn('case_studies', 'linked_case_study_id')) {
+                $columns[] = 'linked_case_study_id';
+            }
+        } catch (\Throwable) {
+            // Graceful fallback
+        }
+
+        return $query->select($columns);
     }
 }

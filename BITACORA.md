@@ -44,8 +44,8 @@ Ordenados según el plan [2026-09-17-cierre-pendientes-plataforma](docs/superpow
 - **Implementación y Solución:**
   - **Base de Datos y Modelos:**
     - Creada migración `database/migrations/2026_09_24_000002_add_source_links_to_case_studies.php` añadiendo `source_type` (varchar 20), `client_id` (foreignId nullOnDelete) y `linked_case_study_id` (foreignId nullOnDelete) a `case_studies`, y migrando registros existentes de `social` a `films`.
-    - Clase de soporte resiliente `App\Support\CaseStudySource::ensureSchema()` para garantizar columnas y sincronización automática en entornos serverless (TiDB Cloud / Vercel).
-    - Modelo `CaseStudy` actualizado con `$fillable`, relaciones `client()` y `linkedCaseStudy()`, y `scopeForDisplay()` con eager loading.
+    - Clase de soporte resiliente `App\Support\CaseStudySource::ensureSchema()` para garantizar columnas y sincronización automática en entornos serverless (TiDB Cloud / Vercel), con caché estática y chequeo condicional dinámico en `scopeForDisplay()` y `PublicCaseStudies::active()` para prevenir errores de columnas no existentes.
+    - Modelo `CaseStudy` actualizado con `$fillable`, relaciones `client()` y `linkedCaseStudy()`, y `scopeForDisplay()` con selección defensiva de columnas.
   - **Formulario Administrativo (`CaseStudies\Form` & `form.blade.php`):**
     - Opción `films` ("Films & Reels") incorporada al selector de categorías personalizado con acento rose/crimson (`#f43f5e`).
     - Al seleccionar `films`, se despliega automáticamente el panel interactivo "Anclar Caso de Films" con selector tipo pastilla: **Empresa (Cliente)** vs **Sitio Web**.
@@ -58,6 +58,7 @@ Ordenados según el plan [2026-09-17-cierre-pendientes-plataforma](docs/superpow
   - **Portafolio Público (`portfolio.blade.php` y `services.blade.php`):**
     - Pestaña de filtrado `Films` en `/portafolio` con soporte bidireccional (`films`/`social`).
     - Tarjeta de proyecto con badge institucional y mención del cliente o sitio web vinculado.
+    - Manejo defensivo con `($estudio->source_type ?? null)` para renderizado seguro en cualquier estado de base de datos.
     - Botones de acción contextualizados ("Ver film" / "Watch film").
     - Diccionarios en español e inglés (`lang/es/landing.php`, `lang/en/landing.php`, `lang/es/services.php`, `lang/en/services.php`) actualizados.
   - **Control de Calidad y Pruebas:**

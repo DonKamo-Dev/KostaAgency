@@ -10,6 +10,8 @@ final class PublicCaseStudies
     /** @return Collection<int, CaseStudy> */
     public function active(?int $limit = null): Collection
     {
+        CaseStudySource::ensureSchema();
+
         $query = CaseStudy::query()
             ->forDisplay()
             ->where('activo', true)
