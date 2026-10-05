@@ -7,6 +7,7 @@ use App\Livewire\CaseStudies\Index;
 use App\Models\CaseStudy;
 use App\Models\Client;
 use App\Models\User;
+use App\Support\CaseStudyVideo;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
 use Livewire\Livewire;
@@ -272,20 +273,19 @@ class CaseStudyTest extends TestCase
     {
         // 1. Cloudflare R2 Public Storage URL (.mp4)
         $r2Url = 'https://pub-ab12cd34ef56.r2.dev/reels/kosta-reel.mp4';
-        $this->assertTrue(\App\Support\CaseStudyVideo::isDirectVideo($r2Url));
+        $this->assertTrue(CaseStudyVideo::isDirectVideo($r2Url));
 
         // 2. Cloudflare R2 custom domain
         $r2CustomDomain = 'https://media.kosta.studio/reels/drone-4k.mp4';
-        $this->assertTrue(\App\Support\CaseStudyVideo::isDirectVideo($r2CustomDomain));
+        $this->assertTrue(CaseStudyVideo::isDirectVideo($r2CustomDomain));
 
         // 3. Cloudflare Stream direct MP4
         $streamDirect = 'https://customer-12345.cloudflarestream.com/5d5ba37468faec03e289166e004b8f34/downloads/default.mp4';
-        $this->assertTrue(\App\Support\CaseStudyVideo::isDirectVideo($streamDirect));
+        $this->assertTrue(CaseStudyVideo::isDirectVideo($streamDirect));
 
         // 4. Cloudflare Stream embed / watch URL
         $streamWatch = 'https://videodelivery.net/5d5ba37468faec03e289166e004b8f34';
-        $resolvedEmbed = \App\Support\CaseStudyVideo::resolveEmbedUrl($streamWatch);
+        $resolvedEmbed = CaseStudyVideo::resolveEmbedUrl($streamWatch);
         $this->assertEquals('https://iframe.videodelivery.net/5d5ba37468faec03e289166e004b8f34?autoplay=true&muted=false&preload=true', $resolvedEmbed);
     }
 }
-

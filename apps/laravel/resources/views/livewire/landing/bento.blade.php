@@ -365,6 +365,7 @@
             text-transform: uppercase;
             margin-top: 8px;
             margin-bottom: 4px;
+            line-height: 1.4;
         }
         .bio-description {
             font-size: 13.5px;
@@ -1345,32 +1346,29 @@
                 </div>
             </div>
 
-            {{-- Box 2: Google Ads --}}
+            {{-- Box 2: CapCut & Reels / Video --}}
             <div class="tech-box-item">
                 <div class="tech-box-icon">
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M21.35 11.1h-9.17v2.98h5.27c-.23 1.2-1.07 2.22-2.27 2.9v2.41h3.67c2.15-1.98 3.39-4.89 3.39-8.29 0-.67-.06-1.33-.17-1.98z"/>
-                        <path d="M12.18 21c2.43 0 4.47-.8 5.96-2.18l-3.67-2.41c-.81.54-1.84.86-2.99.86-2.3 0-4.25-1.55-4.94-3.64H2.76v2.49C4.24 19.06 7.95 21 12.18 21z"/>
-                        <path d="M7.24 13.63c-.18-.54-.28-1.11-.28-1.7s.1-1.16.28-1.7V7.74H2.76A9.974 9.974 0 0 0 1.6 11.93c0 1.61.39 3.14 1.16 4.49l4.48-2.79z"/>
-                        <path d="M12.18 6.73c1.32 0 2.51.45 3.44 1.34l2.58-2.58C16.64 4.04 14.6 3.2 12.18 3.2 7.95 3.2 4.24 5.14 2.76 8.07l4.48 2.79c.69-2.09 2.64-3.64 4.94-3.64z"/>
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/>
                     </svg>
                 </div>
                 <div class="tech-box-content">
-                    <span class="tech-box-title">{{ __('bento.tech.google_ads_title') }}</span>
-                    <span class="tech-box-subtitle">{{ __('bento.tech.google_ads_sub') }}</span>
+                    <span class="tech-box-title">{{ __('bento.tech.video_title') }}</span>
+                    <span class="tech-box-subtitle">{{ __('bento.tech.video_sub') }}</span>
                 </div>
             </div>
 
-            {{-- Box 3: Meta Ads --}}
+            {{-- Box 3: Google & Meta Ads --}}
             <div class="tech-box-item">
                 <div class="tech-box-icon">
-                    <svg width="22" height="22" viewBox="0 0 36 36" fill="currentColor">
-                        <path d="M18 15.7c-2.3-3.6-5.2-5.7-8.7-5.7-5 0-9.3 4-9.3 9.4 0 5.5 4.3 9.6 9.3 9.6 3.7 0 6.6-2.2 8.7-5.8 2.1 3.6 5 5.8 8.7 5.8 5 0 9.3-4.1 9.3-9.6 0-5.4-4.3-9.4-9.3-9.4-3.5 0-6.4 2.1-8.7 5.7zm-8.7 9.8c-3 0-5.5-2.3-5.5-5.9 0-3.5 2.5-5.7 5.5-5.7 2.4 0 4.6 1.8 6.5 4.8-1.9 4-4.1 6.8-6.5 6.8zm17.4 0c-2.4 0-4.6-2.8-6.5-6.8 1.9-3 4.1-4.8 6.5-4.8 3 0 5.5 2.2 5.5 5.7 0 3.6-2.5 5.9-5.5 5.9z"/>
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7c-.574 0-1.127.1-1.64.287z"/>
                     </svg>
                 </div>
                 <div class="tech-box-content">
-                    <span class="tech-box-title">{{ __('bento.tech.meta_ads_title') }}</span>
-                    <span class="tech-box-subtitle">{{ __('bento.tech.meta_ads_sub') }}</span>
+                    <span class="tech-box-title">{{ __('bento.tech.ads_title') }}</span>
+                    <span class="tech-box-subtitle">{{ __('bento.tech.ads_sub') }}</span>
                 </div>
             </div>
 

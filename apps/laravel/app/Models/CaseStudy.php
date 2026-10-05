@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use App\Support\CaseStudyImage;
+use App\Support\CaseStudySource;
+use App\Support\CaseStudyVideo;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Storage;
 
 class CaseStudy extends Model
@@ -77,12 +80,12 @@ class CaseStudy extends Model
 
     public function getIsDirectVideoAttribute(): bool
     {
-        return \App\Support\CaseStudyVideo::isDirectVideo($this->video_url);
+        return CaseStudyVideo::isDirectVideo($this->video_url);
     }
 
     public function getVideoEmbedUrlAttribute(): ?string
     {
-        return \App\Support\CaseStudyVideo::resolveEmbedUrl($this->video_url);
+        return CaseStudyVideo::resolveEmbedUrl($this->video_url);
     }
 
     public function client()
@@ -97,7 +100,7 @@ class CaseStudy extends Model
 
     public function scopeForDisplay(Builder $query): Builder
     {
-        \App\Support\CaseStudySource::ensureSchema();
+        CaseStudySource::ensureSchema();
 
         $columns = [
             'id', 'titulo', 'descripcion', 'url_demo', 'categoria',
@@ -107,22 +110,22 @@ class CaseStudy extends Model
         ];
 
         try {
-            if (\Illuminate\Support\Facades\Schema::hasColumn('case_studies', 'source_type')) {
+            if (Schema::hasColumn('case_studies', 'source_type')) {
                 $columns[] = 'source_type';
             }
-            if (\Illuminate\Support\Facades\Schema::hasColumn('case_studies', 'client_id')) {
+            if (Schema::hasColumn('case_studies', 'client_id')) {
                 $columns[] = 'client_id';
             }
-            if (\Illuminate\Support\Facades\Schema::hasColumn('case_studies', 'linked_case_study_id')) {
+            if (Schema::hasColumn('case_studies', 'linked_case_study_id')) {
                 $columns[] = 'linked_case_study_id';
             }
-            if (\Illuminate\Support\Facades\Schema::hasColumn('case_studies', 'video_url')) {
+            if (Schema::hasColumn('case_studies', 'video_url')) {
                 $columns[] = 'video_url';
             }
-            if (\Illuminate\Support\Facades\Schema::hasColumn('case_studies', 'video_orientation')) {
+            if (Schema::hasColumn('case_studies', 'video_orientation')) {
                 $columns[] = 'video_orientation';
             }
-            if (\Illuminate\Support\Facades\Schema::hasColumn('case_studies', 'video_duration')) {
+            if (Schema::hasColumn('case_studies', 'video_duration')) {
                 $columns[] = 'video_duration';
             }
         } catch (\Throwable) {

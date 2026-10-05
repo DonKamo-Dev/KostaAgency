@@ -2,8 +2,8 @@
 
 return [
     'seo' => [
-        'title' => 'Yohan Blanco — WordPress Developer & Digital Marketing Specialist',
-        'description' => 'Web developer specializing in high-impact WordPress architectures, custom platforms, and AI-accelerated digital advertising strategies with Google & Meta Ads.',
+        'title' => 'Yohan Blanco — Web Developer, Filmmaker & Digital Ads',
+        'description' => 'Web developer, filmmaker and video editor (Films & Reels with CapCut), and digital advertising strategist (Google & Meta Ads) powered by Artificial Intelligence.',
     ],
     'nav' => [
         'back_to_kosta' => 'Back to Kosta',
@@ -19,9 +19,9 @@ return [
     'bio' => [
         'avatar_status' => 'Active',
         'name' => 'Yohan Blanco',
-        'role' => 'WordPress Developer & Digital Marketing',
-        'desc_1' => 'Specialist in high-impact web development with WordPress and digital advertising strategist (Google & Meta Ads).',
-        'desc_2' => 'My core differentiator is the advanced use of Artificial Intelligence as a co-pilot to accelerate code, optimize workflows, and build full platforms in record time.',
+        'role' => 'Web Developer · Filmmaker & Video Editor · Digital Ads',
+        'desc_1' => 'I engineer web platforms, film and edit cinematic video content, and manage paid advertising campaigns for ambitious brands.',
+        'desc_2' => 'I embed modern Artificial Intelligence into every layer of my workflow —code, video editing, and ad optimization— delivering top-tier agency output with solo agility.',
     ],
     'projects' => [
         'title' => 'Latest Projects',
@@ -62,18 +62,18 @@ return [
     'tech' => [
         'wordpress_title' => 'WordPress',
         'wordpress_sub' => 'Core CMS & Custom',
-        'google_ads_title' => 'Google Ads',
-        'google_ads_sub' => 'SEM & Paid Search',
-        'meta_ads_title' => 'Meta Ads',
-        'meta_ads_sub' => 'FB & Instagram Ads',
+        'video_title' => 'CapCut & Reels',
+        'video_sub' => 'Films, Editing & 9:16',
+        'ads_title' => 'Google & Meta Ads',
+        'ads_sub' => 'Paid Ads & Traffic',
         'ai_title' => 'AI Assisted',
         'ai_sub' => 'Speed & Co-pilot',
     ],
     'help' => [
         'title' => 'How can I help you?',
         'value_p1' => 'If you are looking for a',
-        'value_highlight' => 'WordPress Developer & Digital Specialist',
-        'value_p2' => 'who leverages AI speed and precision to engineer platforms and maximize conversions, let’s talk.',
+        'value_highlight' => 'web developer, video creator, and digital strategist',
+        'value_p2' => 'who connects cinematic storytelling, code, and AI speed to grow your business, let’s talk.',
         'btn_whatsapp' => 'Chat on WhatsApp',
         'copy_email_hint' => 'Click to copy email',
         'copied_email_hint' => 'Email copied to clipboard! ✨',

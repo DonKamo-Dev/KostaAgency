@@ -4,6 +4,7 @@ namespace App\Livewire\CaseStudies;
 
 use App\Models\CaseStudy;
 use App\Support\CaseStudyImage;
+use App\Support\CaseStudySource;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Attributes\Locked;
@@ -92,7 +93,7 @@ class Index extends Component
 
     public function render()
     {
-        \App\Support\CaseStudySource::ensureSchema();
+        CaseStudySource::ensureSchema();
 
         $studies = $this->filteredStudiesQuery()
             ->orderBy('orden')

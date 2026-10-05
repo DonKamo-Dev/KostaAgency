@@ -2,8 +2,8 @@
 
 return [
     'seo' => [
-        'title' => 'Yohan Blanco — WordPress Developer & Especialista en Marketing Digital',
-        'description' => 'Desarrollador web especializado en WordPress de alto impacto, arquitecturas a medida y estrategias de pauta digital con Google & Meta Ads potenciadas con Inteligencia Artificial.',
+        'title' => 'Yohan Blanco — Web Developer, Filmmaker & Digital Ads',
+        'description' => 'Desarrollador web, realizador y editor audiovisual (Films & Reels en CapCut) y estratega de pauta digital (Google & Meta Ads) con flujos acelerados por Inteligencia Artificial.',
     ],
     'nav' => [
         'back_to_kosta' => 'Volver a Kosta',
@@ -19,9 +19,9 @@ return [
     'bio' => [
         'avatar_status' => 'Activo',
         'name' => 'Yohan Blanco',
-        'role' => 'WordPress Developer & Digital Marketing',
-        'desc_1' => 'Especialista en desarrollo web de alto impacto con WordPress y estratega de pauta digital (Google & Meta Ads).',
-        'desc_2' => 'Mi gran diferenciador es el uso avanzado de Inteligencia Artificial como copiloto para acelerar código, optimizar procesos y construir plataformas completas en tiempo récord.',
+        'role' => 'Web Developer · Filmmaker & Video Editor · Digital Ads',
+        'desc_1' => 'Desarrollo plataformas web, grabo y edito contenido audiovisual cinemático y gestiono campañas de pauta digital para marcas con visión.',
+        'desc_2' => 'Integro Inteligencia Artificial de última generación en cada etapa del proceso —código, edición de video y optimización de pauta— logrando calidad de agencia con la agilidad de un solo co-piloto.',
     ],
     'projects' => [
         'title' => 'Últimos Proyectos',
@@ -62,18 +62,18 @@ return [
     'tech' => [
         'wordpress_title' => 'WordPress',
         'wordpress_sub' => 'Core CMS & Custom',
-        'google_ads_title' => 'Google Ads',
-        'google_ads_sub' => 'SEM & Search Pauta',
-        'meta_ads_title' => 'Meta Ads',
-        'meta_ads_sub' => 'FB & Instagram Ads',
+        'video_title' => 'CapCut & Reels',
+        'video_sub' => 'Films, Edición & 9:16',
+        'ads_title' => 'Google & Meta Ads',
+        'ads_sub' => 'Pauta Digital & ROI',
         'ai_title' => 'AI Assisted',
         'ai_sub' => 'Speed & Co-pilot',
     ],
     'help' => [
         'title' => '¿Cómo puedo ayudarte?',
         'value_p1' => 'Si buscas un',
-        'value_highlight' => 'WordPress Developer & Especialista Digital',
-        'value_p2' => 'que trabaje con la velocidad y precisión de la IA para construir plataformas y maximizar tus conversiones, conversemos.',
+        'value_highlight' => 'desarrollador web, realizador de video y estratega digital',
+        'value_p2' => 'que combine narrativa audiovisual, código y la velocidad de la IA para hacer despegar tu marca, conversemos.',
         'btn_whatsapp' => 'Hablemos por WhatsApp',
         'copy_email_hint' => 'Haz clic para copiar email',
         'copied_email_hint' => '¡Email copiado al portapapeles! ✨',

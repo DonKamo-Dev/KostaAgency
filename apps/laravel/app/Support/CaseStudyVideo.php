@@ -14,20 +14,20 @@ final class CaseStudyVideo
     public static function storeUploaded(UploadedFile $file): string
     {
         $extension = strtolower($file->getClientOriginalExtension()) ?: 'mp4';
-        $filename = 'film_' . Str::random(16) . '.' . $extension;
+        $filename = 'film_'.Str::random(16).'.'.$extension;
         $relativeDir = 'case-studies/videos';
 
         // Store via Laravel Storage disk 'public'
         Storage::disk('public')->putFileAs($relativeDir, $file, $filename);
 
         // Mirror to public/storage for direct web server serving without PHP overhead
-        $publicDir = public_path('storage/' . $relativeDir);
+        $publicDir = public_path('storage/'.$relativeDir);
         if (! is_dir($publicDir)) {
             @mkdir($publicDir, 0755, true);
         }
-        @copy($file->getRealPath(), $publicDir . '/' . $filename);
+        @copy($file->getRealPath(), $publicDir.'/'.$filename);
 
-        return '/storage/' . $relativeDir . '/' . $filename;
+        return '/storage/'.$relativeDir.'/'.$filename;
     }
 
     /**
@@ -56,6 +56,7 @@ final class CaseStudyVideo
             if (preg_match('#(?:videodelivery\.net|cloudflarestream\.com)#i', $url) && ! Str::endsWith($clean, ['.mp4', '.webm', '.m3u8', '.mpd'])) {
                 return false;
             }
+
             return true;
         }
 
