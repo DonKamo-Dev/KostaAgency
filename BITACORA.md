@@ -48,13 +48,16 @@ Ordenados según el plan [2026-09-17-cierre-pendientes-plataforma](docs/superpow
   - **Sección de Contacto / Propuesta de Valor (`help`):**
     - Ajustado el mensaje a *"desarrollador web, realizador de video y estratega digital"* (ES) / *"web developer, video creator, and digital strategist"* (EN).
   - **Tira de Habilidades / Stack (`tech`):**
-    - Se incorporó la caja **CapCut & Reels** (`Films, Edición & 9:16` / `Films, Editing & 9:16`) con icono SVG cinemático de cámara de video, y se integró la pauta en **Google & Meta Ads** (`Pauta Digital & ROI` / `Paid Ads & Traffic`).
+    - **Box 1:** `CMS / Ecommerce` (`WordPress, Shopify, React, PHP, Laravel`) con icono SVG estilizado de e-commerce.
+    - **Box 2:** `Films & Reels` (`Films, Producción & Edición` / `Films, Production & Editing`) con icono SVG cinemático de cámara de video.
+    - **Box 3:** `Google & Meta Ads` (`Pauta Digital & ROI` / `Paid Ads & Traffic`).
+    - **Box 4:** `AI Assisted` (`Speed & Co-pilot`).
   - **Metadatos SEO:**
     - Título: `Yohan Blanco — Web Developer, Filmmaker & Digital Ads`.
     - Descripción enriquecida con producción audiovisual en CapCut y flujos acelerados por IA.
 - **Control de Calidad y Pruebas:**
   - Actualizada la suite de pruebas en `tests/Feature/LocalizationTest.php` comprobando las aserciones en español e inglés.
-  - 110/110 pruebas pasadas exitosamente (465 aserciones en verde).
+  - 110/110 pruebas pasadas exitosamente (467 aserciones en verde).
   - Laravel Pint validado con 0 advertencias (`vendor/bin/pint --test passed`).
   - Build de producción con Vite (`npm run build`) completado limpiamente.
 
