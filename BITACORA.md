@@ -23,9 +23,9 @@ Kamo Platform es una plataforma SaaS para la gestión operativa y financiera de 
 | Gastos | Disponible | Registro por fecha, categoría y monto. |
 | Casos de estudio | Disponible | Administración del portafolio público. |
 
-## Pendientes
+## Pendientes y Próximos Pasos
 
-Ordenados según el plan [2026-09-17-cierre-pendientes-plataforma](docs/superpowers/plans/2026-09-17-cierre-pendientes-plataforma.md):
+### Cerrados en Línea Base y Remediación
 
 | # | Pendiente | Fase | Estado |
 | --- | --- | --- | --- |
@@ -35,6 +35,18 @@ Ordenados según el plan [2026-09-17-cierre-pendientes-plataforma](docs/superpow
 | 4 | Reporte de auditoría final `docs/audits/2026-08-23-platform-remediation.md` | Fase 4 | Completada (commit `399089b`) |
 | 5 | Planes/documentación desincronizados | Fase 5 | Completada (commit de cierre) |
 | 6 | Jerarquía editorial landing (Web → Films → Estrategia → Branding) | Landing | Completada |
+| 7 | Perfil Bento bilingüe con Filmmaking, CapCut y Google Calendar | Bento | Completada (commit `7b29fd8`) |
+
+### Roadmap Activo (Siguientes Pasos)
+
+| # | Tarea Pendiente | Prioridad | Alcance |
+| --- | --- | --- | --- |
+| 1 | Carga de casos reales de Films & Reels | Alta | Subir proyectos y reels reales en `/case-studies/create` con enlaces directos/streaming (Cloudflare R2, Stream, YouTube, Vimeo) y anclaje a clientes. |
+| 2 | Sincronización de casos a TiDB Cloud / Producción | Alta | Verificar visibilidad de casos en producción (`https://kosta-agency.vercel.app/portafolio`). |
+| 3 | Apuntamiento de Dominio Personalizado | Media | Configurar registros DNS de `kosta.studio` hacia Vercel. |
+| 4 | Tag de versión estable en Git | Media | Crear tag `v1.0.0` / `v1.1.0` en repositorio GitHub. |
+| 5 | Metadatos Open Graph (`og:image`) | Opcional | Diseñar y configurar imagen de previsualización social para Bento y landing al compartir por WhatsApp/redes. |
+| 6 | Integración de Analítica Web | Opcional | Configurar Google Analytics o tracking de eventos en Bento y contacto. |
 
 ### 2026-10-05 - Actualización del Perfil Bento (/kamo): Integración de Filmmaking, Edición en CapCut y Reels
 
