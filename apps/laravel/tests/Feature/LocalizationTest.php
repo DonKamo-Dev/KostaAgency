@@ -123,6 +123,7 @@ class LocalizationTest extends TestCase
         $response->assertSee('Métricas &amp; Hitos', false);
         $response->assertSee('Disponible para contratación');
         $response->assertSee('Reserva tu cita');
+        $response->assertSee('https://calendar.app.google/zqngqvzngx1eyLNa7');
     }
 
     public function test_bento_page_renders_in_english_when_session_locale_is_en(): void
@@ -139,5 +140,6 @@ class LocalizationTest extends TestCase
         $response->assertSee('Metrics &amp; Milestones', false);
         $response->assertSee('Available for hire');
         $response->assertSee('Book a call');
+        $response->assertSee('https://calendar.app.google/zqngqvzngx1eyLNa7');
     }
 }

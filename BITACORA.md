@@ -52,12 +52,14 @@ Ordenados según el plan [2026-09-17-cierre-pendientes-plataforma](docs/superpow
     - **Box 2:** `Films & Reels` (`Films, Producción & Edición` / `Films, Production & Editing`) con icono SVG cinemático de cámara de video.
     - **Box 3:** `Google & Meta Ads` (`Pauta Digital & ROI` / `Paid Ads & Traffic`).
     - **Box 4:** `AI Assisted` (`Speed & Co-pilot`).
+  - **Disponibilidad y Agendamiento (`availability`):**
+    - Se conectó el enlace oficial de Google Calendar (`https://calendar.app.google/zqngqvzngx1eyLNa7`) en el botón interactivo *"Reserva tu cita"*, permitiendo agendar sesiones de Google Meet automáticamente en el horario configurado (Lunes a Viernes, 8:00 PM a 10:00 PM).
   - **Metadatos SEO:**
     - Título: `Yohan Blanco — Web Developer, Filmmaker & Digital Ads`.
     - Descripción enriquecida con producción audiovisual en CapCut y flujos acelerados por IA.
 - **Control de Calidad y Pruebas:**
   - Actualizada la suite de pruebas en `tests/Feature/LocalizationTest.php` comprobando las aserciones en español e inglés.
-  - 110/110 pruebas pasadas exitosamente (467 aserciones en verde).
+  - 110/110 pruebas pasadas exitosamente (469 aserciones en verde).
   - Laravel Pint validado con 0 advertencias (`vendor/bin/pint --test passed`).
   - Build de producción con Vite (`npm run build`) completado limpiamente.
 

@@ -1315,7 +1315,7 @@
                         </p>
                     </div>
                     {{-- Botón de agendamiento --}}
-                    <a href="https://meet.google.com" target="_blank" rel="noopener noreferrer" class="btn-book-meeting" id="btn-book-meeting" title="{{ __('bento.availability.book_title') }}">
+                    <a href="https://calendar.app.google/zqngqvzngx1eyLNa7" target="_blank" rel="noopener noreferrer" class="btn-book-meeting" id="btn-book-meeting" title="{{ __('bento.availability.book_title') }}">
                         <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
                         </svg>
