@@ -4,17 +4,24 @@ set -e
 # Asigna puerto por defecto si Render no lo inyecta
 export PORT="${PORT:-10000}"
 
-# Asegura directorios de Nginx en Alpine
-mkdir -p /etc/nginx/conf.d /etc/nginx/http.d /run/nginx /var/log/nginx
+# Asegura directorios de Nginx en Alpine y limpia conf.d
+mkdir -p /etc/nginx/http.d /run/nginx /var/log/nginx
+rm -rf /etc/nginx/conf.d/* /etc/nginx/http.d/*
 
-# Reemplaza ${PORT} en la plantilla de Nginx (Alpine usa http.d)
-envsubst '$PORT' < /etc/nginx/templates/default.conf.template > /etc/nginx/http.d/default.conf
-cp /etc/nginx/http.d/default.conf /etc/nginx/conf.d/default.conf
+# Configura el puerto en Nginx (Alpine usa únicamente http.d)
+if [ "$PORT" != "10000" ]; then
+    sed "s/10000/${PORT}/g" /etc/nginx/templates/default.conf.template > /etc/nginx/http.d/default.conf
+else
+    cp /etc/nginx/templates/default.conf.template /etc/nginx/http.d/default.conf
+fi
 
 # Ajusta usuario de Nginx a www-data para evitar problemas de permisos
 if [ -f /etc/nginx/nginx.conf ]; then
     sed -i 's/user nginx;/user www-data;/g' /etc/nginx/nginx.conf
 fi
+
+# Valida sintaxis de Nginx antes de arrancar
+nginx -t
 
 # Asegura directorios de almacenamiento y permisos de Laravel
 mkdir -p /var/www/html/storage/framework/sessions \
@@ -27,8 +34,10 @@ mkdir -p /var/www/html/storage/framework/sessions \
 chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
 
-# Enlaza almacenamiento público de Laravel
-php artisan storage:link --force || true
+# Enlaza almacenamiento público de Laravel si no existe
+if [ ! -L /var/www/html/public/storage ]; then
+    php artisan storage:link --force || true
+fi
 
 # Optimiza cachés de Laravel en producción si APP_KEY está definida
 if [ -n "$APP_KEY" ]; then

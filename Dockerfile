@@ -49,7 +49,7 @@ RUN composer dump-autoload --optimize --no-dev
 
 # Configuraciones de servidor Nginx y Supervisor para Render
 RUN mkdir -p /etc/nginx/conf.d /etc/nginx/http.d /run/nginx /var/log/nginx \
-    && rm -f /etc/nginx/http.d/default.conf \
+    && rm -rf /etc/nginx/conf.d/* /etc/nginx/http.d/* \
     && sed -i 's/user nginx;/user www-data;/g' /etc/nginx/nginx.conf 2>/dev/null || true
 
 COPY docker/nginx-render.conf /etc/nginx/templates/default.conf.template
