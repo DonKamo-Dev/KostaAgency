@@ -47,7 +47,7 @@
         font-size: 11px;
         font-weight: 700;
         letter-spacing: 0.04em;
-        font-family: 'Inter', sans-serif;
+        font-family: 'Google Sans Flex', sans-serif;
     }
     .lang-btn {
         color: rgba(255, 255, 255, 0.45);
@@ -81,13 +81,8 @@
 <nav class="floating-site-nav" aria-label="{{ __('landing.nav.aria_main') }}">
     <div class="relative max-w-7xl mx-auto container-pad floating-site-nav-frame">
         <div class="flex justify-between items-center h-16 sm:h-[68px]">
-            <a href="{{ route('landing') }}" class="flex items-center gap-3" aria-label="Kosta - {{ __('landing.nav.home') }}">
-                <div class="w-10 h-10 rounded-xl flex items-center justify-center border border-white/20" style="background: linear-gradient(135deg, #18181B, #27272A); box-shadow: 0 4px 16px rgba(255,255,255,0.06);">
-                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z"/>
-                    </svg>
-                </div>
-                <span class="font-display text-2xl font-bold text-white tracking-tight">Kosta</span>
+            <a href="{{ route('landing') }}" class="flex items-center" aria-label="Kosta - {{ __('landing.nav.home') }}">
+                <img src="{{ asset('img/WEB-Kosta-White.svg') }}" alt="Kosta" class="h-8 sm:h-9 w-auto transition-opacity hover:opacity-90" style="max-height: 36px;">
             </a>
 
             <div class="hidden md:flex items-center gap-8">
@@ -129,13 +124,8 @@
 <div id="mobileMenu" class="mobile-menu" role="dialog" aria-modal="true" aria-label="{{ __('landing.nav.menu_aria') }}" hidden>
     <div class="mobile-drawer">
         <div class="mobile-drawer-header">
-            <a href="{{ route('landing') }}" class="flex items-center gap-3" aria-label="Kosta - {{ __('landing.nav.home') }}">
-                <div class="w-10 h-10 rounded-xl flex items-center justify-center border border-white/20" style="background: linear-gradient(135deg, #18181B, #27272A);">
-                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z"/>
-                    </svg>
-                </div>
-                <span class="font-display text-2xl font-bold text-white tracking-tight">Kosta</span>
+            <a href="{{ route('landing') }}" class="flex items-center" aria-label="Kosta - {{ __('landing.nav.home') }}">
+                <img src="{{ asset('img/WEB-Kosta-White.svg') }}" alt="Kosta" class="h-8 w-auto" style="max-height: 32px;">
             </a>
             <button class="w-10 h-10 flex items-center justify-center text-white/60 hover:text-white transition-colors rounded-full hover:bg-white/10" id="menuClose" aria-label="{{ __('landing.nav.menu_close') }}">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">

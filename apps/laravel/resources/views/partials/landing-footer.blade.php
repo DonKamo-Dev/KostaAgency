@@ -1,12 +1,7 @@
 <footer class="relative z-10 border-t border-white/5 py-10">
     <div class="max-w-7xl mx-auto container-pad flex flex-col sm:flex-row justify-between items-center gap-6">
-        <a href="{{ route('landing') }}" class="flex items-center gap-3">
-            <div class="w-8 h-8 rounded-lg flex items-center justify-center border border-white/20" style="background: linear-gradient(135deg, #18181B, #27272A);">
-                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z"/>
-                </svg>
-            </div>
-            <span class="font-display font-bold text-white text-lg tracking-tight">Kosta</span>
+        <a href="{{ route('landing') }}" class="flex items-center" aria-label="Kosta - {{ __('landing.nav.home') }}">
+            <img src="{{ asset('img/WEB-Kosta-White.svg') }}" alt="Kosta" class="h-7 w-auto opacity-90 hover:opacity-100 transition-opacity" style="max-height: 30px;">
         </a>
         <p class="text-xs text-white/30 text-center sm:text-left">© {{ date('Y') }} {{ __('landing.footer.agency_full') }}. {{ __('landing.footer.rights') }}</p>
         <div class="flex items-center gap-6 text-xs text-white/40">

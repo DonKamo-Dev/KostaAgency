@@ -7,10 +7,15 @@
 
         <title>{{ config('app.name', 'Kosta') }}</title>
 
+        <!-- Favicon -->
+        <link rel="icon" type="image/png" href="{{ asset('img/favicon.png') }}">
+        <link rel="shortcut icon" href="{{ asset('img/favicon.png') }}">
+        <link rel="apple-touch-icon" href="{{ asset('img/favicon.png') }}">
+
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght@6..144,1..1000&family=Syne:wght@500;600;700;800&display=swap" rel="stylesheet">
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/site.js'])
@@ -58,7 +63,7 @@
             }
 
             * {
-                font-family: 'Inter', system-ui, sans-serif;
+                font-family: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
                 box-sizing: border-box;
             }
 
@@ -68,10 +73,11 @@
                 color: var(--text-primary);
                 min-height: 100vh;
                 overflow-x: hidden;
+                font-family: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             }
 
             .font-display {
-                font-family: 'Space Grotesk', sans-serif;
+                font-family: 'Syne', sans-serif;
             }
 
             /* ===== Ambient Glow ===== */
@@ -213,7 +219,7 @@
             }
 
             .sidebar-brand-name {
-                font-family: 'Space Grotesk', sans-serif;
+                font-family: 'Syne', sans-serif;
                 font-size: 19px;
                 font-weight: 700;
                 color: var(--text-primary);
@@ -1172,17 +1178,9 @@
             <!-- Sidebar (Desktop - LEFT) -->
             <aside class="sidebar">
                 <!-- Brand -->
-                <div class="sidebar-brand">
-                    <div class="sidebar-brand-logo">
-                        <svg style="width: 22px; height: 22px;" fill="none" stroke="white" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
-                        </svg>
-                    </div>
-                    <div>
-                        <div class="sidebar-brand-name">Kosta</div>
-                        <div class="sidebar-brand-tag">Studio Films</div>
-                    </div>
-                </div>
+                <a href="{{ route('dashboard') }}" class="sidebar-brand" style="text-decoration: none; padding: 10px 14px 22px; display: block;">
+                    <img src="{{ asset('img/WEB-Kosta-White.svg') }}" alt="Kosta Studio Films" style="height: 38px; width: auto; max-width: 175px; object-fit: contain;">
+                </a>
 
                 <!-- Nav Section: Principal -->
                 <div class="sidebar-nav">
@@ -1324,14 +1322,9 @@
 
             <!-- Mobile Top Bar -->
             <div class="mobile-topbar">
-                <div style="display: flex; align-items: center; gap: 10px;">
-                    <div class="sidebar-brand-logo" style="width: 36px; height: 36px;">
-                        <svg style="width: 20px; height: 20px;" fill="none" stroke="white" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
-                        </svg>
-                    </div>
-                    <span class="font-display" style="font-size: 18px; font-weight: 700;">Kosta</span>
-                </div>
+                <a href="{{ route('dashboard') }}" style="display: flex; align-items: center; text-decoration: none;">
+                    <img src="{{ asset('img/WEB-Kosta-White.svg') }}" alt="Kosta" style="height: 28px; width: auto; object-fit: contain;">
+                </a>
                 @auth
                     <div class="sidebar-user-avatar" style="width: 36px; height: 36px; font-size: 13px;">
                         {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}

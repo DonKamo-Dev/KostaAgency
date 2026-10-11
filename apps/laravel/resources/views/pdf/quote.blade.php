@@ -118,15 +118,12 @@
             <td style="width: 50%; vertical-align: top;">
                 @if($document->type !== 'quote')
                     <div style="margin-bottom: 10px;">
-                        <div style="display:inline-flex;align-items:center;gap:8px;">
-                            <div style="width:32px;height:32px;background:#111111;border-radius:8px;display:flex;align-items:center;justify-content:center;">
-                                <span style="color:#fff;font-size:16px;font-weight:700;">K</span>
-                            </div>
-                            <div>
-                                <div style="font-size:18px;font-weight:700;color:#111111;letter-spacing:-0.02em;line-height:1;">KOSTA</div>
-                                <div style="font-size:8px;color:#666;text-transform:uppercase;letter-spacing:0.18em;font-weight:600;">Studio Films</div>
-                            </div>
-                        </div>
+                        @if(file_exists(public_path('img/WEB-Kosta-Black.svg')))
+                            <img src="data:image/svg+xml;base64,{{ base64_encode(file_get_contents(public_path('img/WEB-Kosta-Black.svg'))) }}" style="height:32px; width:auto;" alt="Kosta">
+                        @else
+                            <div style="font-size:18px;font-weight:700;color:#111111;letter-spacing:-0.02em;line-height:1;">KOSTA</div>
+                            <div style="font-size:8px;color:#666;text-transform:uppercase;letter-spacing:0.18em;font-weight:600;">Studio Films</div>
+                        @endif
                     </div>
                 @endif
                 <div style="font-size: 11px; color: #666; line-height: 1.4;">

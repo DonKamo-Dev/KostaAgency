@@ -535,10 +535,10 @@
             scales: {
                 y: { beginAtZero: true,
                      grid: { color: 'rgba(245,245,245,.05)', drawBorder: false },
-                     ticks: { color: 'rgba(245,245,245,.4)', font: { family: 'Inter', size: 11 },
+                     ticks: { color: 'rgba(245,245,245,.4)', font: { family: 'Google Sans Flex', size: 11 },
                               callback: v => v >= 1000 ? '$' + (v/1000).toFixed(1) + 'K' : '$' + v } },
                 x: { grid: { display: false },
-                     ticks: { color: 'rgba(245,245,245,.4)', font: { family: 'Inter', size: 11 } } }
+                     ticks: { color: 'rgba(245,245,245,.4)', font: { family: 'Google Sans Flex', size: 11 } } }
             }
         }
     });

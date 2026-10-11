@@ -249,7 +249,7 @@
             background: rgba(230, 57, 70, 0.16);
             border: 1px solid rgba(230, 57, 70, 0.35);
             color: #FFFFFF;
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, sans-serif;
             font-size: 12px;
             font-weight: 600;
             letter-spacing: 0.01em;
@@ -265,7 +265,7 @@
             background: rgba(255, 255, 255, 0.06);
             border: 1px solid rgba(255, 255, 255, 0.12);
             color: #A1A1AA;
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, sans-serif;
             font-size: 12px;
             font-weight: 600;
             letter-spacing: 0.01em;
@@ -281,7 +281,7 @@
             line-height: 1.15;
         }
         .comparison-subtitle-kosta {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, sans-serif;
             font-size: 13.5px;
             font-weight: 400;
             color: rgba(255, 255, 255, 0.7);
@@ -298,7 +298,7 @@
             line-height: 1.15;
         }
         .comparison-subtitle-sin {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, sans-serif;
             font-size: 13.5px;
             font-weight: 400;
             color: rgba(255, 255, 255, 0.52);
@@ -317,7 +317,7 @@
             display: flex;
             align-items: flex-start;
             gap: 12px;
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, sans-serif;
             color: rgba(255, 255, 255, 0.84);
             font-size: 14px;
             font-weight: 400;
@@ -332,7 +332,7 @@
             display: flex;
             align-items: flex-start;
             gap: 12px;
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, sans-serif;
             color: rgba(255, 255, 255, 0.72);
             font-size: 14px;
             font-weight: 400;

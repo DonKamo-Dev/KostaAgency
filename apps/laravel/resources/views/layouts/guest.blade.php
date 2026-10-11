@@ -7,10 +7,15 @@
 
         <title>{{ config('app.name', 'Kosta') }} - Acceso</title>
 
+        <!-- Favicon -->
+        <link rel="icon" type="image/png" href="{{ asset('img/favicon.png') }}">
+        <link rel="shortcut icon" href="{{ asset('img/favicon.png') }}">
+        <link rel="apple-touch-icon" href="{{ asset('img/favicon.png') }}">
+
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght@6..144,1..1000&family=Syne:wght@500;600;700;800&display=swap" rel="stylesheet">
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/site.js'])
@@ -32,11 +37,11 @@
             }
 
             * {
-                font-family: 'Inter', system-ui, sans-serif;
+                font-family: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, sans-serif;
             }
 
             .font-display {
-                font-family: 'Space Grotesk', sans-serif;
+                font-family: 'Syne', sans-serif;
             }
 
             /* Ambient Red Glow Effect */
@@ -217,7 +222,7 @@
 
             .auth-loading-title {
                 margin: 8px 0 0;
-                font-family: 'Space Grotesk', sans-serif;
+                font-family: 'Syne', sans-serif;
                 font-size: 20px;
                 font-weight: 700;
             }

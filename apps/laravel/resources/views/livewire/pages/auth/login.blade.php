@@ -27,11 +27,9 @@ new #[Layout('layouts.guest')] class extends Component
 <div class="auth-wrapper">
     <!-- Logo Section -->
     <div class="flex flex-col items-center mb-8">
-        <div class="logo-container mb-4">
-            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
-            </svg>
-        </div>
+        <a href="{{ route('landing') }}" class="mb-5 inline-block transition-transform hover:scale-[1.02]" aria-label="Kosta">
+            <img src="{{ asset('img/WEB-Kosta-White.svg') }}" alt="Kosta" style="height: 42px; width: auto; max-width: 200px;">
+        </a>
         <h1 class="font-display text-2xl font-bold" style="color: var(--text-primary);">
             Bienvenido de vuelta
         </h1>

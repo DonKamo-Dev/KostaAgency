@@ -1,6 +1,6 @@
 <div class="bento-canvas-wrapper">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Syne:wght@600;700;800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght@6..144,1..1000&family=Syne:wght@600;700;800&display=swap');
 
         * {
             box-sizing: border-box;
@@ -11,7 +11,7 @@
             min-height: 100vh;
             background: var(--bento-bg);
             padding: 36px 20px 80px;
-            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-family: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, sans-serif;
             color: var(--bento-text-main);
             display: flex;
             justify-content: center;
@@ -353,7 +353,7 @@
             display: inline-flex;
             align-items: center;
             width: fit-content;
-            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-family: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, sans-serif;
             font-size: 11px;
             font-weight: 700;
             color: var(--bento-text-main);

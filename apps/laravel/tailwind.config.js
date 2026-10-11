@@ -14,7 +14,9 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+                sans: ['"Google Sans Flex"', ...defaultTheme.fontFamily.sans],
+                body: ['"Google Sans Flex"', ...defaultTheme.fontFamily.sans],
+                display: ['Syne', ...defaultTheme.fontFamily.sans],
             },
             colors: {
                 background: 'hsl(var(--background) / <alpha-value>)',

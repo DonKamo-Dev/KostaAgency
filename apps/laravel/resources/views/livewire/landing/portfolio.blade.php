@@ -3,7 +3,7 @@
 
         /* ── Filter tabs ── */
         .filter-tabs { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; margin-bottom: 56px; }
-        .filter-btn { padding: 9px 22px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.04); color: rgba(255,255,255,0.55); font-size: 14px; font-weight: 500; cursor: pointer; transition: all 0.2s ease; font-family: 'Inter', sans-serif; }
+        .filter-btn { padding: 9px 22px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.04); color: rgba(255,255,255,0.55); font-size: 14px; font-weight: 500; cursor: pointer; transition: all 0.2s ease; font-family: 'Google Sans Flex', sans-serif; }
         .filter-btn:hover { border-color: rgba(255,255,255,0.2); color: rgba(255,255,255,0.85); background: rgba(255,255,255,0.07); }
         .filter-btn.active { background: var(--accent-red); border-color: var(--accent-red); color: #0A0A0A; font-weight: 700; }
         .filter-btn:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
@@ -39,7 +39,7 @@
         .dot-red { background: #ff5f57; }
         .dot-yellow { background: #febc2e; }
         .dot-green { background: #28c840; }
-        .browser-url { flex: 1; background: rgba(255,255,255,0.07); border-radius: 4px; padding: 3px 10px; font-size: 11px; color: rgba(255,255,255,0.35); font-family: 'Inter', monospace; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .browser-url { flex: 1; background: rgba(255,255,255,0.07); border-radius: 4px; padding: 3px 10px; font-size: 11px; color: rgba(255,255,255,0.35); font-family: 'Google Sans Flex', monospace; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
         .browser-screen { height: 172px; position: relative; overflow: hidden; }
 
         /* Mockup UI elements inside browser screen */
@@ -282,7 +282,7 @@
         }
 
         .reel-title {
-            font-family: 'Syne', 'Inter', sans-serif;
+            font-family: 'Syne', sans-serif;
             font-size: 16px;
             font-weight: 700;
             color: #ffffff;
