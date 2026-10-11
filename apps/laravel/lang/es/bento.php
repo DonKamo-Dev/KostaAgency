@@ -24,11 +24,18 @@ return [
         'desc_2' => 'Integro Inteligencia Artificial de última generación en cada etapa del proceso —código, edición de video y optimización de pauta— logrando calidad de agencia con la agilidad de un solo co-piloto.',
     ],
     'projects' => [
-        'title' => 'Últimos Proyectos',
+        'title' => 'Desarrollo & Web',
         'sub' => 'kosta.studio/portafolio',
         'view_all' => 'Ver todos',
-        'empty' => 'No hay proyectos publicados activos aún.',
-        'status_active' => 'Activo',
+        'empty' => 'No hay proyectos de desarrollo publicados aún.',
+        'status_active' => 'Online',
+    ],
+    'films' => [
+        'title' => 'Films & Video Reels',
+        'sub' => 'kosta.studio/films',
+        'view_all' => 'Ver todos',
+        'empty' => 'No hay producciones de video publicadas aún.',
+        'status_active' => 'Reel',
     ],
     'metrics' => [
         'title' => 'Métricas & Hitos',

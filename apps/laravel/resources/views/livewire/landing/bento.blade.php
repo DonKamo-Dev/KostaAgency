@@ -636,10 +636,39 @@
             flex-shrink: 0;
         }
         .project-status-dot {
-            width: 5px;
-            height: 5px;
+            width: 6px;
+            height: 6px;
             border-radius: 50%;
             background: var(--bento-text-main);
+            transition: all 0.2s ease;
+        }
+        .project-status-web {
+            background: #10b981;
+            box-shadow: 0 0 6px rgba(16, 185, 129, 0.55);
+        }
+        .project-status-film {
+            background: #f43f5e;
+            box-shadow: 0 0 6px rgba(244, 63, 94, 0.55);
+        }
+        .project-pill-film {
+            color: #f43f5e;
+        }
+
+        /* ── Metrics Highlight Card (Spanning 2 columns) ── */
+        .metrics-highlight-card {
+            grid-column: 1 / -1;
+            min-height: auto;
+            padding: 18px 20px;
+        }
+        .metrics-highlight-card .showcase-2x2-grid {
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-top: 10px;
+        }
+        @media (max-width: 680px) {
+            .metrics-highlight-card .showcase-2x2-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
 
         /* ── 2x2 Showcase Grid Card ── */
@@ -1149,13 +1178,13 @@
             {{-- 2. RIGHT MOSAIC CARDS --}}
             <div class="bento-cards-mosaic">
 
-                {{-- Row 1 - Left: Proyectos Recientes Card (Dynamic from Database) --}}
+                {{-- Row 1 - Left: Proyectos de Desarrollo & Web (Dynamic from DB) --}}
                 <div class="bento-c-card">
                     <div class="card-top-header">
                         <div class="card-header-left">
-                            <div class="card-app-icon">
+                            <div class="card-app-icon" title="Web & Desarrollo">
                                 <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
                                 </svg>
                             </div>
                             <div>
@@ -1169,9 +1198,9 @@
                         </a>
                     </div>
 
-                    {{-- Direct Project Links List (Dynamic from DB) --}}
+                    {{-- Direct Web Project Links List (Dynamic from DB) --}}
                     <div class="project-links-list">
-                        @forelse($proyectos as $proyecto)
+                        @forelse($proyectosWeb as $proyecto)
                             <a href="{{ $proyecto->url_demo ? (str_starts_with($proyecto->url_demo, 'http') ? $proyecto->url_demo : 'https://' . $proyecto->url_demo) : route('portfolio') }}" target="_blank" rel="noopener noreferrer" class="project-link-row">
                                 <div class="project-row-left">
                                     <div class="project-pill-icon">
@@ -1181,11 +1210,11 @@
                                     </div>
                                     <div class="project-row-info">
                                         <span class="project-row-name">{{ $proyecto->titulo }}</span>
-                                        <span class="project-row-tag">{{ Str::limit($proyecto->descripcion, 30) }}</span>
+                                        <span class="project-row-tag">{{ Str::limit($proyecto->descripcion ?? ucfirst($proyecto->categoria), 30) }}</span>
                                     </div>
                                 </div>
                                 <div class="project-row-action">
-                                    <span class="project-status-dot" title="{{ __('bento.projects.status_active') }}"></span>
+                                    <span class="project-status-dot project-status-web" title="{{ __('bento.projects.status_active') }}"></span>
                                     <svg width="11" height="11" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M7 17L17 7M17 7H7M17 7V17"/></svg>
                                 </div>
                             </a>
@@ -1197,8 +1226,56 @@
                     </div>
                 </div>
 
-                {{-- Row 1 - Right: Proyectos & Métricas Destacadas Card --}}
+                {{-- Row 1 - Right: Films & Video Reels (Dynamic from DB) --}}
                 <div class="bento-c-card">
+                    <div class="card-top-header">
+                        <div class="card-header-left">
+                            <div class="card-app-icon" title="Films & Videos">
+                                <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="card-title-text">{{ __('bento.films.title') }}</h3>
+                                <p class="card-sub-domain">{{ __('bento.films.sub') }}</p>
+                            </div>
+                        </div>
+                        <a href="{{ route('portfolio', ['cat' => 'films']) }}" class="card-follow-pill">
+                            <span>{{ __('bento.films.view_all') }}</span>
+                            <svg width="8" height="8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+                        </a>
+                    </div>
+
+                    {{-- Direct Films & Reel Links List (Dynamic from DB) --}}
+                    <div class="project-links-list">
+                        @forelse($proyectosFilms as $proyecto)
+                            <a href="{{ $proyecto->video_stream_url ?? route('portfolio', ['cat' => 'films']) }}" target="_blank" rel="noopener noreferrer" class="project-link-row">
+                                <div class="project-row-left">
+                                    <div class="project-pill-icon project-pill-film">
+                                        <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24">
+                                            <path d="M8 5v14l11-7z"/>
+                                        </svg>
+                                    </div>
+                                    <div class="project-row-info">
+                                        <span class="project-row-name">{{ $proyecto->titulo }}</span>
+                                        <span class="project-row-tag">{{ Str::limit($proyecto->descripcion ?? 'Producción 4K & Reel', 30) }}</span>
+                                    </div>
+                                </div>
+                                <div class="project-row-action">
+                                    <span class="project-status-dot project-status-film" title="{{ __('bento.films.status_active') }}"></span>
+                                    <svg width="11" height="11" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+                                </div>
+                            </a>
+                        @empty
+                            <div style="padding: 16px 10px; text-align: center; color: var(--bento-text-subtle); font-size: 11.5px;">
+                                {{ __('bento.films.empty') }}
+                            </div>
+                        @endforelse
+                    </div>
+                </div>
+
+                {{-- Row 2 - Full Width: Proyectos & Métricas Destacadas Card --}}
+                <div class="bento-c-card metrics-highlight-card">
                     <div class="card-top-header">
                         <div class="card-header-left">
                             <div class="card-app-icon">

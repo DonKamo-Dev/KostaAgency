@@ -24,11 +24,18 @@ return [
         'desc_2' => 'I embed modern Artificial Intelligence into every layer of my workflow —code, video editing, and ad optimization— delivering top-tier agency output with solo agility.',
     ],
     'projects' => [
-        'title' => 'Latest Projects',
-        'sub' => 'kosta.studio/portafolio',
+        'title' => 'Web & Development',
+        'sub' => 'kosta.studio/portfolio',
         'view_all' => 'View all',
-        'empty' => 'No active projects published yet.',
-        'status_active' => 'Active',
+        'empty' => 'No web projects published yet.',
+        'status_active' => 'Online',
+    ],
+    'films' => [
+        'title' => 'Films & Video Reels',
+        'sub' => 'kosta.studio/films',
+        'view_all' => 'View all',
+        'empty' => 'No video productions published yet.',
+        'status_active' => 'Reel',
     ],
     'metrics' => [
         'title' => 'Metrics & Milestones',

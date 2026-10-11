@@ -11,10 +11,13 @@ class Bento extends Component
 {
     public function render(PublicCaseStudies $caseStudies)
     {
-        $proyectos = $caseStudies->active(limit: 3);
+        $proyectosWeb = $caseStudies->activeWeb(limit: 3);
+        $proyectosFilms = $caseStudies->activeFilms(limit: 3);
 
         return view('livewire.landing.bento', [
-            'proyectos' => $proyectos,
+            'proyectosWeb' => $proyectosWeb,
+            'proyectosFilms' => $proyectosFilms,
+            'proyectos' => $proyectosWeb,
         ]);
     }
 }
