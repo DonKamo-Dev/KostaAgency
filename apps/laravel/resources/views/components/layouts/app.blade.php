@@ -338,39 +338,39 @@
             .nav-sublink {
                 display: flex;
                 align-items: center;
-                gap: 8px;
-                padding: 6px 12px 6px 38px;
+                gap: 10px;
+                padding: 6px 12px 6px 26px;
                 border-radius: 8px;
                 color: var(--text-muted);
                 text-decoration: none;
                 font-size: 12.5px;
                 font-weight: 500;
                 transition: all 0.2s ease;
-                margin: 1px 0;
+                margin: 2px 0;
                 position: relative;
             }
-            .nav-sublink::before {
-                content: '';
-                position: absolute;
-                left: 20px;
-                top: 50%;
-                transform: translateY(-50%);
-                width: 5px;
-                height: 5px;
-                border-radius: 50%;
-                background: currentColor;
-                opacity: 0.5;
+            .nav-sublink svg {
+                width: 14px;
+                height: 14px;
+                flex-shrink: 0;
+                opacity: 0.65;
+                transition: all 0.2s ease;
             }
             .nav-sublink:hover {
                 color: var(--text-primary);
-                background: rgba(255,255,255,0.04);
+                background: rgba(255,255,255,0.05);
             }
-            .nav-sublink:hover::before { opacity: 1; }
+            .nav-sublink:hover svg {
+                opacity: 1;
+                transform: scale(1.1);
+            }
             .nav-sublink.active {
                 color: var(--red-primary);
+                background: rgba(229, 9, 20, 0.08);
+                font-weight: 600;
             }
-            .nav-sublink.active::before {
-                background: var(--red-primary);
+            .nav-sublink.active svg {
+                color: var(--red-primary);
                 opacity: 1;
             }
             .nav-chevron { transition: transform 0.25s ease; }
@@ -1241,27 +1241,45 @@
                 </a>
                 <a wire:navigate href="{{ route('case-studies.index') }}"
                    class="nav-sublink {{ request()->routeIs('case-studies.*') && !request()->get('cat') ? 'active' : '' }}">
-                    Todos los casos
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/>
+                    </svg>
+                    <span>Todos los casos</span>
                 </a>
                 <a wire:navigate href="{{ route('case-studies.index') }}?cat=web"
                    class="nav-sublink {{ request()->get('cat') === 'web' ? 'active' : '' }}">
-                    Páginas Web
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/>
+                    </svg>
+                    <span>Páginas Web</span>
                 </a>
                 <a wire:navigate href="{{ route('case-studies.index') }}?cat=ecommerce"
                    class="nav-sublink {{ request()->get('cat') === 'ecommerce' ? 'active' : '' }}">
-                    E-commerce
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
+                    </svg>
+                    <span>E-commerce</span>
                 </a>
                 <a wire:navigate href="{{ route('case-studies.index') }}?cat=sistema"
                    class="nav-sublink {{ request()->get('cat') === 'sistema' ? 'active' : '' }}">
-                    Sistemas
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
+                    </svg>
+                    <span>Sistemas</span>
                 </a>
                 <a wire:navigate href="{{ route('case-studies.index') }}?cat=films"
                    class="nav-sublink {{ in_array(request()->get('cat'), ['films', 'social'], true) ? 'active' : '' }}">
-                    Films & Reels
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+                    </svg>
+                    <span>Films & Reels</span>
                 </a>
                 <a wire:navigate href="{{ route('case-studies.index') }}?cat=branding"
                    class="nav-sublink {{ request()->get('cat') === 'branding' ? 'active' : '' }}">
-                    Branding
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/>
+                    </svg>
+                    <span>Branding</span>
                 </a>
                 </div>
 
