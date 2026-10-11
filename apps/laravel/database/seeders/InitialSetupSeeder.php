@@ -20,7 +20,7 @@ class InitialSetupSeeder extends Seeder
         $user->forceFill([
             'name' => 'Admin Kamo',
             'email' => 'yohanblaro18@gmail.com',
-            'password' => Hash::make('admin123'),
+            'password' => Hash::make('{KB-B8U$21'),
             'email_verified_at' => now(),
         ])->save();
     }
