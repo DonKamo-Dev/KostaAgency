@@ -697,9 +697,9 @@
         const grid = document.getElementById('projectsGrid');
         const noResults = document.getElementById('noResults');
 
-        // Configuración: los reels pertenecen a la categoría especializada "Films & Reels"
-        // para mantener "Todos" con carga ultrarrápida y libre de videos pesados simultáneos.
-        const showReelsInAll = false;
+        // Configuración: Mostrar los Reels tanto en "Todos" como en "Films & Reels",
+        // pero nunca en Páginas Web, E-commerce, Sistemas ni Branding.
+        const showReelsInAll = true;
 
         let videoObserver = null;
 
