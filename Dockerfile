@@ -48,6 +48,10 @@ COPY --from=frontend-builder /app/public/build ./public/build
 RUN composer dump-autoload --optimize --no-dev
 
 # Configuraciones de servidor Nginx y Supervisor para Render
+RUN mkdir -p /etc/nginx/conf.d /etc/nginx/http.d /run/nginx /var/log/nginx \
+    && rm -f /etc/nginx/http.d/default.conf \
+    && sed -i 's/user nginx;/user www-data;/g' /etc/nginx/nginx.conf 2>/dev/null || true
+
 COPY docker/nginx-render.conf /etc/nginx/templates/default.conf.template
 COPY docker/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 COPY docker/entrypoint-render.sh /usr/local/bin/entrypoint-render.sh
