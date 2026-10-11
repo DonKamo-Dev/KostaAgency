@@ -338,8 +338,23 @@
         </style>
 
         <!-- FORM COLUMN -->
-        <div>
             <form wire:submit="save">
+
+                @if ($errors->any())
+                    <div style="background:rgba(239,68,68,0.12);border:1px solid #ef4444;border-radius:14px;padding:16px 20px;margin-bottom:24px;color:#fca5a5;display:flex;align-items:flex-start;gap:12px;box-shadow:0 4px 20px rgba(239,68,68,0.2);">
+                        <svg style="width:20px;height:20px;color:#ef4444;flex-shrink:0;margin-top:2px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+                        </svg>
+                        <div style="flex:1;">
+                            <div style="font-weight:700;color:#fff;font-size:14px;margin-bottom:4px;">No se pudo guardar el caso de estudio</div>
+                            <ul style="margin:0;padding-left:18px;font-size:13px;line-height:1.6;">
+                                @foreach ($errors->all() as $err)
+                                    <li>{{ $err }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    </div>
+                @endif
 
                 <!-- 1. Información Básica -->
                 <div class="form-card-section">
@@ -451,17 +466,23 @@
                                 </div>
                             </div>
                             
-                            <!-- Selector: Empresa vs Sitio Web -->
-                            <div style="display:inline-flex;background:rgba(0,0,0,0.4);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:3px;">
+                            <!-- Selector: Sin Anclar vs Empresa vs Sitio Web -->
+                            <div style="display:inline-flex;background:rgba(0,0,0,0.5);border:1px solid rgba(255,255,255,0.12);border-radius:10px;padding:3px;gap:2px;">
                                 <button type="button" 
-                                        wire:click="$set('source_type', 'client')" 
-                                        style="padding:6px 14px;border-radius:8px;border:none;font-size:12px;font-weight:700;cursor:pointer;transition:all .15s ease;display:flex;align-items:center;gap:6px; {{ $source_type === 'client' ? 'background:#f43f5e;color:#FFFFFF;box-shadow:0 2px 8px rgba(244,63,94,0.4);' : 'background:transparent;color:rgba(255,255,255,0.6);' }}">
+                                        wire:click="setSourceType(null)" 
+                                        style="padding:6px 12px;border-radius:8px;border:none;font-size:12px;font-weight:700;cursor:pointer;transition:all .15s ease;display:flex;align-items:center;gap:5px; {{ empty($source_type) ? 'background:rgba(255,255,255,0.18);color:#FFFFFF;box-shadow:0 2px 6px rgba(0,0,0,0.5);' : 'background:transparent;color:rgba(255,255,255,0.5);' }}">
+                                    <svg width="13" height="13" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"/></svg>
+                                    Sin Anclar
+                                </button>
+                                <button type="button" 
+                                        wire:click="setSourceType('client')" 
+                                        style="padding:6px 12px;border-radius:8px;border:none;font-size:12px;font-weight:700;cursor:pointer;transition:all .15s ease;display:flex;align-items:center;gap:5px; {{ $source_type === 'client' ? 'background:#f43f5e;color:#FFFFFF;box-shadow:0 2px 8px rgba(244,63,94,0.4);' : 'background:transparent;color:rgba(255,255,255,0.5);' }}">
                                     <svg width="13" height="13" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
                                     Empresa (Cliente)
                                 </button>
                                 <button type="button" 
-                                        wire:click="$set('source_type', 'website')" 
-                                        style="padding:6px 14px;border-radius:8px;border:none;font-size:12px;font-weight:700;cursor:pointer;transition:all .15s ease;display:flex;align-items:center;gap:6px; {{ $source_type === 'website' ? 'background:#f43f5e;color:#FFFFFF;box-shadow:0 2px 8px rgba(244,63,94,0.4);' : 'background:transparent;color:rgba(255,255,255,0.6);' }}">
+                                        wire:click="setSourceType('website')" 
+                                        style="padding:6px 12px;border-radius:8px;border:none;font-size:12px;font-weight:700;cursor:pointer;transition:all .15s ease;display:flex;align-items:center;gap:5px; {{ $source_type === 'website' ? 'background:#f43f5e;color:#FFFFFF;box-shadow:0 2px 8px rgba(244,63,94,0.4);' : 'background:transparent;color:rgba(255,255,255,0.5);' }}">
                                     <svg width="13" height="13" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/></svg>
                                     Sitio Web
                                 </button>
@@ -472,7 +493,7 @@
                             <div style="margin-top:12px;">
                                 <label class="form-label" style="font-size:12px;color:rgba(255,255,255,0.85);margin-bottom:6px;">Empresa registrada (con NIT)</label>
                                 <select wire:model.live="client_id" class="form-input" style="width:100%;height:44px;background:#18181b;color:#FAFAFA;border-radius:10px;padding:0 12px;font-size:13px;border-color:rgba(244,63,94,0.3);">
-                                    <option value="">-- Seleccionar empresa registrada --</option>
+                                    <option value="">-- Seleccionar empresa registrada (Opcional) --</option>
                                     @foreach($clients as $c)
                                         <option value="{{ $c->id }}">{{ $c->name }} {{ $c->tax_id ? '(NIT: ' . $c->tax_id . ')' : '' }}</option>
                                     @endforeach
@@ -486,7 +507,7 @@
                             <div style="margin-top:12px;">
                                 <label class="form-label" style="font-size:12px;color:rgba(255,255,255,0.85);margin-bottom:6px;">Sitio Web ya creado en la plataforma</label>
                                 <select wire:model.live="linked_case_study_id" class="form-input" style="width:100%;height:44px;background:#18181b;color:#FAFAFA;border-radius:10px;padding:0 12px;font-size:13px;border-color:rgba(244,63,94,0.3);">
-                                    <option value="">-- Seleccionar sitio web existente --</option>
+                                    <option value="">-- Seleccionar sitio web existente (Opcional) --</option>
                                     @foreach($existingWebsites as $w)
                                         <option value="{{ $w->id }}">{{ $w->titulo }} {{ $w->url_demo ? '(' . $w->url_demo . ')' : '' }}</option>
                                     @endforeach
@@ -497,8 +518,8 @@
                                 @error('linked_case_study_id') <span class="form-error">{{ $message }}</span> @enderror
                             </div>
                         @else
-                            <div style="font-size:12px;color:rgba(255,255,255,0.5);font-style:italic;padding:6px 0;">
-                                Selecciona si este film está vinculado a una <strong>Empresa (Cliente)</strong> o a un <strong>Sitio Web</strong> existente.
+                            <div style="font-size:12px;color:rgba(255,255,255,0.7);padding:10px 14px;background:rgba(255,255,255,0.03);border-radius:8px;margin-top:12px;border:1px dashed rgba(255,255,255,0.12);line-height:1.5;">
+                                ✨ <strong>Reel independiente:</strong> Se publicará en tu portafolio público en la categoría de <strong>Films & Reels</strong> sin asociarse obligatoriamente a una empresa o sitio web.
                             </div>
                         @endif
                         @error('source_type') <span class="form-error">{{ $message }}</span> @enderror
@@ -728,8 +749,25 @@
                     </div>
                 </div>
 
+                <!-- Bottom Error Banner -->
+                @if ($errors->any())
+                    <div style="background:rgba(239,68,68,0.12);border:1px solid #ef4444;border-radius:14px;padding:14px 18px;margin-top:16px;color:#fca5a5;display:flex;align-items:flex-start;gap:12px;">
+                        <svg style="width:18px;height:18px;color:#ef4444;flex-shrink:0;margin-top:2px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+                        </svg>
+                        <div style="flex:1;">
+                            <div style="font-weight:700;color:#fff;font-size:13px;margin-bottom:2px;">Revisa los campos antes de guardar:</div>
+                            <ul style="margin:0;padding-left:18px;font-size:12px;line-height:1.5;">
+                                @foreach ($errors->all() as $err)
+                                    <li>{{ $err }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    </div>
+                @endif
+
                 <!-- Action Bar -->
-                <div style="display:flex;align-items:center;justify-content:flex-end;gap:12px;padding:20px 0;border-top:1px solid var(--border-default);margin-top:8px;">
+                <div style="display:flex;align-items:center;justify-content:flex-end;gap:12px;padding:20px 0;border-top:1px solid var(--border-default);margin-top:12px;">
                     <a href="{{ route('case-studies.index') }}" wire:navigate class="btn btn-secondary" style="height:48px;padding:0 24px;">
                         Cancelar
                     </a>
@@ -739,12 +777,21 @@
                         </span>
                         <span wire:loading wire:target="save">
                             <span style="display:inline-flex;align-items:center;gap:8px;">
-                                <thinking-orb state="working" size="16"></thinking-orb>
+                                <svg style="width:16px;height:16px;animation:spinBtn 1s linear infinite;" fill="none" viewBox="0 0 24 24">
+                                    <circle style="opacity:0.25;" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                    <path style="opacity:0.75;" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+                                </svg>
                                 <span>Guardando proyecto...</span>
                             </span>
                         </span>
                     </button>
                 </div>
+                <style>
+                    @keyframes spinBtn {
+                        from { transform: rotate(0deg); }
+                        to { transform: rotate(360deg); }
+                    }
+                </style>
 
             </form>
         </div>

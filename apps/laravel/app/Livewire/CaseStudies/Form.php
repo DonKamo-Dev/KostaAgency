@@ -30,9 +30,9 @@ class Form extends Component
 
     public ?string $source_type = null;
 
-    public ?int $client_id = null;
+    public $client_id = null;
 
-    public ?int $linked_case_study_id = null;
+    public $linked_case_study_id = null;
 
     public string $video_url = '';
 
@@ -88,6 +88,35 @@ class Form extends Component
         'imagen_nueva.max' => 'La imagen no puede superar 2 MB.',
     ];
 
+    public function updatedClientId($value): void
+    {
+        $this->client_id = filled($value) ? (int) $value : null;
+    }
+
+    public function updatedLinkedCaseStudyId($value): void
+    {
+        $this->linked_case_study_id = filled($value) ? (int) $value : null;
+    }
+
+    public function setSourceType(?string $type): void
+    {
+        if ($this->source_type === $type || empty($type)) {
+            $this->source_type = null;
+            $this->client_id = null;
+            $this->linked_case_study_id = null;
+        } else {
+            $this->source_type = $type;
+            if ($type === 'client') {
+                $this->linked_case_study_id = null;
+            } elseif ($type === 'website') {
+                $this->client_id = null;
+            } else {
+                $this->client_id = null;
+                $this->linked_case_study_id = null;
+            }
+        }
+    }
+
     public function mount(?CaseStudy $caseStudy = null): void
     {
         CaseStudySource::ensureSchema();
@@ -119,6 +148,23 @@ class Form extends Component
     {
         CaseStudySource::ensureSchema();
 
+        $this->titulo = trim($this->titulo);
+        $this->categoria = $this->categoria === 'social' ? 'films' : ($this->categoria ?: 'web');
+        $this->client_id = filled($this->client_id) ? (int) $this->client_id : null;
+        $this->linked_case_study_id = filled($this->linked_case_study_id) ? (int) $this->linked_case_study_id : null;
+        $this->source_type = filled($this->source_type) ? $this->source_type : null;
+
+        if ($this->source_type === 'client' && ! $this->client_id) {
+            $this->source_type = null;
+        }
+        if ($this->source_type === 'website' && ! $this->linked_case_study_id) {
+            $this->source_type = null;
+        }
+
+        $this->gradient_inicio = $this->gradient_inicio ?: '#6366f1';
+        $this->gradient_fin = $this->gradient_fin ?: '#8b5cf6';
+        $this->video_orientation = in_array($this->video_orientation, ['vertical', 'horizontal']) ? $this->video_orientation : 'vertical';
+
         $this->validate();
 
         $study = $this->editingId ? CaseStudy::findOrFail($this->editingId) : null;
@@ -127,10 +173,10 @@ class Form extends Component
             array_map('trim', explode(',', $this->tags_input))
         ));
 
-        $categoriaEfectiva = $this->categoria === 'social' ? 'films' : $this->categoria;
+        $categoriaEfectiva = $this->categoria;
 
         $data = [
-            'titulo' => trim($this->titulo),
+            'titulo' => $this->titulo,
             'descripcion' => trim($this->descripcion) ?: null,
             'url_demo' => trim($this->url_demo) ?: null,
             'categoria' => $categoriaEfectiva,
@@ -143,13 +189,13 @@ class Form extends Component
             'gradient_inicio' => $this->gradient_inicio,
             'gradient_fin' => $this->gradient_fin,
             'activo' => $this->activo,
-            'orden' => $this->orden,
+            'orden' => (int) $this->orden,
         ];
 
         // Configuración específica de Videos para Films (enlace directo o streaming ultra-rápido)
         if ($categoriaEfectiva === 'films') {
             $data['video_url'] = trim($this->video_url) ?: null;
-            $data['video_orientation'] = $this->video_orientation ?: 'vertical';
+            $data['video_orientation'] = $this->video_orientation;
             $data['video_duration'] = trim($this->video_duration) ?: null;
         }
 
@@ -169,12 +215,18 @@ class Form extends Component
             $data = array_merge($data, CaseStudyImage::attributesFrom($this->imagen_nueva));
         }
 
-        if ($study) {
-            $study->update($data);
-            $msg = 'Caso de estudio actualizado correctamente.';
-        } else {
-            CaseStudy::create($data);
-            $msg = 'Caso de estudio creado correctamente.';
+        try {
+            if ($study) {
+                $study->update($data);
+                $msg = 'Caso de estudio actualizado correctamente.';
+            } else {
+                CaseStudy::create($data);
+                $msg = 'Caso de estudio creado correctamente.';
+            }
+        } catch (\Throwable $e) {
+            report($e);
+            $this->addError('general', 'Error al guardar el proyecto en la base de datos: ' . $e->getMessage());
+            return;
         }
 
         session()->flash('notify', $msg);

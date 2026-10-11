@@ -45,9 +45,9 @@ class Index extends Component
 
     public ?string $source_type = null;
 
-    public ?int $client_id = null;
+    public $client_id = null;
 
-    public ?int $linked_case_study_id = null;
+    public $linked_case_study_id = null;
 
     public string $metrica_valor = '';
 
@@ -246,6 +246,7 @@ class Index extends Component
             ->get();
         $count = $studies->count();
 
+        /** @var CaseStudy $study */
         foreach ($studies as $study) {
             if ($study->imagen) {
                 Storage::disk('public')->delete($study->imagen);
