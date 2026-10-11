@@ -9,12 +9,22 @@
         .filter-btn:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
 
         /* ── Projects grid ── */
-        .projects-grid { display: grid; grid-template-columns: 1fr; gap: 28px; }
+        .projects-grid { display: grid; grid-template-columns: 1fr; gap: 24px; }
         @media (min-width: 640px) { .projects-grid { grid-template-columns: repeat(2, 1fr); } }
         /* "Todos": 2 cols so each mockup se ve grande */
         @media (min-width: 1024px) { .projects-grid { grid-template-columns: repeat(2, 1fr); } }
-        /* Categoría filtrada: 3 cols */
+        /* Categoría filtrada regular: 3 cols */
         @media (min-width: 1024px) { .projects-grid.cols-3 { grid-template-columns: repeat(3, 1fr); } }
+        /* Modo Reels (Films & Reels): formato compacto tipo feed de redes */
+        @media (min-width: 640px) {
+            .projects-grid.cols-reels { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+        }
+        @media (min-width: 900px) {
+            .projects-grid.cols-reels { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; }
+        }
+        @media (min-width: 1200px) {
+            .projects-grid.cols-reels { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; }
+        }
 
         /* ── Project card ── */
         .project-card { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.07); border-radius: 20px; overflow: hidden; transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), border-color 0.3s ease, box-shadow 0.4s ease; }
@@ -64,60 +74,322 @@
         .project-link svg { width: 14px; height: 14px; flex-shrink: 0; transition: transform 0.2s ease; }
         .project-link:hover svg { transform: translate(2px, -2px); }
 
-        /* ── Film & Reel Card Elements ── */
-        .film-card-chrome { display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; background: rgba(0,0,0,0.7); border-bottom: 1px solid rgba(244,63,94,0.22); }
-        .film-screen { position: relative; overflow: hidden; background: #09090b; }
-        .film-screen.horizontal-height { height: 195px; }
-        .film-screen.reel-height {
-            height: 380px;
-            margin: 14px 16px 4px;
-            border-radius: 28px;
-            border: 2.5px solid rgba(255, 255, 255, 0.16);
-            box-shadow: 0 16px 45px rgba(0, 0, 0, 0.9), inset 0 0 0 1px rgba(0, 0, 0, 0.9);
+        /* ── Social Reel Card (Instagram / TikTok Style) ── */
+        .project-card.reel-card {
+            position: relative;
+            border-radius: 22px;
+            overflow: hidden;
+            background: #09090b;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            box-shadow: 0 18px 45px rgba(0, 0, 0, 0.7);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease, border-color 0.35s ease;
         }
-        .film-phone-island {
+
+        .project-card.reel-card.is-reel {
+            aspect-ratio: 9 / 16;
+            max-width: 285px;
+            width: 100%;
+            min-height: 470px;
+            max-height: 510px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .project-card.reel-card.is-film-16-9 {
+            aspect-ratio: 16 / 9;
+            max-width: 520px;
+            width: 100%;
+            min-height: 290px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .project-card.reel-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            border-color: rgba(244, 63, 94, 0.55);
+            box-shadow: 0 24px 60px rgba(0, 0, 0, 0.8), 0 0 35px rgba(244, 63, 94, 0.25);
+        }
+
+        .reel-bg-video {
             position: absolute;
-            top: 8px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 66px;
-            height: 15px;
-            background: #000000;
-            border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.14);
-            z-index: 15;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+            pointer-events: none;
+            background: #09090b;
+        }
+
+        .reel-bg-placeholder {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
             display: flex;
             align-items: center;
             justify-content: center;
-            pointer-events: none;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.8);
+            background: radial-gradient(circle at center, rgba(244,63,94,0.18) 0%, rgba(9,9,11,0.98) 75%);
         }
-        .film-phone-cam {
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            background: #111116;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-        .film-phone-home {
+
+        .reel-scrim {
             position: absolute;
-            bottom: 7px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 72px;
-            height: 3.5px;
-            background: rgba(255, 255, 255, 0.7);
-            border-radius: 2px;
-            z-index: 15;
+            inset: 0;
+            z-index: 2;
             pointer-events: none;
+            background: linear-gradient(180deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.05) 25%, rgba(0,0,0,0.2) 55%, rgba(0,0,0,0.92) 100%);
         }
-        .film-video-preview { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-        .film-play-trigger { position: absolute; inset: 0; width: 100%; height: 100%; border: none; background: rgba(0,0,0,0.25); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.25s ease; }
-        .film-play-trigger:hover { background: rgba(0,0,0,0.45); }
-        .film-play-btn { width: 54px; height: 54px; border-radius: 50%; background: #f43f5e; color: #fff; border: 2px solid rgba(255,255,255,0.4); display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 30px rgba(244,63,94,0.5); transition: transform 0.25s cubic-bezier(0.16,1,0.3,1), box-shadow 0.25s ease; }
-        .film-play-trigger:hover .film-play-btn { transform: scale(1.12); box-shadow: 0 12px 35px rgba(244,63,94,0.7); }
-        .film-hover-label { position: absolute; bottom: 12px; left: 14px; font-size: 11px; font-weight: 700; color: #fff; background: rgba(0,0,0,0.75); padding: 4px 10px; border-radius: 999px; backdrop-filter: blur(8px); opacity: 0; transform: translateY(4px); transition: all 0.2s ease; }
-        .film-play-trigger:hover .film-hover-label, .film-play-trigger:focus-visible .film-hover-label { opacity: 1; transform: translateY(0); }
+
+        .reel-overlay-top {
+            position: relative;
+            z-index: 10;
+            padding: 13px 13px 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            pointer-events: auto;
+        }
+
+        .reel-badge-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 9px;
+            border-radius: 999px;
+            background: rgba(0, 0, 0, 0.65);
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            backdrop-filter: blur(10px);
+            font-size: 10px;
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .reel-dot-live {
+            width: 6.5px;
+            height: 6.5px;
+            border-radius: 50%;
+            background: #f43f5e;
+            box-shadow: 0 0 8px #f43f5e;
+            animation: pulseDot 1.8s infinite;
+        }
+
+        @keyframes pulseDot {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.35); opacity: 0.6; }
+        }
+
+        .reel-duration-pill {
+            font-size: 10px;
+            font-family: monospace;
+            color: rgba(255, 255, 255, 0.85);
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            backdrop-filter: blur(8px);
+            padding: 3px 8px;
+            border-radius: 999px;
+            font-weight: 600;
+        }
+
+        .reel-sound-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 4px 9px;
+            border-radius: 999px;
+            background: rgba(0, 0, 0, 0.65);
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            backdrop-filter: blur(10px);
+            font-size: 10px;
+            color: rgba(255, 255, 255, 0.85);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .reel-sound-pill:hover {
+            background: rgba(244, 63, 94, 0.25);
+            border-color: rgba(244, 63, 94, 0.5);
+            color: #ffffff;
+            transform: scale(1.04);
+        }
+
+        .reel-center-action {
+            position: absolute;
+            inset: 0;
+            z-index: 5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            outline: none;
+            padding: 0;
+        }
+
+        .reel-center-btn {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.45);
+            border: 1.5px solid rgba(255, 255, 255, 0.35);
+            backdrop-filter: blur(12px);
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+            opacity: 0;
+            transform: scale(0.85);
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .project-card.reel-card:hover .reel-center-btn {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .reel-overlay-bottom {
+            position: relative;
+            z-index: 10;
+            padding: 24px 15px 15px;
+            margin-top: auto;
+            pointer-events: auto;
+        }
+
+        .reel-client-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 11px;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.95);
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            backdrop-filter: blur(8px);
+            padding: 3px 9px;
+            border-radius: 999px;
+            margin-bottom: 7px;
+        }
+
+        .reel-title {
+            font-family: 'Syne', 'Inter', sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            color: #ffffff;
+            line-height: 1.25;
+            margin: 0 0 5px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9);
+        }
+
+        .reel-desc {
+            font-size: 11.5px;
+            line-height: 1.45;
+            color: rgba(255, 255, 255, 0.8);
+            margin: 0 0 10px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-shadow: 0 1px 6px rgba(0, 0, 0, 0.9);
+        }
+
+        .reel-metric-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 3px 9px;
+            border-radius: 6px;
+            background: rgba(244, 63, 94, 0.15);
+            border: 1px solid rgba(244, 63, 94, 0.3);
+            margin-bottom: 8px;
+        }
+
+        .reel-metric-num {
+            font-family: 'Syne', sans-serif;
+            font-size: 12px;
+            font-weight: 700;
+            color: #f43f5e;
+        }
+
+        .reel-metric-txt {
+            font-size: 10.5px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .reel-tags-wrap {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-bottom: 10px;
+        }
+
+        .reel-tag {
+            font-size: 10.5px;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.65);
+        }
+
+        .reel-actions-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 4px;
+        }
+
+        .reel-btn-play {
+            flex: 1;
+            min-height: 35px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            padding: 0 12px;
+            border-radius: 999px;
+            background: #ffffff;
+            color: #09090b;
+            font-size: 12px;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 14px rgba(255, 255, 255, 0.18);
+        }
+
+        .reel-btn-play:hover {
+            background: #f43f5e;
+            color: #ffffff;
+            box-shadow: 0 4px 18px rgba(244, 63, 94, 0.45);
+            transform: translateY(-1px);
+        }
+
+        .reel-btn-contact {
+            width: 35px;
+            height: 35px;
+            flex-shrink: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            backdrop-filter: blur(8px);
+            color: #ffffff;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .reel-btn-contact:hover {
+            background: rgba(255, 255, 255, 0.22);
+            border-color: rgba(255, 255, 255, 0.35);
+            color: #ffffff;
+            transform: translateY(-1px);
+        }
 
         /* ── Stats bar ── */
         .stats-bar { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: rgba(255,255,255,0.06); border-radius: 16px; overflow: hidden; margin-bottom: 80px; }
@@ -178,70 +450,142 @@
 
             <div class="projects-grid" id="projectsGrid">
                 @forelse($estudios as $estudio)
-                    <div class="project-card" data-category="{{ in_array($estudio->categoria, ['films', 'social'], true) ? 'films social' : $estudio->categoria }}">
-                        @if($estudio->categoria === 'films')
-                            <!-- Film Card Chrome -->
-                            <div class="film-card-chrome">
-                                <div style="display:flex;align-items:center;gap:7px;">
-                                    <span style="width:8px;height:8px;border-radius:50%;background:#f43f5e;box-shadow:0 0 8px #f43f5e;display:inline-block;"></span>
-                                    <span style="font-size:11px;font-weight:700;color:#f43f5e;letter-spacing:0.06em;text-transform:uppercase;">
-                                        {{ $estudio->is_reel ? 'Reel 9:16' : 'Film 16:9' }}
-                                    </span>
-                                </div>
-                                @if($estudio->video_duration)
-                                    <span style="font-size:11px;color:rgba(255,255,255,0.6);font-family:monospace;background:rgba(255,255,255,0.08);padding:2px 7px;border-radius:4px;">
-                                        {{ $estudio->video_duration }}
-                                    </span>
+                    @if($estudio->categoria === 'films')
+                        {{-- ================= SOCIAL REEL / FILM CARD ================= --}}
+                        <div class="project-card reel-card {{ $estudio->is_reel ? 'is-reel' : 'is-film-16-9' }}"
+                             data-category="{{ in_array($estudio->categoria, ['films', 'social'], true) ? 'films social' : $estudio->categoria }}">
+
+                            <!-- Background Video: Autoplaying continuously without sound in loop -->
+                            @if($estudio->video_stream_url)
+                                @if($estudio->is_direct_video)
+                                    <video src="{{ $estudio->video_stream_url }}"
+                                           autoplay
+                                           muted
+                                           loop
+                                           playsinline
+                                           preload="auto"
+                                           class="reel-bg-video">
+                                    </video>
+                                @else
+                                    <iframe src="{{ $estudio->video_stream_url }}?autoplay=1&mute=1&loop=1&controls=0"
+                                            class="reel-bg-video"
+                                            style="border:none;pointer-events:none;">
+                                    </iframe>
                                 @endif
+                            @else
+                                <div class="reel-bg-placeholder">
+                                    <svg width="36" height="36" fill="currentColor" viewBox="0 0 24 24" style="color:rgba(244,63,94,0.6);"><path d="M8 5v14l11-7z"/></svg>
+                                </div>
+                            @endif
+
+                            <!-- Scrim gradient overlay (Instagram / TikTok look) -->
+                            <div class="reel-scrim" aria-hidden="true"></div>
+
+                            <!-- Top bar overlay -->
+                            <div class="reel-overlay-top">
+                                <div style="display:flex;align-items:center;gap:6px;">
+                                    <span class="reel-badge-pill">
+                                        <span class="reel-dot-live"></span>
+                                        <span>{{ $estudio->is_reel ? 'REEL 9:16' : 'FILM 16:9' }}</span>
+                                    </span>
+                                    @if($estudio->video_duration)
+                                        <span class="reel-duration-pill">{{ $estudio->video_duration }}</span>
+                                    @endif
+                                </div>
+
+                                <button type="button"
+                                        class="reel-sound-pill"
+                                        data-film-play
+                                        data-video-url="{{ $estudio->video_stream_url }}"
+                                        data-orientation="{{ $estudio->video_orientation ?? 'vertical' }}"
+                                        data-title="{{ $estudio->titulo }}"
+                                        data-type="{{ $estudio->is_direct_video ? 'direct' : 'embed' }}"
+                                        data-embed-url="{{ $estudio->video_embed_url }}"
+                                        title="Ver con audio">
+                                    <svg width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072M12 6L7 10H3v4h4l5 4V6z"/>
+                                    </svg>
+                                    <span>Con audio</span>
+                                </button>
                             </div>
 
-                            <!-- Film Screen -->
-                            <div class="film-screen {{ $estudio->is_reel ? 'reel-height' : 'horizontal-height' }}">
-                                @if($estudio->is_reel)
-                                    <div class="film-phone-island" aria-hidden="true"><span class="film-phone-cam"></span></div>
-                                    <div class="film-phone-home" aria-hidden="true"></div>
-                                @endif
-                                @if($estudio->video_stream_url)
-                                    @if($estudio->is_direct_video)
-                                        <video src="{{ $estudio->video_stream_url }}"
-                                               preload="metadata"
-                                               playsinline
-                                               muted
-                                               loop
-                                               class="film-video-preview"
-                                               onmouseenter="this.play().catch(()=>{})"
-                                               onmouseleave="this.pause();this.currentTime=0;">
-                                        </video>
-                                    @else
-                                        <div style="position:absolute;inset:0;background:radial-gradient(circle at center, rgba(244,63,94,0.18) 0%, rgba(9,9,11,0.95) 80%);"></div>
-                                    @endif
+                            <!-- Center Hover Cue (Glass play button) -->
+                            <button type="button"
+                                    class="reel-center-action"
+                                    data-film-play
+                                    data-video-url="{{ $estudio->video_stream_url }}"
+                                    data-orientation="{{ $estudio->video_orientation ?? 'vertical' }}"
+                                    data-title="{{ $estudio->titulo }}"
+                                    data-type="{{ $estudio->is_direct_video ? 'direct' : 'embed' }}"
+                                    data-embed-url="{{ $estudio->video_embed_url }}"
+                                    aria-label="Reproducir {{ $estudio->titulo }} con audio">
+                                <div class="reel-center-btn">
+                                    <svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24" style="margin-left:2px;"><path d="M8 5v14l11-7z"/></svg>
+                                </div>
+                            </button>
 
+                            <!-- Bottom Content Overlay (Text, info and actions in front of video) -->
+                            <div class="reel-overlay-bottom">
+                                @if(($estudio->source_type ?? null) === 'client' && $estudio->client)
+                                    <div class="reel-client-tag">
+                                        <svg width="11" height="11" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+                                        <span>@<strong>{{ $estudio->client->name }}</strong></span>
+                                    </div>
+                                @elseif(($estudio->source_type ?? null) === 'website' && $estudio->linkedCaseStudy)
+                                    <div class="reel-client-tag">
+                                        <svg width="11" height="11" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/></svg>
+                                        <span>Sitio: <strong>{{ $estudio->linkedCaseStudy->titulo }}</strong></span>
+                                    </div>
+                                @endif
+
+                                <h3 class="reel-title">{{ $estudio->titulo }}</h3>
+
+                                @if($estudio->descripcion)
+                                    <p class="reel-desc">{{ $estudio->descripcion }}</p>
+                                @endif
+
+                                @if($estudio->metrica_valor)
+                                    <div class="reel-metric-pill">
+                                        <span class="reel-metric-num">{{ $estudio->metrica_valor }}</span>
+                                        <span class="reel-metric-txt">{{ $estudio->metrica_label }}</span>
+                                    </div>
+                                @endif
+
+                                @if($estudio->tags && count($estudio->tags))
+                                    <div class="reel-tags-wrap">
+                                        @foreach(array_slice($estudio->tags, 0, 3) as $tag)
+                                            <span class="reel-tag">#{{ ltrim($tag, '#') }}</span>
+                                        @endforeach
+                                    </div>
+                                @endif
+
+                                <!-- Reel Actions -->
+                                <div class="reel-actions-row">
                                     <button type="button"
-                                            class="film-play-trigger"
+                                            class="reel-btn-play"
                                             data-film-play
                                             data-video-url="{{ $estudio->video_stream_url }}"
                                             data-orientation="{{ $estudio->video_orientation ?? 'vertical' }}"
                                             data-title="{{ $estudio->titulo }}"
                                             data-type="{{ $estudio->is_direct_video ? 'direct' : 'embed' }}"
-                                            data-embed-url="{{ $estudio->video_embed_url }}"
-                                            aria-label="Reproducir film {{ $estudio->titulo }}">
-                                        <div class="film-play-btn">
-                                            <svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24" style="margin-left:3px;"><path d="M8 5v14l11-7z"/></svg>
-                                        </div>
-                                        <span class="film-hover-label">
-                                            Click para reproducir con audio
-                                        </span>
+                                            data-embed-url="{{ $estudio->video_embed_url }}">
+                                        <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                                        <span>Ver con audio</span>
                                     </button>
-                                @else
-                                    <div style="position:absolute;inset:0;background:radial-gradient(circle at center, rgba(244,63,94,0.16) 0%, rgba(9,9,11,0.95) 75%);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;">
-                                        <div style="width:48px;height:48px;border-radius:50%;background:rgba(244,63,94,0.15);border:1px solid #f43f5e;display:flex;align-items:center;justify-content:center;">
-                                            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24" style="color:#f43f5e;margin-left:2px;"><path d="M8 5v14l11-7z"/></svg>
-                                        </div>
-                                        <span style="font-size:11px;font-weight:600;color:rgba(255,255,255,0.5);">Film & Reel</span>
-                                    </div>
-                                @endif
+
+                                    <a href="{{ route('contact') }}"
+                                       class="reel-btn-contact"
+                                       title="{{ __('landing.portfolio.action_request_similar') }}">
+                                        <svg width="12" height="12" viewBox="0 0 10 10" fill="none" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M1.5 8.5L8.5 1.5M8.5 1.5H3M8.5 1.5v5.5"/>
+                                        </svg>
+                                    </a>
+                                </div>
                             </div>
-                        @else
+                        </div>
+                    @else
+                        {{-- ================= STANDARD DESKTOP MOCKUP CARD ================= --}}
+                        <div class="project-card" data-category="{{ $estudio->categoria }}">
                             <div class="browser-chrome">
                                 <div class="browser-dots"><span class="browser-dot dot-red"></span><span class="browser-dot dot-yellow"></span><span class="browser-dot dot-green"></span></div>
                                 <div class="browser-url">{{ $estudio->url_demo ?? 'kosta.studio' }}</div>
@@ -261,66 +605,41 @@
                                     <div class="mock-cards"><div class="mock-card-sm"></div><div class="mock-card-sm"></div><div class="mock-card-sm"></div></div>
                                 @endif
                             </div>
-                        @endif
 
-                        <div class="project-body">
-                            <span class="project-cat">{{ $catLabels[$estudio->categoria] ?? $estudio->categoria }}</span>
-                            <h3 class="project-title">{{ $estudio->titulo }}</h3>
-                            @if($estudio->categoria === 'films')
-                                @if(($estudio->source_type ?? null) === 'client' && $estudio->client)
-                                    <div style="font-size:12px;color:rgba(255,255,255,0.65);margin-top:2px;margin-bottom:6px;display:flex;align-items:center;gap:5px;">
-                                        <svg width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
-                                        <span>Empresa: <strong style="color:#FFFFFF;">{{ $estudio->client->name }}</strong></span>
-                                    </div>
-                                @elseif(($estudio->source_type ?? null) === 'website' && $estudio->linkedCaseStudy)
-                                    <div style="font-size:12px;color:rgba(255,255,255,0.65);margin-top:2px;margin-bottom:6px;display:flex;align-items:center;gap:5px;">
-                                        <svg width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/></svg>
-                                        <span>Sitio web: <strong style="color:#FFFFFF;">{{ $estudio->linkedCaseStudy->titulo }}</strong></span>
+                            <div class="project-body">
+                                <span class="project-cat">{{ $catLabels[$estudio->categoria] ?? $estudio->categoria }}</span>
+                                <h3 class="project-title">{{ $estudio->titulo }}</h3>
+                                @if($estudio->descripcion)
+                                    <p class="project-desc">{{ $estudio->descripcion }}</p>
+                                @endif
+                                @if($estudio->metrica_valor)
+                                    <div class="project-metric">
+                                        <span class="metric-value">{{ $estudio->metrica_valor }}</span>
+                                        <span class="metric-label">{{ $estudio->metrica_label }}</span>
                                     </div>
                                 @endif
-                            @endif
-                            @if($estudio->descripcion)
-                                <p class="project-desc">{{ $estudio->descripcion }}</p>
-                            @endif
-                            @if($estudio->metrica_valor)
-                                <div class="project-metric">
-                                    <span class="metric-value">{{ $estudio->metrica_valor }}</span>
-                                    <span class="metric-label">{{ $estudio->metrica_label }}</span>
-                                </div>
-                            @endif
-                            @if($estudio->tags)
-                                <div class="project-tags">
-                                    @foreach($estudio->tags as $tag)
-                                        <span class="project-tag">{{ $tag }}</span>
-                                    @endforeach
-                                </div>
-                            @endif
-                            <div class="project-actions">
-                                @if($estudio->categoria === 'films' && $estudio->video_stream_url)
-                                    <button type="button"
-                                            class="project-link visit"
-                                            data-film-play
-                                            data-video-url="{{ $estudio->video_stream_url }}"
-                                            data-orientation="{{ $estudio->video_orientation ?? 'vertical' }}"
-                                            data-title="{{ $estudio->titulo }}"
-                                            data-type="{{ $estudio->is_direct_video ? 'direct' : 'embed' }}"
-                                            data-embed-url="{{ $estudio->video_embed_url }}">
-                                        {{ __('landing.portfolio.action_visit_films') }}
-                                        <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-                                    </button>
-                                @elseif($estudio->public_url)
-                                    <a href="{{ $estudio->public_url }}" target="_blank" rel="noopener noreferrer" class="project-link visit">
-                                        {{ in_array($estudio->categoria, ['films', 'social'], true) ? __('landing.portfolio.action_visit_films') : ($estudio->categoria === 'sistema' ? __('landing.portfolio.action_visit_system') : __('landing.portfolio.action_visit_web')) }}
+                                @if($estudio->tags)
+                                    <div class="project-tags">
+                                        @foreach($estudio->tags as $tag)
+                                            <span class="project-tag">{{ $tag }}</span>
+                                        @endforeach
+                                    </div>
+                                @endif
+                                <div class="project-actions">
+                                    @if($estudio->public_url)
+                                        <a href="{{ $estudio->public_url }}" target="_blank" rel="noopener noreferrer" class="project-link visit">
+                                            {{ $estudio->categoria === 'sistema' ? __('landing.portfolio.action_visit_system') : __('landing.portfolio.action_visit_web') }}
+                                            <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M1.5 8.5L8.5 1.5M8.5 1.5H3M8.5 1.5v5.5"/></svg>
+                                        </a>
+                                    @endif
+                                    <a href="{{ route('contact') }}" class="project-link">
+                                        {{ __('landing.portfolio.action_request_similar') }}
                                         <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M1.5 8.5L8.5 1.5M8.5 1.5H3M8.5 1.5v5.5"/></svg>
                                     </a>
-                                @endif
-                                <a href="{{ route('contact') }}" class="project-link">
-                                    {{ __('landing.portfolio.action_request_similar') }}
-                                    <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M1.5 8.5L8.5 1.5M8.5 1.5H3M8.5 1.5v5.5"/></svg>
-                                </a>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    @endif
                 @empty
                     <div style="grid-column:1/-1;text-align:center;padding:80px 0;">
                         <p style="color:rgba(255,255,255,0.35);font-size:16px;">{{ __('landing.portfolio.empty_case_studies') }}</p>
@@ -368,34 +687,69 @@
     <x-film-viewer />
 
     <script>
-        // Project filter
+        // Project filter & Reel video playback
         const filterBtns = document.querySelectorAll('.filter-btn');
         const cards = document.querySelectorAll('.project-card');
         const grid = document.getElementById('projectsGrid');
         const noResults = document.getElementById('noResults');
 
+        const playAllReelVideos = () => {
+            document.querySelectorAll('.reel-bg-video').forEach(video => {
+                video.muted = true;
+                const p = video.play();
+                if (p !== undefined) {
+                    p.catch(() => {});
+                }
+            });
+        };
+
+        const applyFilter = (filter) => {
+            filterBtns.forEach(b => {
+                const isActive = b.dataset.filter === filter;
+                b.classList.toggle('active', isActive);
+                b.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+            });
+
+            // Grid column modes:
+            // - films: cols-reels (hasta 4 columnas compactas para reels verticales)
+            // - otras categorías: cols-3 (3 columnas)
+            // - all: 2 columnas normales
+            if (grid) {
+                grid.classList.toggle('cols-reels', filter === 'films');
+                grid.classList.toggle('cols-3', filter !== 'all' && filter !== 'films');
+            }
+
+            let visible = 0;
+            cards.forEach(card => {
+                const cats = card.dataset.category || '';
+                const match = filter === 'all' || cats.split(' ').includes(filter);
+                card.classList.toggle('hidden-card', !match);
+                if (match) visible++;
+            });
+
+            if (noResults) {
+                noResults.classList.toggle('hidden', visible > 0);
+            }
+
+            // Asegura reproducción inmediata de videos de fondo
+            setTimeout(playAllReelVideos, 50);
+        };
+
         filterBtns.forEach(btn => {
             btn.addEventListener('click', () => {
-                filterBtns.forEach(b => {
-                    b.classList.remove('active');
-                    b.setAttribute('aria-pressed', 'false');
-                });
-                btn.classList.add('active');
-                btn.setAttribute('aria-pressed', 'true');
-                const filter = btn.dataset.filter;
-
-                // 2 cols para "Todos", 3 cols para categoría específica
-                grid.classList.toggle('cols-3', filter !== 'all');
-
-                let visible = 0;
-                cards.forEach(card => {
-                    const cats = card.dataset.category || '';
-                    const match = filter === 'all' || cats.split(' ').includes(filter);
-                    card.classList.toggle('hidden-card', !match);
-                    if (match) visible++;
-                });
-                noResults.classList.toggle('hidden', visible > 0);
+                applyFilter(btn.dataset.filter);
             });
         });
+
+        // Autoplay background reel videos silently in loop
+        playAllReelVideos();
+        document.addEventListener('livewire:navigated', playAllReelVideos);
+
+        // Activación automática si viene con parámetro de URL (?cat=films) o hash (#films)
+        const urlParams = new URLSearchParams(window.location.search);
+        const initialCat = urlParams.get('cat') || window.location.hash.replace('#', '') || 'all';
+        if (initialCat && initialCat !== 'all') {
+            applyFilter(initialCat);
+        }
     </script>
 </div>
