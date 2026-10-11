@@ -339,7 +339,7 @@
                 display: flex;
                 align-items: center;
                 gap: 10px;
-                padding: 6px 12px 6px 26px;
+                padding: 7px 12px 7px 22px;
                 border-radius: 8px;
                 color: var(--text-muted);
                 text-decoration: none;
@@ -348,6 +348,21 @@
                 transition: all 0.2s ease;
                 margin: 2px 0;
                 position: relative;
+                list-style: none !important;
+            }
+            .nav-sublink::before,
+            .nav-sublink::after,
+            .nav-sublink:hover::before,
+            .nav-sublink:hover::after,
+            .nav-sublink.active::before,
+            .nav-sublink.active::after {
+                content: none !important;
+                display: none !important;
+                width: 0 !important;
+                height: 0 !important;
+                opacity: 0 !important;
+                visibility: hidden !important;
+                pointer-events: none !important;
             }
             .nav-sublink svg {
                 width: 14px;
