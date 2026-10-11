@@ -167,6 +167,7 @@
                     iframe.style.display = 'none';
                 }
                 viewer.close();
+                window.dispatchEvent(new CustomEvent('film-viewer-closed'));
             };
 
             closeBtn.addEventListener('click', closeViewer);
@@ -238,6 +239,7 @@
                     }
                 }
 
+                window.dispatchEvent(new CustomEvent('film-viewer-opened'));
                 viewer.showModal();
             });
         }

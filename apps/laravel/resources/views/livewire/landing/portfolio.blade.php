@@ -29,7 +29,8 @@
         /* ── Project card ── */
         .project-card { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.07); border-radius: 20px; overflow: hidden; transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), border-color 0.3s ease, box-shadow 0.4s ease; }
         .project-card:hover { transform: translateY(-8px); border-color: rgba(230,57,70,0.3); box-shadow: 0 24px 64px rgba(0,0,0,0.35), 0 0 0 1px rgba(230,57,70,0.1); }
-        .project-card.hidden-card { display: none; }
+        .project-card.hidden-card,
+        .project-card.reel-card.hidden-card { display: none !important; }
 
         /* Browser mockup */
         .browser-chrome { display: flex; align-items: center; gap: 10px; padding: 10px 14px; background: rgba(0,0,0,0.55); border-bottom: 1px solid rgba(255,255,255,0.06); }
@@ -86,6 +87,10 @@
             flex-direction: column;
             justify-content: space-between;
             transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease, border-color 0.35s ease;
+        }
+
+        .project-card.reel-card.hidden-card {
+            display: none !important;
         }
 
         .project-card.reel-card.is-reel {
@@ -455,15 +460,14 @@
                         <div class="project-card reel-card {{ $estudio->is_reel ? 'is-reel' : 'is-film-16-9' }}"
                              data-category="{{ in_array($estudio->categoria, ['films', 'social'], true) ? 'films social' : $estudio->categoria }}">
 
-                            <!-- Background Video: Autoplaying continuously without sound in loop -->
+                            <!-- Background Video: Optimized with preload metadata and smart viewport playback -->
                             @if($estudio->video_stream_url)
                                 @if($estudio->is_direct_video)
                                     <video src="{{ $estudio->video_stream_url }}"
-                                           autoplay
                                            muted
                                            loop
                                            playsinline
-                                           preload="auto"
+                                           preload="metadata"
                                            class="reel-bg-video">
                                     </video>
                                 @else
@@ -687,19 +691,77 @@
     <x-film-viewer />
 
     <script>
-        // Project filter & Reel video playback
+        // Project filter & High-performance Reel video controller
         const filterBtns = document.querySelectorAll('.filter-btn');
         const cards = document.querySelectorAll('.project-card');
         const grid = document.getElementById('projectsGrid');
         const noResults = document.getElementById('noResults');
 
-        const playAllReelVideos = () => {
-            document.querySelectorAll('.reel-bg-video').forEach(video => {
-                video.muted = true;
-                const p = video.play();
-                if (p !== undefined) {
-                    p.catch(() => {});
-                }
+        // Configuración: los reels pertenecen a la categoría especializada "Films & Reels"
+        // para mantener "Todos" con carga ultrarrápida y libre de videos pesados simultáneos.
+        const showReelsInAll = false;
+
+        let videoObserver = null;
+
+        const pauseVideo = (video) => {
+            if (!video) return;
+            try {
+                video.pause();
+            } catch (e) {}
+        };
+
+        const playVideo = (video) => {
+            if (!video) return;
+            video.muted = true;
+            const p = video.play();
+            if (p !== undefined) {
+                p.catch(() => {});
+            }
+        };
+
+        const setupVideoObserver = () => {
+            if (videoObserver) {
+                videoObserver.disconnect();
+            }
+
+            if (!('IntersectionObserver' in window)) {
+                return;
+            }
+
+            // Solo reproduce los videos cuando estén dentro de la pantalla visible (al menos 35% visible)
+            // y pausa automáticamente los que salgan del viewport o estén ocultos
+            videoObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    const card = entry.target;
+                    const video = card.querySelector('.reel-bg-video');
+                    if (!video) return;
+
+                    // Si la tarjeta está oculta por el filtro, mantener siempre pausada
+                    if (card.classList.contains('hidden-card')) {
+                        pauseVideo(video);
+                        return;
+                    }
+
+                    if (entry.isIntersecting && entry.intersectionRatio >= 0.35) {
+                        playVideo(video);
+                    } else {
+                        pauseVideo(video);
+                    }
+                });
+            }, {
+                threshold: [0, 0.35, 0.7]
+            });
+
+            document.querySelectorAll('.project-card.reel-card').forEach(card => {
+                videoObserver.observe(card);
+
+                // Hover para reproducción instantánea en escritorio
+                card.addEventListener('mouseenter', () => {
+                    if (!card.classList.contains('hidden-card')) {
+                        const video = card.querySelector('.reel-bg-video');
+                        playVideo(video);
+                    }
+                });
             });
         };
 
@@ -721,18 +783,41 @@
 
             let visible = 0;
             cards.forEach(card => {
-                const cats = card.dataset.category || '';
-                const match = filter === 'all' || cats.split(' ').includes(filter);
+                const cats = (card.dataset.category || '').toLowerCase();
+                const isReel = card.classList.contains('reel-card');
+
+                let match = false;
+                if (filter === 'films') {
+                    // Pestaña Films & Reels: muestra exclusivamente los reels
+                    match = isReel || cats.includes('films') || cats.includes('social');
+                } else if (filter === 'all') {
+                    // Pestaña Todos: proyectos web, sistemas, ecommerce y branding
+                    match = showReelsInAll ? true : !isReel;
+                } else {
+                    // Categorías específicas (web, ecommerce, sistema, branding):
+                    // Los reels NUNCA aparecen en ninguna de estas categorías
+                    match = !isReel && cats.split(' ').includes(filter);
+                }
+
                 card.classList.toggle('hidden-card', !match);
-                if (match) visible++;
+
+                if (match) {
+                    visible++;
+                } else if (isReel) {
+                    // Si el reel se oculta, pausar el video inmediatamente para liberar 100% CPU/GPU
+                    const video = card.querySelector('.reel-bg-video');
+                    pauseVideo(video);
+                }
             });
 
             if (noResults) {
                 noResults.classList.toggle('hidden', visible > 0);
             }
 
-            // Asegura reproducción inmediata de videos de fondo
-            setTimeout(playAllReelVideos, 50);
+            // Si se entra a la pestaña films, refrescar el observador para reproducción fluida
+            if (filter === 'films') {
+                setTimeout(setupVideoObserver, 50);
+            }
         };
 
         filterBtns.forEach(btn => {
@@ -741,15 +826,23 @@
             });
         });
 
-        // Autoplay background reel videos silently in loop
-        playAllReelVideos();
-        document.addEventListener('livewire:navigated', playAllReelVideos);
+        // Pausar todos los videos de fondo cuando se abre el modal con sonido
+        window.addEventListener('film-viewer-opened', () => {
+            document.querySelectorAll('.reel-bg-video').forEach(pauseVideo);
+        });
+
+        // Reanudar observador cuando se cierra el modal
+        window.addEventListener('film-viewer-closed', () => {
+            setupVideoObserver();
+        });
+
+        // Inicializar observador
+        setupVideoObserver();
+        document.addEventListener('livewire:navigated', setupVideoObserver);
 
         // Activación automática si viene con parámetro de URL (?cat=films) o hash (#films)
         const urlParams = new URLSearchParams(window.location.search);
         const initialCat = urlParams.get('cat') || window.location.hash.replace('#', '') || 'all';
-        if (initialCat && initialCat !== 'all') {
-            applyFilter(initialCat);
-        }
+        applyFilter(initialCat);
     </script>
 </div>
