@@ -1,5 +1,15 @@
 <div class="bg-dark-gradient min-h-screen relative">
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght@6..144,1..1000&family=Syne:wght@400;500;600;700;800&display=swap');
+
+        *, *::before, *::after {
+            font-family: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        h1, h2, h3, h4, h5, h6, .font-display {
+            font-family: 'Syne', sans-serif !important;
+        }
+
         .hero-section { padding-top: 120px; padding-bottom: 36px; }
         @media (min-width: 768px) { .hero-section { padding-top: 128px; padding-bottom: 32px; } }
         @media (min-width: 1024px) { .hero-section { padding-top: 116px; padding-bottom: 24px; } }

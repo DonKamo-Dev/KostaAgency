@@ -28,7 +28,7 @@ new #[Layout('layouts.guest')] class extends Component
     <!-- Logo Section -->
     <div class="flex flex-col items-center mb-8">
         <a href="{{ route('landing') }}" class="mb-5 inline-block transition-transform hover:scale-[1.02]" aria-label="Kosta">
-            <img src="{{ asset('img/WEB-Kosta-White.svg') }}" alt="Kosta" style="height: 42px; width: auto; max-width: 200px;">
+            <img src="{{ asset('img/WEB-Kosta-White.svg') }}" alt="Kosta" style="height: 52px; width: auto; max-width: 230px;">
         </a>
         <h1 class="font-display text-2xl font-bold" style="color: var(--text-primary);">
             Bienvenido de vuelta

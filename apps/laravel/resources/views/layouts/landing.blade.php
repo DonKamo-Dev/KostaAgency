@@ -50,21 +50,25 @@
             --duration-slow: 600ms;
         }
 
-        html { scroll-padding-top: 88px; }
+        html { scroll-padding-top: 104px; }
 
-        * { box-sizing: border-box; }
+        @import url('https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght@6..144,1..1000&family=Syne:wght@400;500;600;700;800&display=swap');
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            font-family: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
 
         /* ===== Typography System ===== */
-        .font-display { font-family: 'Syne', sans-serif; letter-spacing: 0; }
-        .font-body { font-family: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, sans-serif; }
-
-        h1, h2, h3 {
-            font-family: 'Syne', sans-serif;
-            letter-spacing: 0;
+        .font-display, h1, h2, h3, h4, h5, h6 {
+            font-family: 'Syne', sans-serif !important;
+            letter-spacing: -0.01em;
             overflow-wrap: break-word;
             word-wrap: break-word;
             hyphens: none;
         }
+        .font-body { font-family: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important; }
+
         h1 {
             font-size: clamp(34px, 5.5vw, 64px);
             font-weight: 700;
@@ -79,10 +83,14 @@
         h3 { font-weight: 600; }
 
         body {
-            font-family: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
             font-size: 16px;
             font-weight: 400;
             line-height: 1.5;
+        }
+
+        p, span, a, button, input, select, textarea, li, label, div {
+            font-family: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         }
 
         /* ===== Background ===== */

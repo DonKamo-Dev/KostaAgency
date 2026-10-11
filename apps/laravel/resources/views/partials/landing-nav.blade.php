@@ -8,7 +8,7 @@
     .mobile-menu.open { pointer-events: auto; }
     .mobile-drawer { position: absolute; inset: 0; width: 100%; height: 100%; background: rgb(10, 6, 8); transform: translate3d(100%, 0, 0); transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1); display: flex; flex-direction: column; will-change: transform; contain: layout paint; }
     .mobile-menu.open .mobile-drawer { transform: translateX(0); }
-    .mobile-drawer-header { display: flex; align-items: center; justify-content: space-between; padding: 0 20px; height: 64px; flex-shrink: 0; border-bottom: 1px solid rgba(255,255,255,0.06); }
+    .mobile-drawer-header { display: flex; align-items: center; justify-content: space-between; padding: 0 20px; height: 76px; flex-shrink: 0; border-bottom: 1px solid rgba(255,255,255,0.06); }
     .mobile-drawer-body { flex: 1; overflow-y: auto; padding: 8px 28px 40px; display: flex; flex-direction: column; }
     .mobile-nav-link { display: block; font-size: 24px; font-weight: 700; font-family: 'Syne', sans-serif; color: rgba(255,255,255,0.7); text-decoration: none; padding: 20px 0; border-bottom: 1px solid rgba(255,255,255,0.06); transition: color 0.2s ease; }
     .mobile-nav-link:hover { color: var(--accent-red); }
@@ -80,9 +80,9 @@
 <!-- Navigation -->
 <nav class="floating-site-nav" aria-label="{{ __('landing.nav.aria_main') }}">
     <div class="relative max-w-7xl mx-auto container-pad floating-site-nav-frame">
-        <div class="flex justify-between items-center h-16 sm:h-[68px]">
+        <div class="flex justify-between items-center h-20 sm:h-[84px]">
             <a href="{{ route('landing') }}" class="flex items-center" aria-label="Kosta - {{ __('landing.nav.home') }}">
-                <img src="{{ asset('img/WEB-Kosta-White.svg') }}" alt="Kosta" class="h-8 sm:h-9 w-auto transition-opacity hover:opacity-90" style="max-height: 36px;">
+                <img src="{{ asset('img/WEB-Kosta-White.svg') }}" alt="Kosta" class="h-11 sm:h-13 md:h-14 w-auto transition-all duration-200 hover:opacity-95" style="height: 50px; max-height: 54px; width: auto;">
             </a>
 
             <div class="hidden md:flex items-center gap-8">
@@ -125,7 +125,7 @@
     <div class="mobile-drawer">
         <div class="mobile-drawer-header">
             <a href="{{ route('landing') }}" class="flex items-center" aria-label="Kosta - {{ __('landing.nav.home') }}">
-                <img src="{{ asset('img/WEB-Kosta-White.svg') }}" alt="Kosta" class="h-8 w-auto" style="max-height: 32px;">
+                <img src="{{ asset('img/WEB-Kosta-White.svg') }}" alt="Kosta" class="h-11 w-auto" style="height: 44px; max-height: 48px; width: auto;">
             </a>
             <button class="w-10 h-10 flex items-center justify-center text-white/60 hover:text-white transition-colors rounded-full hover:bg-white/10" id="menuClose" aria-label="{{ __('landing.nav.menu_close') }}">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">

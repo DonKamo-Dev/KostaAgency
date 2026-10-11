@@ -1178,8 +1178,8 @@
             <!-- Sidebar (Desktop - LEFT) -->
             <aside class="sidebar">
                 <!-- Brand -->
-                <a href="{{ route('dashboard') }}" class="sidebar-brand" style="text-decoration: none; padding: 10px 14px 22px; display: block;">
-                    <img src="{{ asset('img/WEB-Kosta-White.svg') }}" alt="Kosta Studio Films" style="height: 38px; width: auto; max-width: 175px; object-fit: contain;">
+                <a href="{{ route('dashboard') }}" class="sidebar-brand" style="text-decoration: none; padding: 12px 14px 24px; display: block;">
+                    <img src="{{ asset('img/WEB-Kosta-White.svg') }}" alt="Kosta Studio Films" style="height: 46px; width: auto; max-width: 195px; object-fit: contain;">
                 </a>
 
                 <!-- Nav Section: Principal -->
@@ -1321,9 +1321,9 @@
             </aside>
 
             <!-- Mobile Top Bar -->
-            <div class="mobile-topbar">
+            <div class="mobile-topbar" style="height: 68px;">
                 <a href="{{ route('dashboard') }}" style="display: flex; align-items: center; text-decoration: none;">
-                    <img src="{{ asset('img/WEB-Kosta-White.svg') }}" alt="Kosta" style="height: 28px; width: auto; object-fit: contain;">
+                    <img src="{{ asset('img/WEB-Kosta-White.svg') }}" alt="Kosta" style="height: 34px; width: auto; object-fit: contain;">
                 </a>
                 @auth
                     <div class="sidebar-user-avatar" style="width: 36px; height: 36px; font-size: 13px;">

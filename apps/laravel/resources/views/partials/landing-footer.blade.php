@@ -1,7 +1,7 @@
 <footer class="relative z-10 border-t border-white/5 py-10">
     <div class="max-w-7xl mx-auto container-pad flex flex-col sm:flex-row justify-between items-center gap-6">
         <a href="{{ route('landing') }}" class="flex items-center" aria-label="Kosta - {{ __('landing.nav.home') }}">
-            <img src="{{ asset('img/WEB-Kosta-White.svg') }}" alt="Kosta" class="h-7 w-auto opacity-90 hover:opacity-100 transition-opacity" style="max-height: 30px;">
+            <img src="{{ asset('img/WEB-Kosta-White.svg') }}" alt="Kosta" class="h-10 sm:h-12 w-auto opacity-95 hover:opacity-100 transition-opacity" style="height: 44px; max-height: 48px; width: auto;">
         </a>
         <p class="text-xs text-white/30 text-center sm:text-left">© {{ date('Y') }} {{ __('landing.footer.agency_full') }}. {{ __('landing.footer.rights') }}</p>
         <div class="flex items-center gap-6 text-xs text-white/40">
