@@ -19,9 +19,10 @@ return [
     'bio' => [
         'avatar_status' => 'Activo',
         'name' => 'Yohan Blanco',
-        'role' => 'Web Developer · Filmmaker & Video Editor · Digital Ads',
-        'desc_1' => 'Desarrollo plataformas web, grabo y edito contenido audiovisual cinemático y gestiono campañas de pauta digital para marcas con visión.',
-        'desc_2' => 'Integro Inteligencia Artificial de última generación en cada etapa del proceso —código, edición de video y optimización de pauta— logrando calidad de agencia con la agilidad de un solo co-piloto.',
+        'role' => 'WEB DEVELOPER · FILMMAKER & VIDEO EDITOR · DIGITAL ADS',
+        'desc_1' => 'Convierto ideas en experiencias digitales que se ven bien, funcionan mejor y generan resultados. Desarrollo plataformas web, produzco contenido audiovisual y creo campañas digitales pensadas para atraer, conectar y vender.',
+        'desc_2' => 'Integro Inteligencia Artificial en cada etapa del proceso para trabajar más rápido, optimizar recursos y elevar la calidad: desde el desarrollo y la automatización hasta la edición de video y la pauta digital.',
+        'desc_3' => 'Una sola visión. Menos intermediarios. Más velocidad, coherencia y resultados.',
     ],
     'projects' => [
         'title' => 'Desarrollo & Web',

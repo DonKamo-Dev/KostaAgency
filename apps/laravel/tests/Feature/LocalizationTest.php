@@ -115,11 +115,11 @@ class LocalizationTest extends TestCase
 
         $response->assertOk();
         $response->assertSee('Volver a Kosta');
-        $response->assertSee('Web Developer · Filmmaker &amp; Video Editor · Digital Ads', false);
-        $response->assertSee('Desarrollo plataformas web, grabo y edito contenido audiovisual cinemático');
+        $response->assertSee('WEB DEVELOPER · FILMMAKER &amp; VIDEO EDITOR · DIGITAL ADS', false);
+        $response->assertSee('Convierto ideas en experiencias digitales');
         $response->assertSee('CMS / Ecommerce');
         $response->assertSee('Films &amp; Reels', false);
-        $response->assertSee('Últimos Proyectos');
+        $response->assertSee('Desarrollo &amp; Web', false);
         $response->assertSee('Métricas &amp; Hitos', false);
         $response->assertSee('Disponible para contratación');
         $response->assertSee('Reserva tu cita');
@@ -132,11 +132,11 @@ class LocalizationTest extends TestCase
 
         $response->assertOk();
         $response->assertSee('Back to Kosta');
-        $response->assertSee('Web Developer · Filmmaker &amp; Video Editor · Digital Ads', false);
-        $response->assertSee('I engineer web platforms, film and edit cinematic video content');
+        $response->assertSee('WEB DEVELOPER · FILMMAKER &amp; VIDEO EDITOR · DIGITAL ADS', false);
+        $response->assertSee('I turn ideas into digital experiences');
         $response->assertSee('CMS / Ecommerce');
         $response->assertSee('Films &amp; Reels', false);
-        $response->assertSee('Latest Projects');
+        $response->assertSee('Web &amp; Development', false);
         $response->assertSee('Metrics &amp; Milestones', false);
         $response->assertSee('Available for hire');
         $response->assertSee('Book a call');

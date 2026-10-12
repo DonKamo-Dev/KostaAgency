@@ -19,9 +19,10 @@ return [
     'bio' => [
         'avatar_status' => 'Active',
         'name' => 'Yohan Blanco',
-        'role' => 'Web Developer · Filmmaker & Video Editor · Digital Ads',
-        'desc_1' => 'I engineer web platforms, film and edit cinematic video content, and manage paid advertising campaigns for ambitious brands.',
-        'desc_2' => 'I embed modern Artificial Intelligence into every layer of my workflow —code, video editing, and ad optimization— delivering top-tier agency output with solo agility.',
+        'role' => 'WEB DEVELOPER · FILMMAKER & VIDEO EDITOR · DIGITAL ADS',
+        'desc_1' => 'I turn ideas into digital experiences that look sharp, perform better, and drive real results. I engineer web platforms, produce audiovisual content, and build digital campaigns designed to attract, connect, and convert.',
+        'desc_2' => 'I integrate Artificial Intelligence into every stage of the workflow to build faster, optimize resources, and elevate quality: from development and automation to video editing and paid digital ads.',
+        'desc_3' => 'One unified vision. Fewer middlemen. Greater speed, consistency, and results.',
     ],
     'projects' => [
         'title' => 'Web & Development',

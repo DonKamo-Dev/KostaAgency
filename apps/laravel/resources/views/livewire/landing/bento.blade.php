@@ -1176,6 +1176,10 @@
                 <p class="bio-description">
                     {{ __('bento.bio.desc_2') }}
                 </p>
+
+                <p class="bio-description">
+                    {{ __('bento.bio.desc_3') }}
+                </p>
             </div>
 
             {{-- 2. RIGHT MOSAIC CARDS --}}
