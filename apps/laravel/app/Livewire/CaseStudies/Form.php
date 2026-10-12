@@ -231,7 +231,8 @@ class Form extends Component
             }
         } catch (\Throwable $e) {
             report($e);
-            $this->addError('general', 'Error al guardar el proyecto en la base de datos: ' . $e->getMessage());
+            $this->addError('general', 'Error al guardar el proyecto en la base de datos: '.$e->getMessage());
+
             return;
         }
 

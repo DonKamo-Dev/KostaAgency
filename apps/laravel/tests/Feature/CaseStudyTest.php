@@ -374,4 +374,3 @@ class CaseStudyTest extends TestCase
             ->assertHasErrors(['imagen_nueva' => 'max']);
     }
 }
-
