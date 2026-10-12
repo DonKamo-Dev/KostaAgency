@@ -547,36 +547,25 @@
             flex: 0 0 176px;
             align-items: center;
             justify-content: center;
-            gap: 12px;
         }
 
         .brand-marquee__logo {
             display: block;
-            width: 30px;
-            height: 30px;
-            flex: 0 0 30px;
+            width: 100%;
+            height: auto;
+            max-width: 176px;
+            max-height: 48px;
             object-fit: contain;
-            opacity: 0.68;
+            opacity: 0.72;
             filter: grayscale(1) brightness(0) invert(1);
             transition: opacity var(--duration-fast) var(--ease-out),
                         transform var(--duration-fast) var(--ease-out);
         }
 
-        .brand-marquee__name {
-            color: rgba(255, 255, 255, 0.68);
-            font-size: 17px;
-            font-weight: 650;
-            line-height: 1;
-            white-space: nowrap;
-            transition: color var(--duration-fast) var(--ease-out);
-        }
-
         .brand-marquee__item:hover .brand-marquee__logo {
             opacity: 1;
-            transform: scale(1.04);
+            transform: scale(1.05);
         }
-
-        .brand-marquee__item:hover .brand-marquee__name { color: #fff; }
 
         .brand-marquee:hover .brand-marquee__track {
             animation-play-state: paused;
@@ -590,25 +579,21 @@
         @media (max-width: 640px) {
             .brand-marquee {
                 --brand-gap: 2rem;
-                --brand-duration: 30s;
+                --brand-duration: 32s;
                 -webkit-mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
                 mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
             }
 
             .brand-marquee__item {
-                width: 152px;
-                height: 42px;
-                flex-basis: 152px;
-                gap: 10px;
+                width: 136px;
+                height: 38px;
+                flex-basis: 136px;
             }
 
             .brand-marquee__logo {
-                width: 26px;
-                height: 26px;
-                flex-basis: 26px;
+                max-width: 136px;
+                max-height: 38px;
             }
-
-            .brand-marquee__name { font-size: 15px; }
         }
 
         @media (prefers-reduced-motion: reduce) {

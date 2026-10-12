@@ -515,13 +515,20 @@
     <!-- BRAND MARQUEE -->
     @php
         $brandLogos = [
-            ['name' => 'Meta', 'file' => 'meta.svg'],
-            ['name' => 'Google Ads', 'file' => 'google-ads.svg'],
-            ['name' => 'LinkedIn', 'file' => 'linkedin.svg'],
-            ['name' => 'WordPress', 'file' => 'wordpress.svg'],
-            ['name' => 'Behance', 'file' => 'behance.svg'],
-            ['name' => 'GitHub', 'file' => 'github.svg'],
-            ['name' => 'AI', 'file' => 'ai-spark.svg'],
+            ['name' => 'CESD', 'url' => 'https://pub-e1e6c45a16d04ab888631d49250d2b1f.r2.dev/Brands/CESD.png'],
+            ['name' => 'Classy', 'url' => 'https://pub-e1e6c45a16d04ab888631d49250d2b1f.r2.dev/Brands/Classy.png'],
+            ['name' => 'COMPULAGO', 'url' => 'https://pub-e1e6c45a16d04ab888631d49250d2b1f.r2.dev/Brands/Compulago.png'],
+            ['name' => 'FIAO', 'url' => 'https://pub-e1e6c45a16d04ab888631d49250d2b1f.r2.dev/Brands/Fiao.png'],
+            ['name' => 'HB', 'url' => 'https://pub-e1e6c45a16d04ab888631d49250d2b1f.r2.dev/Brands/HB%20Mantenimiento.png'],
+            ['name' => 'GMI', 'url' => 'https://pub-e1e6c45a16d04ab888631d49250d2b1f.r2.dev/Brands/GMI%20SAS.png'],
+            ['name' => 'SPIRNET', 'url' => 'https://pub-e1e6c45a16d04ab888631d49250d2b1f.r2.dev/Brands/Spirnet.png'],
+            ['name' => 'DSM', 'url' => 'https://pub-e1e6c45a16d04ab888631d49250d2b1f.r2.dev/Brands/DSM%20Proyectos.png'],
+            ['name' => 'RDZ', 'url' => 'https://pub-e1e6c45a16d04ab888631d49250d2b1f.r2.dev/Brands/RDZ.png'],
+            ['name' => 'LUX', 'url' => 'https://pub-e1e6c45a16d04ab888631d49250d2b1f.r2.dev/Brands/LuxByLs.png'],
+            ['name' => 'HCB', 'url' => 'https://pub-e1e6c45a16d04ab888631d49250d2b1f.r2.dev/Brands/Hi%20Custom%20Blinds.png'],
+            ['name' => 'OCRL', 'url' => 'https://pub-e1e6c45a16d04ab888631d49250d2b1f.r2.dev/Brands/OCRL.png'],
+            ['name' => 'SIT', 'url' => 'https://pub-e1e6c45a16d04ab888631d49250d2b1f.r2.dev/Brands/SIT.png'],
+            ['name' => 'TRANSPETROL', 'url' => 'https://pub-e1e6c45a16d04ab888631d49250d2b1f.r2.dev/Brands/Transpetrol.png'],
         ];
         $brandRows = [$brandLogos, array_reverse($brandLogos)];
     @endphp
@@ -540,13 +547,14 @@
                                     <div class="brand-marquee__item">
                                         <img
                                             class="brand-marquee__logo"
-                                            src="{{ asset('img/logos/' . $brand['file']) }}"
+                                            src="{{ $brand['url'] }}"
                                             alt="{{ $isDuplicate ? '' : $brand['name'] }}"
-                                            width="160"
-                                            height="40"
+                                            title="{{ $brand['name'] }}"
+                                            width="176"
+                                            height="48"
+                                            loading="lazy"
                                             decoding="async"
                                         >
-                                        <span class="brand-marquee__name">{{ $brand['name'] }}</span>
                                     </div>
                                 @endforeach
                             </div>
