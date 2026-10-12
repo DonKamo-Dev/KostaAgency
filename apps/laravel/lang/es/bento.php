@@ -25,6 +25,7 @@ return [
         'desc_3' => 'Una sola visión. Menos intermediarios. Más velocidad, coherencia y resultados.',
     ],
     'projects' => [
+        'section_heading' => 'Últimos Proyectos',
         'title' => 'Desarrollo & Web',
         'sub' => 'kosta.studio/portafolio',
         'view_all' => 'Ver todos',

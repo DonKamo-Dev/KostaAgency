@@ -484,6 +484,31 @@
             }
         }
 
+        /* ── Mosaic Section Header (Últimos Proyectos) ── */
+        .mosaic-section-header {
+            grid-column: 1 / -1;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 2px 2px 0;
+            margin-bottom: -2px;
+        }
+        .mosaic-section-title {
+            font-family: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 16px;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            color: var(--bento-text-main);
+            margin: 0;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            line-height: 1.2;
+        }
+        .mosaic-section-title svg {
+            color: var(--bento-text-subtle);
+        }
+
         /* ── Standard Bento Card ── */
         .bento-c-card {
             background: var(--bento-surface);
@@ -1184,6 +1209,16 @@
 
             {{-- 2. RIGHT MOSAIC CARDS --}}
             <div class="bento-cards-mosaic">
+
+                {{-- Section Title: Últimos Proyectos --}}
+                <div class="mosaic-section-header">
+                    <h2 class="mosaic-section-title">
+                        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
+                        </svg>
+                        <span>{{ __('bento.projects.section_heading') }}</span>
+                    </h2>
+                </div>
 
                 {{-- Row 1 - Left: Proyectos de Desarrollo & Web (Dynamic from DB) --}}
                 <div class="bento-c-card">

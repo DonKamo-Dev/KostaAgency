@@ -25,6 +25,7 @@ return [
         'desc_3' => 'One unified vision. Fewer middlemen. Greater speed, consistency, and results.',
     ],
     'projects' => [
+        'section_heading' => 'Latest Projects',
         'title' => 'Web & Development',
         'sub' => 'kosta.studio/portfolio',
         'view_all' => 'View all',
