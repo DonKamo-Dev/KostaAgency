@@ -106,7 +106,7 @@
 
                 <div style="text-align:right;padding-top:11px;">
                     <span x-text="fmt(item.subtotal)"
-                          style="font-size:14px;font-weight:700;color:var(--text-primary);font-family:'Space Grotesk',sans-serif;"></span>
+                          style="font-size:14px;font-weight:700;color:var(--text-primary);font-family:'Geist Mono','Geist',monospace;font-variant-numeric:tabular-nums;"></span>
                 </div>
 
                 <div style="padding-top:5px;">
@@ -133,7 +133,7 @@
         <div style="display:flex;align-items:baseline;gap:12px;">
             <span style="font-size:12px;color:var(--text-muted);font-weight:700;letter-spacing:.05em;">TOTAL COP</span>
             <span x-text="fmt(grandTotal)"
-                  style="font-size:28px;font-weight:700;color:var(--red-primary);font-family:'Space Grotesk',sans-serif;line-height:1;"></span>
+                  style="font-size:28px;font-weight:700;color:var(--red-primary);font-family:'Geist Mono','Geist',monospace;line-height:1;font-variant-numeric:tabular-nums;letter-spacing:-0.025em;"></span>
         </div>
     </div>
 </div>

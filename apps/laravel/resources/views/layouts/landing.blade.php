@@ -16,7 +16,7 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght@6..144,1..1000&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400..900&family=Geist+Mono:wght@400..800&family=Google+Sans+Flex:opsz,wght@6..144,1..1000&display=swap" rel="stylesheet">
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/site.js'])
@@ -68,6 +68,19 @@
             hyphens: none;
         }
         .font-body { font-family: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important; }
+
+        /* ===== Tipografía Numérica Moderna (Geist Mono / Geist) ===== */
+        .font-number,
+        .tabular-nums,
+        .stat-number,
+        .metric-value,
+        .reel-metric-num,
+        .stats-count {
+            font-family: 'Geist Mono', 'Geist', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace !important;
+            font-feature-settings: 'tnum' 1, 'zero' 1;
+            font-variant-numeric: tabular-nums;
+            letter-spacing: -0.025em;
+        }
 
         h1 {
             font-size: clamp(34px, 5.5vw, 64px);

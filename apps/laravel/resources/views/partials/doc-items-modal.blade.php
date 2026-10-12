@@ -92,7 +92,7 @@
                                 <input type="number" step="0.01" min="0" x-model="item.unit_price" @input="calcRow(i)" :disabled="readOnly" class="form-input" style="font-size:13px;padding:9px 10px;text-align:right;" placeholder="0"/>
                                 <div style="text-align:right;">
                                     <span x-text="'$'+new Intl.NumberFormat('es-CO',{maximumFractionDigits:0}).format(item.subtotal||0)"
-                                          style="font-size:14px;font-weight:700;color:var(--text-primary);font-family:'Space Grotesk',sans-serif;"></span>
+                                          style="font-size:14px;font-weight:700;color:var(--text-primary);font-family:'Geist Mono','Geist',monospace;font-variant-numeric:tabular-nums;"></span>
                                 </div>
                                 <div>
                                     <button type="button" x-show="form.items.length > 1 && !readOnly" @click="removeItem(i)" class="action-btn danger" style="width:28px;height:28px;">
@@ -112,7 +112,7 @@
                         <div style="display:flex;align-items:baseline;gap:12px;">
                             <span style="font-size:12px;color:var(--text-muted);font-weight:700;letter-spacing:.05em;">TOTAL COP</span>
                             <span x-text="'$'+new Intl.NumberFormat('es-CO',{maximumFractionDigits:0}).format(grandTotal)"
-                                  style="font-size:28px;font-weight:700;color:var(--red-primary);font-family:'Space Grotesk',sans-serif;line-height:1;"></span>
+                                  style="font-size:28px;font-weight:700;color:var(--red-primary);font-family:'Geist Mono','Geist',monospace;line-height:1;font-variant-numeric:tabular-nums;letter-spacing:-0.025em;"></span>
                         </div>
                     </div>
                 </div>

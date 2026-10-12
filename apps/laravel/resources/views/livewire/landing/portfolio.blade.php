@@ -401,7 +401,7 @@
         .stats-bar { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: rgba(255,255,255,0.06); border-radius: 16px; overflow: hidden; margin-bottom: 80px; }
         @media (min-width: 640px) { .stats-bar { grid-template-columns: repeat(4, 1fr); } }
         .stat-item { background: rgba(255,255,255,0.02); padding: 28px 24px; text-align: center; }
-        .stat-number { font-family: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, sans-serif; font-size: 32px; font-weight: 700; color: var(--accent-red); line-height: 1; margin-bottom: 6px; letter-spacing: -0.02em; }
+        .stat-number { font-family: 'Geist Mono', 'Geist', monospace; font-size: 32px; font-weight: 700; color: var(--accent-red); line-height: 1; margin-bottom: 6px; letter-spacing: -0.03em; font-feature-settings: 'tnum' 1, 'zero' 1; font-variant-numeric: tabular-nums; }
         .stat-label { font-size: 13px; color: rgba(255,255,255,0.45); font-weight: 500; }
 
         /* ── CTA Banner ── */

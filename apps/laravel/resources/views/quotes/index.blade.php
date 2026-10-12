@@ -77,7 +77,7 @@
                             <td><a :href="`/quotes/${q.id}`" style="text-decoration:none;color:inherit;"><div class="crud-row-name" x-text="q.doc_number"></div></a></td>
                             <td x-text="q.client_name"></td>
                             <td class="muted" x-text="q.date"></td>
-                            <td style="text-align:right;font-weight:700;font-family:'Space Grotesk',sans-serif;" x-text="fmt(q.total)"></td>
+                            <td style="text-align:right;font-weight:700;font-family:'Geist Mono', 'Geist', monospace;font-variant-numeric:tabular-nums;" x-text="fmt(q.total)"></td>
                             <td>
                                 <span :class="`badge badge-${q.status}`"
                                       x-text="{pending:'Pendiente',paid:'Pagada',converted:'Convertida',cancelled:'Cancelada'}[q.status] || q.status">

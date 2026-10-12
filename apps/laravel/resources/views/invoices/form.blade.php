@@ -73,15 +73,15 @@
                 <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;">
                     <div style="background:#161616;border:1px solid var(--border-subtle);border-radius:12px;padding:16px 18px;">
                         <div style="font-size:12px;color:var(--text-muted);margin-bottom:4px;">Total facturado</div>
-                        <div x-text="fmt(docTotal)" style="font-size:22px;font-weight:700;font-family:'Space Grotesk',sans-serif;color:var(--text-primary);"></div>
+                        <div x-text="fmt(docTotal)" style="font-size:22px;font-weight:700;font-family:'Geist Mono','Geist',monospace;color:var(--text-primary);font-variant-numeric:tabular-nums;letter-spacing:-0.02em;"></div>
                     </div>
                     <div style="background:#161616;border:1px solid var(--border-subtle);border-radius:12px;padding:16px 18px;">
                         <div style="font-size:12px;color:var(--text-muted);margin-bottom:4px;">Pagado</div>
-                        <div x-text="fmt(docPaid)" style="font-size:22px;font-weight:700;font-family:'Space Grotesk',sans-serif;color:var(--positive);"></div>
+                        <div x-text="fmt(docPaid)" style="font-size:22px;font-weight:700;font-family:'Geist Mono','Geist',monospace;color:var(--positive);font-variant-numeric:tabular-nums;letter-spacing:-0.02em;"></div>
                     </div>
                     <div style="background:#161616;border:1px solid var(--border-subtle);border-radius:12px;padding:16px 18px;">
                         <div style="font-size:12px;color:var(--text-muted);margin-bottom:4px;">Saldo pendiente</div>
-                        <div x-text="fmt(balance)" style="font-size:22px;font-weight:700;font-family:'Space Grotesk',sans-serif;" :style="balance > 0 ? 'color:var(--warning);' : 'color:var(--positive);'"></div>
+                        <div x-text="fmt(balance)" style="font-size:22px;font-weight:700;font-family:'Geist Mono','Geist',monospace;font-variant-numeric:tabular-nums;letter-spacing:-0.02em;" :style="balance > 0 ? 'color:var(--warning);' : 'color:var(--positive);'"></div>
                     </div>
                 </div>
 
@@ -109,7 +109,7 @@
                                             <td style="padding:10px 14px;" x-text="p.date"></td>
                                             <td style="padding:10px 14px;" x-text="methodLabel(p.method)"></td>
                                             <td style="padding:10px 14px;color:var(--text-muted);" x-text="p.notes || '—'"></td>
-                                            <td style="padding:10px 14px;text-align:right;font-weight:700;color:var(--positive);" x-text="fmt(p.amount)"></td>
+                                            <td style="padding:10px 14px;text-align:right;font-weight:700;color:var(--positive);font-family:'Geist Mono','Geist',monospace;font-variant-numeric:tabular-nums;" x-text="fmt(p.amount)"></td>
                                         </tr>
                                     </template>
                                 </tbody>

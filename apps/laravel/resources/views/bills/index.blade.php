@@ -44,7 +44,7 @@
             <div class="modal-body">
                 <div x-show="payingDoc" style="background:rgba(230,57,70,.08);border:1px solid var(--border-red);border-radius:10px;padding:12px 16px;margin-bottom:18px;">
                     <div style="font-size:12px;color:var(--text-muted);margin-bottom:4px;">Saldo pendiente</div>
-                    <div x-text="fmt(payingDoc?.balance)" style="font-size:24px;font-weight:700;color:var(--red-primary);font-family:'Space Grotesk',sans-serif;"></div>
+                    <div x-text="fmt(payingDoc?.balance)" style="font-size:24px;font-weight:700;color:var(--red-primary);font-family:'Geist Mono','Geist',monospace;font-variant-numeric:tabular-nums;letter-spacing:-0.02em;"></div>
                 </div>
                 <div class="form-grid-2">
                     <div class="form-group">
@@ -112,8 +112,8 @@
                             <td><div class="crud-row-name" x-text="b.doc_number"></div></td>
                             <td x-text="b.client_name"></td>
                             <td class="muted" x-text="b.date"></td>
-                            <td style="text-align:right;font-weight:700;font-family:'Space Grotesk',sans-serif;" x-text="fmt(b.total)"></td>
-                            <td style="text-align:right;font-weight:600;" :style="b.balance > 0 ? 'color:var(--warning)' : 'color:var(--positive)'" x-text="fmt(b.balance)"></td>
+                            <td style="text-align:right;font-weight:700;font-family:'Geist Mono', 'Geist', monospace;font-variant-numeric:tabular-nums;" x-text="fmt(b.total)"></td>
+                            <td style="text-align:right;font-weight:600;font-family:'Geist Mono', 'Geist', monospace;font-variant-numeric:tabular-nums;" :style="b.balance > 0 ? 'color:var(--warning)' : 'color:var(--positive)'" x-text="fmt(b.balance)"></td>
                             <td>
                                 <span :class="`badge badge-${b.status}`"
                                       x-text="{pending:'Pendiente',paid:'Pagada',cancelled:'Cancelada'}[b.status]||b.status"></span>

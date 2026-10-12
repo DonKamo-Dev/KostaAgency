@@ -15,7 +15,7 @@
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght@6..144,1..1000&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400..900&family=Geist+Mono:wght@400..800&family=Google+Sans+Flex:opsz,wght@6..144,1..1000&display=swap" rel="stylesheet">
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/site.js'])
@@ -633,9 +633,9 @@
             }
 
             .card-title {
-                font-family: 'Space Grotesk', sans-serif;
+                font-family: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, sans-serif;
                 font-size: 16px;
-                font-weight: 600;
+                font-weight: 700;
                 color: var(--text-primary);
             }
 
@@ -712,12 +712,12 @@
             }
 
             .crud-title {
-                font-family: 'Space Grotesk', sans-serif;
+                font-family: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, sans-serif;
                 font-size: 32px;
-                font-weight: 700;
+                font-weight: 800;
                 color: var(--text-primary);
                 line-height: 1.1;
-                letter-spacing: -0.02em;
+                letter-spacing: -0.025em;
                 margin: 0;
             }
 
@@ -983,7 +983,7 @@
             }
 
             .modal-title {
-                font-family: 'Space Grotesk', sans-serif;
+                font-family: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, sans-serif;
                 font-size: 20px;
                 font-weight: 700;
                 color: var(--text-primary);
@@ -1058,6 +1058,22 @@
             .form-input::placeholder,
             .form-textarea::placeholder { color: var(--text-subtle); }
 
+            /* ===== Tipografía Numérica Moderna (Geist Mono / Geist) ===== */
+            .font-number,
+            .tabular-nums,
+            .hero-kpi-value,
+            .stat-card-value,
+            .activity-amount,
+            .numeric-input,
+            .money-input,
+            .metric-value,
+            .table-number {
+                font-family: 'Geist Mono', 'Geist', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace !important;
+                font-feature-settings: 'tnum' 1, 'zero' 1;
+                font-variant-numeric: tabular-nums;
+                letter-spacing: -0.025em;
+            }
+
             .numeric-input {
                 appearance: textfield;
                 -moz-appearance: textfield;
@@ -1073,7 +1089,7 @@
 
             .money-input {
                 font-variant-numeric: tabular-nums;
-                letter-spacing: 0.01em;
+                letter-spacing: -0.02em;
             }
 
             .form-input:focus,

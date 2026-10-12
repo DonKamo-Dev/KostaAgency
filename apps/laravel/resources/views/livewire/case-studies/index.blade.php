@@ -186,7 +186,7 @@
                         <!-- Métrica -->
                         <td>
                             @if($study->metrica_valor)
-                                <span style="font-family:'Space Grotesk',sans-serif;font-weight:700;color:var(--red-primary);font-size:15px;">{{ $study->metrica_valor }}</span>
+                                <span style="font-family:'Geist Mono','Geist',monospace;font-weight:700;color:var(--red-primary);font-size:15px;font-variant-numeric:tabular-nums;">{{ $study->metrica_valor }}</span>
                                 @if($study->metrica_label)
                                     <div class="crud-row-meta">{{ $study->metrica_label }}</div>
                                 @endif

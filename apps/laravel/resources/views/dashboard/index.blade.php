@@ -2,7 +2,7 @@
 {{-- Dashboard — renderizado por DashboardController, sin Livewire --}}
 <style>
 .dash-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:32px;flex-wrap:wrap;gap:16px}
-.dash-greeting{font-family:'Space Grotesk',sans-serif;font-size:32px;font-weight:700;color:var(--text-primary);line-height:1.1}
+.dash-greeting{font-family:'Google Sans Flex',-apple-system,BlinkMacSystemFont,sans-serif;font-size:32px;font-weight:700;color:var(--text-primary);line-height:1.1}
 .dash-greeting span{color:#FFFFFF;border-bottom:2px solid rgba(255,255,255,0.3);padding-bottom:2px;}
 .dash-subtitle{color:var(--text-muted);font-size:15px;margin-top:6px}
 .hero-kpi{background:linear-gradient(135deg,rgba(255,255,255,.05),rgba(255,255,255,.015));border:1px solid rgba(255,255,255,.14);border-radius:20px;padding:32px;position:relative;overflow:hidden;margin-bottom:24px;box-shadow:0 8px 32px rgba(0,0,0,.4)}
@@ -14,7 +14,7 @@
 .hero-kpi-divider{border-left:1px solid var(--border-default);padding-left:32px}
 @media(max-width:768px){.hero-kpi-divider{border-left:none;border-top:1px solid var(--border-default);padding-left:0;padding-top:20px}}
 .hero-kpi-label{font-size:12px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.1em;font-weight:600;margin-bottom:12px}
-.hero-kpi-value{font-family:'Space Grotesk',sans-serif;font-size:42px;font-weight:700;color:var(--text-primary);line-height:1;margin-bottom:8px}
+.hero-kpi-value{font-family:'Geist Mono','Geist',monospace;font-size:42px;font-weight:700;color:var(--text-primary);line-height:1;margin-bottom:8px;font-feature-settings:'tnum' 1,'zero' 1;font-variant-numeric:tabular-nums;letter-spacing:-0.03em}
 .hero-kpi-value-large{font-size:56px;background:linear-gradient(135deg,#FFFFFF,#A1A1AA);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .hero-kpi-trend{display:inline-flex;align-items:center;gap:4px;font-size:13px;font-weight:600;color:var(--positive);background:rgba(16,185,129,.1);padding:4px 10px;border-radius:20px}
 .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px}
@@ -28,7 +28,7 @@
 .stat-card-icon.amber{background:rgba(245,158,11,.1);color:var(--warning)}
 .stat-card-icon.blue{background:rgba(59,130,246,.1);color:#60A5FA}
 .stat-card-label{font-size:13px;color:var(--text-muted);font-weight:500;margin-bottom:4px}
-.stat-card-value{font-family:'Space Grotesk',sans-serif;font-size:26px;font-weight:700;color:var(--text-primary)}
+.stat-card-value{font-family:'Geist Mono','Geist',monospace;font-size:26px;font-weight:700;color:var(--text-primary);font-feature-settings:'tnum' 1,'zero' 1;font-variant-numeric:tabular-nums;letter-spacing:-0.02em}
 .quick-actions{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:24px;}
 @media(max-width:900px){.quick-actions{grid-template-columns:repeat(3,1fr);}}
 @media(max-width:480px){.quick-actions{grid-template-columns:repeat(2,1fr);}}
@@ -45,7 +45,7 @@
 .activity-info{flex:1;min-width:0}
 .activity-title{font-size:14px;font-weight:600;color:var(--text-primary);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .activity-meta{font-size:12px;color:var(--text-muted);margin-top:2px}
-.activity-amount{font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700;color:var(--text-primary);white-space:nowrap}
+.activity-amount{font-family:'Geist Mono','Geist',monospace;font-size:14px;font-weight:700;color:var(--text-primary);white-space:nowrap;font-feature-settings:'tnum' 1,'zero' 1;font-variant-numeric:tabular-nums;letter-spacing:-0.02em}
 .status-badge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.05em}
 .status-pending{background:rgba(245,158,11,.15);color:var(--warning)}
 .status-paid{background:rgba(16,185,129,.15);color:var(--positive)}
@@ -58,7 +58,7 @@
 .alert-card-amber:hover { border-color: rgba(245,158,11,0.5) !important; }
 .hero-kpi-trend-neg{display:inline-flex;align-items:center;gap:4px;font-size:13px;font-weight:600;color:var(--negative);background:rgba(239,68,68,0.1);padding:4px 10px;border-radius:20px;}
 .hero-kpi-trend-neutral{display:inline-flex;align-items:center;gap:4px;font-size:13px;font-weight:600;color:var(--text-muted);background:rgba(245,245,245,0.06);padding:4px 10px;border-radius:20px;}
-.stat-card-sub{font-size:11px;color:var(--text-subtle);margin-top:3px;}
+.stat-card-sub{font-size:11px;color:var(--text-subtle);margin-top:3px;font-family:'Geist Mono','Geist',monospace;font-variant-numeric:tabular-nums;}
 .activity-filter{display:flex;gap:8px;margin-bottom:12px;}
 .activity-filter-btn{padding:5px 14px;border-radius:20px;font-size:12px;font-weight:600;border:1px solid var(--border-subtle);background:transparent;color:var(--text-muted);cursor:pointer;transition:all .2s ease;}
 .activity-filter-btn.active,.activity-filter-btn:hover{border-color:rgba(255,255,255,.3);background:rgba(255,255,255,.08);color:#FFFFFF;}
@@ -395,7 +395,7 @@
                     </div>
                 </div>
                 <div style="text-align:right;flex-shrink:0;">
-                    <div style="font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700;color:var(--text-primary);">${{ number_format($client->revenue, 0) }}</div>
+                    <div style="font-family:'Geist Mono','Geist',monospace;font-size:14px;font-weight:700;color:var(--text-primary);font-feature-settings:'tnum' 1,'zero' 1;font-variant-numeric:tabular-nums;">${{ number_format($client->revenue, 0) }}</div>
                     <div style="font-size:11px;color:var(--text-muted);margin-top:2px;">{{ $client->invoice_count }} {{ $client->invoice_count === 1 ? 'factura' : 'facturas' }}</div>
                 </div>
             </div>
@@ -427,7 +427,7 @@
                         stroke-linecap="round"/>
                 </svg>
                 <div class="conversion-ring-label">
-                    <div style="font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;color:var(--text-primary);">{{ $conversionRate }}%</div>
+                    <div style="font-family:'Geist Mono','Geist',monospace;font-size:22px;font-weight:700;color:var(--text-primary);font-feature-settings:'tnum' 1,'zero' 1;font-variant-numeric:tabular-nums;letter-spacing:-0.02em;">{{ $conversionRate }}%</div>
                 </div>
             </div>
             <div>
@@ -535,7 +535,7 @@
             scales: {
                 y: { beginAtZero: true,
                      grid: { color: 'rgba(245,245,245,.05)', drawBorder: false },
-                     ticks: { color: 'rgba(245,245,245,.4)', font: { family: 'Google Sans Flex', size: 11 },
+                     ticks: { color: 'rgba(245,245,245,.4)', font: { family: "'Geist Mono', monospace", size: 11 },
                               callback: v => v >= 1000 ? '$' + (v/1000).toFixed(1) + 'K' : '$' + v } },
                 x: { grid: { display: false },
                      ticks: { color: 'rgba(245,245,245,.4)', font: { family: 'Google Sans Flex', size: 11 } } }

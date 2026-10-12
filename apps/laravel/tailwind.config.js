@@ -17,6 +17,8 @@ export default {
                 sans: ['"Google Sans Flex"', ...defaultTheme.fontFamily.sans],
                 body: ['"Google Sans Flex"', ...defaultTheme.fontFamily.sans],
                 display: ['"Google Sans Flex"', ...defaultTheme.fontFamily.sans],
+                mono: ['"Geist Mono"', '"Geist"', ...defaultTheme.fontFamily.mono],
+                number: ['"Geist Mono"', '"Geist"', ...defaultTheme.fontFamily.mono],
             },
             colors: {
                 background: 'hsl(var(--background) / <alpha-value>)',

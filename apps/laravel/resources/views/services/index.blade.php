@@ -92,7 +92,7 @@
                         <tr>
                             <td><div class="crud-row-name" x-text="s.name"></div></td>
                             <td class="muted" x-text="s.description ? s.description.substring(0,60)+(s.description.length>60?'…':'') : '—'"></td>
-                            <td style="text-align:right;font-weight:700;font-family:'Space Grotesk',sans-serif;" x-text="fmt(s.unit_price)"></td>
+                            <td style="text-align:right;font-weight:700;font-family:'Geist Mono', 'Geist', monospace;font-variant-numeric:tabular-nums;" x-text="fmt(s.unit_price)"></td>
                             <td style="text-align:right;white-space:nowrap;">
                                 <button @click="openEdit(s)" class="action-btn" title="Editar">
                                     <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>

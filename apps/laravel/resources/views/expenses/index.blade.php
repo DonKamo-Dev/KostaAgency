@@ -16,7 +16,7 @@
     <div style="background:linear-gradient(135deg,rgba(230,57,70,.1),rgba(139,26,37,.05));border:1px solid var(--border-red);border-radius:16px;padding:20px 28px;margin-bottom:24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
         <div>
             <div style="font-size:12px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.08em;font-weight:700;margin-bottom:6px;">Gastos del mes actual</div>
-            <div x-text="fmt(monthlyTotal)" style="font-size:36px;font-weight:700;color:var(--red-primary);font-family:'Space Grotesk',sans-serif;line-height:1;"></div>
+            <div x-text="fmt(monthlyTotal)" style="font-size:36px;font-weight:700;color:var(--red-primary);font-family:'Geist Mono','Geist',monospace;line-height:1;font-variant-numeric:tabular-nums;letter-spacing:-0.03em;"></div>
         </div>
         <div style="font-size:13px;color:var(--text-muted);">{{ now()->format('F Y') }}</div>
     </div>
@@ -101,7 +101,7 @@
                             <td class="muted" x-text="e.date"></td>
                             <td><div class="crud-row-name" x-text="e.category"></div></td>
                             <td class="muted" x-text="e.description || '—'"></td>
-                            <td style="text-align:right;font-weight:700;font-family:'Space Grotesk',sans-serif;color:var(--red-primary);" x-text="fmt(e.amount)"></td>
+                            <td style="text-align:right;font-weight:700;font-family:'Geist Mono', 'Geist', monospace;color:var(--red-primary);font-variant-numeric:tabular-nums;" x-text="fmt(e.amount)"></td>
                             <td style="text-align:right;white-space:nowrap;">
                                 <button @click="openEdit(e)" class="action-btn" title="Editar">
                                     <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>

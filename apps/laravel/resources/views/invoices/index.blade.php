@@ -50,8 +50,8 @@
                             <td><a :href="`/invoices/${inv.id}`" style="text-decoration:none;color:inherit;"><div class="crud-row-name" x-text="inv.doc_number"></div></a></td>
                             <td x-text="inv.client_name"></td>
                             <td class="muted" x-text="inv.date"></td>
-                            <td style="text-align:right;font-weight:700;font-family:'Space Grotesk',sans-serif;" x-text="fmt(inv.total)"></td>
-                            <td style="text-align:right;font-weight:600;" :style="inv.balance > 0 ? 'color:var(--warning)' : 'color:var(--positive)'" x-text="fmt(inv.balance)"></td>
+                            <td style="text-align:right;font-weight:700;font-family:'Geist Mono', 'Geist', monospace;font-variant-numeric:tabular-nums;" x-text="fmt(inv.total)"></td>
+                            <td style="text-align:right;font-weight:600;font-family:'Geist Mono', 'Geist', monospace;font-variant-numeric:tabular-nums;" :style="inv.balance > 0 ? 'color:var(--warning)' : 'color:var(--positive)'" x-text="fmt(inv.balance)"></td>
                             <td>
                                 <span :class="`badge badge-${inv.status}`"
                                       x-text="{pending:'Pendiente',paid:'Pagada',cancelled:'Cancelada'}[inv.status]||inv.status"></span>
