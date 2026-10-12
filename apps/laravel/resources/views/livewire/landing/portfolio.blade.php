@@ -3,7 +3,7 @@
 
         /* ── Filter tabs ── */
         .filter-tabs { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; margin-bottom: 56px; }
-        .filter-btn { padding: 9px 22px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.04); color: rgba(255,255,255,0.55); font-size: 14px; font-weight: 500; cursor: pointer; transition: all 0.2s ease; font-family: 'Google Sans Flex', sans-serif; }
+        .filter-btn { padding: 9px 22px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.04); color: rgba(255,255,255,0.55); font-size: 14px; font-weight: 500; cursor: pointer; transition: all 0.2s ease; font-family: 'Syne', sans-serif; }
         .filter-btn:hover { border-color: rgba(255,255,255,0.2); color: rgba(255,255,255,0.85); background: rgba(255,255,255,0.07); }
         .filter-btn.active { background: var(--accent-red); border-color: var(--accent-red); color: #0A0A0A; font-weight: 700; }
         .filter-btn:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
@@ -39,7 +39,7 @@
         .dot-red { background: #ff5f57; }
         .dot-yellow { background: #febc2e; }
         .dot-green { background: #28c840; }
-        .browser-url { flex: 1; background: rgba(255,255,255,0.07); border-radius: 4px; padding: 3px 10px; font-size: 11px; color: rgba(255,255,255,0.35); font-family: 'Google Sans Flex', monospace; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .browser-url { flex: 1; background: rgba(255,255,255,0.07); border-radius: 4px; padding: 3px 10px; font-size: 11px; color: rgba(255,255,255,0.35); font-family: 'Syne', monospace; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
         .browser-screen { height: 172px; position: relative; overflow: hidden; }
 
         /* Mockup UI elements inside browser screen */
@@ -60,10 +60,10 @@
         /* Card body */
         .project-body { padding: 22px 24px 24px; }
         .project-cat { display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; border-radius: 999px; background: rgba(230,57,70,0.12); border: 1px solid rgba(230,57,70,0.2); color: var(--accent-red); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 12px; }
-        .project-title { font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 700; color: #fff; margin: 0 0 8px; line-height: 1.2; }
+        .project-title { font-family: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, sans-serif; font-size: 18px; font-weight: 700; color: #fff; margin: 0 0 8px; line-height: 1.2; letter-spacing: -0.01em; }
         .project-desc { font-size: 13.5px; color: rgba(255,255,255,0.5); line-height: 1.55; margin: 0 0 16px; }
         .project-metric { display: flex; align-items: baseline; gap: 6px; margin-bottom: 16px; padding: 10px 14px; background: rgba(255,255,255,0.03); border-radius: 10px; border: 1px solid rgba(255,255,255,0.06); }
-        .metric-value { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 700; color: var(--accent-red); }
+        .metric-value { font-family: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, sans-serif; font-size: 20px; font-weight: 700; color: var(--accent-red); }
         .metric-label { font-size: 12px; color: rgba(255,255,255,0.45); }
         .project-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 18px; }
         .project-tag { padding: 4px 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); border-radius: 6px; font-size: 11px; color: rgba(255,255,255,0.5); font-weight: 500; }
@@ -282,11 +282,12 @@
         }
 
         .reel-title {
-            font-family: 'Syne', sans-serif;
+            font-family: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, sans-serif;
             font-size: 16px;
             font-weight: 700;
             color: #ffffff;
             line-height: 1.25;
+            letter-spacing: -0.01em;
             margin: 0 0 5px;
             text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9);
         }
@@ -315,7 +316,7 @@
         }
 
         .reel-metric-num {
-            font-family: 'Syne', sans-serif;
+            font-family: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, sans-serif;
             font-size: 12px;
             font-weight: 700;
             color: #f43f5e;
@@ -400,7 +401,7 @@
         .stats-bar { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: rgba(255,255,255,0.06); border-radius: 16px; overflow: hidden; margin-bottom: 80px; }
         @media (min-width: 640px) { .stats-bar { grid-template-columns: repeat(4, 1fr); } }
         .stat-item { background: rgba(255,255,255,0.02); padding: 28px 24px; text-align: center; }
-        .stat-number { font-family: 'Syne', sans-serif; font-size: 32px; font-weight: 700; color: var(--accent-red); line-height: 1; margin-bottom: 6px; }
+        .stat-number { font-family: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, sans-serif; font-size: 32px; font-weight: 700; color: var(--accent-red); line-height: 1; margin-bottom: 6px; letter-spacing: -0.02em; }
         .stat-label { font-size: 13px; color: rgba(255,255,255,0.45); font-weight: 500; }
 
         /* ── CTA Banner ── */

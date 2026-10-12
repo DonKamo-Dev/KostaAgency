@@ -298,7 +298,7 @@
                 text-shadow: 0 1px 4px rgba(0,0,0,0.9);
             }
             .smartphone-reel-title {
-                font-family: 'Syne', sans-serif;
+                font-family: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, sans-serif;
                 font-size: 14px;
                 font-weight: 700;
                 color: #ffffff;
@@ -989,7 +989,7 @@
                             </span>
 
                             <!-- Title -->
-                            <h3 style="font-family:'Syne',sans-serif;font-size:17px;font-weight:700;color:#fff;margin:0 0 6px;line-height:1.2;">
+                            <h3 style="font-family:'Google Sans Flex',sans-serif;font-size:17px;font-weight:700;color:#fff;margin:0 0 6px;line-height:1.2;">
                                 {{ filled($titulo) ? $titulo : 'Título del Proyecto' }}
                             </h3>
 
@@ -1001,7 +1001,7 @@
                             <!-- Metric -->
                             @if(filled($metrica_valor))
                                 <div style="display:flex;align-items:baseline;gap:6px;margin-bottom:14px;padding:8px 12px;background:rgba(255,255,255,0.03);border-radius:8px;border:1px solid rgba(255,255,255,0.06);">
-                                    <span style="font-family:'Syne',sans-serif;font-size:18px;font-weight:700;color:var(--accent-red);">
+                                    <span style="font-family:'Google Sans Flex',sans-serif;font-size:18px;font-weight:700;color:var(--accent-red);">
                                         {{ $metrica_valor }}
                                     </span>
                                     @if(filled($metrica_label))

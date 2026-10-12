@@ -10,7 +10,7 @@
     .mobile-menu.open .mobile-drawer { transform: translateX(0); }
     .mobile-drawer-header { display: flex; align-items: center; justify-content: space-between; padding: 0 20px; height: 76px; flex-shrink: 0; border-bottom: 1px solid rgba(255,255,255,0.06); }
     .mobile-drawer-body { flex: 1; overflow-y: auto; padding: 8px 28px 40px; display: flex; flex-direction: column; }
-    .mobile-nav-link { display: block; font-size: 24px; font-weight: 700; font-family: 'Syne', sans-serif; color: rgba(255,255,255,0.7); text-decoration: none; padding: 20px 0; border-bottom: 1px solid rgba(255,255,255,0.06); transition: color 0.2s ease; }
+    .mobile-nav-link { display: block; font-size: 24px; font-weight: 700; font-family: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, sans-serif; color: rgba(255,255,255,0.7); text-decoration: none; padding: 20px 0; border-bottom: 1px solid rgba(255,255,255,0.06); transition: color 0.2s ease; }
     .mobile-nav-link:hover { color: var(--accent-red); }
 
     /* ── Hamburger ── */
@@ -47,7 +47,7 @@
         font-size: 11px;
         font-weight: 700;
         letter-spacing: 0.04em;
-        font-family: 'Google Sans Flex', sans-serif;
+        font-family: 'Syne', sans-serif;
     }
     .lang-btn {
         color: rgba(255, 255, 255, 0.45);

@@ -14,9 +14,9 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                sans: ['"Google Sans Flex"', ...defaultTheme.fontFamily.sans],
-                body: ['"Google Sans Flex"', ...defaultTheme.fontFamily.sans],
-                display: ['Syne', ...defaultTheme.fontFamily.sans],
+                sans: ['Syne', ...defaultTheme.fontFamily.sans],
+                body: ['Syne', ...defaultTheme.fontFamily.sans],
+                display: ['"Google Sans Flex"', ...defaultTheme.fontFamily.sans],
             },
             colors: {
                 background: 'hsl(var(--background) / <alpha-value>)',

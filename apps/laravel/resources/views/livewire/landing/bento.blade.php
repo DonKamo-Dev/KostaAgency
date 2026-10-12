@@ -11,7 +11,7 @@
             min-height: 100vh;
             background: var(--bento-bg);
             padding: 36px 20px 80px;
-            font-family: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: 'Syne', -apple-system, BlinkMacSystemFont, sans-serif;
             color: var(--bento-text-main);
             display: flex;
             justify-content: center;
@@ -340,7 +340,7 @@
             gap: 8px;
         }
         .bio-name {
-            font-family: 'Syne', sans-serif;
+            font-family: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, sans-serif;
             font-size: 28px;
             font-weight: 800;
             color: var(--bento-text-main);
@@ -353,7 +353,7 @@
             display: inline-flex;
             align-items: center;
             width: fit-content;
-            font-family: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: 'Syne', -apple-system, BlinkMacSystemFont, sans-serif;
             font-size: 11px;
             font-weight: 700;
             color: var(--bento-text-main);
@@ -443,7 +443,7 @@
             color: var(--bento-text-subtle);
         }
         .availability-main-text {
-            font-family: 'Syne', sans-serif;
+            font-family: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, sans-serif;
             font-size: 14.5px;
             font-weight: 700;
             color: var(--bento-text-main);
@@ -531,7 +531,7 @@
             color: var(--bento-text-main);
         }
         .card-title-text {
-            font-family: 'Syne', sans-serif;
+            font-family: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, sans-serif;
             font-size: 15px;
             font-weight: 700;
             letter-spacing: -0.02em;
@@ -612,7 +612,7 @@
             min-width: 0;
         }
         .project-row-name {
-            font-family: 'Syne', sans-serif;
+            font-family: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, sans-serif;
             font-size: 13px;
             font-weight: 700;
             color: var(--bento-text-main);
@@ -698,6 +698,7 @@
             gap: 6px;
         }
         .mini-card-title {
+            font-family: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, sans-serif;
             font-size: 12px;
             font-weight: 700;
             color: var(--bento-text-main);
@@ -745,6 +746,7 @@
             color: var(--bento-text-main);
         }
         .social-mini-title {
+            font-family: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, sans-serif;
             font-size: 13px;
             font-weight: 700;
             color: var(--bento-text-main);
@@ -796,6 +798,7 @@
             color: var(--bento-text-main);
         }
         .sub-btn-name {
+            font-family: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, sans-serif;
             font-size: 12.5px;
             font-weight: 700;
             color: var(--bento-text-main);
@@ -852,7 +855,7 @@
             width: fit-content;
         }
         .map-bubble-title {
-            font-family: 'Syne', sans-serif;
+            font-family: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, sans-serif;
             font-size: 13px;
             font-weight: 700;
             color: var(--bento-text-main);
@@ -925,7 +928,7 @@
             gap: 1px;
         }
         .tech-box-title {
-            font-family: 'Syne', sans-serif;
+            font-family: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, sans-serif;
             font-size: 14px;
             font-weight: 700;
             color: var(--bento-text-main);
@@ -940,7 +943,7 @@
 
         /* ── Bottom Section: How Can I Help? ── */
         .section-separator-title {
-            font-family: 'Syne', sans-serif;
+            font-family: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, sans-serif;
             font-size: 20px;
             font-weight: 800;
             letter-spacing: -0.02em;
@@ -981,7 +984,7 @@
             box-shadow: var(--bento-card-shadow-hover);
         }
         .card-value-text {
-            font-family: 'Syne', sans-serif;
+            font-family: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, sans-serif;
             font-size: 19px;
             font-weight: 700;
             line-height: 1.35;
@@ -1054,7 +1057,7 @@
             transform: translate(2px, -2px);
         }
         .email-big-text {
-            font-family: 'Syne', sans-serif;
+            font-family: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, sans-serif;
             font-size: 17px;
             font-weight: 700;
             color: var(--bento-text-main);

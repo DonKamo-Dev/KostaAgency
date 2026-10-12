@@ -56,18 +56,18 @@
 
         *, *::before, *::after {
             box-sizing: border-box;
-            font-family: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-family: 'Syne', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         }
 
         /* ===== Typography System ===== */
         .font-display, h1, h2, h3, h4, h5, h6 {
-            font-family: 'Syne', sans-serif !important;
-            letter-spacing: -0.01em;
+            font-family: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+            letter-spacing: -0.02em;
             overflow-wrap: break-word;
             word-wrap: break-word;
             hyphens: none;
         }
-        .font-body { font-family: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important; }
+        .font-body { font-family: 'Syne', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important; }
 
         h1 {
             font-size: clamp(34px, 5.5vw, 64px);
@@ -83,14 +83,14 @@
         h3 { font-weight: 600; }
 
         body {
-            font-family: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+            font-family: 'Syne', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
             font-size: 16px;
             font-weight: 400;
             line-height: 1.5;
         }
 
-        p, span, a, button, input, select, textarea, li, label, div {
-            font-family: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        p, span, a, button, input, select, textarea, li, label {
+            font-family: 'Syne', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         }
 
         /* ===== Background ===== */
@@ -403,11 +403,11 @@
         }
 
         .stats-number {
-            font-family: 'Syne', sans-serif;
+            font-family: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, sans-serif;
             font-size: clamp(40px, 6vw, 64px);
             font-weight: 700;
             line-height: 1;
-            letter-spacing: 0;
+            letter-spacing: -0.02em;
         }
 
         .stats-label {
@@ -497,10 +497,10 @@
         /* ===== Logo Cloud ===== */
         .logo-item {
             color: rgba(255, 255, 255, 0.4);
-            font-family: 'Syne', sans-serif;
+            font-family: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, sans-serif;
             font-size: 22px;
             font-weight: 700;
-            letter-spacing: 0;
+            letter-spacing: -0.01em;
             transition: color var(--duration-fast) var(--ease-out);
         }
 

@@ -15,7 +15,7 @@
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght@6..144,1..1000&family=Syne:wght@500;600;700;800&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght@6..144,1..1000&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/site.js'])
@@ -63,7 +63,7 @@
             }
 
             * {
-                font-family: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+                font-family: 'Syne', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
                 box-sizing: border-box;
             }
 
@@ -73,11 +73,11 @@
                 color: var(--text-primary);
                 min-height: 100vh;
                 overflow-x: hidden;
-                font-family: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+                font-family: 'Syne', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             }
 
-            .font-display {
-                font-family: 'Syne', sans-serif;
+            h1, h2, h3, h4, h5, h6, .font-display {
+                font-family: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
             }
 
             /* ===== Ambient Glow ===== */
@@ -219,7 +219,7 @@
             }
 
             .sidebar-brand-name {
-                font-family: 'Syne', sans-serif;
+                font-family: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, sans-serif;
                 font-size: 19px;
                 font-weight: 700;
                 color: var(--text-primary);

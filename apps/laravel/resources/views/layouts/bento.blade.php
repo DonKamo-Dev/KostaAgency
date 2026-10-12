@@ -34,7 +34,7 @@
     <!-- Google Fonts: Google Sans Flex & Syne -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght@6..144,1..1000&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght@6..144,1..1000&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/site.js'])
@@ -86,15 +86,15 @@
             background-color: var(--bento-bg) !important;
             background: var(--bento-bg) !important;
             color: var(--bento-text-main);
-            font-family: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: 'Syne', sans-serif;
             margin: 0;
             padding: 0;
             -webkit-font-smoothing: antialiased;
             transition: background-color 0.25s ease, color 0.25s ease;
         }
 
-        .font-display {
-            font-family: 'Syne', sans-serif;
+        .font-display, h1, h2, h3, h4, h5, h6 {
+            font-family: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, sans-serif !important;
         }
     </style>
 </head>

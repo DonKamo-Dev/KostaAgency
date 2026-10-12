@@ -27,7 +27,7 @@
         }
 
         .sd-title {
-            font-family: 'Syne', sans-serif;
+            font-family: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, sans-serif;
             font-size: clamp(34px, 5.5vw, 64px);
             font-weight: 800;
             line-height: 1.08;
@@ -38,7 +38,7 @@
         }
 
         .sd-subtitle {
-            font-family: 'Google Sans Flex', sans-serif;
+            font-family: 'Syne', sans-serif;
             font-size: clamp(16px, 1.8vw, 20px);
             line-height: 1.65;
             color: rgba(255, 255, 255, 0.65);
@@ -176,7 +176,7 @@
                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
                     @foreach($service['stats'] as $st)
                         <div class="sd-stat-card">
-                            <div style="font-family:'Syne',sans-serif;font-size:clamp(28px, 3.5vw, 40px);font-weight:800;color:#FFFFFF;letter-spacing:-0.03em;margin-bottom:6px;">
+                            <div style="font-family:'Google Sans Flex',sans-serif;font-size:clamp(28px, 3.5vw, 40px);font-weight:800;color:#FFFFFF;letter-spacing:-0.03em;margin-bottom:6px;">
                                 {{ $st['value'] }}
                             </div>
                             <div style="font-size:13.5px;color:rgba(255,255,255,0.55);font-weight:500;">
@@ -206,7 +206,7 @@
                 @foreach($service['deliverables'] as $idx => $deliv)
                     <div class="sd-card">
                         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;">
-                            <span style="font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--accent-red);background:rgba(230,57,70,0.12);border:1px solid rgba(230,57,70,0.25);border-radius:8px;padding:4px 10px;">
+                            <span style="font-family:'Google Sans Flex',sans-serif;font-size:14px;font-weight:700;color:var(--accent-red);background:rgba(230,57,70,0.12);border:1px solid rgba(230,57,70,0.25);border-radius:8px;padding:4px 10px;">
                                 0{{ $idx + 1 }}
                             </span>
                             <div style="width:36px;height:36px;border-radius:10px;background:rgba(255,255,255,0.05);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.6);">
@@ -215,7 +215,7 @@
                                 </svg>
                             </div>
                         </div>
-                        <h3 style="font-family:'Syne',sans-serif;font-size:20px;font-weight:700;color:#FFFFFF;margin-bottom:12px;line-height:1.25;">
+                        <h3 style="font-family:'Google Sans Flex',sans-serif;font-size:20px;font-weight:700;color:#FFFFFF;margin-bottom:12px;line-height:1.25;">
                             {{ $deliv['title'] }}
                         </h3>
                         <p style="font-size:14.5px;color:rgba(255,255,255,0.6);line-height:1.65;margin:0;">
@@ -266,10 +266,10 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 @foreach($service['process'] as $step)
                     <div class="sd-step-box">
-                        <div style="font-family:'Syne',sans-serif;font-size:32px;font-weight:800;color:rgba(230,57,70,0.5);line-height:1;margin-bottom:16px;">
+                        <div style="font-family:'Google Sans Flex',sans-serif;font-size:32px;font-weight:800;color:rgba(230,57,70,0.5);line-height:1;margin-bottom:16px;">
                             {{ $step['step'] }}
                         </div>
-                        <h4 style="font-family:'Syne',sans-serif;font-size:17px;font-weight:700;color:#FFFFFF;margin-bottom:10px;line-height:1.3;">
+                        <h4 style="font-family:'Google Sans Flex',sans-serif;font-size:17px;font-weight:700;color:#FFFFFF;margin-bottom:10px;line-height:1.3;">
                             {{ $step['title'] }}
                         </h4>
                         <p style="font-size:13.5px;color:rgba(255,255,255,0.55);line-height:1.6;margin:0;">
@@ -309,13 +309,13 @@
                                         <span class="case-preview-hint">Ampliar</span>
                                     </button>
                                 @else
-                                    <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.7);font-family:'Syne',sans-serif;font-weight:700;">
+                                    <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.7);font-family:'Google Sans Flex',sans-serif;font-weight:700;">
                                         {{ $st->titulo }}
                                     </div>
                                 @endif
                             </div>
                             <div style="padding:22px;">
-                                <h4 style="font-family:'Syne',sans-serif;font-size:18px;font-weight:700;color:#FFFFFF;margin-bottom:8px;">
+                                <h4 style="font-family:'Google Sans Flex',sans-serif;font-size:18px;font-weight:700;color:#FFFFFF;margin-bottom:8px;">
                                     {{ $st->titulo }}
                                 </h4>
                                 @if($st->descripcion)
@@ -335,7 +335,7 @@
                 </div>
             @else
                 <div style="background:rgba(18,18,22,0.6);border:1px dashed rgba(255,255,255,0.1);border-radius:18px;padding:48px 24px;text-align:center;">
-                    <div style="font-family:'Syne',sans-serif;font-size:18px;font-weight:700;color:#FFFFFF;margin-bottom:8px;">
+                    <div style="font-family:'Google Sans Flex',sans-serif;font-size:18px;font-weight:700;color:#FFFFFF;margin-bottom:8px;">
                         {{ __('services.ui.empty_related_title') }}
                     </div>
                     <p style="font-size:14px;color:rgba(255,255,255,0.55);max-width:500px;margin:0 auto 20px;">
@@ -392,7 +392,7 @@
                             <span style="font-size:10.5px;font-weight:700;color:rgba(255,255,255,0.4);letter-spacing:0.12em;text-transform:uppercase;display:block;margin-bottom:8px;">
                                 {{ $other['pillar'] }}
                             </span>
-                            <h4 style="font-family:'Syne',sans-serif;font-size:18px;font-weight:700;color:#FFFFFF;margin-bottom:8px;">
+                            <h4 style="font-family:'Google Sans Flex',sans-serif;font-size:18px;font-weight:700;color:#FFFFFF;margin-bottom:8px;">
                                 {{ $other['title'] }}
                             </h4>
                             <p style="font-size:13px;color:rgba(255,255,255,0.5);line-height:1.5;margin:0 0 16px;">

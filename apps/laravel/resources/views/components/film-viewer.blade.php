@@ -57,7 +57,7 @@
         pointer-events: auto;
     }
     .film-modal-title {
-        font-family: 'Syne', sans-serif;
+        font-family: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, sans-serif;
         font-size: 14px;
         font-weight: 700;
         color: #ffffff;

@@ -3,11 +3,11 @@
         @import url('https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght@6..144,1..1000&family=Syne:wght@400;500;600;700;800&display=swap');
 
         *, *::before, *::after {
-            font-family: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-family: 'Syne', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         }
 
         h1, h2, h3, h4, h5, h6, .font-display {
-            font-family: 'Syne', sans-serif !important;
+            font-family: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
         }
 
         .hero-section { padding-top: 120px; padding-bottom: 36px; }
@@ -129,11 +129,11 @@
         .service-card:hover .service-icon svg { transform: scale(1.1); color: #FF6B6B; }
 
         .service-title {
-            font-family: 'Syne', sans-serif;
+            font-family: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, sans-serif;
             font-size: 22px; font-weight: 700;
             color: #FFFFFF;
             margin-bottom: 12px;
-            letter-spacing: 0;
+            letter-spacing: -0.01em;
             line-height: 1.2;
             position: relative; z-index: 1;
         }
@@ -259,7 +259,7 @@
             background: rgba(230, 57, 70, 0.16);
             border: 1px solid rgba(230, 57, 70, 0.35);
             color: #FFFFFF;
-            font-family: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: 'Syne', sans-serif;
             font-size: 12px;
             font-weight: 600;
             letter-spacing: 0.01em;
@@ -275,14 +275,14 @@
             background: rgba(255, 255, 255, 0.06);
             border: 1px solid rgba(255, 255, 255, 0.12);
             color: #A1A1AA;
-            font-family: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: 'Syne', sans-serif;
             font-size: 12px;
             font-weight: 600;
             letter-spacing: 0.01em;
             width: fit-content;
         }
         .comparison-title-kosta {
-            font-family: 'Syne', sans-serif;
+            font-family: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, sans-serif;
             font-size: 30px;
             font-weight: 800;
             color: #FFFFFF;
@@ -291,7 +291,7 @@
             line-height: 1.15;
         }
         .comparison-subtitle-kosta {
-            font-family: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: 'Syne', sans-serif;
             font-size: 13.5px;
             font-weight: 400;
             color: rgba(255, 255, 255, 0.7);
@@ -299,7 +299,7 @@
             line-height: 1.4;
         }
         .comparison-title-sin {
-            font-family: 'Syne', sans-serif;
+            font-family: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, sans-serif;
             font-size: 30px;
             font-weight: 800;
             color: #FFFFFF;
@@ -308,7 +308,7 @@
             line-height: 1.15;
         }
         .comparison-subtitle-sin {
-            font-family: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: 'Syne', sans-serif;
             font-size: 13.5px;
             font-weight: 400;
             color: rgba(255, 255, 255, 0.52);
@@ -327,7 +327,7 @@
             display: flex;
             align-items: flex-start;
             gap: 12px;
-            font-family: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: 'Syne', sans-serif;
             color: rgba(255, 255, 255, 0.84);
             font-size: 14px;
             font-weight: 400;
@@ -342,7 +342,7 @@
             display: flex;
             align-items: flex-start;
             gap: 12px;
-            font-family: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: 'Syne', sans-serif;
             color: rgba(255, 255, 255, 0.72);
             font-size: 14px;
             font-weight: 400;
