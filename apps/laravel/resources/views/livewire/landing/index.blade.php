@@ -546,6 +546,7 @@
                                             height="40"
                                             decoding="async"
                                         >
+                                        <span class="brand-marquee__name">{{ $brand['name'] }}</span>
                                     </div>
                                 @endforeach
                             </div>
