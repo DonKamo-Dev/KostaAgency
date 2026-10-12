@@ -120,6 +120,27 @@
                 box-shadow: 0 20px 50px rgba(0,0,0,0.5);
                 transition: all .3s ease;
             }
+            .usa-award-preview {
+                position: absolute;
+                top: 14px;
+                right: 14px;
+                z-index: 20;
+                display: inline-flex;
+                align-items: center;
+                gap: 7px;
+                padding: 7px 10px 7px 8px;
+                border: 1px solid rgba(255,255,255,.34);
+                border-radius: 999px;
+                background: linear-gradient(135deg, rgba(127,29,29,.96), rgba(69,10,10,.96));
+                box-shadow: 0 8px 24px rgba(0,0,0,.42), inset 0 1px 0 rgba(255,255,255,.16);
+                color: #fff;
+                font-size: 9px;
+                font-weight: 800;
+                letter-spacing: .11em;
+                text-transform: uppercase;
+                backdrop-filter: blur(8px);
+            }
+            .usa-award-preview svg { width: 14px; height: 14px; flex: 0 0 auto; color: #fbbf24; filter: drop-shadow(0 0 4px rgba(251,191,36,.6)); }
 
             /* ── Smartphone Reel Mockup ── */
             .smartphone-mockup-frame {
@@ -746,6 +767,26 @@
                             </label>
                             <span style="font-size:11px;color:var(--text-subtle);margin-top:4px;display:block;">Desmarca para ocultarlo temporalmente</span>
                         </div>
+
+                        <div class="form-group" style="margin-bottom:0;grid-column:1/-1;">
+                            <label class="form-label">Distintivo internacional</label>
+                            <label style="display:flex;align-items:center;justify-content:space-between;gap:16px;cursor:pointer;padding:14px 16px;background:linear-gradient(135deg,rgba(127,29,29,.18),rgba(20,20,20,.96));border:1px solid rgba(248,113,113,.28);border-radius:12px;">
+                                <span style="display:flex;align-items:center;gap:11px;min-width:0;">
+                                    <span style="width:34px;height:34px;display:grid;place-items:center;flex:0 0 auto;border-radius:50%;background:#7f1d1d;color:#fff;box-shadow:inset 0 0 0 1px rgba(255,255,255,.16);">
+                                        <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2.75 2.72 5.52 6.09.88-4.4 4.29 1.04 6.06L12 16.64 6.55 19.5l1.04-6.06-4.4-4.29 6.09-.88L12 2.75Z"/></svg>
+                                    </span>
+                                    <span>
+                                        <span style="display:block;font-size:14px;font-weight:700;color:#fff;">Proyecto USA</span>
+                                        <span style="display:block;margin-top:2px;font-size:11px;color:var(--text-muted);">Muestra un sello de reconocimiento sobre la tarjeta pública</span>
+                                    </span>
+                                </span>
+                                <span style="position:relative;width:44px;height:24px;flex:0 0 auto;">
+                                    <input type="checkbox" wire:model.live="proyecto_usa" aria-label="Activar distintivo Proyecto USA" style="position:absolute;opacity:0;pointer-events:none;">
+                                    <span style="position:absolute;inset:0;border-radius:999px;transition:.2s;background:{{ $proyecto_usa ? '#dc2626' : '#353535' }};box-shadow:inset 0 0 0 1px rgba(255,255,255,.14);"></span>
+                                    <span style="position:absolute;top:3px;left:{{ $proyecto_usa ? '23px' : '3px' }};width:18px;height:18px;border-radius:50%;background:#fff;box-shadow:0 2px 7px rgba(0,0,0,.38);transition:.2s;"></span>
+                                </span>
+                            </label>
+                        </div>
                     </div>
                 </div>
 
@@ -977,6 +1018,12 @@
                                         <div style="height:5px;width:55%;border-radius:3px;background:rgba(255,255,255,0.3);"></div>
                                         <div style="margin-top:12px;width:56px;height:16px;border-radius:12px;background:rgba(255,255,255,0.5);"></div>
                                     </div>
+                                @endif
+                                @if($proyecto_usa)
+                                    <span class="usa-award-preview">
+                                        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2.75 2.72 5.52 6.09.88-4.4 4.29 1.04 6.06L12 16.64 6.55 19.5l1.04-6.06-4.4-4.29 6.09-.88L12 2.75Z"/></svg>
+                                        Proyecto USA
+                                    </span>
                                 @endif
                             </div>
                         @endif

@@ -646,6 +646,27 @@
             overflow: hidden;
             text-overflow: ellipsis;
         }
+        .bento-award-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 3px;
+            padding: 1px 6px;
+            border-radius: 999px;
+            background: linear-gradient(135deg, rgba(153, 27, 27, 0.4), rgba(69, 10, 10, 0.6));
+            border: 1px solid rgba(248, 113, 113, 0.35);
+            color: #fca5a5;
+            font-size: 9px;
+            font-weight: 800;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            flex-shrink: 0;
+        }
+        .bento-award-tag svg {
+            width: 9px;
+            height: 9px;
+            flex-shrink: 0;
+            color: #fbbf24;
+        }
         .project-row-tag {
             font-size: 10.5px;
             font-weight: 500;
@@ -1251,7 +1272,15 @@
                                         </svg>
                                     </div>
                                     <div class="project-row-info">
-                                        <span class="project-row-name">{{ $proyecto->titulo }}</span>
+                                        <div style="display:flex;align-items:center;gap:6px;min-width:0;">
+                                            <span class="project-row-name">{{ $proyecto->titulo }}</span>
+                                            @if($proyecto->proyecto_usa)
+                                                <span class="bento-award-tag" title="Distintivo Proyecto USA">
+                                                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2.75 2.72 5.52 6.09.88-4.4 4.29 1.04 6.06L12 16.64 6.55 19.5l1.04-6.06-4.4-4.29 6.09-.88L12 2.75Z"/></svg>
+                                                    USA
+                                                </span>
+                                            @endif
+                                        </div>
                                         <span class="project-row-tag">{{ Str::limit($proyecto->descripcion ?? ucfirst($proyecto->categoria), 30) }}</span>
                                     </div>
                                 </div>
@@ -1299,7 +1328,15 @@
                                         </svg>
                                     </div>
                                     <div class="project-row-info">
-                                        <span class="project-row-name">{{ $proyecto->titulo }}</span>
+                                        <div style="display:flex;align-items:center;gap:6px;min-width:0;">
+                                            <span class="project-row-name">{{ $proyecto->titulo }}</span>
+                                            @if($proyecto->proyecto_usa)
+                                                <span class="bento-award-tag" title="Distintivo Proyecto USA">
+                                                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2.75 2.72 5.52 6.09.88-4.4 4.29 1.04 6.06L12 16.64 6.55 19.5l1.04-6.06-4.4-4.29 6.09-.88L12 2.75Z"/></svg>
+                                                    USA
+                                                </span>
+                                            @endif
+                                        </div>
                                         <span class="project-row-tag">{{ Str::limit($proyecto->descripcion ?? 'Producción 4K & Reel', 30) }}</span>
                                     </div>
                                 </div>

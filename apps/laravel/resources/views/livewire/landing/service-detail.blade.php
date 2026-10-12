@@ -46,6 +46,37 @@
             margin-bottom: 36px;
         }
 
+        .usa-award-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 5;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 4px 10px;
+            border-radius: 999px;
+            border: 1px solid rgba(248, 113, 113, 0.45);
+            background: linear-gradient(135deg, rgba(153, 27, 27, 0.95), rgba(69, 10, 10, 0.96));
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.48), 0 0 16px rgba(220, 38, 38, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            color: #ffffff;
+            font-size: 9px;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            pointer-events: none;
+            user-select: none;
+        }
+        .usa-award-badge svg {
+            width: 12px;
+            height: 12px;
+            flex-shrink: 0;
+            color: #fbbf24;
+            filter: drop-shadow(0 0 3px rgba(251, 191, 36, 0.65));
+        }
+
         .sd-stat-card {
             background: rgba(18, 18, 20, 0.7);
             border: 1px solid rgba(255, 255, 255, 0.08);
@@ -312,6 +343,12 @@
                                     <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.7);font-family:'Google Sans Flex',sans-serif;font-weight:700;">
                                         {{ $st->titulo }}
                                     </div>
+                                @endif
+                                @if($st->proyecto_usa)
+                                    <span class="usa-award-badge" aria-label="Distintivo: Proyecto USA">
+                                        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2.75 2.72 5.52 6.09.88-4.4 4.29 1.04 6.06L12 16.64 6.55 19.5l1.04-6.06-4.4-4.29 6.09-.88L12 2.75Z"/></svg>
+                                        Proyecto USA
+                                    </span>
                                 @endif
                             </div>
                             <div style="padding:22px;">

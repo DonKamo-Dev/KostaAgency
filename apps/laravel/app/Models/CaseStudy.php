@@ -21,12 +21,13 @@ class CaseStudy extends Model
         'video_url', 'video_orientation', 'video_duration',
         'metrica_valor', 'metrica_label', 'tags',
         'gradient_inicio', 'gradient_fin', 'imagen', 'imagen_data', 'imagen_mime',
-        'activo', 'orden',
+        'activo', 'proyecto_usa', 'orden',
     ];
 
     protected $casts = [
         'tags' => 'array',
         'activo' => 'boolean',
+        'proyecto_usa' => 'boolean',
         'orden' => 'integer',
     ];
 
@@ -127,6 +128,9 @@ class CaseStudy extends Model
             }
             if (Schema::hasColumn('case_studies', 'video_duration')) {
                 $columns[] = 'video_duration';
+            }
+            if (Schema::hasColumn('case_studies', 'proyecto_usa')) {
+                $columns[] = 'proyecto_usa';
             }
         } catch (\Throwable) {
             // Graceful fallback

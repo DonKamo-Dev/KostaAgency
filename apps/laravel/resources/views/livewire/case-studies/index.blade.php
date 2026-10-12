@@ -102,6 +102,22 @@
 
         .case-pagination__button svg { width: 16px; height: 16px; }
 
+        .usa-award-toggle {
+            width: 34px;
+            height: 34px;
+            display: inline-grid;
+            place-items: center;
+            border-radius: 50%;
+            border: 1px solid rgba(255,255,255,.14);
+            background: #111;
+            color: rgba(255,255,255,.34);
+            cursor: pointer;
+            transition: color .18s ease, border-color .18s ease, background .18s ease, transform .18s ease;
+        }
+        .usa-award-toggle:hover { transform: translateY(-1px); color:#fff; border-color:rgba(248,113,113,.5); }
+        .usa-award-toggle.is-active { color:#fbbf24; border-color:rgba(248,113,113,.65); background:linear-gradient(135deg,#991b1b,#450a0a); box-shadow:0 6px 18px rgba(185,28,28,.4), inset 0 1px 0 rgba(255,255,255,.2); }
+        .usa-award-toggle svg { width:15px; height:15px; filter: drop-shadow(0 1px 2px rgba(0,0,0,.5)); }
+
         @media (max-width: 640px) {
             .case-pagination { flex-direction: column; align-items: stretch; }
             .case-pagination__summary { text-align: center; }
@@ -217,6 +233,7 @@
                     <th>Categoría</th>
                     <th>Métrica</th>
                     <th style="width:60px;text-align:center;">Orden</th>
+                    <th style="width:72px;text-align:center;">Premio</th>
                     <th style="width:80px;text-align:center;">Estado</th>
                     <th style="width:100px;text-align:right;">Acciones</th>
                 </tr>
@@ -308,6 +325,18 @@
                         <!-- Orden -->
                         <td class="muted" style="text-align:center;">{{ $study->orden }}</td>
 
+                        <!-- Distintivo Proyecto USA -->
+                        <td style="text-align:center;">
+                            <button type="button"
+                                wire:click="toggleProyectoUsa({{ $study->id }})"
+                                wire:loading.attr="disabled"
+                                class="usa-award-toggle {{ $study->proyecto_usa ? 'is-active' : '' }}"
+                                aria-pressed="{{ $study->proyecto_usa ? 'true' : 'false' }}"
+                                title="{{ $study->proyecto_usa ? 'Quitar distintivo Proyecto USA' : 'Marcar como Proyecto USA' }}">
+                                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2.75 2.72 5.52 6.09.88-4.4 4.29 1.04 6.06L12 16.64 6.55 19.5l1.04-6.06-4.4-4.29 6.09-.88L12 2.75Z"/></svg>
+                            </button>
+                        </td>
+
                         <!-- Estado toggle -->
                         <td style="text-align:center;">
                             <button wire:click="toggleActivo({{ $study->id }})"
@@ -337,7 +366,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="8" class="empty-state-cell">
+                        <td colspan="9" class="empty-state-cell">
                             <div class="empty-state-icon">
                                 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" style="width:28px;height:28px;">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>

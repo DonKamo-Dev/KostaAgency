@@ -63,6 +63,8 @@ class Index extends Component
 
     public bool $activo = true;
 
+    public bool $proyecto_usa = false;
+
     public int $orden = 0;
 
     protected array $rules = [
@@ -80,6 +82,7 @@ class Index extends Component
         'gradient_fin' => 'required|string|max:50',
         'imagen_nueva' => 'nullable|image|max:2048',
         'activo' => 'boolean',
+        'proyecto_usa' => 'boolean',
         'orden' => 'integer|min:0|max:999',
     ];
 
@@ -130,6 +133,7 @@ class Index extends Component
         $this->imagen_nueva = null;
         $this->imagenActual = null;
         $this->activo = true;
+        $this->proyecto_usa = false;
         $this->orden = 0;
         $this->resetErrorBag();
     }
@@ -148,6 +152,7 @@ class Index extends Component
         $this->gradient_inicio = $study->gradient_inicio;
         $this->gradient_fin = $study->gradient_fin;
         $this->activo = $study->activo;
+        $this->proyecto_usa = (bool) $study->proyecto_usa;
         $this->orden = $study->orden;
         $this->imagen_nueva = null;
         $this->imagenActual = $study->image_url;
@@ -175,6 +180,7 @@ class Index extends Component
             'gradient_inicio' => $this->gradient_inicio,
             'gradient_fin' => $this->gradient_fin,
             'activo' => $this->activo,
+            'proyecto_usa' => $this->proyecto_usa,
             'orden' => $this->orden,
         ];
 
@@ -201,6 +207,12 @@ class Index extends Component
     {
         $study = $this->findStudy($id);
         $study->update(['activo' => ! $study->activo]);
+    }
+
+    public function toggleProyectoUsa(int $id): void
+    {
+        $study = $this->findStudy($id);
+        $study->update(['proyecto_usa' => ! $study->proyecto_usa]);
     }
 
     public function updatedSelectAll(bool $value): void

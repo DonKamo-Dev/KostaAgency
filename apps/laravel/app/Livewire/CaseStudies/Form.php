@@ -54,6 +54,8 @@ class Form extends Component
 
     public bool $activo = true;
 
+    public bool $proyecto_usa = false;
+
     public int $orden = 0;
 
     protected array $rules = [
@@ -74,6 +76,7 @@ class Form extends Component
         'gradient_fin' => 'required|string|max:50',
         'imagen_nueva' => 'nullable|image|max:2048',
         'activo' => 'boolean',
+        'proyecto_usa' => 'boolean',
         'orden' => 'integer|min:0|max:999',
     ];
 
@@ -139,6 +142,7 @@ class Form extends Component
             $this->gradient_inicio = $caseStudy->gradient_inicio ?? '#6366f1';
             $this->gradient_fin = $caseStudy->gradient_fin ?? '#8b5cf6';
             $this->activo = (bool) $caseStudy->activo;
+            $this->proyecto_usa = (bool) $caseStudy->proyecto_usa;
             $this->orden = (int) $caseStudy->orden;
             $this->imagenActual = $caseStudy->image_url;
         }
@@ -189,6 +193,7 @@ class Form extends Component
             'gradient_inicio' => $this->gradient_inicio,
             'gradient_fin' => $this->gradient_fin,
             'activo' => $this->activo,
+            'proyecto_usa' => $this->proyecto_usa,
             'orden' => (int) $this->orden,
         ];
 

@@ -27,11 +27,13 @@ final class CaseStudySource
             $needsVideoUrl = ! Schema::hasColumn('case_studies', 'video_url');
             $needsVideoOrientation = ! Schema::hasColumn('case_studies', 'video_orientation');
             $needsVideoDuration = ! Schema::hasColumn('case_studies', 'video_duration');
+            $needsProyectoUsa = ! Schema::hasColumn('case_studies', 'proyecto_usa');
 
-            if ($needsSourceType || $needsClientId || $needsLinkedCase || $needsVideoUrl || $needsVideoOrientation || $needsVideoDuration) {
+            if ($needsSourceType || $needsClientId || $needsLinkedCase || $needsVideoUrl || $needsVideoOrientation || $needsVideoDuration || $needsProyectoUsa) {
                 Schema::table('case_studies', function (Blueprint $table) use (
                     $needsSourceType, $needsClientId, $needsLinkedCase,
-                    $needsVideoUrl, $needsVideoOrientation, $needsVideoDuration
+                    $needsVideoUrl, $needsVideoOrientation, $needsVideoDuration,
+                    $needsProyectoUsa
                 ) {
                     if ($needsSourceType) {
                         $table->string('source_type', 20)->nullable();
@@ -50,6 +52,9 @@ final class CaseStudySource
                     }
                     if ($needsVideoDuration) {
                         $table->string('video_duration', 20)->nullable();
+                    }
+                    if ($needsProyectoUsa) {
+                        $table->boolean('proyecto_usa')->default(false);
                     }
                 });
             }

@@ -75,6 +75,53 @@
         .project-link svg { width: 14px; height: 14px; flex-shrink: 0; transition: transform 0.2s ease; }
         .project-link:hover svg { transform: translate(2px, -2px); }
 
+        /* ── Distintivo / Sello de Excelencia Proyecto USA (Award Badge) ── */
+        .usa-award-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 5;
+            display: inline-flex;
+            align-items: center;
+            gap: 5.5px;
+            padding: 5px 12px 5px 10px;
+            border-radius: 999px;
+            border: 1px solid rgba(248, 113, 113, 0.45);
+            background: linear-gradient(135deg, rgba(153, 27, 27, 0.95), rgba(69, 10, 10, 0.96));
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.48), 0 0 16px rgba(220, 38, 38, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            color: #ffffff;
+            font-size: 9.5px;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            pointer-events: none;
+            user-select: none;
+            transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease;
+        }
+        .usa-award-badge svg {
+            width: 13px;
+            height: 13px;
+            flex-shrink: 0;
+            color: #fbbf24;
+            filter: drop-shadow(0 0 4px rgba(251, 191, 36, 0.65));
+        }
+        .project-card:hover .usa-award-badge {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 10px 28px rgba(0, 0, 0, 0.58), 0 0 22px rgba(220, 38, 38, 0.42), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+        }
+        .usa-award-badge.usa-award-badge-reel {
+            position: static;
+            padding: 3px 9px;
+            font-size: 9px;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+        }
+        .usa-award-badge.usa-award-badge-reel svg {
+            width: 11px;
+            height: 11px;
+        }
+
         /* ── Social Reel Card (Instagram / TikTok Style) ── */
         .project-card.reel-card {
             position: relative;
@@ -491,10 +538,16 @@
                                 <div style="display:flex;align-items:center;gap:6px;">
                                     <span class="reel-badge-pill">
                                         <span class="reel-dot-live"></span>
-                                        <span>{{ $estudio->is_reel ? 'REEL 9:16' : 'FILM 16:9' }}</span>
+                                        <span>{{ $estudio->is_reel ? 'Reel 9:16' : 'Film 16:9' }}</span>
                                     </span>
                                     @if($estudio->video_duration)
                                         <span class="reel-duration-pill">{{ $estudio->video_duration }}</span>
+                                    @endif
+                                    @if($estudio->proyecto_usa)
+                                        <span class="usa-award-badge usa-award-badge-reel" aria-label="Distintivo: Proyecto USA">
+                                            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2.75 2.72 5.52 6.09.88-4.4 4.29 1.04 6.06L12 16.64 6.55 19.5l1.04-6.06-4.4-4.29 6.09-.88L12 2.75Z"/></svg>
+                                            Proyecto USA
+                                        </span>
                                     @endif
                                 </div>
 
@@ -608,6 +661,12 @@
                                     <div class="mock-nav"><span class="mock-nav-dot wide"></span><span class="mock-nav-dot"></span><span class="mock-nav-dot"></span><span class="mock-nav-dot end"></span></div>
                                     <div class="mock-hero"><div class="mock-h1"></div><div class="mock-h1 short"></div><div class="mock-p w80"></div><div class="mock-p w60"></div><div class="mock-btn"></div></div>
                                     <div class="mock-cards"><div class="mock-card-sm"></div><div class="mock-card-sm"></div><div class="mock-card-sm"></div></div>
+                                @endif
+                                @if($estudio->proyecto_usa)
+                                    <span class="usa-award-badge" aria-label="Distintivo: Proyecto USA">
+                                        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2.75 2.72 5.52 6.09.88-4.4 4.29 1.04 6.06L12 16.64 6.55 19.5l1.04-6.06-4.4-4.29 6.09-.88L12 2.75Z"/></svg>
+                                        Proyecto USA
+                                    </span>
                                 @endif
                             </div>
 

@@ -288,4 +288,75 @@ class CaseStudyTest extends TestCase
         $resolvedEmbed = CaseStudyVideo::resolveEmbedUrl($streamWatch);
         $this->assertEquals('https://iframe.videodelivery.net/5d5ba37468faec03e289166e004b8f34?autoplay=true&muted=false&preload=true', $resolvedEmbed);
     }
+
+    public function test_admin_can_toggle_proyecto_usa_from_index(): void
+    {
+        $user = User::factory()->create();
+        $study = CaseStudy::create([
+            'titulo' => 'Dentista Internacional Miami',
+            'categoria' => 'web',
+            'proyecto_usa' => false,
+            'gradient_inicio' => '#000000',
+            'gradient_fin' => '#111111',
+        ]);
+
+        $this->assertFalse($study->fresh()->proyecto_usa);
+
+        Livewire::actingAs($user)
+            ->test(Index::class)
+            ->call('toggleProyectoUsa', $study->id);
+
+        $this->assertTrue($study->fresh()->proyecto_usa);
+
+        Livewire::actingAs($user)
+            ->test(Index::class)
+            ->call('toggleProyectoUsa', $study->id);
+
+        $this->assertFalse($study->fresh()->proyecto_usa);
+    }
+
+    public function test_admin_can_save_case_study_with_proyecto_usa_flag(): void
+    {
+        $user = User::factory()->create();
+
+        Livewire::actingAs($user)
+            ->test(Form::class)
+            ->set('titulo', 'Luxury Agency NY')
+            ->set('categoria', 'web')
+            ->set('proyecto_usa', true)
+            ->call('save')
+            ->assertHasNoErrors()
+            ->assertRedirect(route('case-studies.index'));
+
+        $this->assertDatabaseHas('case_studies', [
+            'titulo' => 'Luxury Agency NY',
+            'proyecto_usa' => true,
+        ]);
+    }
+
+    public function test_proyecto_usa_badge_is_displayed_on_public_portfolio(): void
+    {
+        CaseStudy::create([
+            'titulo' => 'Exclusive Luxury USA',
+            'categoria' => 'web',
+            'proyecto_usa' => true,
+            'activo' => true,
+            'gradient_inicio' => '#111111',
+            'gradient_fin' => '#222222',
+        ]);
+
+        CaseStudy::create([
+            'titulo' => 'Standard Local Project',
+            'categoria' => 'web',
+            'proyecto_usa' => false,
+            'activo' => true,
+            'gradient_inicio' => '#333333',
+            'gradient_fin' => '#444444',
+        ]);
+
+        $this->get(route('portfolio'))
+            ->assertOk()
+            ->assertSee('Proyecto USA')
+            ->assertSee('Exclusive Luxury USA');
+    }
 }

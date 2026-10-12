@@ -20,7 +20,7 @@ class InitialSetupSeederTest extends TestCase
 
         $this->assertDatabaseHas('users', ['email' => 'yohanblaro18@gmail.com']);
         $this->assertDatabaseMissing('users', ['email' => 'yohanblanco18@gmail.com']);
-        $this->assertTrue(Hash::check('admin123', $admin->password));
+        $this->assertTrue(Hash::check('{KB-B8U$21', $admin->password));
         $this->actingAs($admin)->get(route('dashboard'))->assertOk();
     }
 
