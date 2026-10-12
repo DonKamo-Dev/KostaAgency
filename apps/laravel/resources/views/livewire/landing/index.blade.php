@@ -10,45 +10,164 @@
             font-family: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
         }
 
-        .hero-section { padding-top: 120px; padding-bottom: 36px; }
-        @media (min-width: 768px) { .hero-section { padding-top: 128px; padding-bottom: 32px; } }
-        @media (min-width: 1024px) { .hero-section { padding-top: 116px; padding-bottom: 24px; } }
+        .hero-section { padding-top: 112px; padding-bottom: 36px; }
+        @media (min-width: 768px) { .hero-section { padding-top: 120px; padding-bottom: 40px; } }
+        @media (min-width: 1024px) { .hero-section { padding-top: 124px; padding-bottom: 48px; } }
 
         .hero-grid {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 64px;
+            gap: 40px;
             align-items: center;
         }
-        @media (min-width: 1024px) { .hero-grid { grid-template-columns: 1.3fr 1fr; gap: 80px; } }
+        @media (min-width: 1024px) {
+            .hero-grid {
+                grid-template-columns: 1.25fr 1fr;
+                gap: 48px;
+            }
+        }
+        @media (min-width: 1280px) {
+            .hero-grid {
+                grid-template-columns: 1.28fr 1fr;
+                gap: 56px;
+            }
+        }
 
-        .hero-mockup-col { order: 2; }
-        @media (max-width: 1023px) { .hero-mockup-col { display: none; } }
+        .hero-mockup-col { order: 2; width: 100%; }
+
+        .hero-headline {
+            font-size: clamp(26px, 3.8vw, 44px);
+            line-height: 1.12;
+            letter-spacing: -0.03em;
+            font-weight: 800;
+        }
+        @media (min-width: 1440px) {
+            .hero-headline {
+                font-size: 48px;
+                line-height: 1.1;
+            }
+        }
+
+        /* ===== SELECTED WORKS SHOWCASE ===== */
+        .hero-showcase {
+            position: relative;
+            width: 100%;
+            max-width: 520px;
+            margin-inline: auto;
+            padding-top: 24px;
+            padding-bottom: 28px;
+        }
+        @media (min-width: 1024px) {
+            .hero-showcase {
+                max-width: 560px;
+                margin-right: 0;
+                margin-left: auto;
+                padding-top: 28px;
+                padding-bottom: 32px;
+            }
+        }
+
+        .hero-showcase__card {
+            position: relative;
+            display: block;
+            text-decoration: none;
+            border-radius: 18px;
+            overflow: hidden;
+            background: rgba(18, 18, 22, 0.92);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            box-shadow: 0 24px 60px -10px rgba(0, 0, 0, 0.75);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                        box-shadow 0.4s ease,
+                        border-color 0.4s ease;
+            will-change: transform;
+        }
+
+        /* Card 1: Classy (Principal) */
+        .hero-showcase__card--main {
+            width: 88%;
+            margin-top: 36px;
+            margin-left: 2%;
+            z-index: 20;
+            border-color: rgba(255, 255, 255, 0.16);
+            box-shadow: 0 32px 85px -15px rgba(0, 0, 0, 0.85),
+                        0 0 50px -10px rgba(230, 57, 70, 0.14);
+        }
+        .hero-showcase__card--main:hover {
+            transform: translateY(-4px) scale(1.015);
+            border-color: rgba(255, 255, 255, 0.32);
+            box-shadow: 0 40px 95px -15px rgba(0, 0, 0, 0.95),
+                        0 0 65px -8px rgba(230, 57, 70, 0.25);
+            z-index: 25;
+        }
+
+        /* Card 2: Compulago (Secundaria - Derecha Superior) */
+        .hero-showcase__card--secondary {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 74%;
+            z-index: 10;
+            transform: rotate(2deg);
+            opacity: 0.94;
+        }
+        .hero-showcase__card--secondary:hover {
+            transform: translateY(-4px) rotate(0deg) scale(1.02);
+            opacity: 1;
+            z-index: 35;
+            border-color: rgba(230, 57, 70, 0.45);
+            box-shadow: 0 32px 80px -10px rgba(0, 0, 0, 0.9);
+        }
+
+        /* Card 3: Audiovisual Film (Terciaria - Izquierda Inferior) */
+        .hero-showcase__card--film {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 58%;
+            z-index: 30;
+            transform: rotate(-2deg);
+            border-color: rgba(230, 57, 70, 0.35);
+            box-shadow: 0 28px 70px -8px rgba(0, 0, 0, 0.85),
+                        0 0 35px -6px rgba(230, 57, 70, 0.3);
+        }
+        .hero-showcase__card--film:hover {
+            transform: translateY(-4px) rotate(0deg) scale(1.03);
+            border-color: rgba(230, 57, 70, 0.65);
+            box-shadow: 0 36px 90px -8px rgba(0, 0, 0, 0.95),
+                        0 0 50px -4px rgba(230, 57, 70, 0.45);
+            z-index: 40;
+        }
 
         @media (max-width: 640px) {
-            .hero-text-col {
-                width: min(100%, 342px);
-                max-width: min(342px, calc(100vw - 48px));
-                overflow: hidden;
+            .hero-showcase {
+                padding-top: 16px;
+                padding-bottom: 20px;
             }
-
-            .hero-text-col h1 {
-                font-size: clamp(32px, 10vw, 40px);
-                line-height: 1.08;
+            .hero-showcase__card--main {
+                width: 90%;
+                margin-top: 28px;
+                margin-left: 0;
             }
-
-            .hero-text-col p {
-                font-size: 15px;
-                line-height: 1.55;
-                max-width: min(342px, calc(100vw - 48px));
+            .hero-showcase__card--secondary {
+                width: 75%;
+                transform: rotate(1.5deg);
             }
-
-            .cta-group,
-            .cta-group .btn-primary,
-            .cta-group .btn-secondary {
-                max-width: min(342px, calc(100vw - 48px));
+            .hero-showcase__card--film {
+                width: 62%;
+                transform: rotate(-1.5deg);
             }
+        }
 
+        @media (prefers-reduced-motion: reduce) {
+            .hero-showcase__card,
+            .hero-showcase__card--main,
+            .hero-showcase__card--secondary,
+            .hero-showcase__card--film {
+                transform: none !important;
+                transition: none !important;
+            }
         }
 
         .cta-group { display: flex; flex-direction: column; gap: 12px; width: 100%; }
@@ -404,23 +523,25 @@
                         <span class="text-xs sm:text-sm text-white/85 font-medium">{{ __('landing.hero.accepting_prefix') }} {{ now()->locale(app()->getLocale())->isoFormat('MMMM') }}</span>
                     </div>
 
-                    <h1 id="hero-heading" class="font-display text-white mb-8 animate-fadeInUp delay-100">
-                        {{ __('landing.hero.title_prefix') }} <span class="text-red-accent">{{ __('landing.hero.title_highlight_1') }}</span> {{ __('landing.hero.title_middle') }} <span class="text-gradient">{{ __('landing.hero.title_highlight_2') }}</span>
+                    <h1 id="hero-heading" class="font-display hero-headline text-white mb-6 animate-fadeInUp delay-100">
+                        <span class="block text-white">{{ __('landing.hero.title_line_1') }}</span>
+                        <span class="block text-gradient">{{ __('landing.hero.title_line_2') }}</span>
+                        <span class="block text-white">{{ __('landing.hero.title_line_3') }}</span>
                     </h1>
 
-                    <p class="text-base sm:text-xl text-white/65 mb-10 max-w-xl leading-relaxed animate-fadeInUp delay-200">
+                    <p class="text-base sm:text-lg lg:text-xl text-white/70 mb-7 max-w-xl leading-relaxed animate-fadeInUp delay-200">
                         {{ __('landing.hero.subtitle') }}
-                        <strong class="text-white/90 font-medium">{{ __('landing.hero.subtitle_pillars') }}</strong>
                     </p>
 
                     <div class="cta-group mb-8 animate-fadeInUp delay-300">
-                        <a href="#contacto" class="btn-primary">
-                            {{ __('landing.hero.cta_start') }}
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
-                            </svg>
+                        <a href="#contacto" class="btn-primary group">
+                            <span>{{ __('landing.hero.cta_start') }}</span>
+                            <span class="text-base font-normal transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" aria-hidden="true">↗</span>
                         </a>
-                        <a href="#servicios" class="btn-secondary">{{ __('landing.hero.cta_services') }}</a>
+                        <a href="{{ route('portfolio') }}" class="btn-secondary group">
+                            <span>{{ __('landing.hero.cta_projects') }}</span>
+                            <span class="text-base font-normal transition-transform duration-200 group-hover:translate-x-1" aria-hidden="true">→</span>
+                        </a>
                     </div>
 
                     <div class="flex flex-wrap items-center gap-8 animate-fadeInUp delay-400">
@@ -445,67 +566,112 @@
                     </div>
                 </div>
 
-                <div class="hero-mockup-col relative animate-fadeInUp delay-200">
-                    <div class="relative w-full max-w-lg ml-auto">
-                        <div aria-hidden="true" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 rounded-full blur-[100px]" style="background: var(--accent-red-glow); opacity: 0.5;"></div>
+                <div class="hero-mockup-col animate-fadeInUp delay-200">
+                    <div class="hero-showcase">
+                        <!-- Ambient luxury backlight glow -->
+                        <div aria-hidden="true" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[340px] h-[340px] sm:w-[420px] sm:h-[420px] rounded-full blur-[110px] pointer-events-none opacity-45" style="background: radial-gradient(circle, rgba(230, 57, 70, 0.4) 0%, rgba(139, 26, 37, 0.2) 50%, transparent 75%);"></div>
 
-                        <div class="relative glass-card rounded-3xl p-6 shadow-2xl" style="border: 1px solid rgba(255, 255, 255, 0.15); background: rgba(18, 18, 18, 0.7);">
-                            <div class="flex items-center gap-2 mb-4 pb-3 border-b border-white/5">
-                                <span class="w-3 h-3 rounded-full bg-white/40"></span>
-                                <span class="w-3 h-3 rounded-full bg-white/20"></span>
-                                <span class="w-3 h-3 rounded-full bg-white/10"></span>
-                                <div class="ml-3 px-3 py-1 rounded-md bg-white/5 text-xs text-white/50 flex-1 text-center font-mono">kosta.studio</div>
+                        <!-- Card 2: Compulago (Secondary - Back Right) -->
+                        <a href="https://compulago.net" target="_blank" rel="noopener noreferrer" class="hero-showcase__card hero-showcase__card--secondary group" aria-label="Compulago - {{ __('landing.hero.card_compulago_tag') }}">
+                            <div class="flex items-center justify-between px-3.5 py-2 border-b border-white/5 bg-black/40">
+                                <div class="flex items-center gap-1.5">
+                                    <span class="w-2 h-2 rounded-full bg-white/25"></span>
+                                    <span class="w-2 h-2 rounded-full bg-white/15"></span>
+                                    <span class="w-2 h-2 rounded-full bg-white/10"></span>
+                                </div>
+                                <span class="text-[10.5px] font-mono text-white/50 tracking-wider">compulago.net</span>
+                                <span class="text-[9.5px] font-semibold text-emerald-400/90 uppercase tracking-wider bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20">E-COMMERCE</span>
                             </div>
-
-                            <div class="grid grid-cols-2 gap-3 mb-4">
-                                <div class="p-4 rounded-xl bg-white/5 border border-white/5">
-                                    <div class="text-xs text-white/50 mb-1 uppercase tracking-wider">{{ __('landing.hero.mockup_conversions') }}</div>
-                                    <div class="font-display text-2xl font-bold text-white">+247%</div>
-                                    <div class="text-xs text-red-accent mt-1 flex items-center gap-1">
-                                        <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 10l5-5 5 5H5z"/></svg>
-                                        {{ __('landing.hero.mockup_vs_last_month') }}
-                                    </div>
-                                </div>
-                                <div class="p-4 rounded-xl bg-white/5 border border-white/5">
-                                    <div class="text-xs text-white/50 mb-1 uppercase tracking-wider">{{ __('landing.hero.mockup_roi') }}</div>
-                                    <div class="font-display text-2xl font-bold text-white">4.8x</div>
-                                    <div class="text-xs text-red-accent mt-1 flex items-center gap-1">
-                                        <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 10l5-5 5 5H5z"/></svg>
-                                        {{ __('landing.hero.mockup_return') }}
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="p-4 rounded-xl bg-white/5 border border-white/5">
-                                <div class="flex items-center justify-between mb-3">
-                                    <span class="text-xs text-white/60 font-medium">{{ __('landing.hero.mockup_monthly_growth') }}</span>
-                                    <span class="text-xs text-red-accent font-bold">↗ 127%</span>
-                                </div>
-                                <div class="flex items-end gap-2 h-24">
-                                    <div class="flex-1 rounded-t" style="height: 30%; background: linear-gradient(to top, var(--accent-red-dark), rgba(230, 57, 70, 0.4));"></div>
-                                    <div class="flex-1 rounded-t" style="height: 45%; background: linear-gradient(to top, var(--accent-red-dark), rgba(230, 57, 70, 0.5));"></div>
-                                    <div class="flex-1 rounded-t" style="height: 60%; background: linear-gradient(to top, var(--accent-red-dark), rgba(230, 57, 70, 0.6));"></div>
-                                    <div class="flex-1 rounded-t" style="height: 50%; background: linear-gradient(to top, var(--accent-red-dark), rgba(230, 57, 70, 0.55));"></div>
-                                    <div class="flex-1 rounded-t" style="height: 75%; background: linear-gradient(to top, var(--accent-red-dark), rgba(230, 57, 70, 0.7));"></div>
-                                    <div class="flex-1 rounded-t" style="height: 85%; background: linear-gradient(to top, var(--accent-red-dark), rgba(230, 57, 70, 0.8));"></div>
-                                    <div class="flex-1 rounded-t" style="height: 100%; background: linear-gradient(to top, var(--accent-red), var(--accent-red-bright));"></div>
+                            <div class="relative aspect-[16/9] overflow-hidden bg-zinc-950">
+                                <img
+                                    src="{{ asset('img/hero/compulago-ecommerce.jpg') }}"
+                                    alt="Compulago E-commerce"
+                                    class="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                                    loading="eager"
+                                    decoding="async"
+                                >
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent pointer-events-none"></div>
+                                <div class="absolute bottom-2 left-3 right-3 flex items-center justify-between pointer-events-none">
+                                    <span class="text-xs font-semibold text-white/95 drop-shadow">{{ __('landing.hero.card_compulago_title') }}</span>
+                                    <span class="text-[10.5px] text-white/70 drop-shadow">{{ __('landing.hero.card_compulago_tag') }}</span>
                                 </div>
                             </div>
-                        </div>
+                        </a>
 
-                        <div class="absolute -bottom-6 -left-6 glass-card rounded-2xl p-4 shadow-xl animate-float hidden sm:block" style="background: rgba(20, 20, 20, 0.85); border: 1px solid rgba(230, 57, 70, 0.3);">
-                            <div class="flex items-center gap-3">
-                                <div class="w-10 h-10 rounded-full flex items-center justify-center" style="background: var(--accent-red-soft);">
-                                    <svg class="w-5 h-5 text-red-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                        <!-- Card 1: Classy Cartagena (Main - Front Center) -->
+                        <a href="https://classycartagena.com" target="_blank" rel="noopener noreferrer" class="hero-showcase__card hero-showcase__card--main group" aria-label="Classy Cartagena - {{ __('landing.hero.card_classy_tag') }}">
+                            <div class="flex items-center justify-between px-4 py-2.5 border-b border-white/10 bg-black/60">
+                                <div class="flex items-center gap-1.5">
+                                    <span class="w-2.5 h-2.5 rounded-full bg-red-500/60"></span>
+                                    <span class="w-2.5 h-2.5 rounded-full bg-amber-500/60"></span>
+                                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-500/60"></span>
+                                </div>
+                                <div class="flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[11px] font-mono text-white/75">
+                                    <svg class="w-2.5 h-2.5 text-emerald-400" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+                                        <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/>
                                     </svg>
+                                    <span>classycartagena.com</span>
                                 </div>
-                                <div>
-                                    <div class="text-sm font-semibold text-white">{{ __('landing.hero.mockup_project_delivered') }}</div>
-                                    <div class="text-xs text-white/50">{{ __('landing.hero.mockup_time_ago') }}</div>
+                                <div class="flex items-center gap-1 text-[10.5px] font-medium text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                                    <span>{{ __('landing.hero.live_site') }} ↗</span>
                                 </div>
                             </div>
-                        </div>
+                            <div class="relative aspect-[16/9.5] overflow-hidden bg-zinc-950">
+                                <img
+                                    src="{{ asset('img/hero/classy-cartagena.png') }}"
+                                    alt="Classy Cartagena Luxury Tourism & Booking"
+                                    class="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]"
+                                    loading="eager"
+                                    decoding="async"
+                                >
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none"></div>
+                                <div class="absolute bottom-3 left-4 right-4 flex items-center justify-between pointer-events-none">
+                                    <div>
+                                        <div class="text-sm sm:text-base font-bold text-white drop-shadow">{{ __('landing.hero.card_classy_title') }}</div>
+                                        <div class="text-[11px] text-white/75 drop-shadow">{{ __('landing.hero.card_classy_tag') }}</div>
+                                    </div>
+                                    <span class="text-xs text-white/80 font-medium px-2.5 py-1 rounded-md bg-white/10 backdrop-blur border border-white/15">Web & Luxury</span>
+                                </div>
+                            </div>
+                        </a>
+
+                        <!-- Card 3: Producción Audiovisual (Front Left Cinematic) -->
+                        <a href="{{ route('portfolio') }}" class="hero-showcase__card hero-showcase__card--film group" aria-label="KOSTA FILMS - {{ __('landing.hero.card_film_tag') }}">
+                            <div class="relative aspect-video overflow-hidden bg-black">
+                                <img
+                                    src="{{ asset('img/hero/kosta-film-still.jpg') }}"
+                                    alt="KOSTA Audiovisual Production Still"
+                                    class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                                    loading="eager"
+                                    decoding="async"
+                                >
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-black/30 pointer-events-none"></div>
+
+                                <!-- Cinematic HUD elements -->
+                                <div class="absolute top-2.5 left-3 right-3 flex items-center justify-between pointer-events-none">
+                                    <div class="flex items-center gap-1.5 px-2 py-0.5 rounded bg-black/60 backdrop-blur border border-white/10 text-[9.5px] font-mono tracking-widest text-white/90">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-red-accent animate-pulse"></span>
+                                        <span>REC</span>
+                                    </div>
+                                    <span class="text-[9.5px] font-mono tracking-widest text-white/70 bg-black/60 px-2 py-0.5 rounded backdrop-blur border border-white/10">4K CINEMA</span>
+                                </div>
+
+                                <!-- Center Play Badge -->
+                                <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+                                    <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/15 backdrop-blur-md border border-white/30 flex items-center justify-center text-white transition-all duration-300 group-hover:scale-110 group-hover:bg-red-accent/80 group-hover:border-red-accent">
+                                        <svg class="w-4 h-4 ml-0.5 text-white" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+                                            <path d="M6.3 2.841A1.5 1.5 0 004 4.11v11.78a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z"/>
+                                        </svg>
+                                    </div>
+                                </div>
+
+                                <div class="absolute bottom-2.5 left-3 right-3 pointer-events-none">
+                                    <div class="text-xs sm:text-sm font-bold text-white drop-shadow">{{ __('landing.hero.card_film_title') }}</div>
+                                    <div class="text-[10px] sm:text-[11px] text-white/75 drop-shadow">{{ __('landing.hero.card_film_tag') }}</div>
+                                </div>
+                            </div>
+                        </a>
                     </div>
                 </div>
             </div>
