@@ -49,7 +49,6 @@
                 max-width: min(342px, calc(100vw - 48px));
             }
 
-            .logo-item { font-size: 18px; }
         }
 
         .cta-group { display: flex; flex-direction: column; gap: 12px; width: 100%; }
@@ -513,20 +512,47 @@
         </div>
     </section>
 
-    <!-- LOGO CLOUD -->
-    <section class="relative py-6 sm:py-8 border-y border-white/5" aria-label="{{ __('landing.brands.eyebrow') }}">
-        <div class="max-w-7xl mx-auto container-pad">
-            <p class="text-center text-xs font-semibold text-white/40 uppercase tracking-[0.2em] mb-10">
-                {{ __('landing.brands.eyebrow') }}
-            </p>
-            <div class="flex flex-wrap items-center justify-center gap-x-10 gap-y-8 sm:gap-x-16">
-                <span class="logo-item">Lumina</span>
-                <span class="logo-item">Verdex</span>
-                <span class="logo-item">Norte&amp;Co</span>
-                <span class="logo-item">Atlas</span>
-                <span class="logo-item">Pulse</span>
-                <span class="logo-item">Studio7</span>
-            </div>
+    <!-- BRAND MARQUEE -->
+    @php
+        $brandLogos = [
+            ['name' => 'Meta', 'file' => 'meta.svg'],
+            ['name' => 'Google Ads', 'file' => 'google-ads.svg'],
+            ['name' => 'LinkedIn', 'file' => 'linkedin.svg'],
+            ['name' => 'WordPress', 'file' => 'wordpress.svg'],
+            ['name' => 'Behance', 'file' => 'behance.svg'],
+            ['name' => 'GitHub', 'file' => 'github.svg'],
+            ['name' => 'AI', 'file' => 'ai-spark.svg'],
+        ];
+        $brandRows = [$brandLogos, array_reverse($brandLogos)];
+    @endphp
+    <section class="relative py-7 sm:py-9 border-y border-white/5" aria-labelledby="brand-marquee-title">
+        <h2 id="brand-marquee-title" class="text-center text-xs font-semibold text-white/40 uppercase tracking-[0.2em] mb-5 sm:mb-7">
+            {{ __('landing.brands.eyebrow') }}
+        </h2>
+
+        <div class="flex flex-col gap-2 sm:gap-3">
+            @foreach ($brandRows as $rowIndex => $logos)
+                <div class="brand-marquee {{ $rowIndex === 1 ? 'brand-marquee--reverse' : '' }}">
+                    <div class="brand-marquee__track">
+                        @foreach ([false, true] as $isDuplicate)
+                            <div class="brand-marquee__group" @if ($isDuplicate) aria-hidden="true" @endif>
+                                @foreach ($logos as $brand)
+                                    <div class="brand-marquee__item">
+                                        <img
+                                            class="brand-marquee__logo"
+                                            src="{{ asset('img/logos/' . $brand['file']) }}"
+                                            alt="{{ $isDuplicate ? '' : $brand['name'] }}"
+                                            width="160"
+                                            height="40"
+                                            decoding="async"
+                                        >
+                                    </div>
+                                @endforeach
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+            @endforeach
         </div>
     </section>
 
