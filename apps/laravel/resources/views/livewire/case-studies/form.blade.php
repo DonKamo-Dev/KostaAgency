@@ -731,12 +731,21 @@
                                     </div>
                                 @endif
 
-                                <input type="file" wire:model="imagen_nueva" accept="image/jpeg,image/png,image/webp" class="form-input" style="padding:10px;cursor:pointer;">
+                                <div style="display:flex;flex-direction:column;gap:8px;">
+                                    <input type="file" wire:model="imagen_nueva" accept="image/jpeg,image/png,image/webp" class="form-input" style="padding:10px;cursor:pointer;">
+                                    <div wire:loading wire:target="imagen_nueva" style="padding:10px 14px;background:rgba(99,102,241,0.08);border:1px solid rgba(99,102,241,0.25);border-radius:10px;font-size:12px;color:#a5b4fc;display:flex;align-items:center;gap:10px;">
+                                        <svg style="width:16px;height:16px;animation:spinBtn 1s linear infinite;flex-shrink:0;" fill="none" viewBox="0 0 24 24">
+                                            <circle style="opacity:0.25;" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                            <path style="opacity:0.75;" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+                                        </svg>
+                                        <span>Procesando y cargando imagen previa en segundo plano... Por favor espera.</span>
+                                    </div>
+                                </div>
                                 @error('imagen_nueva') <span class="form-error">{{ $message }}</span> @enderror
 
                                 <div style="padding:10px 14px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:8px;font-size:12px;color:var(--text-muted);line-height:1.6;">
                                     <strong style="color:var(--text-secondary);">Guía de formato:</strong>
-                                    Recomendado <strong style="color:var(--text-secondary);">800 × 400 px</strong> (2:1). Máx <strong>2 MB</strong> en <strong>JPG, PNG o WebP</strong>.
+                                    Recomendado <strong style="color:var(--text-secondary);">800 × 400 px</strong> (2:1). Máx <strong>10 MB</strong> en <strong>JPG, PNG o WebP</strong>.
                                     Si no subes imagen, se utilizará el degradado seleccionado.
                                 </div>
                             </div>

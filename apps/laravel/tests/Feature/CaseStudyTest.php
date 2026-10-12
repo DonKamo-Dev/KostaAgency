@@ -359,4 +359,19 @@ class CaseStudyTest extends TestCase
             ->assertSee('Proyecto USA')
             ->assertSee('Exclusive Luxury USA');
     }
+
+    public function test_case_study_image_rejects_files_larger_than_10mb(): void
+    {
+        $user = User::factory()->create();
+        $largeImage = UploadedFile::fake()->create('large-image.png', 11000, 'image/png');
+
+        Livewire::actingAs($user)
+            ->test(Form::class)
+            ->set('titulo', 'Caso con imagen gigante')
+            ->set('categoria', 'sistema')
+            ->set('imagen_nueva', $largeImage)
+            ->call('save')
+            ->assertHasErrors(['imagen_nueva' => 'max']);
+    }
 }
+

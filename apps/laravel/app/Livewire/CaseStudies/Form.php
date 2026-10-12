@@ -74,7 +74,7 @@ class Form extends Component
         'tags_input' => 'nullable|string|max:500',
         'gradient_inicio' => 'required|string|max:50',
         'gradient_fin' => 'required|string|max:50',
-        'imagen_nueva' => 'nullable|image|max:2048',
+        'imagen_nueva' => 'nullable|image|max:10240',
         'activo' => 'boolean',
         'proyecto_usa' => 'boolean',
         'orden' => 'integer|min:0|max:999',
@@ -87,8 +87,9 @@ class Form extends Component
         'source_type.in' => 'El tipo de anclaje debe ser Empresa o Sitio Web.',
         'client_id.exists' => 'La empresa seleccionada no es válida.',
         'linked_case_study_id.exists' => 'El sitio web seleccionado no es válido.',
-        'imagen_nueva.image' => 'El archivo debe ser una imagen (JPG, PNG, WebP).',
-        'imagen_nueva.max' => 'La imagen no puede superar 2 MB.',
+        'imagen_nueva.image' => 'El archivo debe ser una imagen válida (JPG, PNG, WebP).',
+        'imagen_nueva.max' => 'La imagen no puede superar los 10 MB.',
+        'imagen_nueva.uploaded' => 'No se pudo subir la imagen. Comprueba que no supere los 10 MB y sea un formato válido (JPG, PNG, WebP).',
     ];
 
     public function updatedClientId($value): void

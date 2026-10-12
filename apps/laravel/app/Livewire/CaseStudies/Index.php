@@ -80,7 +80,7 @@ class Index extends Component
         'tags_input' => 'nullable|string|max:500',
         'gradient_inicio' => 'required|string|max:50',
         'gradient_fin' => 'required|string|max:50',
-        'imagen_nueva' => 'nullable|image|max:2048',
+        'imagen_nueva' => 'nullable|image|max:10240',
         'activo' => 'boolean',
         'proyecto_usa' => 'boolean',
         'orden' => 'integer|min:0|max:999',
@@ -90,8 +90,9 @@ class Index extends Component
         'titulo.required' => 'El título es obligatorio.',
         'categoria.required' => 'Selecciona una categoría.',
         'categoria.in' => 'Categoría no válida.',
-        'imagen_nueva.image' => 'El archivo debe ser una imagen (JPG, PNG, WebP).',
-        'imagen_nueva.max' => 'La imagen no puede superar 2 MB.',
+        'imagen_nueva.image' => 'El archivo debe ser una imagen válida (JPG, PNG, WebP).',
+        'imagen_nueva.max' => 'La imagen no puede superar los 10 MB.',
+        'imagen_nueva.uploaded' => 'No se pudo subir la imagen. Comprueba que no supere los 10 MB y sea un formato válido (JPG, PNG, WebP).',
     ];
 
     public function render()
