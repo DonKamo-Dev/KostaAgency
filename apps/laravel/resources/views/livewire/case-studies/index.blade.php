@@ -1,4 +1,114 @@
 <div>
+    <style>
+        .case-select {
+            appearance: none;
+            -webkit-appearance: none;
+            width: 18px;
+            height: 18px;
+            margin: 0;
+            border: 1px solid rgba(255, 255, 255, 0.32);
+            border-radius: 4px;
+            background: #080808 !important;
+            display: inline-grid;
+            place-content: center;
+            cursor: pointer;
+            vertical-align: middle;
+            transition: border-color 160ms ease, box-shadow 160ms ease;
+        }
+
+        .case-select::before {
+            content: '';
+            width: 5px;
+            height: 9px;
+            border-right: 2px solid #fff;
+            border-bottom: 2px solid #fff;
+            transform: rotate(45deg) scale(0);
+            transform-origin: center;
+            transition: transform 140ms ease;
+        }
+
+        .case-select:hover { border-color: rgba(255, 255, 255, 0.62); }
+        .case-select:checked { border-color: #fff; }
+        .case-select:checked::before { transform: rotate(45deg) scale(1); }
+        .case-select:focus-visible {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.14);
+        }
+
+        .case-pagination {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            margin-top: 20px;
+        }
+
+        .case-pagination__summary {
+            color: var(--text-muted);
+            font-size: 13px;
+        }
+
+        .case-pagination__summary strong {
+            color: var(--text-secondary);
+            font-family: 'Geist Mono', 'Geist', monospace;
+            font-weight: 600;
+        }
+
+        .case-pagination__controls {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .case-pagination__button {
+            min-width: 40px;
+            height: 40px;
+            padding: 0 12px;
+            border: 1px solid var(--border-default);
+            border-radius: 9px;
+            background: #080808;
+            color: var(--text-secondary);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Geist Mono', 'Geist', monospace;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: border-color 160ms ease, color 160ms ease, background 160ms ease;
+        }
+
+        .case-pagination__button:hover:not(:disabled) {
+            border-color: rgba(255, 255, 255, 0.42);
+            color: #fff;
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .case-pagination__button[aria-current='page'] {
+            border-color: rgba(255, 255, 255, 0.72);
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+        }
+
+        .case-pagination__button:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .case-pagination__button:focus-visible {
+            outline: 2px solid rgba(255, 255, 255, 0.62);
+            outline-offset: 2px;
+        }
+
+        .case-pagination__button svg { width: 16px; height: 16px; }
+
+        @media (max-width: 640px) {
+            .case-pagination { flex-direction: column; align-items: stretch; }
+            .case-pagination__summary { text-align: center; }
+            .case-pagination__controls { justify-content: center; }
+        }
+    </style>
+
     <!-- Header -->
     @php
         $catNames = ['web' => 'Páginas Web', 'ecommerce' => 'E-commerce', 'sistema' => 'Sistema', 'branding' => 'Branding', 'films' => 'Films & Reels', 'social' => 'Films'];
@@ -100,7 +210,7 @@
             <thead>
                 <tr>
                     <th style="width:40px;text-align:center;">
-                        <input type="checkbox" wire:model.live="selectAll" style="width:16px;height:16px;accent-color:var(--red-primary);cursor:pointer;" title="Seleccionar todos">
+                        <input type="checkbox" wire:model.live="selectAll" class="case-select" title="Seleccionar todos" aria-label="Seleccionar todos los casos">
                     </th>
                     <th style="width:60px;">Vista previa</th>
                     <th>Título</th>
@@ -116,7 +226,7 @@
                     <tr wire:key="study-{{ $study->id }}" style="{{ in_array((string)$study->id, $selectedIds) ? 'background:rgba(230,57,70,0.06);' : '' }}">
                         <!-- Checkbox Selección -->
                         <td style="text-align:center;">
-                            <input type="checkbox" wire:model.live="selectedIds" value="{{ (string)$study->id }}" style="width:16px;height:16px;accent-color:var(--red-primary);cursor:pointer;">
+                            <input type="checkbox" wire:model.live="selectedIds" value="{{ (string)$study->id }}" class="case-select" aria-label="Seleccionar {{ $study->titulo }}">
                         </td>
 
                         <!-- Preview -->
@@ -252,6 +362,57 @@
 
     <!-- Pagination -->
     @if($studies->hasPages())
-        <div class="crud-pagination">{{ $studies->links() }}</div>
+        @php
+            $pageStart = max(1, $studies->currentPage() - 1);
+            $pageEnd = min($studies->lastPage(), $pageStart + 2);
+            $pageStart = max(1, $pageEnd - 2);
+        @endphp
+        <nav class="case-pagination" aria-label="Paginación de casos de estudio">
+            <div class="case-pagination__summary">
+                Mostrando <strong>{{ $studies->firstItem() }}–{{ $studies->lastItem() }}</strong>
+                de <strong>{{ $studies->total() }}</strong> casos
+            </div>
+
+            <div class="case-pagination__controls">
+                <button
+                    type="button"
+                    wire:click="previousPage"
+                    wire:loading.attr="disabled"
+                    class="case-pagination__button"
+                    aria-label="Página anterior"
+                    @disabled($studies->onFirstPage())
+                >
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                    </svg>
+                </button>
+
+                @for($page = $pageStart; $page <= $pageEnd; $page++)
+                    <button
+                        type="button"
+                        wire:click="gotoPage({{ $page }})"
+                        wire:loading.attr="disabled"
+                        class="case-pagination__button"
+                        @if($page === $studies->currentPage()) aria-current="page" @endif
+                        aria-label="Ir a la página {{ $page }}"
+                    >
+                        {{ $page }}
+                    </button>
+                @endfor
+
+                <button
+                    type="button"
+                    wire:click="nextPage"
+                    wire:loading.attr="disabled"
+                    class="case-pagination__button"
+                    aria-label="Página siguiente"
+                    @disabled(!$studies->hasMorePages())
+                >
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                    </svg>
+                </button>
+            </div>
+        </nav>
     @endif
 </div>
