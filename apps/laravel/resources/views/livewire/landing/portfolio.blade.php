@@ -650,7 +650,7 @@
                             </div>
                             <div class="browser-screen" style="background: linear-gradient(135deg, {{ $estudio->gradient_inicio }}, {{ $estudio->gradient_fin }});">
                                 @if($estudio->image_url)
-                                    <button type="button" class="case-preview-trigger" data-case-preview data-image="{{ $estudio->image_url }}" data-title="{{ $estudio->titulo }}" aria-label="Ver imagen ampliada de {{ $estudio->titulo }}">
+                                    <button type="button" class="case-preview-trigger" data-case-preview data-image="{{ $estudio->image_url }}" data-title="{{ $estudio->titulo }}" data-url="{{ $estudio->public_url ?? '' }}" aria-label="Ver imagen ampliada de {{ $estudio->titulo }}">
                                         <img src="{{ $estudio->image_url }}" alt="{{ $estudio->titulo }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
                                         <span class="case-preview-hint">
                                             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
@@ -672,7 +672,21 @@
 
                             <div class="project-body">
                                 <span class="project-cat">{{ $catLabels[$estudio->categoria] ?? $estudio->categoria }}</span>
-                                <h3 class="project-title">{{ $estudio->titulo }}</h3>
+                                <h3 class="project-title">
+                                    @if($estudio->image_url)
+                                        <button type="button"
+                                                class="project-title-link"
+                                                data-case-preview
+                                                data-image="{{ $estudio->image_url }}"
+                                                data-title="{{ $estudio->titulo }}"
+                                                data-url="{{ $estudio->public_url ?? '' }}"
+                                                aria-label="Ver imagen ampliada de {{ $estudio->titulo }}">
+                                            {{ $estudio->titulo }}
+                                        </button>
+                                    @else
+                                        {{ $estudio->titulo }}
+                                    @endif
+                                </h3>
                                 @if($estudio->descripcion)
                                     <p class="project-desc">{{ $estudio->descripcion }}</p>
                                 @endif

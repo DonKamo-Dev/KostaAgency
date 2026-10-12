@@ -417,4 +417,25 @@ class CaseStudyTest extends TestCase
         $this->assertNull($study->fresh()->imagen);
         $this->assertNull($study->fresh()->image_url);
     }
+
+    public function test_portfolio_renders_clickable_title_and_viewer_actions(): void
+    {
+        CaseStudy::create([
+            'titulo' => 'Sitio Interactivo',
+            'categoria' => 'web',
+            'url_demo' => 'https://ejemplo.com',
+            'imagen' => 'https://pub-abc123xyz.r2.dev/sitio.png',
+            'gradient_inicio' => '#111111',
+            'gradient_fin' => '#222222',
+            'activo' => true,
+        ]);
+
+        $this->get(route('portfolio'))
+            ->assertOk()
+            ->assertSee('project-title-link', false)
+            ->assertSee('data-case-viewer-website', false)
+            ->assertSee('data-case-viewer-contact', false)
+            ->assertSee('Ver sitio web')
+            ->assertSee('Quiero una igual');
+    }
 }
