@@ -31,10 +31,10 @@
     <link rel="shortcut icon" href="{{ asset('img/favicon.png') }}">
     <link rel="apple-touch-icon" href="{{ asset('img/favicon.png') }}">
 
-    <!-- Google Fonts: Google Sans Flex & Syne -->
+    <!-- Google Fonts: Google Sans Flex -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght@6..144,1..1000&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght@6..144,1..1000&display=swap" rel="stylesheet">
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/site.js'])
@@ -86,7 +86,7 @@
             background-color: var(--bento-bg) !important;
             background: var(--bento-bg) !important;
             color: var(--bento-text-main);
-            font-family: 'Syne', sans-serif;
+            font-family: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, sans-serif;
             margin: 0;
             padding: 0;
             -webkit-font-smoothing: antialiased;

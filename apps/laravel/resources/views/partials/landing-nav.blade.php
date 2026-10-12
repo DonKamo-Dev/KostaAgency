@@ -47,7 +47,7 @@
         font-size: 11px;
         font-weight: 700;
         letter-spacing: 0.04em;
-        font-family: 'Syne', sans-serif;
+        font-family: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, sans-serif;
     }
     .lang-btn {
         color: rgba(255, 255, 255, 0.45);

@@ -38,7 +38,7 @@
         }
 
         .sd-subtitle {
-            font-family: 'Syne', sans-serif;
+            font-family: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, sans-serif;
             font-size: clamp(16px, 1.8vw, 20px);
             line-height: 1.65;
             color: rgba(255, 255, 255, 0.65);

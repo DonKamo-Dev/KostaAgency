@@ -14,8 +14,8 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                sans: ['Syne', ...defaultTheme.fontFamily.sans],
-                body: ['Syne', ...defaultTheme.fontFamily.sans],
+                sans: ['"Google Sans Flex"', ...defaultTheme.fontFamily.sans],
+                body: ['"Google Sans Flex"', ...defaultTheme.fontFamily.sans],
                 display: ['"Google Sans Flex"', ...defaultTheme.fontFamily.sans],
             },
             colors: {
