@@ -52,6 +52,10 @@ class Form extends Component
 
     public $imagen_nueva = null;
 
+    public string $imagen_url = '';
+
+    public bool $quitar_imagen = false;
+
     public bool $activo = true;
 
     public bool $proyecto_usa = false;
@@ -74,6 +78,7 @@ class Form extends Component
         'tags_input' => 'nullable|string|max:500',
         'gradient_inicio' => 'required|string|max:50',
         'gradient_fin' => 'required|string|max:50',
+        'imagen_url' => 'nullable|url|max:2000',
         'imagen_nueva' => 'nullable|image|max:10240',
         'activo' => 'boolean',
         'proyecto_usa' => 'boolean',
@@ -87,9 +92,10 @@ class Form extends Component
         'source_type.in' => 'El tipo de anclaje debe ser Empresa o Sitio Web.',
         'client_id.exists' => 'La empresa seleccionada no es válida.',
         'linked_case_study_id.exists' => 'El sitio web seleccionado no es válido.',
+        'imagen_url.url' => 'La URL de la imagen debe ser un enlace válido (ej. https://...).',
         'imagen_nueva.image' => 'El archivo debe ser una imagen válida (JPG, PNG, WebP).',
         'imagen_nueva.max' => 'La imagen no puede superar los 10 MB.',
-        'imagen_nueva.uploaded' => 'No se pudo subir la imagen. Comprueba que no supere los 10 MB y sea un formato válido (JPG, PNG, WebP).',
+        'imagen_nueva.uploaded' => 'No se pudo subir la imagen. Comprueba que no supere los 10 MB y sea un formato válido (JPG, PNG, WebP), o ingresa un enlace directo en el campo de URL.',
     ];
 
     public function updatedClientId($value): void
@@ -146,7 +152,18 @@ class Form extends Component
             $this->proyecto_usa = (bool) $caseStudy->proyecto_usa;
             $this->orden = (int) $caseStudy->orden;
             $this->imagenActual = $caseStudy->image_url;
+            if ($caseStudy->imagen && (filter_var($caseStudy->imagen, FILTER_VALIDATE_URL) || preg_match('#^https?://#i', (string) $caseStudy->imagen))) {
+                $this->imagen_url = (string) $caseStudy->imagen;
+            }
         }
+    }
+
+    public function removeImage(): void
+    {
+        $this->imagen_nueva = null;
+        $this->imagen_url = '';
+        $this->imagenActual = null;
+        $this->quitar_imagen = true;
     }
 
     public function save(): void
@@ -169,6 +186,11 @@ class Form extends Component
         $this->gradient_inicio = $this->gradient_inicio ?: '#6366f1';
         $this->gradient_fin = $this->gradient_fin ?: '#8b5cf6';
         $this->video_orientation = in_array($this->video_orientation, ['vertical', 'horizontal']) ? $this->video_orientation : 'vertical';
+
+        $this->imagen_url = trim($this->imagen_url);
+        if ($this->imagen_url !== '' && ! preg_match('#^https?://#i', $this->imagen_url)) {
+            $this->imagen_url = 'https://'.$this->imagen_url;
+        }
 
         $this->validate();
 
@@ -214,11 +236,27 @@ class Form extends Component
         }
 
         if ($this->imagen_nueva) {
-            if ($study?->imagen) {
+            if ($study?->imagen && ! filter_var($study->imagen, FILTER_VALIDATE_URL) && $study->imagen !== CaseStudyImage::DATABASE_MARKER) {
                 Storage::disk('public')->delete($study->imagen);
                 @unlink(public_path('storage/'.$study->imagen));
             }
             $data = array_merge($data, CaseStudyImage::attributesFrom($this->imagen_nueva));
+        } elseif (filled($this->imagen_url)) {
+            if ($study?->imagen && ! filter_var($study->imagen, FILTER_VALIDATE_URL) && $study->imagen !== CaseStudyImage::DATABASE_MARKER) {
+                Storage::disk('public')->delete($study->imagen);
+                @unlink(public_path('storage/'.$study->imagen));
+            }
+            $data['imagen'] = $this->imagen_url;
+            $data['imagen_data'] = null;
+            $data['imagen_mime'] = null;
+        } elseif ($this->quitar_imagen) {
+            if ($study?->imagen && ! filter_var($study->imagen, FILTER_VALIDATE_URL) && $study->imagen !== CaseStudyImage::DATABASE_MARKER) {
+                Storage::disk('public')->delete($study->imagen);
+                @unlink(public_path('storage/'.$study->imagen));
+            }
+            $data['imagen'] = null;
+            $data['imagen_data'] = null;
+            $data['imagen_mime'] = null;
         }
 
         try {

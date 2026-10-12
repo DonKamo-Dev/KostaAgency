@@ -373,4 +373,48 @@ class CaseStudyTest extends TestCase
             ->call('save')
             ->assertHasErrors(['imagen_nueva' => 'max']);
     }
+
+    public function test_admin_can_save_case_study_with_external_image_url(): void
+    {
+        $user = User::factory()->create();
+        $externalUrl = 'https://pub-abc123xyz.r2.dev/11-HiCustomBlinds.png';
+
+        Livewire::actingAs($user)
+            ->test(Form::class)
+            ->set('titulo', 'Caso con imagen en Cloudflare R2')
+            ->set('categoria', 'web')
+            ->set('imagen_url', $externalUrl)
+            ->call('save')
+            ->assertHasNoErrors();
+
+        $study = CaseStudy::where('titulo', 'Caso con imagen en Cloudflare R2')->sole();
+
+        $this->assertSame($externalUrl, $study->imagen);
+        $this->assertSame($externalUrl, $study->image_url);
+
+        $this->get(route('portfolio'))
+            ->assertOk()
+            ->assertSee($externalUrl, false);
+    }
+
+    public function test_admin_can_remove_image(): void
+    {
+        $user = User::factory()->create();
+        $study = CaseStudy::create([
+            'titulo' => 'Caso con imagen previa',
+            'categoria' => 'web',
+            'gradient_inicio' => '#111111',
+            'gradient_fin' => '#222222',
+            'imagen' => 'https://pub-abc123xyz.r2.dev/foto.png',
+        ]);
+
+        Livewire::actingAs($user)
+            ->test(Form::class, ['caseStudy' => $study])
+            ->call('removeImage')
+            ->call('save')
+            ->assertHasNoErrors();
+
+        $this->assertNull($study->fresh()->imagen);
+        $this->assertNull($study->fresh()->image_url);
+    }
 }

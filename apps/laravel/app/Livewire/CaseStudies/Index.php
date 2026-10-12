@@ -61,6 +61,8 @@ class Index extends Component
 
     public $imagen_nueva = null;
 
+    public string $imagen_url = '';
+
     public bool $activo = true;
 
     public bool $proyecto_usa = false;
@@ -80,6 +82,7 @@ class Index extends Component
         'tags_input' => 'nullable|string|max:500',
         'gradient_inicio' => 'required|string|max:50',
         'gradient_fin' => 'required|string|max:50',
+        'imagen_url' => 'nullable|url|max:2000',
         'imagen_nueva' => 'nullable|image|max:10240',
         'activo' => 'boolean',
         'proyecto_usa' => 'boolean',
@@ -90,9 +93,10 @@ class Index extends Component
         'titulo.required' => 'El título es obligatorio.',
         'categoria.required' => 'Selecciona una categoría.',
         'categoria.in' => 'Categoría no válida.',
+        'imagen_url.url' => 'La URL de la imagen debe ser un enlace válido (ej. https://...).',
         'imagen_nueva.image' => 'El archivo debe ser una imagen válida (JPG, PNG, WebP).',
         'imagen_nueva.max' => 'La imagen no puede superar los 10 MB.',
-        'imagen_nueva.uploaded' => 'No se pudo subir la imagen. Comprueba que no supere los 10 MB y sea un formato válido (JPG, PNG, WebP).',
+        'imagen_nueva.uploaded' => 'No se pudo subir la imagen. Comprueba que no supere los 10 MB y sea un formato válido (JPG, PNG, WebP), o ingresa un enlace directo en el campo de URL.',
     ];
 
     public function render()
@@ -132,6 +136,7 @@ class Index extends Component
         $this->gradient_inicio = '#6366f1';
         $this->gradient_fin = '#8b5cf6';
         $this->imagen_nueva = null;
+        $this->imagen_url = '';
         $this->imagenActual = null;
         $this->activo = true;
         $this->proyecto_usa = false;
@@ -156,12 +161,18 @@ class Index extends Component
         $this->proyecto_usa = (bool) $study->proyecto_usa;
         $this->orden = $study->orden;
         $this->imagen_nueva = null;
+        $this->imagen_url = ($study->imagen && (filter_var($study->imagen, FILTER_VALIDATE_URL) || preg_match('#^https?://#i', (string) $study->imagen))) ? (string) $study->imagen : '';
         $this->imagenActual = $study->image_url;
         $this->showForm = true;
     }
 
     public function save(): void
     {
+        $this->imagen_url = trim($this->imagen_url);
+        if ($this->imagen_url !== '' && ! preg_match('#^https?://#i', $this->imagen_url)) {
+            $this->imagen_url = 'https://'.$this->imagen_url;
+        }
+
         $this->validate();
 
         $study = $this->editingId ? $this->findStudy($this->editingId) : null;
@@ -186,10 +197,17 @@ class Index extends Component
         ];
 
         if ($this->imagen_nueva) {
-            if ($study?->imagen) {
+            if ($study?->imagen && ! filter_var($study->imagen, FILTER_VALIDATE_URL) && $study->imagen !== CaseStudyImage::DATABASE_MARKER) {
                 Storage::disk('public')->delete($study->imagen);
             }
             $data = array_merge($data, CaseStudyImage::attributesFrom($this->imagen_nueva));
+        } elseif (filled($this->imagen_url)) {
+            if ($study?->imagen && ! filter_var($study->imagen, FILTER_VALIDATE_URL) && $study->imagen !== CaseStudyImage::DATABASE_MARKER) {
+                Storage::disk('public')->delete($study->imagen);
+            }
+            $data['imagen'] = $this->imagen_url;
+            $data['imagen_data'] = null;
+            $data['imagen_mime'] = null;
         }
 
         if ($study) {

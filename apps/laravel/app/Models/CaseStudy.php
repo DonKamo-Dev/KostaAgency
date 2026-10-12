@@ -44,6 +44,14 @@ class CaseStudy extends Model
 
     public function getImageUrlAttribute(): ?string
     {
+        if (empty($this->imagen)) {
+            return null;
+        }
+
+        if (filter_var($this->imagen, FILTER_VALIDATE_URL) || preg_match('#^https?://#i', (string) $this->imagen)) {
+            return $this->imagen;
+        }
+
         if ($this->imagen === CaseStudyImage::DATABASE_MARKER) {
             return route('case-studies.image', [
                 'caseStudy' => $this,
@@ -51,7 +59,7 @@ class CaseStudy extends Model
             ]);
         }
 
-        return $this->imagen ? Storage::disk('public')->url($this->imagen) : null;
+        return Storage::disk('public')->url($this->imagen);
     }
 
     public function getVideoStreamUrlAttribute(): ?string

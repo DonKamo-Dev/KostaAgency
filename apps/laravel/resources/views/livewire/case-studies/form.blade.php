@@ -703,17 +703,25 @@
 
                         <!-- Imagen de Portada -->
                         <div class="form-group" style="margin-bottom:0;">
-                            <label class="form-label">Imagen de Portada (Opcional)</label>
+                            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+                                <label class="form-label" style="margin-bottom:0;">Imagen de Portada (Opcional)</label>
+                                @if($imagen_nueva || filled($imagen_url) || ($imagenActual && !$quitar_imagen))
+                                    <button type="button" wire:click="removeImage" class="btn btn-sm btn-secondary" style="font-size:11px;padding:3px 10px;color:#ef4444;border-color:rgba(239,68,68,0.25);">
+                                        Quitar Imagen
+                                    </button>
+                                @endif
+                            </div>
 
-                            <div style="display:flex;flex-direction:column;gap:12px;">
-                                @if($imagenActual && !$imagen_nueva)
+                            <div style="display:flex;flex-direction:column;gap:14px;">
+                                <!-- Imagen actual guardada en BD si existe -->
+                                @if($imagenActual && !$imagen_nueva && empty($imagen_url) && !$quitar_imagen)
                                     <div style="display:flex;align-items:center;gap:14px;padding:12px;background:rgba(255,255,255,0.03);border:1px solid var(--border-default);border-radius:12px;">
                                         <div style="width:80px;height:48px;border-radius:8px;overflow:hidden;border:1px solid rgba(255,255,255,0.1);flex-shrink:0;">
                                             <img src="{{ $imagenActual }}" alt="Imagen actual" style="width:100%;height:100%;object-fit:cover;">
                                         </div>
                                         <div style="font-size:12px;color:var(--text-secondary);flex:1;">
-                                            <div style="font-weight:600;color:#fff;">Imagen actual guardada</div>
-                                            <div style="color:var(--text-muted);">Puedes subir una nueva imagen abajo para reemplazarla.</div>
+                                            <div style="font-weight:600;color:#fff;">Imagen guardada actualmente</div>
+                                            <div style="color:var(--text-muted);font-size:11px;">Pega una nueva URL abajo o sube un archivo para reemplazarla.</div>
                                         </div>
                                     </div>
                                 @endif
@@ -724,13 +732,37 @@
                                             <img src="{{ $imagen_nueva->temporaryUrl() }}" alt="Nueva imagen" style="width:100%;height:100%;object-fit:cover;">
                                         </div>
                                         <div style="font-size:12px;color:var(--text-secondary);flex:1;">
-                                            <div style="font-weight:600;color:#10B981;">Nueva imagen seleccionada</div>
-                                            <div style="color:var(--text-muted);">Lista para subir al guardar.</div>
+                                            <div style="font-weight:600;color:#10B981;">Archivo local seleccionado</div>
+                                            <div style="color:var(--text-muted);font-size:11px;">Se procesará y guardará al enviar el formulario.</div>
                                         </div>
-                                        <button type="button" wire:click="$set('imagen_nueva', null)" class="btn btn-sm btn-secondary" style="font-size:11px;padding:4px 8px;">Quitar</button>
+                                        <button type="button" wire:click="$set('imagen_nueva', null)" class="btn btn-sm btn-secondary" style="font-size:11px;padding:4px 8px;">Quitar archivo</button>
                                     </div>
                                 @endif
 
+                                <!-- Opción 1: URL Directa (Cloudflare R2 / S3 / CDN) -->
+                                <div style="background:rgba(255,255,255,0.02);border:1px solid var(--border-default);border-radius:12px;padding:14px;">
+                                    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+                                        <label class="form-label" style="margin-bottom:0;display:flex;align-items:center;gap:6px;font-size:13px;color:#fff;">
+                                            <svg style="width:14px;height:14px;color:#f97316;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
+                                            Enlace Directo (Cloudflare R2 / CDN / URL externa)
+                                        </label>
+                                        <span style="font-size:10px;padding:2px 8px;border-radius:6px;background:rgba(249,115,22,0.15);color:#fb923c;font-weight:600;">Recomendado</span>
+                                    </div>
+                                    <input type="text" wire:model.live.debounce.300ms="imagen_url" class="form-input" placeholder="https://pub-xxxxxx.r2.dev/11-HiCustomBlinds.png" style="font-size:13px;">
+                                    @error('imagen_url') <span class="form-error" style="margin-top:6px;display:block;">{{ $message }}</span> @enderror
+                                    <div style="font-size:11px;color:var(--text-muted);margin-top:6px;line-height:1.4;">
+                                        Pega el enlace público directo de Cloudflare R2, AWS S3 o cualquier servidor. Carga al instante sin consumir recursos ni límites del servidor.
+                                    </div>
+                                </div>
+
+                                <!-- Divisor -->
+                                <div style="display:flex;align-items:center;gap:12px;margin:2px 0;">
+                                    <div style="flex:1;height:1px;background:rgba(255,255,255,0.06);"></div>
+                                    <span style="font-size:11px;color:var(--text-subtle);text-transform:uppercase;letter-spacing:.08em;">o subir archivo</span>
+                                    <div style="flex:1;height:1px;background:rgba(255,255,255,0.06);"></div>
+                                </div>
+
+                                <!-- Opción 2: Subir archivo -->
                                 <div style="display:flex;flex-direction:column;gap:8px;">
                                     <input type="file" wire:model="imagen_nueva" accept="image/jpeg,image/png,image/webp" class="form-input" style="padding:10px;cursor:pointer;">
                                     <div wire:loading wire:target="imagen_nueva" style="padding:10px 14px;background:rgba(99,102,241,0.08);border:1px solid rgba(99,102,241,0.25);border-radius:10px;font-size:12px;color:#a5b4fc;display:flex;align-items:center;gap:10px;">
@@ -745,8 +777,8 @@
 
                                 <div style="padding:10px 14px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:8px;font-size:12px;color:var(--text-muted);line-height:1.6;">
                                     <strong style="color:var(--text-secondary);">Guía de formato:</strong>
-                                    Recomendado <strong style="color:var(--text-secondary);">800 × 400 px</strong> (2:1). Máx <strong>10 MB</strong> en <strong>JPG, PNG o WebP</strong>.
-                                    Si no subes imagen, se utilizará el degradado seleccionado.
+                                    Recomendado <strong style="color:var(--text-secondary);">800 × 400 px</strong> (2:1). En <strong>JPG, PNG o WebP</strong>.
+                                    Si no configuras imagen, se utilizará el degradado seleccionado.
                                 </div>
                             </div>
                         </div>
@@ -1013,7 +1045,9 @@
                             <div style="height:175px;position:relative;overflow:hidden;background:linear-gradient(135deg, {{ $gradient_inicio }}, {{ $gradient_fin }});">
                                 @if($imagen_nueva)
                                     <img src="{{ $imagen_nueva->temporaryUrl() }}" alt="Preview" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
-                                @elseif($imagenActual)
+                                @elseif(filled($imagen_url))
+                                    <img src="{{ $imagen_url }}" alt="Preview" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none';">
+                                @elseif($imagenActual && !$quitar_imagen)
                                     <img src="{{ $imagenActual }}" alt="Preview" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
                                 @else
                                     <!-- Mock UI wireframe -->
