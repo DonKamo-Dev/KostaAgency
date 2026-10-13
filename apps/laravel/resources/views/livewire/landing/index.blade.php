@@ -1295,11 +1295,14 @@
             };
 
             const calculateTargetProgress = () => {
-                const rect = processSection.getBoundingClientRect();
+                const targetEl = processSection.querySelector('.process-timeline-wrapper') || processSection;
+                const rect = targetEl.getBoundingClientRect();
                 const vh = window.innerHeight || 800;
 
-                const startY = vh * 0.85;
-                const endY = vh * 0.35;
+                // Start animation only when the actual process cards are clearly visible in the viewport
+                const startY = vh * 0.72;
+                // Complete when the cards reach upper-middle of the screen
+                const endY = vh * 0.28;
                 const distance = startY - endY;
 
                 if (distance <= 0) return 1;
