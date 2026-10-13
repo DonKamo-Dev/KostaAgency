@@ -177,8 +177,8 @@ return [
     'cta' => [
         'eyebrow' => 'Start Today',
         'title_prefix' => 'Ready to',
-        'title_highlight' => 'scale',
-        'title_suffix' => 'your business?',
+        'title_highlight' => 'transform',
+        'title_suffix' => 'your brand?',
         'subtitle' => 'Tell us about your project vision. You will receive an initial custom proposal in under 48 hours, free of obligation.',
         'go_dashboard' => 'Go to Dashboard',
         'btn_project' => 'Let’s discuss your project',

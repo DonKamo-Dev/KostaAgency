@@ -177,8 +177,8 @@ return [
     'cta' => [
         'eyebrow' => 'Empecemos hoy',
         'title_prefix' => '¿Listo para',
-        'title_highlight' => 'escalar',
-        'title_suffix' => 'tu negocio?',
+        'title_highlight' => 'transformar',
+        'title_suffix' => 'tu marca?',
         'subtitle' => 'Cuéntanos sobre tu proyecto. Recibirás una propuesta inicial en menos de 48 horas, sin compromiso.',
         'go_dashboard' => 'Ir al Dashboard',
         'btn_project' => 'Hablemos de tu proyecto',

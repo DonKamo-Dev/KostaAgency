@@ -1064,27 +1064,12 @@
             </p>
 
             <div class="cta-group justify-center" style="max-width: 480px; margin: 0 auto;">
-                @auth
-                    <a href="{{ route('dashboard') }}" class="btn-primary">
-                        {{ __('landing.cta.go_dashboard') }}
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
-                        </svg>
-                    </a>
-                @else
-                    <a href="mailto:hola@kosta.studio" class="btn-primary">
-                        {{ __('landing.cta.btn_project') }}
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
-                        </svg>
-                    </a>
-                    <a href="mailto:hola@kosta.studio" class="btn-secondary">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-                        </svg>
-                        {{ __('landing.cta.btn_write') }}
-                    </a>
-                @endauth
+                <a href="{{ route('contact') }}" wire:navigate class="btn-primary">
+                    {{ __('landing.cta.btn_project') }}
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                    </svg>
+                </a>
             </div>
 
             <div class="mt-12 sm:mt-14 flex flex-wrap items-center justify-center gap-x-8 gap-y-4 text-sm text-white/50">
