@@ -426,6 +426,25 @@
             display: inline-block;
         }
 
+        .stats-bar-track {
+            width: 64px;
+            height: 3px;
+            background: rgba(255, 255, 255, 0.14);
+            border-radius: 9999px;
+            overflow: hidden;
+            position: relative;
+            margin: 12px auto 0 auto;
+        }
+
+        .stats-bar-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, rgba(255, 255, 255, 0.5) 0%, #FFFFFF 100%);
+            border-radius: 9999px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            will-change: width;
+        }
+
         .stats-label {
             font-size: 13px;
             font-weight: 500;

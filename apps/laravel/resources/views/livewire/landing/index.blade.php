@@ -744,6 +744,9 @@
                          aria-label="{{ __('landing.stats.delivered_projects') }} {{ __('landing.stats.delivered_projects_label') }}">
                         <span class="counter-value">{{ __('landing.stats.delivered_projects') }}</span>
                     </div>
+                    <div class="stats-bar-track" aria-hidden="true">
+                        <div class="stats-bar-fill" data-bar-target="100" style="width: 100%;"></div>
+                    </div>
                     <div class="stats-label mt-3">{{ __('landing.stats.delivered_projects_label') }}</div>
                 </div>
                 <div class="text-center">
@@ -754,6 +757,9 @@
                          data-suffix="%"
                          aria-label="{{ __('landing.stats.satisfied_rate') }} {{ __('landing.stats.satisfied_rate_label') }}">
                         <span class="counter-value">{{ __('landing.stats.satisfied_rate') }}</span>
+                    </div>
+                    <div class="stats-bar-track" aria-hidden="true">
+                        <div class="stats-bar-fill" data-bar-target="95" style="width: 95%;"></div>
                     </div>
                     <div class="stats-label mt-3">{{ __('landing.stats.satisfied_rate_label') }}</div>
                 </div>
@@ -766,6 +772,9 @@
                          aria-label="{{ __('landing.stats.custom_solutions') }} {{ __('landing.stats.custom_solutions_label') }}">
                         <span class="counter-value">{{ __('landing.stats.custom_solutions') }}</span>
                     </div>
+                    <div class="stats-bar-track" aria-hidden="true">
+                        <div class="stats-bar-fill" data-bar-target="100" style="width: 100%;"></div>
+                    </div>
                     <div class="stats-label mt-3">{{ __('landing.stats.custom_solutions_label') }}</div>
                 </div>
                 <div class="text-center">
@@ -776,6 +785,9 @@
                          data-suffix="{{ __('landing.stats.years_suffix') }}"
                          aria-label="{{ __('landing.stats.years_building') }} {{ __('landing.stats.years_building_label') }}">
                         <span class="counter-value">{{ __('landing.stats.years_building') }}</span>
+                    </div>
+                    <div class="stats-bar-track" aria-hidden="true">
+                        <div class="stats-bar-fill" data-bar-target="100" style="width: 100%;"></div>
                     </div>
                     <div class="stats-label mt-3">{{ __('landing.stats.years_building_label') }}</div>
                 </div>
@@ -1112,83 +1124,121 @@
         });
     });
 
-    // ===== STATS COUNT-UP ANIMATION =====
+    // ===== SCROLL-DRIVEN STATS COUNT-UP & PROGRESS BARS =====
     (() => {
-        const initStatsCounters = () => {
+        const initScrollStats = () => {
             const statsSection = document.querySelector('.stats-section');
-            if (!statsSection || statsSection.dataset.counterInitialized === 'true') return;
+            if (!statsSection) return;
 
-            const counters = statsSection.querySelectorAll('[data-counter]');
+            const counters = Array.from(statsSection.querySelectorAll('[data-counter]')).map((el) => ({
+                el,
+                valueEl: el.querySelector('.counter-value') || el,
+                target: parseFloat(el.getAttribute('data-target')) || 0,
+                prefix: el.getAttribute('data-prefix') || '',
+                suffix: el.getAttribute('data-suffix') || '',
+            }));
+
+            const bars = Array.from(statsSection.querySelectorAll('.stats-bar-fill')).map((el) => ({
+                el,
+                target: parseFloat(el.getAttribute('data-bar-target')) || 100,
+            }));
+
             if (!counters.length) return;
 
             const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-            if (prefersReducedMotion) return;
+            if (prefersReducedMotion) {
+                counters.forEach((c) => {
+                    c.valueEl.textContent = `${c.prefix}${c.target}${c.suffix}`;
+                });
+                bars.forEach((b) => {
+                    b.el.style.width = `${b.target}%`;
+                });
+                return;
+            }
 
-            statsSection.dataset.counterInitialized = 'true';
-            let hasAnimated = false;
+            let currentProgress = 0;
+            let targetProgress = 0;
+            let isTicking = false;
 
-            const runAnimation = () => {
-                if (hasAnimated) return;
-                hasAnimated = true;
+            const render = (progress) => {
+                counters.forEach((c) => {
+                    const val = Math.round(progress * c.target);
+                    let suffix = c.suffix;
+                    if (val === 1 && suffix.includes('años')) {
+                        suffix = suffix.replace('años', 'año');
+                    } else if (val === 1 && suffix.includes('years')) {
+                        suffix = suffix.replace('years', 'year');
+                    }
+                    c.valueEl.textContent = `${c.prefix}${val}${suffix}`;
+                });
 
-                counters.forEach((counter) => {
-                    const target = parseFloat(counter.getAttribute('data-target')) || 0;
-                    const prefix = counter.getAttribute('data-prefix') || '';
-                    const suffix = counter.getAttribute('data-suffix') || '';
-                    const valueEl = counter.querySelector('.counter-value') || counter;
-                    const duration = 1600;
-                    const startTime = performance.now();
-
-                    valueEl.textContent = `${prefix}0${suffix}`;
-
-                    const tick = (now) => {
-                        const elapsed = now - startTime;
-                        const progress = Math.min(elapsed / duration, 1);
-                        const eased = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
-                        const current = Math.round(eased * target);
-
-                        valueEl.textContent = `${prefix}${current}${suffix}`;
-
-                        if (progress < 1) {
-                            requestAnimationFrame(tick);
-                        } else {
-                            valueEl.textContent = `${prefix}${target}${suffix}`;
-                        }
-                    };
-
-                    requestAnimationFrame(tick);
+                bars.forEach((b) => {
+                    const widthPct = Math.min(progress * b.target, b.target);
+                    b.el.style.width = `${widthPct.toFixed(1)}%`;
                 });
             };
 
-            if ('IntersectionObserver' in window) {
-                const observer = new IntersectionObserver((entries, obs) => {
-                    entries.forEach((entry) => {
-                        if (entry.isIntersecting) {
-                            runAnimation();
-                            obs.unobserve(entry.target);
-                        }
-                    });
-                }, { threshold: 0.15 });
+            const calculateTargetProgress = () => {
+                const rect = statsSection.getBoundingClientRect();
+                const vh = window.innerHeight || 800;
 
-                observer.observe(statsSection);
-            } else {
-                runAnimation();
+                // Starts counting when top of stats-section enters lower viewport
+                const startY = vh * 0.95;
+                // Completes when stats-section reaches comfortably centered view
+                const endY = vh * 0.22;
+                const distance = startY - endY;
+
+                if (distance <= 0) return 1;
+
+                const raw = (startY - rect.top) / distance;
+                return Math.max(0, Math.min(1, raw));
+            };
+
+            const tick = () => {
+                const diff = targetProgress - currentProgress;
+                // Smooth 0.08 lerp for slow, momentum feel on scroll
+                if (Math.abs(diff) > 0.001) {
+                    currentProgress += diff * 0.08;
+                    render(currentProgress);
+                    requestAnimationFrame(tick);
+                } else {
+                    currentProgress = targetProgress;
+                    render(currentProgress);
+                    isTicking = false;
+                }
+            };
+
+            const onScroll = () => {
+                targetProgress = calculateTargetProgress();
+                if (!isTicking) {
+                    isTicking = true;
+                    requestAnimationFrame(tick);
+                }
+            };
+
+            // Remove existing listener if re-initializing on livewire navigation
+            if (window.__kostaStatsScrollHandler) {
+                window.removeEventListener('scroll', window.__kostaStatsScrollHandler);
+                window.removeEventListener('resize', window.__kostaStatsScrollHandler);
             }
+            window.__kostaStatsScrollHandler = onScroll;
+
+            // Initial calculation & immediate render based on current scroll position
+            targetProgress = calculateTargetProgress();
+            currentProgress = targetProgress;
+            render(currentProgress);
+
+            window.addEventListener('scroll', onScroll, { passive: true });
+            window.addEventListener('resize', onScroll, { passive: true });
         };
 
         if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', initStatsCounters);
+            document.addEventListener('DOMContentLoaded', initScrollStats);
         } else {
-            initStatsCounters();
+            initScrollStats();
         }
 
-        document.addEventListener('livewire:navigated', () => {
-            const statsSection = document.querySelector('.stats-section');
-            if (statsSection) {
-                statsSection.dataset.counterInitialized = 'false';
-            }
-            initStatsCounters();
-        });
+        document.addEventListener('livewire:navigated', initScrollStats);
     })();
     </script>
 </div>
