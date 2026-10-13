@@ -359,6 +359,7 @@
         </style>
 
         <!-- FORM COLUMN -->
+        <div>
             <form wire:submit="save">
 
                 @if ($errors->any())

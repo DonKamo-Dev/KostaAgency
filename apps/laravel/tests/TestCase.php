@@ -15,6 +15,8 @@ abstract class TestCase extends BaseTestCase
     {
         $app = parent::createApplication();
 
+        $app['env'] = 'testing';
+
         config([
             'database.default' => 'sqlite',
             'database.connections.sqlite.database' => ':memory:',

@@ -47,6 +47,10 @@ if [ ! -L /var/www/html/public/storage ]; then
     php artisan storage:link --force || true
 fi
 
+# Ejecuta migraciones automáticamente en producción
+echo "Ejecutando migraciones de base de datos..."
+php artisan migrate --force || echo "Aviso: No se pudieron ejecutar migraciones automáticas. Revisa la conexión DB."
+
 # Optimiza cachés de Laravel en producción si APP_KEY está definida
 if [ -n "$APP_KEY" ]; then
     echo "Optimizando caches de Laravel..."
@@ -54,12 +58,6 @@ if [ -n "$APP_KEY" ]; then
     php artisan config:cache
     php artisan route:cache
     php artisan view:cache
-fi
-
-# Ejecuta migraciones automáticamente si hay conexión a base de datos
-if [ -n "$DB_HOST" ]; then
-    echo "Ejecutando migraciones de base de datos..."
-    php artisan migrate --force || echo "Aviso: No se pudieron ejecutar migraciones automáticas. Revisa la conexión DB."
 fi
 
 echo "Iniciando Nginx y PHP-FPM con Supervisor en el puerto ${PORT}..."

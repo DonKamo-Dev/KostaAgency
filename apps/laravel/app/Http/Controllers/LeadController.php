@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Lead;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\View\View;
 
 class LeadController extends Controller
@@ -35,12 +36,26 @@ class LeadController extends Controller
         $leads = $query->paginate(15)->withQueryString();
 
         $stats = [
-            'total' => Lead::count(),
-            'nuevos' => Lead::where('estado', 'nuevo')->count(),
-            'contactados' => Lead::where('estado', 'contactado')->count(),
-            'cotizados' => Lead::where('estado', 'cotizado')->count(),
-            'ganados' => Lead::where('estado', 'ganado')->count(),
+            'total' => 0,
+            'nuevos' => 0,
+            'contactados' => 0,
+            'cotizados' => 0,
+            'ganados' => 0,
         ];
+
+        try {
+            if (Schema::hasTable('leads')) {
+                $stats['total'] = Lead::count();
+                if (Schema::hasColumn('leads', 'estado')) {
+                    $stats['nuevos'] = Lead::where('estado', 'nuevo')->count();
+                    $stats['contactados'] = Lead::where('estado', 'contactado')->count();
+                    $stats['cotizados'] = Lead::where('estado', 'cotizado')->count();
+                    $stats['ganados'] = Lead::where('estado', 'ganado')->count();
+                }
+            }
+        } catch (\Throwable $e) {
+            // Safe fallback
+        }
 
         return view('leads.index', compact('leads', 'stats'));
     }

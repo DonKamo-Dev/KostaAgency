@@ -1263,7 +1263,16 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
                     </svg>
                     <span>Prospectos (Leads)</span>
-                    @php $nuevosCount = \App\Models\Lead::where('estado', 'nuevo')->count(); @endphp
+                    @php
+                        $nuevosCount = 0;
+                        try {
+                            if (\Illuminate\Support\Facades\Schema::hasTable('leads') && \Illuminate\Support\Facades\Schema::hasColumn('leads', 'estado')) {
+                                $nuevosCount = \App\Models\Lead::where('estado', 'nuevo')->count();
+                            }
+                        } catch (\Throwable $e) {
+                            $nuevosCount = 0;
+                        }
+                    @endphp
                     @if($nuevosCount > 0)
                         <span style="margin-left: auto; background: #e63946; color: #fff; font-size: 11px; font-weight: 700; padding: 2px 7px; border-radius: 999px;">{{ $nuevosCount }}</span>
                     @endif
