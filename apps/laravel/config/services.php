@@ -35,4 +35,10 @@ return [
         ],
     ],
 
+    'kosta' => [
+        'lead_notification_email' => env('KOSTA_LEAD_NOTIFICATION_EMAIL', 'kostastudioco@gmail.com'),
+        'whatsapp_number' => env('KOSTA_WHATSAPP_NUMBER', '573113894136'),
+        'whatsapp_webhook_url' => env('KOSTA_WHATSAPP_WEBHOOK_URL'),
+    ],
+
 ];

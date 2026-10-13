@@ -272,6 +272,13 @@ return [
             'Redes Sociales' => 'Social Media',
             'Otro' => 'Other',
         ],
+        'field_client_type' => 'Client type',
+        'field_client_type_placeholder' => 'Select (Company, Business or Individual)',
+        'field_client_type_options' => [
+            'Empresa' => 'Company / Corporation',
+            'Negocio' => 'Business / SME',
+            'Persona' => 'Individual / Freelance',
+        ],
         'field_budget' => 'Estimated budget',
         'field_budget_placeholder' => 'Undecided for now',
         'field_budget_options' => [
@@ -280,6 +287,14 @@ return [
             '$1,500 - $3,000 USD' => '$1,500 - $3,000 USD',
             '$3,000 - $6,000 USD' => '$3,000 - $6,000 USD',
             'Más de $6,000 USD' => 'Over $6,000 USD',
+        ],
+        'field_source' => 'How did you find us?',
+        'field_source_placeholder' => 'Select an option',
+        'field_source_options' => [
+            'Pagina Web' => 'Website',
+            'Instagram' => 'Instagram',
+            'Facebook' => 'Facebook',
+            'Youtube' => 'YouTube',
         ],
         'field_message' => 'Project summary',
         'field_message_placeholder' => 'Tell us about your brand, what you need built, and your primary commercial objective...',

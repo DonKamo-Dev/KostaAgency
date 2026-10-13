@@ -272,6 +272,13 @@ return [
             'Redes Sociales' => 'Redes Sociales',
             'Otro' => 'Otro',
         ],
+        'field_client_type' => 'Tipo de cliente',
+        'field_client_type_placeholder' => 'Selecciona (Empresa, Negocio o Persona)',
+        'field_client_type_options' => [
+            'Empresa' => 'Empresa',
+            'Negocio' => 'Negocio',
+            'Persona' => 'Persona',
+        ],
         'field_budget' => 'Presupuesto estimado',
         'field_budget_placeholder' => 'Sin definir por ahora',
         'field_budget_options' => [
@@ -280,6 +287,14 @@ return [
             '$1,500 - $3,000 USD' => '$1,500 - $3,000 USD',
             '$3,000 - $6,000 USD' => '$3,000 - $6,000 USD',
             'Más de $6,000 USD' => 'Más de $6,000 USD',
+        ],
+        'field_source' => '¿Cómo nos conociste?',
+        'field_source_placeholder' => 'Selecciona una opción',
+        'field_source_options' => [
+            'Pagina Web' => 'Página Web',
+            'Instagram' => 'Instagram',
+            'Facebook' => 'Facebook',
+            'Youtube' => 'YouTube',
         ],
         'field_message' => 'Descripción del proyecto',
         'field_message_placeholder' => 'Cuéntanos sobre tu negocio, qué necesitas y cuál es tu objetivo principal...',

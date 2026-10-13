@@ -1258,6 +1258,16 @@
                     </svg>
                     Servicios
                 </a>
+                <a wire:navigate href="{{ route('leads.index') }}" class="nav-link {{ request()->routeIs('leads.*') ? 'active' : '' }}" style="position: relative;">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                    </svg>
+                    <span>Prospectos (Leads)</span>
+                    @php $nuevosCount = \App\Models\Lead::where('estado', 'nuevo')->count(); @endphp
+                    @if($nuevosCount > 0)
+                        <span style="margin-left: auto; background: #e63946; color: #fff; font-size: 11px; font-weight: 700; padding: 2px 7px; border-radius: 999px;">{{ $nuevosCount }}</span>
+                    @endif
+                </a>
 
                 <!-- Nav Section: Sitio Web -->
                 <div class="sidebar-section-label" style="margin-top: 16px;">Sitio Web</div>

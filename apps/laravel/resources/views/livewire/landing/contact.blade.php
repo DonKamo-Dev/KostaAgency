@@ -45,9 +45,11 @@
         @media (max-width: 580px) { .form-row { grid-template-columns: 1fr; } }
 
         /* ── Submit button ── */
-        .btn-submit { width: 100%; height: 54px; border-radius: 12px; background: #FFFFFF; border: none; color: #000000; font-size: 15px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: background 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease; box-shadow: 0 4px 20px rgba(255,255,255,0.15); font-family: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, sans-serif; }
+        .btn-submit { width: 100%; height: 54px; border-radius: 12px; background: #FFFFFF; border: none; color: #000000; font-size: 15px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: background 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease; box-shadow: 0 4px 20px rgba(255,255,255,0.15); font-family: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, sans-serif; text-decoration: none; }
         .btn-submit:hover:not(:disabled) { background: #E4E4E7; transform: translateY(-1px); box-shadow: 0 8px 28px rgba(255,255,255,0.25); }
         .btn-submit:disabled { opacity: 0.6; cursor: not-allowed; }
+        .btn-submit-content { display: inline-flex; align-items: center; justify-content: center; gap: 8px; width: 100%; white-space: nowrap; line-height: 1; }
+        .btn-submit-content svg { flex-shrink: 0; display: inline-block; vertical-align: middle; }
 
         /* ── Success state ── */
         .success-panel { text-align: center; padding: 60px 32px; }
@@ -99,7 +101,7 @@
                             </div>
                             <div>
                                 <p class="text-xs text-white/40 font-medium uppercase tracking-wider mb-1">{{ __('landing.contact.email_label') }}</p>
-                                <a href="mailto:hola@kosta.studio" class="text-white font-semibold hover:text-white/80 transition-colors">hola@kosta.studio</a>
+                                <a href="mailto:kostastudioco@gmail.com" class="text-white font-semibold hover:text-white/80 transition-colors">kostastudioco@gmail.com</a>
                             </div>
                         </div>
 
@@ -109,7 +111,7 @@
                             </div>
                             <div>
                                 <p class="text-xs text-white/40 font-medium uppercase tracking-wider mb-1">{{ __('landing.contact.whatsapp_label') }}</p>
-                                <a href="https://wa.me/573113894136" target="_blank" rel="noopener" class="text-white font-semibold hover:text-red-accent transition-colors">{{ __('landing.contact.whatsapp_action') }}</a>
+                                <a href="https://wa.me/573113894136" target="_blank" rel="noopener" class="text-white font-semibold hover:text-red-accent transition-colors">+57 311 389 4136</a>
                                 <p class="text-xs text-white/35 mt-0.5">{{ __('landing.contact.whatsapp_reply') }}</p>
                             </div>
                         </div>
@@ -208,14 +210,37 @@
                                 </div>
                             </div>
 
+                            <div class="form-row">
+                                <div class="field-group">
+                                    <label class="field-label" for="tipo_cliente">{{ __('landing.contact.field_client_type') }}</label>
+                                    <select id="tipo_cliente" wire:model.defer="tipo_cliente" class="field-select">
+                                        <option value="">{{ __('landing.contact.field_client_type_placeholder') }}</option>
+                                        @foreach(__('landing.contact.field_client_type_options') as $val => $text)
+                                            <option value="{{ $val }}">{{ $text }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('tipo_cliente') <span class="field-error">{{ $message }}</span> @enderror
+                                </div>
+                                <div class="field-group">
+                                    <label class="field-label" for="presupuesto">{{ __('landing.contact.field_budget') }}</label>
+                                    <select id="presupuesto" wire:model.defer="presupuesto" class="field-select">
+                                        <option value="">{{ __('landing.contact.field_budget_placeholder') }}</option>
+                                        @foreach(__('landing.contact.field_budget_options') as $val => $text)
+                                            <option value="{{ $val }}">{{ $text }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+
                             <div class="field-group">
-                                <label class="field-label" for="presupuesto">{{ __('landing.contact.field_budget') }}</label>
-                                <select id="presupuesto" wire:model.defer="presupuesto" class="field-select">
-                                    <option value="">{{ __('landing.contact.field_budget_placeholder') }}</option>
-                                    @foreach(__('landing.contact.field_budget_options') as $val => $text)
+                                <label class="field-label" for="como_nos_conocio">{{ __('landing.contact.field_source') }}</label>
+                                <select id="como_nos_conocio" wire:model.defer="como_nos_conocio" class="field-select">
+                                    <option value="">{{ __('landing.contact.field_source_placeholder') }}</option>
+                                    @foreach(__('landing.contact.field_source_options') as $val => $text)
                                         <option value="{{ $val }}">{{ $text }}</option>
                                     @endforeach
                                 </select>
+                                @error('como_nos_conocio') <span class="field-error">{{ $message }}</span> @enderror
                             </div>
 
                             <div class="field-group">
@@ -225,13 +250,13 @@
                             </div>
 
                             <button type="submit" class="btn-submit" wire:loading.attr="disabled">
-                                <span wire:loading.remove>
-                                    {{ __('landing.contact.btn_submit') }}
+                                <span wire:loading.remove class="btn-submit-content">
+                                    <span>{{ __('landing.contact.btn_submit') }}</span>
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                                 </span>
-                                <span wire:loading class="flex items-center gap-2">
+                                <span wire:loading class="btn-submit-content">
                                     <svg class="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/></svg>
-                                     {{ __('landing.contact.btn_submitting') }}
+                                    <span>{{ __('landing.contact.btn_submitting') }}</span>
                                 </span>
                             </button>
 
