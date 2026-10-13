@@ -736,19 +736,47 @@
         <div class="relative max-w-7xl mx-auto container-pad">
             <div class="grid grid-cols-2 md:grid-cols-4 gap-12 md:gap-8 lg:gap-12">
                 <div class="text-center">
-                    <div class="stats-number">{{ __('landing.stats.delivered_projects') }}</div>
+                    <div class="stats-number"
+                         data-counter
+                         data-target="20"
+                         data-prefix="+"
+                         data-suffix=""
+                         aria-label="{{ __('landing.stats.delivered_projects') }} {{ __('landing.stats.delivered_projects_label') }}">
+                        <span class="counter-value">{{ __('landing.stats.delivered_projects') }}</span>
+                    </div>
                     <div class="stats-label mt-3">{{ __('landing.stats.delivered_projects_label') }}</div>
                 </div>
                 <div class="text-center">
-                    <div class="stats-number">{{ __('landing.stats.satisfied_rate') }}</div>
+                    <div class="stats-number"
+                         data-counter
+                         data-target="95"
+                         data-prefix="+"
+                         data-suffix="%"
+                         aria-label="{{ __('landing.stats.satisfied_rate') }} {{ __('landing.stats.satisfied_rate_label') }}">
+                        <span class="counter-value">{{ __('landing.stats.satisfied_rate') }}</span>
+                    </div>
                     <div class="stats-label mt-3">{{ __('landing.stats.satisfied_rate_label') }}</div>
                 </div>
                 <div class="text-center">
-                    <div class="stats-number">{{ __('landing.stats.generated_revenue') }}</div>
-                    <div class="stats-label mt-3">{{ __('landing.stats.generated_revenue_label') }}</div>
+                    <div class="stats-number"
+                         data-counter
+                         data-target="100"
+                         data-prefix=""
+                         data-suffix="%"
+                         aria-label="{{ __('landing.stats.custom_solutions') }} {{ __('landing.stats.custom_solutions_label') }}">
+                        <span class="counter-value">{{ __('landing.stats.custom_solutions') }}</span>
+                    </div>
+                    <div class="stats-label mt-3">{{ __('landing.stats.custom_solutions_label') }}</div>
                 </div>
                 <div class="text-center">
-                    <div class="stats-number">{{ __('landing.stats.years_building') }}</div>
+                    <div class="stats-number"
+                         data-counter
+                         data-target="8"
+                         data-prefix=""
+                         data-suffix="{{ __('landing.stats.years_suffix') }}"
+                         aria-label="{{ __('landing.stats.years_building') }} {{ __('landing.stats.years_building_label') }}">
+                        <span class="counter-value">{{ __('landing.stats.years_building') }}</span>
+                    </div>
                     <div class="stats-label mt-3">{{ __('landing.stats.years_building_label') }}</div>
                 </div>
             </div>
@@ -1083,5 +1111,84 @@
             });
         });
     });
+
+    // ===== STATS COUNT-UP ANIMATION =====
+    (() => {
+        const initStatsCounters = () => {
+            const statsSection = document.querySelector('.stats-section');
+            if (!statsSection || statsSection.dataset.counterInitialized === 'true') return;
+
+            const counters = statsSection.querySelectorAll('[data-counter]');
+            if (!counters.length) return;
+
+            const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            if (prefersReducedMotion) return;
+
+            statsSection.dataset.counterInitialized = 'true';
+            let hasAnimated = false;
+
+            const runAnimation = () => {
+                if (hasAnimated) return;
+                hasAnimated = true;
+
+                counters.forEach((counter) => {
+                    const target = parseFloat(counter.getAttribute('data-target')) || 0;
+                    const prefix = counter.getAttribute('data-prefix') || '';
+                    const suffix = counter.getAttribute('data-suffix') || '';
+                    const valueEl = counter.querySelector('.counter-value') || counter;
+                    const duration = 1600;
+                    const startTime = performance.now();
+
+                    valueEl.textContent = `${prefix}0${suffix}`;
+
+                    const tick = (now) => {
+                        const elapsed = now - startTime;
+                        const progress = Math.min(elapsed / duration, 1);
+                        const eased = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+                        const current = Math.round(eased * target);
+
+                        valueEl.textContent = `${prefix}${current}${suffix}`;
+
+                        if (progress < 1) {
+                            requestAnimationFrame(tick);
+                        } else {
+                            valueEl.textContent = `${prefix}${target}${suffix}`;
+                        }
+                    };
+
+                    requestAnimationFrame(tick);
+                });
+            };
+
+            if ('IntersectionObserver' in window) {
+                const observer = new IntersectionObserver((entries, obs) => {
+                    entries.forEach((entry) => {
+                        if (entry.isIntersecting) {
+                            runAnimation();
+                            obs.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.15 });
+
+                observer.observe(statsSection);
+            } else {
+                runAnimation();
+            }
+        };
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initStatsCounters);
+        } else {
+            initStatsCounters();
+        }
+
+        document.addEventListener('livewire:navigated', () => {
+            const statsSection = document.querySelector('.stats-section');
+            if (statsSection) {
+                statsSection.dataset.counterInitialized = 'false';
+            }
+            initStatsCounters();
+        });
+    })();
     </script>
 </div>

@@ -62,14 +62,17 @@ return [
     ],
 
     'stats' => [
-        'delivered_projects' => '150+',
+        'delivered_projects' => '+20',
         'delivered_projects_label' => 'Proyectos entregados',
-        'satisfied_rate' => '98%',
+        'satisfied_rate' => '+95%',
         'satisfied_rate_label' => 'Clientes satisfechos',
-        'generated_revenue' => '$2.5M+',
-        'generated_revenue_label' => 'Generados para clientes',
+        'custom_solutions' => '100%',
+        'custom_solutions_label' => 'Soluciones a medida',
+        'generated_revenue' => '100%',
+        'generated_revenue_label' => 'Soluciones a medida',
         'years_building' => '8 años',
         'years_building_label' => 'Construyendo marcas',
+        'years_suffix' => ' años',
     ],
 
     'services' => [

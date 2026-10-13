@@ -421,6 +421,9 @@
             font-weight: 700;
             line-height: 1;
             letter-spacing: -0.02em;
+            font-variant-numeric: tabular-nums;
+            font-feature-settings: "tnum" 1;
+            display: inline-block;
         }
 
         .stats-label {
