@@ -193,8 +193,20 @@
             overflow: hidden;
             display: flex;
             flex-direction: column;
+            cursor: pointer;
         }
         @media (min-width: 768px) { .service-card { padding: 48px 40px; } }
+
+        .service-card-link {
+            position: absolute;
+            inset: 0;
+            z-index: 20;
+            border-radius: inherit;
+        }
+        .service-card-link:focus-visible {
+            outline: 2px solid var(--accent-red, #FFFFFF);
+            outline-offset: -2px;
+        }
 
         .service-card:hover {
             transform: translateY(-8px);
@@ -310,12 +322,8 @@
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
         .service-card:hover .service-action-btn {
-            border-color: rgba(230, 57, 70, 0.35);
-            background: rgba(230, 57, 70, 0.09);
-        }
-        .service-action-btn:hover {
-            background: rgba(230, 57, 70, 0.22) !important;
-            border-color: rgba(230, 57, 70, 0.6) !important;
+            border-color: rgba(230, 57, 70, 0.45);
+            background: rgba(230, 57, 70, 0.16);
             box-shadow: 0 6px 20px rgba(230, 57, 70, 0.25);
             transform: translateY(-2px);
         }
@@ -326,6 +334,7 @@
             transition: transform 0.3s ease, color 0.3s ease;
             flex-shrink: 0;
         }
+        .service-card:hover .service-action-arrow,
         .service-action-btn:hover .service-action-arrow {
             transform: translateX(4px);
             color: #FFFFFF;
@@ -818,6 +827,7 @@
 
                 @foreach($services as $service)
                     <article class="service-card">
+                        <a href="{{ route('services.show', $service['slug']) }}" wire:navigate class="service-card-link" aria-label="{{ $service['title'] }}"></a>
                         <div class="service-icon">
                             <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="{{ $service['icon'] }}"/>
@@ -832,12 +842,12 @@
                             @endforeach
                         </div>
                         <div class="service-action-wrap" style="margin-top: auto; padding-top: 18px; border-top: 1px solid rgba(255,255,255,0.07); position: relative; z-index: 1;">
-                            <a href="{{ route('services.show', $service['slug']) }}" wire:navigate class="service-action-btn">
+                            <div class="service-action-btn" aria-hidden="true">
                                 <span>{{ $service['btn_text'] ?? ($service['btn'] ?? '') }}</span>
                                 <svg class="service-action-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
                                 </svg>
-                            </a>
+                            </div>
                         </div>
                     </article>
                 @endforeach
