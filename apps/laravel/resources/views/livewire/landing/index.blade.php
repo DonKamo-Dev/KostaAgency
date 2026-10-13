@@ -961,37 +961,47 @@
                 </p>
             </div>
 
-            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-12 sm:gap-10 lg:gap-8">
-                @php
-                    $stepIcons = [
-                        'M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z',
-                        'M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4',
-                        'M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z',
-                        'M15.59 14.37a6 6 0 01-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 006.16-12.12A14.98 14.98 0 009.631 8.41m5.96 5.96a14.926 14.926 0 01-5.841 2.58',
-                    ];
-                    $steps = trans('landing.process.steps');
-                @endphp
+            <div class="relative process-timeline-wrapper">
+                <!-- Desktop Connecting Track & Progress Line -->
+                <div aria-hidden="true" class="hidden lg:block absolute process-timeline-track">
+                    <div class="process-timeline-fill" style="width: 0%;"></div>
+                </div>
 
-                @foreach($steps as $i => $step)
-                    <div class="text-center group relative">
-                        @if($i < 3)
-                            <div aria-hidden="true" class="hidden lg:block absolute top-10 left-[calc(50%+50px)] w-[calc(100%-100px)] h-px" style="background: linear-gradient(to right, var(--accent-red-soft), transparent);"></div>
-                        @endif
+                <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-12 sm:gap-10 lg:gap-8 relative z-10">
+                    @php
+                        $stepIcons = [
+                            'M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z',
+                            'M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4',
+                            'M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z',
+                            'M15.59 14.37a6 6 0 01-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 006.16-12.12A14.98 14.98 0 009.631 8.41m5.96 5.96a14.926 14.926 0 01-5.841 2.58',
+                        ];
+                        $steps = trans('landing.process.steps');
+                    @endphp
 
-                        <div class="relative w-20 h-20 mx-auto mb-8">
-                            <div aria-hidden="true" class="absolute inset-0 rounded-2xl blur-2xl group-hover:blur-3xl transition-all duration-500" style="background: var(--accent-red-glow); opacity: 0.4;"></div>
-                            <div class="relative w-full h-full glass-card rounded-2xl flex items-center justify-center" style="border: 1px solid rgba(230, 57, 70, 0.3);">
-                                <svg class="w-8 h-8 text-red-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="{{ $stepIcons[$i] ?? '' }}"/>
-                                </svg>
+                    @foreach($steps as $i => $step)
+                        <div class="text-center group relative process-step-item" data-step="{{ $i }}">
+                            <div class="relative w-20 h-20 mx-auto mb-8 z-10">
+                                <div aria-hidden="true" class="process-icon-halo absolute inset-0 rounded-2xl blur-2xl group-hover:blur-3xl transition-all duration-500 opacity-40" style="background: var(--accent-red-glow);"></div>
+                                <div class="process-icon-box relative w-full h-full glass-card rounded-2xl flex items-center justify-center" style="border: 1px solid rgba(230, 57, 70, 0.3);">
+                                    <svg class="w-8 h-8 text-red-accent transition-transform duration-300 group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="{{ $stepIcons[$i] ?? '' }}"/>
+                                    </svg>
+                                </div>
+                                <span class="process-step-badge">
+                                    <span class="step-num">{{ $step['num'] }}</span>
+                                    <span class="step-check hidden" aria-hidden="true">
+                                        <svg class="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+                                        </svg>
+                                    </span>
+                                </span>
                             </div>
-                            <span class="absolute -top-2 -right-2 w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold text-white" style="background: var(--accent-red);">{{ $step['num'] }}</span>
-                        </div>
 
-                        <h3 class="text-lg sm:text-xl font-bold text-white mb-4">{{ $step['title'] }}</h3>
-                        <p class="text-white/45 text-sm sm:text-base leading-relaxed">{{ $step['desc'] }}</p>
-                    </div>
-                @endforeach
+                            <h3 class="text-lg sm:text-xl font-bold text-white mb-4 transition-colors duration-300">{{ $step['title'] }}</h3>
+                            <p class="text-white/45 text-sm sm:text-base leading-relaxed">{{ $step['desc'] }}</p>
+                        </div>
+                    @endforeach
+                </div>
             </div>
         </div>
     </section>
@@ -1242,13 +1252,109 @@
             window.addEventListener('resize', onScroll, { passive: true });
         };
 
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', initScrollStats);
-        } else {
+        // ===== SCROLL-DRIVEN PROCESS TIMELINE & CHECKS =====
+        const initScrollProcess = () => {
+            const processSection = document.getElementById('proceso');
+            if (!processSection) return;
+
+            const lineFill = processSection.querySelector('.process-timeline-fill');
+            const stepItems = Array.from(processSection.querySelectorAll('.process-step-item'));
+            if (!stepItems.length) return;
+
+            const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            if (prefersReducedMotion) {
+                if (lineFill) lineFill.style.width = '100%';
+                stepItems.forEach((item) => {
+                    item.classList.add('is-active');
+                    const badge = item.querySelector('.process-step-badge');
+                    if (badge) badge.classList.add('is-active');
+                });
+                return;
+            }
+
+            let currentProgress = 0;
+            let targetProgress = 0;
+            let isTicking = false;
+
+            const thresholds = [0.04, 0.33, 0.66, 0.95];
+
+            const render = (progress) => {
+                if (lineFill) {
+                    lineFill.style.width = `${(progress * 100).toFixed(1)}%`;
+                    lineFill.classList.toggle('is-active', progress > 0.01);
+                }
+
+                stepItems.forEach((item, index) => {
+                    const isActive = progress >= thresholds[index];
+                    item.classList.toggle('is-active', isActive);
+                    const badge = item.querySelector('.process-step-badge');
+                    if (badge) {
+                        badge.classList.toggle('is-active', isActive);
+                    }
+                });
+            };
+
+            const calculateTargetProgress = () => {
+                const rect = processSection.getBoundingClientRect();
+                const vh = window.innerHeight || 800;
+
+                const startY = vh * 0.85;
+                const endY = vh * 0.35;
+                const distance = startY - endY;
+
+                if (distance <= 0) return 1;
+
+                const raw = (startY - rect.top) / distance;
+                return Math.max(0, Math.min(1, raw));
+            };
+
+            const tick = () => {
+                const diff = targetProgress - currentProgress;
+                if (Math.abs(diff) > 0.001) {
+                    currentProgress += diff * 0.08;
+                    render(currentProgress);
+                    requestAnimationFrame(tick);
+                } else {
+                    currentProgress = targetProgress;
+                    render(currentProgress);
+                    isTicking = false;
+                }
+            };
+
+            const onScroll = () => {
+                targetProgress = calculateTargetProgress();
+                if (!isTicking) {
+                    isTicking = true;
+                    requestAnimationFrame(tick);
+                }
+            };
+
+            if (window.__kostaProcessScrollHandler) {
+                window.removeEventListener('scroll', window.__kostaProcessScrollHandler);
+                window.removeEventListener('resize', window.__kostaProcessScrollHandler);
+            }
+            window.__kostaProcessScrollHandler = onScroll;
+
+            targetProgress = calculateTargetProgress();
+            currentProgress = targetProgress;
+            render(currentProgress);
+
+            window.addEventListener('scroll', onScroll, { passive: true });
+            window.addEventListener('resize', onScroll, { passive: true });
+        };
+
+        const setupAll = () => {
             initScrollStats();
+            initScrollProcess();
+        };
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', setupAll);
+        } else {
+            setupAll();
         }
 
-        document.addEventListener('livewire:navigated', initScrollStats);
+        document.addEventListener('livewire:navigated', setupAll);
     })();
     </script>
 </div>

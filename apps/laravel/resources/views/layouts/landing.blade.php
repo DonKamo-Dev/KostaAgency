@@ -453,6 +453,98 @@
             opacity: 0.85;
         }
 
+        /* ===== Process Timeline Section ===== */
+        .process-timeline-track {
+            position: absolute;
+            top: 40px;
+            left: 12.5%;
+            width: 75%;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.12);
+            border-radius: 9999px;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .process-timeline-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #E63946 0%, #FF6B6B 70%, #FFFFFF 100%);
+            border-radius: 9999px;
+            box-shadow: 0 0 14px rgba(230, 57, 70, 0.85), 0 0 4px #FFFFFF;
+            will-change: width;
+            position: relative;
+        }
+
+        .process-timeline-fill::after {
+            content: '';
+            position: absolute;
+            right: -4px;
+            top: -4px;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #FFFFFF;
+            box-shadow: 0 0 12px 3px rgba(230, 57, 70, 0.95), 0 0 4px #FFFFFF;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        .process-timeline-fill.is-active::after {
+            opacity: 1;
+        }
+
+        .process-step-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            width: 28px;
+            height: 28px;
+            border-radius: 9999px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 700;
+            z-index: 20;
+            transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .process-step-badge.is-active {
+            background: #E63946;
+            border-color: #FFFFFF;
+            color: #FFFFFF;
+            box-shadow: 0 0 16px rgba(230, 57, 70, 0.85), 0 0 4px #FFFFFF;
+            transform: scale(1.15);
+        }
+
+        .process-step-badge.is-active .step-num {
+            display: none !important;
+        }
+
+        .process-step-badge.is-active .step-check {
+            display: flex !important;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .process-step-item .process-icon-box {
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .process-step-item.is-active .process-icon-box {
+            border-color: rgba(230, 57, 70, 0.65) !important;
+            box-shadow: 0 0 28px rgba(230, 57, 70, 0.35), inset 0 0 15px rgba(230, 57, 70, 0.15) !important;
+            background: linear-gradient(135deg, rgba(230, 57, 70, 0.16), rgba(255, 255, 255, 0.04)) !important;
+        }
+
+        .process-step-item.is-active .process-icon-halo {
+            opacity: 0.75 !important;
+        }
+
         /* ===== Grid Pattern ===== */
         .grid-pattern {
             background-image:
