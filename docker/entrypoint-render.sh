@@ -17,13 +17,14 @@ if [ -f /etc/nginx/nginx.conf ]; then
     sed -i 's/user nginx;/user www-data;/g' /etc/nginx/nginx.conf
 fi
 
-# Asegura límites de subida para PHP-FPM en Render
-mkdir -p /usr/local/etc/php/conf.d
-cat << 'EOF' > /usr/local/etc/php/conf.d/zz-uploads.ini
+# Asegura límites de subida para PHP-FPM
+mkdir -p /etc/php84/conf.d /usr/local/etc/php/conf.d
+cat << 'EOF' > /etc/php84/conf.d/zz-uploads.ini
 upload_max_filesize = 25M
 post_max_size = 30M
 memory_limit = 256M
 EOF
+cp /etc/php84/conf.d/zz-uploads.ini /usr/local/etc/php/conf.d/zz-uploads.ini 2>/dev/null || true
 
 # Valida sintaxis de Nginx antes de arrancar
 nginx -t
