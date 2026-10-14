@@ -1,19 +1,16 @@
 #!/bin/sh
 set -e
 
-# Asigna puerto por defecto si Render no lo inyecta
-export PORT="${PORT:-10000}"
+# Asigna puerto por defecto: 8080 para Spaceship Hyperlift, o el inyectado por la plataforma ($PORT)
+export PORT="${PORT:-8080}"
 
 # Asegura directorios de Nginx en Alpine y limpia conf.d
 mkdir -p /etc/nginx/http.d /run/nginx /var/log/nginx
 rm -rf /etc/nginx/conf.d/* /etc/nginx/http.d/*
 
-# Configura el puerto en Nginx (Alpine usa únicamente http.d)
-if [ "$PORT" != "10000" ]; then
-    sed "s/10000/${PORT}/g" /etc/nginx/templates/default.conf.template > /etc/nginx/http.d/default.conf
-else
-    cp /etc/nginx/templates/default.conf.template /etc/nginx/http.d/default.conf
-fi
+# Configura el puerto dinámicamente en Nginx
+sed "s/10000/${PORT}/g" /etc/nginx/templates/default.conf.template > /etc/nginx/http.d/default.conf
+
 
 # Ajusta usuario de Nginx a www-data para evitar problemas de permisos
 if [ -f /etc/nginx/nginx.conf ]; then

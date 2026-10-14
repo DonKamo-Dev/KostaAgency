@@ -63,6 +63,6 @@ RUN mkdir -p /var/www/html/storage /var/www/html/bootstrap/cache \
     && chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache \
     && chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
 
-EXPOSE 10000
+EXPOSE 8080 10000
 
 ENTRYPOINT ["/usr/local/bin/entrypoint-render.sh"]
