@@ -14,8 +14,11 @@
 /.zed
 /auth.json
 /node_modules
-/public/build
 /public/hot
+# /public/build (incluido para no compilar Vite en servidores de 512MB RAM)
+!/public/build
+!/public/build/**
+
 /public/storage/*
 !/public/storage/case-studies/
 !/public/storage/case-studies/**

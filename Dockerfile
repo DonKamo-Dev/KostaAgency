@@ -1,15 +1,4 @@
-# ── Stage 1: Build Frontend Assets (Vite) ──────────────────────
-FROM node:20-alpine AS frontend-builder
-
-WORKDIR /app
-
-COPY apps/laravel/package*.json ./
-RUN npm install
-
-COPY apps/laravel/ ./
-RUN npm run build
-
-# ── Stage 2: Production PHP + Nginx Runtime ───────────────────
+# ── Production PHP + Nginx Runtime ──────────────────────────────
 FROM php:8.4-fpm-alpine
 
 # Instala Nginx, Supervisor, gettext (para envsubst) y librerías de soporte PHP
@@ -38,11 +27,8 @@ WORKDIR /var/www/html
 COPY apps/laravel/composer.json apps/laravel/composer.lock ./
 RUN composer install --no-dev --no-interaction --no-scripts --prefer-dist --optimize-autoloader
 
-# Copia código fuente de la aplicación
+# Copia código fuente de la aplicación (incluye los assets ya compilados de public/build)
 COPY apps/laravel/ ./
-
-# Copia los assets compilados de Vite desde la etapa 1
-COPY --from=frontend-builder /app/public/build ./public/build
 
 # Optimiza autoloading de Composer
 RUN composer dump-autoload --optimize --no-dev
