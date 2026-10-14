@@ -1,19 +1,21 @@
 # ── Production PHP + Nginx Runtime ──────────────────────────────
 FROM php:8.4-fpm-alpine
 
-# Instala Nginx, Supervisor, gettext (para envsubst) y librerías de soporte PHP
-RUN apk add --no-cache \
-        nginx \
-        supervisor \
-        gettext \
-        ca-certificates \
-        icu-dev \
-        libzip-dev \
-        libpng-dev \
-        libjpeg-turbo-dev \
-        freetype-dev \
-    && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install -j$(nproc) pdo_mysql zip gd intl opcache bcmath
+# Instala Nginx, Supervisor y utilidades básicas
+RUN apk add --no-cache nginx supervisor gettext ca-certificates
+
+# Instala instalador oficial de extensiones PHP optimizado para Docker
+COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/local/bin/
+
+# IPE_PARALLEL=1 fuerza compilación de 1 solo proceso a la vez para no saturar los 512MB de RAM
+RUN IPE_PARALLEL=1 install-php-extensions \
+        pdo_mysql \
+        zip \
+        gd \
+        intl \
+        opcache \
+        bcmath
+
 
 # Instala Composer
 COPY --from=composer:2.8 /usr/bin/composer /usr/bin/composer
