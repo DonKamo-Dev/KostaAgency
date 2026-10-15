@@ -61,7 +61,7 @@
                 {{ $editingId ? 'Actualiza los datos del proyecto y visualiza el resultado en tiempo real.' : 'Completa los detalles para publicar un nuevo proyecto en tu portafolio público.' }}
             </p>
         </div>
-        <div style="display:flex;gap:10px;align-items:center;">
+        <div class="case-study-header-actions" style="display:flex;gap:10px;align-items:center;">
             <a href="{{ route('case-studies.index') }}" wire:navigate class="btn btn-secondary">
                 <svg style="width:16px;height:16px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
@@ -92,6 +92,34 @@
                 padding: 26px 28px;
                 margin-bottom: 24px;
                 box-shadow: 0 4px 24px rgba(0,0,0,0.25);
+            }
+            @media (max-width: 640px) {
+                .form-card-section {
+                    padding: 16px 14px !important;
+                    border-radius: 14px !important;
+                    margin-bottom: 16px !important;
+                }
+                .case-study-header-actions {
+                    width: 100% !important;
+                    display: grid !important;
+                    grid-template-columns: 1fr 1fr !important;
+                    gap: 8px !important;
+                }
+                .case-study-header-actions .btn {
+                    width: 100% !important;
+                    justify-content: center !important;
+                    padding: 0 10px !important;
+                    font-size: 13px !important;
+                }
+                .case-study-action-bar {
+                    flex-direction: column-reverse !important;
+                    align-items: stretch !important;
+                    gap: 10px !important;
+                }
+                .case-study-action-bar .btn {
+                    width: 100% !important;
+                    justify-content: center !important;
+                }
             }
             .section-badge-title {
                 display: flex;
@@ -850,7 +878,7 @@
                 @endif
 
                 <!-- Action Bar -->
-                <div style="display:flex;align-items:center;justify-content:flex-end;gap:12px;padding:20px 0;border-top:1px solid var(--border-default);margin-top:12px;">
+                <div class="case-study-action-bar" style="display:flex;align-items:center;justify-content:flex-end;gap:12px;padding:20px 0;border-top:1px solid var(--border-default);margin-top:12px;">
                     <a href="{{ route('case-studies.index') }}" wire:navigate class="btn btn-secondary" style="height:48px;padding:0 24px;">
                         Cancelar
                     </a>

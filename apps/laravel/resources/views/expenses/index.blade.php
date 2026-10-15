@@ -13,7 +13,7 @@
     </div>
 
     <!-- Resumen del mes -->
-    <div style="background:linear-gradient(135deg,rgba(230,57,70,.1),rgba(139,26,37,.05));border:1px solid var(--border-red);border-radius:16px;padding:20px 28px;margin-bottom:24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+    <div class="expense-month-summary" style="background:linear-gradient(135deg,rgba(230,57,70,.1),rgba(139,26,37,.05));border:1px solid var(--border-red);border-radius:16px;padding:20px 28px;margin-bottom:24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
         <div>
             <div style="font-size:12px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.08em;font-weight:700;margin-bottom:6px;">Gastos del mes actual</div>
             <div x-text="fmt(monthlyTotal)" style="font-size:36px;font-weight:700;color:var(--red-primary);font-family:'Geist Mono','Geist',monospace;line-height:1;font-variant-numeric:tabular-nums;letter-spacing:-0.03em;"></div>

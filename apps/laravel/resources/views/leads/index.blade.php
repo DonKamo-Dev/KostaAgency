@@ -18,7 +18,7 @@
         .btn-filter-clear { color: var(--text-muted); font-size: 13px; text-decoration: none; padding: 8px 12px; }
 
         .leads-card { background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 16px; overflow: hidden; }
-        .leads-table { width: 100%; border-collapse: collapse; text-align: left; }
+        .leads-table { width: 100%; min-width: 760px; border-collapse: collapse; text-align: left; }
         .leads-table th { padding: 14px 18px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); font-weight: 600; border-bottom: 1px solid var(--border-subtle); background: rgba(255,255,255,0.02); }
         .leads-table td { padding: 16px 18px; border-bottom: 1px solid var(--border-subtle); font-size: 13px; color: var(--text-secondary); vertical-align: top; }
         .leads-table tr:hover td { background: rgba(255,255,255,0.02); }
@@ -189,7 +189,7 @@
                 <p style="font-size: 13px; margin-top: 4px;">Intenta cambiar el estado o limpiar los filtros de búsqueda.</p>
             </div>
         @else
-            <div style="overflow-x: auto;">
+            <div style="overflow-x: auto; -webkit-overflow-scrolling: touch;">
                 <table class="leads-table">
                     <thead>
                         <tr>

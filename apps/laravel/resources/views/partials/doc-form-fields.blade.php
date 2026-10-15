@@ -36,22 +36,35 @@
     </div>
 </div>
 
-<div style="border:1px solid var(--border-subtle);border-radius:12px;overflow:visible;margin-bottom:18px;">
-    <div style="display:grid;grid-template-columns:28px 1fr 90px 130px 110px 32px;gap:0;background:rgba(255,255,255,0.025);border-bottom:1px solid var(--border-subtle);padding:10px 16px;border-radius:12px 12px 0 0;">
+<div class="doc-items-box">
+    <div class="doc-items-table-header">
         <span></span>
-        <span style="font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.08em;font-weight:700;">Servicio</span>
-        <span style="font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.08em;font-weight:700;text-align:center;">Cant.</span>
-        <span style="font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.08em;font-weight:700;text-align:right;">P. Unit.</span>
-        <span style="font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.08em;font-weight:700;text-align:right;">Subtotal</span>
+        <span>Servicio</span>
+        <span style="text-align:center;">Cant.</span>
+        <span style="text-align:right;">P. Unit.</span>
+        <span style="text-align:right;">Subtotal</span>
         <span></span>
     </div>
 
-    <div style="padding:6px 0;">
+    <div class="doc-items-list">
         <template x-for="(item, i) in form.items" :key="i">
-            <div style="display:grid;grid-template-columns:28px 1fr 90px 130px 110px 32px;gap:8px;align-items:start;padding:8px 16px;">
-                <span x-text="i+1" style="color:var(--text-subtle);font-size:12px;font-weight:600;text-align:center;padding-top:11px;"></span>
+            <div class="doc-item-row">
+                <!-- Mobile Only Top Row: Item # & Remove Button -->
+                <div class="doc-item-row-header-mobile">
+                    <span class="doc-item-badge" x-text="'Ítem #' + (i + 1)"></span>
+                    <button type="button" x-show="form.items.length > 1 && !readOnly"
+                            @click="removeItem(i)" class="action-btn danger" style="width:28px;height:28px;" title="Eliminar ítem">
+                        <svg style="width:14px;height:14px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                    </button>
+                </div>
 
-                <div x-data="{ ddOpen: false }" @click.away="ddOpen = false" style="position:relative;">
+                <!-- Desktop Index Indicator -->
+                <span class="doc-item-index" x-text="i+1"></span>
+
+                <!-- Service Selector & Description -->
+                <div x-data="{ ddOpen: false }" @click.away="ddOpen = false" style="position:relative;width:100%;">
                     <input type="text"
                            x-model="item.service_name"
                            @focus="ddOpen = true"
@@ -59,15 +72,15 @@
                            @keydown.escape="ddOpen = false"
                            @keydown.tab="ddOpen = false"
                            :disabled="readOnly"
-                           placeholder="Escribir o seleccionar..."
-                           class="form-input" style="font-size:13px;padding:9px 12px;"
+                           placeholder="Escribir o seleccionar servicio..."
+                           class="form-input" style="font-size:14px;padding:9px 12px;"
                            autocomplete="off"/>
                     <input type="text"
                            x-model="item.description"
                            :disabled="readOnly"
                            placeholder="Descripción (opcional)..."
                            class="form-input"
-                           style="font-size:11px;padding:6px 12px;margin-top:4px;color:var(--text-muted);"
+                           style="font-size:12px;padding:7px 12px;margin-top:4px;color:var(--text-muted);"
                            autocomplete="off"/>
                     <div x-show="ddOpen && filteredServices(item.service_name).length && !readOnly"
                          x-transition:enter="transition ease-out duration-100"
@@ -91,27 +104,37 @@
                     </div>
                 </div>
 
-                <input type="number" step="0.01" min="0.01" x-model="item.quantity"
-                       @input="calcRow(item)"
-                       :disabled="readOnly"
-                       class="form-input numeric-input" style="font-size:13px;padding:9px 10px;text-align:center;margin-top:0;" placeholder="1"
-                       :aria-label="'Cantidad del ítem ' + (i + 1)"/>
+                <!-- Inputs: Cantidad & Precio (Responsive) -->
+                <div class="doc-item-inputs-mobile">
+                    <div>
+                        <label class="form-label" style="display:none;font-size:11px;margin-bottom:3px;color:var(--text-muted);">Cantidad</label>
+                        <input type="number" step="0.01" min="0.01" x-model="item.quantity"
+                               @input="calcRow(item)"
+                               :disabled="readOnly"
+                               class="form-input numeric-input" style="font-size:13px;padding:9px 10px;text-align:center;margin-top:0;" placeholder="1"
+                               :aria-label="'Cantidad del ítem ' + (i + 1)"/>
+                    </div>
+                    <div>
+                        <label class="form-label" style="display:none;font-size:11px;margin-bottom:3px;color:var(--text-muted);">P. Unitario</label>
+                        <input type="text" inputmode="numeric" x-model="item.unit_price_display"
+                               @input="syncMoney(item, $event)"
+                               @focus="$event.target.select()"
+                               :disabled="readOnly"
+                               class="form-input money-input" style="font-size:13px;padding:9px 12px;text-align:right;" placeholder="0"
+                               autocomplete="off" :aria-label="'Precio unitario del ítem ' + (i + 1)"/>
+                    </div>
+                </div>
 
-                <input type="text" inputmode="numeric" x-model="item.unit_price_display"
-                       @input="syncMoney(item, $event)"
-                       @focus="$event.target.select()"
-                       :disabled="readOnly"
-                       class="form-input money-input" style="font-size:13px;padding:9px 12px;text-align:right;" placeholder="0"
-                       autocomplete="off" :aria-label="'Precio unitario del ítem ' + (i + 1)"/>
-
-                <div style="text-align:right;padding-top:11px;">
+                <!-- Subtotal -->
+                <div class="doc-item-cell-subtotal">
                     <span x-text="fmt(item.subtotal)"
                           style="font-size:14px;font-weight:700;color:var(--text-primary);font-family:'Geist Mono','Geist',monospace;font-variant-numeric:tabular-nums;"></span>
                 </div>
 
-                <div style="padding-top:5px;">
+                <!-- Desktop Action Button -->
+                <div class="doc-item-cell-action">
                     <button type="button" x-show="form.items.length > 1 && !readOnly"
-                            @click="removeItem(i)" class="action-btn danger" style="width:28px;height:28px;">
+                            @click="removeItem(i)" class="action-btn danger" style="width:28px;height:28px;" title="Eliminar ítem">
                         <svg style="width:14px;height:14px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
                         </svg>
@@ -121,16 +144,17 @@
         </template>
     </div>
 
-    <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-top:1px solid var(--border-subtle);background:rgba(0,0,0,.12);border-radius:0 0 12px 12px;">
+    <!-- Footer -->
+    <div class="doc-items-footer">
         <button type="button" x-show="!readOnly" @click="addItem()"
-                style="display:inline-flex;align-items:center;gap:6px;background:transparent;border:1px dashed var(--border-red);color:var(--red-primary);padding:7px 14px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;"
+                style="display:inline-flex;align-items:center;gap:6px;background:transparent;border:1px dashed var(--border-red);color:var(--red-primary);padding:8px 16px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;"
                 @mouseenter="$el.style.background='var(--red-soft)'" @mouseleave="$el.style.background='transparent'">
             <svg style="width:14px;height:14px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
             </svg>
             Agregar ítem
         </button>
-        <div style="display:flex;align-items:baseline;gap:12px;">
+        <div class="doc-total-wrap" style="display:flex;align-items:baseline;gap:12px;">
             <span style="font-size:12px;color:var(--text-muted);font-weight:700;letter-spacing:.05em;">TOTAL COP</span>
             <span x-text="fmt(grandTotal)"
                   style="font-size:28px;font-weight:700;color:var(--red-primary);font-family:'Geist Mono','Geist',monospace;line-height:1;font-variant-numeric:tabular-nums;letter-spacing:-0.025em;"></span>

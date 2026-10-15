@@ -39,10 +39,10 @@
     </div>
 
     <div style="max-width:980px;">
-        <div style="background:#161616;border:1px solid var(--border-default);border-radius:16px;padding:24px;">
+        <div class="doc-page-card">
             @include('partials.doc-form-fields')
 
-            <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:24px;padding-top:20px;border-top:1px solid var(--border-subtle);">
+            <div class="doc-form-actions">
                 <a href="{{ route('invoices.index') }}" class="btn-modal-secondary" x-text="readOnly ? 'Volver' : 'Cancelar'">Volver</a>
                 <template x-if="!readOnly">
                     <button type="button" @click="save()" :disabled="saving" class="btn-modal-primary"
@@ -58,7 +58,7 @@
         </div>
 
         {{-- Notas / Términos: card aparte --}}
-        <div style="background:#161616;border:1px solid var(--border-default);border-radius:16px;padding:24px;margin-top:16px;">
+        <div class="doc-page-card" style="margin-top:16px;">
             <h3 style="margin:0 0 12px 0;font-size:15px;font-weight:700;color:var(--text-primary);">Notas / Términos</h3>
             <p style="margin:0 0 12px 0;font-size:12px;color:var(--text-muted);">Condiciones de pago, plazo de entrega, garantías u otros términos del acuerdo.</p>
             <div class="form-group" style="margin-bottom:0;">
@@ -85,7 +85,7 @@
                     </div>
                 </div>
 
-                <div style="background:#161616;border:1px solid var(--border-default);border-radius:16px;padding:20px 24px;margin-top:16px;">
+                <div class="doc-page-card" style="margin-top:16px;">
                     <h3 style="margin:0 0 14px 0;font-size:16px;font-weight:700;color:var(--text-primary);">Pagos registrados</h3>
 
                     <template x-if="payments.length === 0">
@@ -93,8 +93,8 @@
                     </template>
 
                     <template x-if="payments.length > 0">
-                        <div style="border:1px solid var(--border-subtle);border-radius:12px;overflow:hidden;">
-                            <table style="width:100%;border-collapse:collapse;font-size:14px;">
+                        <div style="border:1px solid var(--border-subtle);border-radius:12px;overflow-x:auto;-webkit-overflow-scrolling:touch;">
+                            <table style="width:100%;min-width:480px;border-collapse:collapse;font-size:14px;">
                                 <thead>
                                     <tr style="background:rgba(255,255,255,0.025);text-align:left;">
                                         <th style="padding:10px 14px;font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--text-muted);">Fecha</th>
@@ -148,7 +148,7 @@
                             <label class="form-label">Notas</label>
                             <input type="text" x-model="pay.notes" class="form-input" placeholder="Opcional..."/>
                         </div>
-                        <div style="display:flex;justify-content:flex-end;margin-top:18px;">
+                        <div class="doc-form-actions" style="margin-top:18px;border-top:none;padding-top:0;">
                             <button type="button" @click="savePayment()" :disabled="savingPay" class="btn btn-primary"
                                     :style="savingPay ? 'opacity:.7;cursor:not-allowed;' : ''">
                                 <span x-show="!savingPay">Confirmar Pago</span>

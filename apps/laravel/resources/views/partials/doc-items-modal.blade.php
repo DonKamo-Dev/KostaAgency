@@ -58,22 +58,34 @@
 
             <!-- Tabla de ítems -->
             <div class="modal-body" style="padding-top:0;padding-bottom:0;">
-                <div style="border:1px solid var(--border-subtle);border-radius:12px;overflow:visible;margin-bottom:18px;">
-                    <div style="display:grid;grid-template-columns:28px 1fr 90px 130px 110px 32px;gap:0;background:rgba(255,255,255,0.025);border-bottom:1px solid var(--border-subtle);padding:10px 16px;border-radius:12px 12px 0 0;">
+                <div class="doc-items-box">
+                    <div class="doc-items-table-header">
                         <span></span>
-                        <span style="font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.08em;font-weight:700;">Servicio</span>
-                        <span style="font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.08em;font-weight:700;text-align:center;">Cant.</span>
-                        <span style="font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.08em;font-weight:700;text-align:right;">P. Unit.</span>
-                        <span style="font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.08em;font-weight:700;text-align:right;">Subtotal</span>
+                        <span>Servicio</span>
+                        <span style="text-align:center;">Cant.</span>
+                        <span style="text-align:right;">P. Unit.</span>
+                        <span style="text-align:right;">Subtotal</span>
                         <span></span>
                     </div>
-                    <div style="padding:6px 0;">
+                    <div class="doc-items-list">
                         <template x-for="(item, i) in form.items" :key="i">
-                            <div style="display:grid;grid-template-columns:28px 1fr 90px 130px 110px 32px;gap:8px;align-items:center;padding:6px 16px;">
-                                <span x-text="i+1" style="color:var(--text-subtle);font-size:12px;font-weight:600;text-align:center;"></span>
-                                <div x-data="{ ddOpen:false }" @click.away="ddOpen=false" style="position:relative;">
+                            <div class="doc-item-row">
+                                <!-- Mobile Only Top Row: Item # & Remove Button -->
+                                <div class="doc-item-row-header-mobile">
+                                    <span class="doc-item-badge" x-text="'Ítem #' + (i + 1)"></span>
+                                    <button type="button" x-show="form.items.length > 1 && !readOnly"
+                                            @click="removeItem(i)" class="action-btn danger" style="width:28px;height:28px;" title="Eliminar ítem">
+                                        <svg style="width:14px;height:14px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                                    </button>
+                                </div>
+
+                                <!-- Desktop Index Indicator -->
+                                <span class="doc-item-index" x-text="i+1"></span>
+
+                                <!-- Service Selector -->
+                                <div x-data="{ ddOpen:false }" @click.away="ddOpen=false" style="position:relative;width:100%;">
                                     <input type="text" x-model="item.service_name" @focus="ddOpen=true" @input="item.service_id=null" @keydown.escape="ddOpen=false" :disabled="readOnly"
-                                           placeholder="Escribir o seleccionar..." class="form-input" style="font-size:13px;padding:9px 12px;" autocomplete="off"/>
+                                           placeholder="Escribir o seleccionar servicio..." class="form-input" style="font-size:14px;padding:9px 12px;" autocomplete="off"/>
                                     <div x-show="ddOpen && filteredServices(item.service_name).length && !readOnly" x-transition:enter="transition ease-out duration-100"
                                          style="position:absolute;z-index:500;width:100%;top:calc(100% + 4px);background:#1C1C1C;border:1px solid var(--border-default);border-radius:10px;box-shadow:0 16px 40px rgba(0,0,0,.6);overflow:hidden;display:none;">
                                         <div style="max-height:200px;overflow-y:auto;">
@@ -88,28 +100,44 @@
                                         </div>
                                     </div>
                                 </div>
-                                <input type="number" step="0.01" min="0.01" x-model="item.quantity" @input="calcRow(i)" :disabled="readOnly" class="form-input" style="font-size:13px;padding:9px 10px;text-align:center;" placeholder="1"/>
-                                <input type="number" step="0.01" min="0" x-model="item.unit_price" @input="calcRow(i)" :disabled="readOnly" class="form-input" style="font-size:13px;padding:9px 10px;text-align:right;" placeholder="0"/>
-                                <div style="text-align:right;">
+
+                                <!-- Inputs: Cantidad & Precio (Responsive) -->
+                                <div class="doc-item-inputs-mobile">
+                                    <div>
+                                        <label class="form-label" style="display:none;font-size:11px;margin-bottom:3px;color:var(--text-muted);">Cantidad</label>
+                                        <input type="number" step="0.01" min="0.01" x-model="item.quantity" @input="calcRow(i)" :disabled="readOnly" class="form-input numeric-input" style="font-size:13px;padding:9px 10px;text-align:center;" placeholder="1"/>
+                                    </div>
+                                    <div>
+                                        <label class="form-label" style="display:none;font-size:11px;margin-bottom:3px;color:var(--text-muted);">P. Unitario</label>
+                                        <input type="number" step="0.01" min="0" x-model="item.unit_price" @input="calcRow(i)" :disabled="readOnly" class="form-input money-input" style="font-size:13px;padding:9px 10px;text-align:right;" placeholder="0"/>
+                                    </div>
+                                </div>
+
+                                <!-- Subtotal -->
+                                <div class="doc-item-cell-subtotal">
                                     <span x-text="'$'+new Intl.NumberFormat('es-CO',{maximumFractionDigits:0}).format(item.subtotal||0)"
                                           style="font-size:14px;font-weight:700;color:var(--text-primary);font-family:'Geist Mono','Geist',monospace;font-variant-numeric:tabular-nums;"></span>
                                 </div>
-                                <div>
-                                    <button type="button" x-show="form.items.length > 1 && !readOnly" @click="removeItem(i)" class="action-btn danger" style="width:28px;height:28px;">
+
+                                <!-- Desktop Action Button -->
+                                <div class="doc-item-cell-action">
+                                    <button type="button" x-show="form.items.length > 1 && !readOnly" @click="removeItem(i)" class="action-btn danger" style="width:28px;height:28px;" title="Eliminar ítem">
                                         <svg style="width:14px;height:14px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
                                     </button>
                                 </div>
                             </div>
                         </template>
                     </div>
-                    <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-top:1px solid var(--border-subtle);background:rgba(0,0,0,.12);border-radius:0 0 12px 12px;">
+
+                    <!-- Footer -->
+                    <div class="doc-items-footer">
                         <button type="button" x-show="!readOnly" @click="addItem()"
-                                style="display:inline-flex;align-items:center;gap:6px;background:transparent;border:1px dashed var(--border-red);color:var(--red-primary);padding:7px 14px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;"
+                                style="display:inline-flex;align-items:center;gap:6px;background:transparent;border:1px dashed var(--border-red);color:var(--red-primary);padding:8px 16px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;"
                                 @mouseenter="$el.style.background='var(--red-soft)'" @mouseleave="$el.style.background='transparent'">
                             <svg style="width:14px;height:14px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
                             Agregar ítem
                         </button>
-                        <div style="display:flex;align-items:baseline;gap:12px;">
+                        <div class="doc-total-wrap" style="display:flex;align-items:baseline;gap:12px;">
                             <span style="font-size:12px;color:var(--text-muted);font-weight:700;letter-spacing:.05em;">TOTAL COP</span>
                             <span x-text="'$'+new Intl.NumberFormat('es-CO',{maximumFractionDigits:0}).format(grandTotal)"
                                   style="font-size:28px;font-weight:700;color:var(--red-primary);font-family:'Geist Mono','Geist',monospace;line-height:1;font-variant-numeric:tabular-nums;letter-spacing:-0.025em;"></span>

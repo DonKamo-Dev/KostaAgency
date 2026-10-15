@@ -222,7 +222,7 @@
 
     <!-- Table -->
     <div class="crud-table-wrapper">
-        <table class="crud-table">
+        <table class="crud-table" style="min-width: 780px;">
             <thead>
                 <tr>
                     <th style="width:40px;text-align:center;">
