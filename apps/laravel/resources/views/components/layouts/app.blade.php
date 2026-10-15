@@ -114,10 +114,425 @@
                 z-index: 1;
             }
 
+            /* ===== Mobile-First App Navigation System ===== */
+            @media (min-width: 1024px) {
+                .mobile-topbar,
+                .app-bottom-nav,
+                .mobile-action-sheet,
+                .mobile-drawer-sheet,
+                .mobile-sheet-backdrop {
+                    display: none !important;
+                }
+            }
+
             @media (max-width: 1023px) {
                 .app-shell {
-                    grid-template-columns: 1fr;
-                    padding-bottom: var(--bottom-nav-height);
+                    display: block !important;
+                    grid-template-columns: 1fr !important;
+                    padding-top: 60px !important;
+                    padding-bottom: calc(76px + env(safe-area-inset-bottom, 16px)) !important;
+                    min-height: 100vh;
+                }
+
+                .sidebar {
+                    display: none !important;
+                }
+
+                .main-content {
+                    padding: 16px 14px !important;
+                    width: 100% !important;
+                    max-width: 100% !important;
+                    box-sizing: border-box;
+                }
+
+                /* Fixed Mobile Top Bar */
+                .mobile-topbar {
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    height: 60px;
+                    background: rgba(12, 12, 12, 0.92);
+                    backdrop-filter: blur(24px) saturate(180%);
+                    -webkit-backdrop-filter: blur(24px) saturate(180%);
+                    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    padding: 0 16px;
+                    z-index: 80;
+                    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+                }
+
+                .mobile-topbar-brand {
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                    text-decoration: none;
+                }
+
+                .mobile-topbar-brand img {
+                    height: 30px;
+                    width: auto;
+                    object-fit: contain;
+                }
+
+                .mobile-topbar-actions {
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                }
+
+                .mobile-topbar-btn {
+                    width: 38px;
+                    height: 38px;
+                    border-radius: 10px;
+                    background: rgba(255, 255, 255, 0.06);
+                    border: 1px solid rgba(255, 255, 255, 0.1);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    color: #FAFAFA;
+                    cursor: pointer;
+                    transition: all 0.2s ease;
+                    text-decoration: none;
+                    position: relative;
+                }
+
+                .mobile-topbar-btn:active {
+                    transform: scale(0.92);
+                    background: rgba(255, 255, 255, 0.12);
+                }
+
+                .mobile-badge-dot {
+                    position: absolute;
+                    top: 6px;
+                    right: 6px;
+                    width: 8px;
+                    height: 8px;
+                    border-radius: 50%;
+                    background: #FFFFFF;
+                    box-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+                }
+
+                /* Fixed Mobile Bottom App Nav */
+                .app-bottom-nav {
+                    position: fixed;
+                    bottom: 0;
+                    left: 0;
+                    right: 0;
+                    height: calc(64px + env(safe-area-inset-bottom, 12px));
+                    padding: 6px 8px max(env(safe-area-inset-bottom, 12px), 8px);
+                    background: rgba(10, 10, 10, 0.94);
+                    backdrop-filter: blur(28px) saturate(200%);
+                    -webkit-backdrop-filter: blur(28px) saturate(200%);
+                    border-top: 1px solid rgba(255, 255, 255, 0.1);
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-around;
+                    z-index: 90;
+                    box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.6);
+                }
+
+                .bottom-nav-item {
+                    flex: 1;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 3px;
+                    color: rgba(250, 250, 250, 0.45);
+                    text-decoration: none;
+                    padding: 6px 0;
+                    border-radius: 12px;
+                    font-size: 10px;
+                    font-weight: 600;
+                    letter-spacing: -0.01em;
+                    transition: all 0.2s ease;
+                    -webkit-tap-highlight-color: transparent;
+                    position: relative;
+                    background: transparent;
+                    border: none;
+                    cursor: pointer;
+                }
+
+                .bottom-nav-item svg {
+                    width: 22px;
+                    height: 22px;
+                    transition: transform 0.2s ease, color 0.2s ease;
+                }
+
+                .bottom-nav-item:active {
+                    transform: scale(0.9);
+                }
+
+                .bottom-nav-item.active {
+                    color: #FFFFFF;
+                    font-weight: 700;
+                }
+
+                .bottom-nav-item.active svg {
+                    color: #FFFFFF;
+                    transform: translateY(-1px);
+                    filter: drop-shadow(0 2px 8px rgba(255, 255, 255, 0.4));
+                }
+
+                .bottom-nav-item.active::before {
+                    content: '';
+                    position: absolute;
+                    top: 2px;
+                    width: 18px;
+                    height: 3px;
+                    background: #FFFFFF;
+                    border-radius: 999px;
+                    box-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+                }
+
+                /* Central FAB Button */
+                .bottom-nav-fab-wrap {
+                    flex: 1;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    position: relative;
+                }
+
+                .bottom-nav-fab {
+                    width: 52px;
+                    height: 52px;
+                    border-radius: 50%;
+                    background: #FFFFFF;
+                    color: #000000;
+                    border: 4px solid #080808;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    margin-top: -26px;
+                    box-shadow: 
+                        0 8px 24px rgba(255, 255, 255, 0.28),
+                        0 4px 12px rgba(0, 0, 0, 0.5);
+                    cursor: pointer;
+                    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s ease;
+                    -webkit-tap-highlight-color: transparent;
+                    z-index: 95;
+                }
+
+                .bottom-nav-fab:active {
+                    transform: scale(0.9);
+                    background: #E4E4E7;
+                }
+
+                .bottom-nav-fab svg {
+                    width: 24px;
+                    height: 24px;
+                    transition: transform 0.25s ease;
+                }
+
+                .bottom-nav-fab.is-open svg {
+                    transform: rotate(45deg);
+                }
+
+                .bottom-nav-fab-label {
+                    font-size: 10px;
+                    font-weight: 600;
+                    color: rgba(250, 250, 250, 0.6);
+                    margin-top: 2px;
+                }
+
+                /* Backdrop for sheets */
+                .mobile-sheet-backdrop {
+                    position: fixed;
+                    inset: 0;
+                    background: rgba(0, 0, 0, 0.75);
+                    backdrop-filter: blur(10px);
+                    -webkit-backdrop-filter: blur(10px);
+                    z-index: 110;
+                    opacity: 0;
+                    pointer-events: none;
+                    transition: opacity 0.25s ease;
+                }
+
+                .mobile-sheet-backdrop.active {
+                    opacity: 1;
+                    pointer-events: auto;
+                }
+
+                /* Bottom Sheets (Quick Action + Drawer) */
+                .mobile-action-sheet,
+                .mobile-drawer-sheet {
+                    position: fixed;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    background: #111111;
+                    border-top: 1px solid rgba(255, 255, 255, 0.15);
+                    border-radius: 24px 24px 0 0;
+                    padding: 16px 20px calc(24px + env(safe-area-inset-bottom, 16px));
+                    z-index: 120;
+                    transform: translateY(105%);
+                    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+                    max-height: 85vh;
+                    overflow-y: auto;
+                    box-shadow: 0 -20px 50px rgba(0, 0, 0, 0.8);
+                }
+
+                .mobile-action-sheet.active,
+                .mobile-drawer-sheet.active {
+                    transform: translateY(0);
+                }
+
+                .sheet-handle {
+                    width: 38px;
+                    height: 4px;
+                    background: rgba(255, 255, 255, 0.25);
+                    border-radius: 999px;
+                    margin: 0 auto 16px;
+                }
+
+                .sheet-header {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    margin-bottom: 20px;
+                    padding-bottom: 12px;
+                    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+                }
+
+                .sheet-title {
+                    font-size: 17px;
+                    font-weight: 700;
+                    color: #FAFAFA;
+                    letter-spacing: -0.02em;
+                }
+
+                .sheet-close-btn {
+                    width: 30px;
+                    height: 30px;
+                    border-radius: 50%;
+                    background: rgba(255, 255, 255, 0.08);
+                    border: none;
+                    color: rgba(250, 250, 250, 0.7);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    cursor: pointer;
+                }
+
+                /* Grid in Quick Action Sheet */
+                .sheet-grid {
+                    display: grid;
+                    grid-template-columns: repeat(2, 1fr);
+                    gap: 12px;
+                }
+
+                .sheet-grid-item {
+                    background: rgba(255, 255, 255, 0.04);
+                    border: 1px solid rgba(255, 255, 255, 0.08);
+                    border-radius: 16px;
+                    padding: 16px 14px;
+                    display: flex;
+                    align-items: center;
+                    gap: 12px;
+                    text-decoration: none;
+                    color: #FAFAFA;
+                    transition: all 0.2s ease;
+                    -webkit-tap-highlight-color: transparent;
+                }
+
+                .sheet-grid-item:active {
+                    transform: scale(0.96);
+                    background: rgba(255, 255, 255, 0.09);
+                    border-color: rgba(255, 255, 255, 0.2);
+                }
+
+                .sheet-grid-icon {
+                    width: 38px;
+                    height: 38px;
+                    border-radius: 10px;
+                    background: rgba(255, 255, 255, 0.08);
+                    border: 1px solid rgba(255, 255, 255, 0.12);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    color: #FFFFFF;
+                    flex-shrink: 0;
+                }
+
+                .sheet-grid-label {
+                    font-size: 13px;
+                    font-weight: 600;
+                    line-height: 1.25;
+                }
+
+                .sheet-grid-desc {
+                    font-size: 11px;
+                    color: rgba(250, 250, 250, 0.45);
+                    margin-top: 2px;
+                }
+
+                /* Full Drawer Menu Items */
+                .drawer-nav-group {
+                    margin-bottom: 20px;
+                }
+
+                .drawer-nav-heading {
+                    font-size: 11px;
+                    text-transform: uppercase;
+                    letter-spacing: 0.12em;
+                    color: rgba(250, 250, 250, 0.4);
+                    font-weight: 700;
+                    margin-bottom: 8px;
+                    padding-left: 4px;
+                }
+
+                .drawer-nav-item {
+                    display: flex;
+                    align-items: center;
+                    gap: 12px;
+                    padding: 12px 14px;
+                    border-radius: 12px;
+                    color: rgba(250, 250, 250, 0.75);
+                    text-decoration: none;
+                    font-size: 14px;
+                    font-weight: 500;
+                    transition: all 0.2s ease;
+                    margin-bottom: 4px;
+                    background: transparent;
+                    border: 1px solid transparent;
+                }
+
+                .drawer-nav-item:active {
+                    background: rgba(255, 255, 255, 0.06);
+                    transform: scale(0.98);
+                }
+
+                .drawer-nav-item.active {
+                    background: rgba(255, 255, 255, 0.08);
+                    color: #FFFFFF;
+                    font-weight: 600;
+                    border-color: rgba(255, 255, 255, 0.12);
+                }
+
+                .drawer-nav-item svg {
+                    width: 20px;
+                    height: 20px;
+                    color: rgba(250, 250, 250, 0.6);
+                    flex-shrink: 0;
+                }
+
+                .drawer-nav-item.active svg {
+                    color: #FFFFFF;
+                }
+
+                .drawer-nav-badge {
+                    margin-left: auto;
+                    padding: 2px 8px;
+                    border-radius: 999px;
+                    font-size: 11px;
+                    font-weight: 700;
+                    background: rgba(255, 255, 255, 0.12);
+                    color: #FFFFFF;
                 }
             }
 
@@ -1356,15 +1771,32 @@
             </aside>
 
             <!-- Mobile Top Bar -->
-            <div class="mobile-topbar" style="height: 68px;">
-                <a href="{{ route('dashboard') }}" style="display: flex; align-items: center; text-decoration: none;">
-                    <img src="{{ asset('img/WEB-Kosta-White.svg') }}" alt="Kosta" style="height: 34px; width: auto; object-fit: contain;">
+            <div class="mobile-topbar">
+                <a href="{{ route('dashboard') }}" class="mobile-topbar-brand" wire:navigate>
+                    <img src="{{ asset('img/WEB-Kosta-White.svg') }}" alt="Kosta">
                 </a>
-                @auth
-                    <div class="sidebar-user-avatar" style="width: 36px; height: 36px; font-size: 13px;">
-                        {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
-                    </div>
-                @endauth
+                <div class="mobile-topbar-actions">
+                    <a href="{{ route('leads.index') }}" class="mobile-topbar-btn" title="Prospectos Web" wire:navigate>
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                        </svg>
+                        @php
+                            $unreadLeadsCount = \App\Models\Lead::where('estado', 'nuevo')->count();
+                        @endphp
+                        @if($unreadLeadsCount > 0)
+                            <span class="mobile-badge-dot"></span>
+                        @endif
+                    </a>
+                    <button type="button" class="mobile-topbar-btn" onclick="toggleDrawerSheet()" aria-label="Abrir Menú">
+                        @auth
+                            <span style="font-weight: 700; font-size: 13px;">{{ strtoupper(substr(auth()->user()->name, 0, 1)) }}</span>
+                        @else
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"/>
+                            </svg>
+                        @endauth
+                    </button>
+                </div>
             </div>
 
             <!-- Main Content -->
@@ -1372,46 +1804,308 @@
                 {{ $slot }}
             </main>
 
-            <!-- Bottom Navigation (Mobile) -->
-            <nav class="bottom-nav">
+            <!-- Bottom Navigation (Mobile App-Style) -->
+            <nav class="app-bottom-nav">
+                <!-- 1. Inicio -->
                 <a wire:navigate href="{{ route('dashboard') }}" class="bottom-nav-item {{ request()->routeIs('dashboard') ? 'active' : '' }}">
                     <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
                     </svg>
                     <span>Inicio</span>
                 </a>
+
+                <!-- 2. Cotizaciones -->
                 <a wire:navigate href="{{ route('quotes.index') }}" class="bottom-nav-item {{ request()->routeIs('quotes.*') ? 'active' : '' }}">
                     <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
                     </svg>
                     <span>Cotiz.</span>
                 </a>
-                <a wire:navigate href="{{ route('bills.index') }}" class="bottom-nav-item {{ request()->routeIs('bills.*') ? 'active' : '' }}">
+
+                <!-- 3. Central FAB (+) -->
+                <div class="bottom-nav-fab-wrap">
+                    <button type="button" id="bottom-nav-fab-btn" class="bottom-nav-fab" onclick="toggleActionSheet()" aria-label="Crear nuevo...">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/>
+                        </svg>
+                    </button>
+                    <span class="bottom-nav-fab-label">Crear</span>
+                </div>
+
+                <!-- 4. Finanzas (Cobros & Facturas) -->
+                <a wire:navigate href="{{ route('bills.index') }}" class="bottom-nav-item {{ (request()->routeIs('bills.*') || request()->routeIs('invoices.*') || request()->routeIs('expenses.*')) ? 'active' : '' }}">
                     <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/>
                     </svg>
-                    <span>C. Cobro</span>
+                    <span>Finanzas</span>
                 </a>
-                <a wire:navigate href="{{ route('invoices.index') }}" class="bottom-nav-item {{ request()->routeIs('invoices.*') ? 'active' : '' }}">
+
+                <!-- 5. Menú Más -->
+                <button type="button" class="bottom-nav-item" onclick="toggleDrawerSheet()" aria-label="Abrir Menú Completo">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
+                    <span>Menú</span>
+                </button>
+            </nav>
+        </div>
+
+        <!-- Sheet Backdrop -->
+        <div id="mobile-sheet-backdrop" class="mobile-sheet-backdrop" onclick="closeAllSheets()"></div>
+
+        <!-- Quick Action Bottom Sheet (FAB) -->
+        <div id="quick-action-sheet" class="mobile-action-sheet">
+            <div class="sheet-handle"></div>
+            <div class="sheet-header">
+                <h3 class="sheet-title">Creación Rápida</h3>
+                <button type="button" class="sheet-close-btn" onclick="closeAllSheets()" aria-label="Cerrar">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </button>
+            </div>
+
+            <div class="sheet-grid">
+                <a href="{{ route('quotes.create') }}" class="sheet-grid-item" wire:navigate onclick="closeAllSheets()">
+                    <div class="sheet-grid-icon">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <div class="sheet-grid-label">Cotización</div>
+                        <div class="sheet-grid-desc">Propuesta formal</div>
+                    </div>
+                </a>
+
+                <a href="{{ route('bills.index') }}" class="sheet-grid-item" wire:navigate onclick="closeAllSheets()">
+                    <div class="sheet-grid-icon">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <div class="sheet-grid-label">Cuenta Cobro</div>
+                        <div class="sheet-grid-desc">Cobro a cliente</div>
+                    </div>
+                </a>
+
+                <a href="{{ route('invoices.create') }}" class="sheet-grid-item" wire:navigate onclick="closeAllSheets()">
+                    <div class="sheet-grid-icon">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 14l6-6m-5.5.5h.01m4.99 5h.01M19 21l-7-4-7 4V5a2 2 0 012-2h10a2 2 0 012 2v16z"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <div class="sheet-grid-label">Factura</div>
+                        <div class="sheet-grid-desc">Facturación legal</div>
+                    </div>
+                </a>
+
+                <a href="{{ route('expenses.index') }}" class="sheet-grid-item" wire:navigate onclick="closeAllSheets()">
+                    <div class="sheet-grid-icon">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <div class="sheet-grid-label">Gasto</div>
+                        <div class="sheet-grid-desc">Registrar egreso</div>
+                    </div>
+                </a>
+
+                <a href="{{ route('clients.index') }}" class="sheet-grid-item" wire:navigate onclick="closeAllSheets()">
+                    <div class="sheet-grid-icon">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <div class="sheet-grid-label">Cliente</div>
+                        <div class="sheet-grid-desc">Nuevo contacto</div>
+                    </div>
+                </a>
+
+                <a href="{{ route('case-studies.create') }}" class="sheet-grid-item" wire:navigate onclick="closeAllSheets()">
+                    <div class="sheet-grid-icon">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <div class="sheet-grid-label">Caso Estudio</div>
+                        <div class="sheet-grid-desc">Portafolio web</div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <!-- Full Mobile Drawer Sheet (Menú) -->
+        <div id="mobile-drawer-sheet" class="mobile-drawer-sheet">
+            <div class="sheet-handle"></div>
+            
+            @auth
+                <div class="flex items-center gap-3 p-3 rounded-2xl bg-white/[0.04] border border-white/[0.08] mb-5">
+                    <div class="w-11 h-11 rounded-xl bg-white text-zinc-950 flex items-center justify-center font-bold text-base flex-shrink-0">
+                        {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
+                    </div>
+                    <div class="min-w-0 flex-1">
+                        <p class="text-white font-semibold text-sm truncate">{{ auth()->user()->name }}</p>
+                        <p class="text-zinc-400 text-xs truncate">{{ auth()->user()->email }}</p>
+                    </div>
+                </div>
+            @endauth
+
+            <!-- Grupo 1: CRM & Operaciones -->
+            <div class="drawer-nav-group">
+                <div class="drawer-nav-heading">CRM & Operaciones</div>
+                <a href="{{ route('leads.index') }}" class="drawer-nav-item {{ request()->routeIs('leads.*') ? 'active' : '' }}" wire:navigate onclick="closeAllSheets()">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                    </svg>
+                    <span>Prospectos / Leads</span>
+                    @if(isset($unreadLeadsCount) && $unreadLeadsCount > 0)
+                        <span class="drawer-nav-badge">{{ $unreadLeadsCount }}</span>
+                    @endif
+                </a>
+
+                <a href="{{ route('clients.index') }}" class="drawer-nav-item {{ request()->routeIs('clients.*') ? 'active' : '' }}" wire:navigate onclick="closeAllSheets()">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/>
+                    </svg>
+                    <span>Clientes</span>
+                </a>
+
+                <a href="{{ route('services.index') }}" class="drawer-nav-item {{ request()->routeIs('services.*') ? 'active' : '' }}" wire:navigate onclick="closeAllSheets()">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                    </svg>
+                    <span>Servicios de Agencia</span>
+                </a>
+
+                <a href="{{ route('case-studies.index') }}" class="drawer-nav-item {{ request()->routeIs('case-studies.*') ? 'active' : '' }}" wire:navigate onclick="closeAllSheets()">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                    </svg>
+                    <span>Casos de Estudio / Portafolio</span>
+                </a>
+            </div>
+
+            <!-- Grupo 2: Finanzas -->
+            <div class="drawer-nav-group">
+                <div class="drawer-nav-heading">Facturación & Finanzas</div>
+                <a href="{{ route('quotes.index') }}" class="drawer-nav-item {{ request()->routeIs('quotes.*') ? 'active' : '' }}" wire:navigate onclick="closeAllSheets()">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                    </svg>
+                    <span>Cotizaciones</span>
+                </a>
+
+                <a href="{{ route('bills.index') }}" class="drawer-nav-item {{ request()->routeIs('bills.*') ? 'active' : '' }}" wire:navigate onclick="closeAllSheets()">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/>
+                    </svg>
+                    <span>Cuentas de Cobro</span>
+                </a>
+
+                <a href="{{ route('invoices.index') }}" class="drawer-nav-item {{ request()->routeIs('invoices.*') ? 'active' : '' }}" wire:navigate onclick="closeAllSheets()">
                     <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 14l6-6m-5.5.5h.01m4.99 5h.01M19 21l-7-4-7 4V5a2 2 0 012-2h10a2 2 0 012 2v16z"/>
                     </svg>
                     <span>Facturas</span>
                 </a>
-                <a wire:navigate href="{{ route('expenses.index') }}" class="bottom-nav-item {{ request()->routeIs('expenses.*') ? 'active' : '' }}">
+
+                <a href="{{ route('expenses.index') }}" class="drawer-nav-item {{ request()->routeIs('expenses.*') ? 'active' : '' }}" wire:navigate onclick="closeAllSheets()">
                     <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6"/>
                     </svg>
-                    <span>Gastos</span>
+                    <span>Gastos de Operación</span>
                 </a>
-            </nav>
+            </div>
+
+            <!-- Grupo 3: Cuenta & Enlaces -->
+            <div class="drawer-nav-group">
+                <div class="drawer-nav-heading">Ajustes & Acceso</div>
+                <a href="{{ route('profile') }}" class="drawer-nav-item {{ request()->routeIs('profile') ? 'active' : '' }}" wire:navigate onclick="closeAllSheets()">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                    </svg>
+                    <span>Mi Perfil</span>
+                </a>
+
+                <a href="{{ route('landing') }}" class="drawer-nav-item" target="_blank" rel="noopener">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                    </svg>
+                    <span>Ver Sitio Web Kosta</span>
+                </a>
+
+                <form method="POST" action="{{ route('logout') }}" class="mt-4">
+                    @csrf
+                    <button type="submit" class="w-full flex items-center justify-center gap-2 p-3 rounded-xl border border-red-500/20 bg-red-500/10 text-red-400 font-semibold text-sm transition-colors hover:bg-red-500/20">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
+                        </svg>
+                        <span>Cerrar Sesión</span>
+                    </button>
+                </form>
+            </div>
         </div>
+
         {{-- Global Thinking Orb HUD (Livewire & background transitions) --}}
         <div id="global-thinking-hud" class="global-thinking-hud">
             <thinking-orb state="working" size="20" label="Procesando..." pill></thinking-orb>
         </div>
 
         <script>
+        function toggleActionSheet() {
+            const sheet = document.getElementById('quick-action-sheet');
+            const backdrop = document.getElementById('mobile-sheet-backdrop');
+            const fab = document.getElementById('bottom-nav-fab-btn');
+            const isOpen = sheet.classList.contains('active');
+            
+            document.getElementById('mobile-drawer-sheet')?.classList.remove('active');
+
+            if (isOpen) {
+                sheet.classList.remove('active');
+                backdrop.classList.remove('active');
+                fab?.classList.remove('is-open');
+            } else {
+                sheet.classList.add('active');
+                backdrop.classList.add('active');
+                fab?.classList.add('is-open');
+            }
+        }
+
+        function toggleDrawerSheet() {
+            const drawer = document.getElementById('mobile-drawer-sheet');
+            const backdrop = document.getElementById('mobile-sheet-backdrop');
+            const fab = document.getElementById('bottom-nav-fab-btn');
+            const isOpen = drawer.classList.contains('active');
+
+            document.getElementById('quick-action-sheet')?.classList.remove('active');
+            fab?.classList.remove('is-open');
+
+            if (isOpen) {
+                drawer.classList.remove('active');
+                backdrop.classList.remove('active');
+            } else {
+                drawer.classList.add('active');
+                backdrop.classList.add('active');
+            }
+        }
+
+        function closeAllSheets() {
+            document.getElementById('quick-action-sheet')?.classList.remove('active');
+            document.getElementById('mobile-drawer-sheet')?.classList.remove('active');
+            document.getElementById('mobile-sheet-backdrop')?.classList.remove('active');
+            document.getElementById('bottom-nav-fab-btn')?.classList.remove('is-open');
+        }
+
+        document.addEventListener('livewire:navigated', () => {
+            closeAllSheets();
+        });
+
         document.addEventListener('DOMContentLoaded', () => {
             document.querySelectorAll('.nav-link').forEach(link => {
                 const elements = link.querySelectorAll('svg path, svg polyline, svg line, svg circle, svg rect, svg ellipse');

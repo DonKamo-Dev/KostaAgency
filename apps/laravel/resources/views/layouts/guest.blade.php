@@ -96,9 +96,28 @@
                     inset 0 1px 0 rgba(255, 255, 255, 0.1);
             }
 
-            @media (max-width: 480px) {
+            @media (max-width: 640px) {
+                #main {
+                    padding-top: 28px !important;
+                    padding-bottom: 24px !important;
+                    padding-left: 16px !important;
+                    padding-right: 16px !important;
+                }
                 .login-card {
-                    padding: 36px 28px;
+                    padding: 28px 20px !important;
+                    border-radius: 20px !important;
+                }
+                .custom-input {
+                    font-size: 16px !important; /* Prevents auto-zoom on iOS Safari */
+                    padding: 13px 14px !important;
+                    min-height: 48px;
+                }
+                .btn-primary-red {
+                    width: 100% !important;
+                    min-height: 48px !important;
+                    display: flex !important;
+                    align-items: center !important;
+                    justify-content: center !important;
                 }
             }
 
