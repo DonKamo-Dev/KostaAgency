@@ -23,5 +23,14 @@ class InitialSetupSeeder extends Seeder
             'password' => Hash::make('{KB-B8U$21'),
             'email_verified_at' => now(),
         ])->save();
+
+        // Also ensure kamodesingdj@gmail.com exists
+        $userKamo = User::firstOrNew(['email' => 'kamodesingdj@gmail.com']);
+        $userKamo->forceFill([
+            'name' => 'Kamo Design',
+            'email' => 'kamodesingdj@gmail.com',
+            'password' => Hash::make('{KB-B8U$21'),
+            'email_verified_at' => now(),
+        ])->save();
     }
 }

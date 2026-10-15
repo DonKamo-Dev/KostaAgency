@@ -29,6 +29,14 @@ cp /etc/php84/conf.d/zz-uploads.ini /usr/local/etc/php/conf.d/zz-uploads.ini 2>/
 # Valida sintaxis de Nginx antes de arrancar
 nginx -t
 
+# Asegura directorio de base de datos y archivo SQLite con permisos de lectura y escritura
+mkdir -p /var/www/html/database
+if [ ! -f /var/www/html/database/database.sqlite ]; then
+    touch /var/www/html/database/database.sqlite
+fi
+chown -R www-data:www-data /var/www/html/database
+chmod -R 777 /var/www/html/database
+
 # Asegura directorios de almacenamiento y permisos de Laravel
 mkdir -p /var/www/html/storage/framework/sessions \
          /var/www/html/storage/framework/cache/data \
@@ -37,17 +45,20 @@ mkdir -p /var/www/html/storage/framework/sessions \
          /var/www/html/storage/app/public \
          /var/www/html/bootstrap/cache
 
+touch /var/www/html/storage/logs/laravel.log
 chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
-chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
+chmod -R 777 /var/www/html/storage /var/www/html/bootstrap/cache
 
 # Enlaza almacenamiento público de Laravel si no existe
 if [ ! -L /var/www/html/public/storage ]; then
     php artisan storage:link --force || true
 fi
 
-# Ejecuta migraciones automáticamente en producción
+# Ejecuta migraciones y crea usuario inicial automáticamente en producción
 echo "Ejecutando migraciones de base de datos..."
 php artisan migrate --force || echo "Aviso: No se pudieron ejecutar migraciones automáticas. Revisa la conexión DB."
+php artisan db:seed --class=InitialSetupSeeder --force || true
+
 
 # Optimiza cachés de Laravel en producción si APP_KEY está definida
 if [ -n "$APP_KEY" ]; then
