@@ -56,6 +56,17 @@ function documentFormPage(cfg) {
 
         init() {
             this.form.items.forEach(item => this.calcRow(item));
+            if (!this.docId) {
+                const params = new URLSearchParams(window.location.search);
+                if (params.has('client_id')) {
+                    const cid = params.get('client_id');
+                    this.form.client_id = Number(cid) || cid;
+                }
+                if (params.has('notes')) {
+                    const extraNotes = params.get('notes');
+                    this.form.notes = extraNotes + (this.form.notes ? '\n\n' + this.form.notes : '');
+                }
+            }
         },
 
         async request(url, options = {}) {

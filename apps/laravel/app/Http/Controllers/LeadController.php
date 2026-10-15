@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Client;
 use App\Models\Lead;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -30,7 +31,8 @@ class LeadController extends Controller
         }
 
         if ($request->filled('tipo_cliente')) {
-            $query->where('tipo_cliente', $request->input('tipo_cliente'));
+            $tc = strtolower(trim($request->input('tipo_cliente')));
+            $query->whereRaw('LOWER(tipo_cliente) = ?', [$tc]);
         }
 
         $leads = $query->paginate(15)->withQueryString();
@@ -70,6 +72,47 @@ class LeadController extends Controller
         $lead->update($validated);
 
         return back()->with('status', 'Estado del prospecto actualizado correctamente.');
+    }
+
+    /**
+     * Convierte un prospecto en Cliente y marca el lead como ganado.
+     */
+    public function convertClient(Lead $lead): RedirectResponse
+    {
+        $client = Client::firstOrCreate(
+            ['email' => $lead->email],
+            [
+                'name' => $lead->nombre,
+                'phone' => $lead->telefono,
+            ]
+        );
+
+        $lead->update(['estado' => 'ganado']);
+
+        return back()->with('status', "¡Prospecto '{$lead->nombre}' convertido exitosamente a Cliente y marcado como Ganado!");
+    }
+
+    /**
+     * Inicia una cotización vinculando el prospecto como Cliente y redirigiendo a la pantalla de crear cotización.
+     */
+    public function createQuote(Lead $lead): RedirectResponse
+    {
+        $client = Client::firstOrCreate(
+            ['email' => $lead->email],
+            [
+                'name' => $lead->nombre,
+                'phone' => $lead->telefono,
+            ]
+        );
+
+        $lead->update(['estado' => 'cotizado']);
+
+        $leadNotes = "Servicio solicitado: {$lead->servicio}" . ($lead->presupuesto ? " | Presupuesto: {$lead->presupuesto}" : "") . ($lead->mensaje ? "\nDetalles: {$lead->mensaje}" : "");
+
+        return redirect()->route('quotes.create', [
+            'client_id' => $client->id,
+            'notes' => $leadNotes,
+        ])->with('status', "Prospecto '{$lead->nombre}' vinculado para cotizar. Estado actualizado a Cotizado.");
     }
 
     public function destroy(Lead $lead): RedirectResponse

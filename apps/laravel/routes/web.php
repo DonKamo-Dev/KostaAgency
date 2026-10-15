@@ -176,6 +176,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // ── Leads (Prospectos Web) ────────────────────────────────────────────────
     Route::get('/leads', [LeadController::class, 'index'])->name('leads.index');
     Route::patch('/leads/{lead}/status', [LeadController::class, 'updateStatus'])->name('leads.update-status');
+    Route::post('/leads/{lead}/quote', [LeadController::class, 'createQuote'])->name('leads.create-quote');
+    Route::post('/leads/{lead}/convert-client', [LeadController::class, 'convertClient'])->name('leads.convert-client');
     Route::delete('/leads/{lead}', [LeadController::class, 'destroy'])->name('leads.destroy');
 });
 
