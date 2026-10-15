@@ -70,6 +70,43 @@ Route::redirect('/servicios', '/#servicios')->name('services.landing');
 Route::redirect('/bento', '/kamo');
 Route::view('/privacidad', 'privacy')->name('privacy');
 
+// ── Sincronización y Respaldo Seguro de Datos de Producción ──────────────────
+Route::get('/kosta-sync-export', function (\Illuminate\Http\Request $request) {
+    if ($request->query('token') !== 'kosta_transfer_prod_2026') {
+        abort(403, 'Acceso no autorizado.');
+    }
+
+    @ini_set('memory_limit', '512M');
+    @set_time_limit(120);
+
+    $tables = [
+        'users',
+        'clients',
+        'documents',
+        'document_items',
+        'payments',
+        'expenses',
+        'services',
+        'leads',
+        'case_studies',
+    ];
+
+    $exported = [];
+    foreach ($tables as $table) {
+        if (\Illuminate\Support\Facades\Schema::hasTable($table)) {
+            $exported[$table] = \Illuminate\Support\Facades\DB::table($table)->get();
+        }
+    }
+
+    return response()->json([
+        'status' => 'success',
+        'generated_at' => now()->toIso8601String(),
+        'connection' => config('database.default'),
+        'counts' => array_map(fn($rows) => count($rows), $exported),
+        'data' => $exported,
+    ]);
+});
+
 // ── Autenticadas ──────────────────────────────────────────────────────────────
 Route::middleware(['auth', 'verified'])->group(function () {
 
