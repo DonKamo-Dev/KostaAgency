@@ -8,39 +8,76 @@
         .filter-btn.active { background: var(--accent-red); border-color: var(--accent-red); color: #0A0A0A; font-weight: 700; }
         .filter-btn:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
 
-        /* ── Projects grid ── */
-        .projects-grid { display: grid; grid-template-columns: 1fr; gap: 24px; }
-        @media (min-width: 640px) { .projects-grid { grid-template-columns: repeat(2, 1fr); } }
-        /* "Todos": 2 cols so each mockup se ve grande */
-        @media (min-width: 1024px) { .projects-grid { grid-template-columns: repeat(2, 1fr); } }
-        /* Categoría filtrada regular: 3 cols */
-        @media (min-width: 1024px) { .projects-grid.cols-3 { grid-template-columns: repeat(3, 1fr); } }
-        /* Modo Reels (Films & Reels): formato compacto tipo feed de redes */
-        @media (min-width: 640px) {
-            .projects-grid.cols-reels { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+        /* ── Projects grid (4 columnas responsivas) ── */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+        @media (min-width: 600px) {
+            .projects-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 18px;
+            }
         }
         @media (min-width: 900px) {
-            .projects-grid.cols-reels { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; }
+            .projects-grid {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+                gap: 20px;
+            }
         }
-        @media (min-width: 1200px) {
-            .projects-grid.cols-reels { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; }
+        @media (min-width: 1100px) {
+            .projects-grid,
+            .projects-grid.cols-4 {
+                grid-template-columns: repeat(4, minmax(0, 1fr));
+                gap: 20px;
+            }
+        }
+
+        /* Modo Reels (Films & Reels): formato compacto vertical */
+        @media (min-width: 600px) {
+            .projects-grid.cols-reels {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 18px;
+            }
+        }
+        @media (min-width: 900px) {
+            .projects-grid.cols-reels {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+                gap: 20px;
+            }
+        }
+        @media (min-width: 1100px) {
+            .projects-grid.cols-reels {
+                grid-template-columns: repeat(4, minmax(0, 1fr));
+                gap: 20px;
+            }
         }
 
         /* ── Project card ── */
-        .project-card { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.07); border-radius: 20px; overflow: hidden; transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), border-color 0.3s ease, box-shadow 0.4s ease; }
+        .project-card {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 20px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), border-color 0.3s ease, box-shadow 0.4s ease;
+        }
         .project-card:hover { transform: translateY(-8px); border-color: rgba(230,57,70,0.3); box-shadow: 0 24px 64px rgba(0,0,0,0.35), 0 0 0 1px rgba(230,57,70,0.1); }
         .project-card.hidden-card,
         .project-card.reel-card.hidden-card { display: none !important; }
 
         /* Browser mockup */
-        .browser-chrome { display: flex; align-items: center; gap: 10px; padding: 10px 14px; background: rgba(0,0,0,0.55); border-bottom: 1px solid rgba(255,255,255,0.06); }
+        .browser-chrome { display: flex; align-items: center; gap: 8px; padding: 9px 12px; background: rgba(0,0,0,0.55); border-bottom: 1px solid rgba(255,255,255,0.06); }
         .browser-dots { display: flex; gap: 5px; flex-shrink: 0; }
-        .browser-dot { width: 8px; height: 8px; border-radius: 50%; }
+        .browser-dot { width: 7px; height: 7px; border-radius: 50%; }
         .dot-red { background: #ff5f57; }
         .dot-yellow { background: #febc2e; }
         .dot-green { background: #28c840; }
-        .browser-url { flex: 1; background: rgba(255,255,255,0.07); border-radius: 4px; padding: 3px 10px; font-size: 11px; color: rgba(255,255,255,0.35); font-family: monospace; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-        .browser-screen { height: 172px; position: relative; overflow: hidden; }
+        .browser-url { flex: 1; background: rgba(255,255,255,0.07); border-radius: 4px; padding: 3px 8px; font-size: 10.5px; color: rgba(255,255,255,0.35); font-family: monospace; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .browser-screen { height: 160px; position: relative; overflow: hidden; }
 
         /* Mockup UI elements inside browser screen */
         .mock-nav { position: absolute; top: 0; left: 0; right: 0; height: 28px; background: rgba(0,0,0,0.25); display: flex; align-items: center; padding: 0 14px; gap: 8px; }
@@ -58,21 +95,21 @@
         .mock-card-sm { flex: 1; height: 32px; border-radius: 6px; background: rgba(255,255,255,0.12); }
 
         /* Card body */
-        .project-body { padding: 22px 24px 24px; }
-        .project-cat { display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; border-radius: 999px; background: rgba(230,57,70,0.12); border: 1px solid rgba(230,57,70,0.2); color: var(--accent-red); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 12px; }
-        .project-title { font-family: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, sans-serif; font-size: 18px; font-weight: 700; color: #fff; margin: 0 0 8px; line-height: 1.2; letter-spacing: -0.01em; }
-        .project-desc { font-size: 13.5px; color: rgba(255,255,255,0.5); line-height: 1.55; margin: 0 0 16px; }
-        .project-metric { display: flex; align-items: baseline; gap: 6px; margin-bottom: 16px; padding: 10px 14px; background: rgba(255,255,255,0.03); border-radius: 10px; border: 1px solid rgba(255,255,255,0.06); }
-        .metric-value { font-family: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, sans-serif; font-size: 20px; font-weight: 700; color: var(--accent-red); }
-        .metric-label { font-size: 12px; color: rgba(255,255,255,0.45); }
-        .project-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 18px; }
-        .project-tag { padding: 4px 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); border-radius: 6px; font-size: 11px; color: rgba(255,255,255,0.5); font-weight: 500; }
-        .project-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 2px; }
-        .project-link { min-height: 40px; display: inline-flex; align-items: center; justify-content: center; gap: 7px; padding: 0 14px; border-radius: 999px; font-size: 12.5px; font-weight: 700; color: rgba(255,255,255,0.78); text-decoration: none; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.04); transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease, transform 0.2s ease; }
+        .project-body { padding: 18px 18px 20px; display: flex; flex-direction: column; flex: 1; justify-content: space-between; }
+        .project-cat { display: inline-flex; align-items: center; gap: 6px; padding: 3px 10px; border-radius: 999px; background: rgba(230,57,70,0.12); border: 1px solid rgba(230,57,70,0.2); color: var(--accent-red); font-size: 10.5px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px; align-self: flex-start; }
+        .project-title { font-family: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, sans-serif; font-size: 16.5px; font-weight: 700; color: #fff; margin: 0 0 6px; line-height: 1.25; letter-spacing: -0.01em; }
+        .project-desc { font-size: 12.5px; color: rgba(255,255,255,0.5); line-height: 1.5; margin: 0 0 14px; }
+        .project-metric { display: flex; align-items: baseline; gap: 6px; margin-bottom: 14px; padding: 8px 12px; background: rgba(255,255,255,0.03); border-radius: 10px; border: 1px solid rgba(255,255,255,0.06); }
+        .metric-value { font-family: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, sans-serif; font-size: 18px; font-weight: 700; color: var(--accent-red); }
+        .metric-label { font-size: 11px; color: rgba(255,255,255,0.45); }
+        .project-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 16px; }
+        .project-tag { padding: 3px 8px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); border-radius: 6px; font-size: 10.5px; color: rgba(255,255,255,0.5); font-weight: 500; }
+        .project-actions { display: flex; flex-direction: column; gap: 8px; margin-top: auto; }
+        .project-link { min-height: 38px; width: 100%; display: inline-flex; align-items: center; justify-content: center; gap: 7px; padding: 0 12px; border-radius: 999px; font-size: 12px; font-weight: 700; color: rgba(255,255,255,0.78); text-decoration: none; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.04); transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease, transform 0.2s ease; }
         .project-link:hover { color: #fff; border-color: rgba(230,57,70,0.34); background: rgba(230,57,70,0.12); transform: translateY(-1px); }
         .project-link.visit { color: #09090B; background: #FFFFFF; border-color: #FFFFFF; box-shadow: 0 4px 16px rgba(255, 255, 255, 0.15); }
         .project-link.visit:hover { color: #000000; background: #E4E4E7; border-color: #E4E4E7; }
-        .project-link svg { width: 14px; height: 14px; flex-shrink: 0; transition: transform 0.2s ease; }
+        .project-link svg { width: 13px; height: 13px; flex-shrink: 0; transition: transform 0.2s ease; }
         .project-link:hover svg { transform: translate(2px, -2px); }
 
         /* ── Distintivo / Sello de Excelencia Proyecto USA (Award Badge) ── */
@@ -484,8 +521,7 @@
 
             <!-- Filter tabs -->
             <div class="filter-tabs animate-fadeInUp delay-300">
-                <button class="filter-btn active" data-filter="all" aria-pressed="true">{{ __('landing.portfolio.filters.all') }}</button>
-                <button class="filter-btn" data-filter="web" aria-pressed="false">{{ __('landing.portfolio.filters.web') }}</button>
+                <button class="filter-btn active" data-filter="web" aria-pressed="true">{{ __('landing.portfolio.filters.web') }}</button>
                 <button class="filter-btn" data-filter="ecommerce" aria-pressed="false">{{ __('landing.portfolio.filters.ecommerce') }}</button>
                 <button class="filter-btn" data-filter="sistema" aria-pressed="false">{{ __('landing.portfolio.filters.sistema') }}</button>
                 <button class="filter-btn" data-filter="films" aria-pressed="false">{{ __('landing.portfolio.filters.films') }}</button>
@@ -496,7 +532,7 @@
 
     <!-- ── PROJECTS GRID ── -->
     <section class="relative pb-24">
-        <div class="relative z-10 max-w-7xl mx-auto container-pad">
+        <div class="relative z-10 max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
             @php
                 $catLabels = __('landing.portfolio.cat_labels');
             @endphp
@@ -840,6 +876,11 @@
         };
 
         const applyFilter = (filter) => {
+            // Si por alguna razón llega 'all' o vacío, forzarlo a 'web'
+            if (filter === 'all' || !filter) {
+                filter = 'web';
+            }
+
             filterBtns.forEach(b => {
                 const isActive = b.dataset.filter === filter;
                 b.classList.toggle('active', isActive);
@@ -848,11 +889,10 @@
 
             // Grid column modes:
             // - films: cols-reels (hasta 4 columnas compactas para reels verticales)
-            // - otras categorías: cols-3 (3 columnas)
-            // - all: 2 columnas normales
+            // - otras categorías: cols-4 (4 columnas en pantallas medianas y grandes)
             if (grid) {
                 grid.classList.toggle('cols-reels', filter === 'films');
-                grid.classList.toggle('cols-3', filter !== 'all' && filter !== 'films');
+                grid.classList.toggle('cols-4', filter !== 'films');
             }
 
             let visible = 0;
@@ -864,9 +904,6 @@
                 if (filter === 'films') {
                     // Pestaña Films & Reels: muestra exclusivamente los reels
                     match = isReel || cats.includes('films') || cats.includes('social');
-                } else if (filter === 'all') {
-                    // Pestaña Todos: proyectos web, sistemas, ecommerce y branding
-                    match = showReelsInAll ? true : !isReel;
                 } else {
                     // Categorías específicas (web, ecommerce, sistema, branding):
                     // Los reels NUNCA aparecen en ninguna de estas categorías
@@ -914,9 +951,10 @@
         setupVideoObserver();
         document.addEventListener('livewire:navigated', setupVideoObserver);
 
-        // Activación automática si viene con parámetro de URL (?cat=films) o hash (#films)
+        // Activación automática si viene con parámetro de URL (?cat=films) o hash (#films), predeterminado 'web'
         const urlParams = new URLSearchParams(window.location.search);
-        const initialCat = urlParams.get('cat') || window.location.hash.replace('#', '') || 'all';
+        let initialCat = urlParams.get('cat') || window.location.hash.replace('#', '') || 'web';
+        if (initialCat === 'all') initialCat = 'web';
         applyFilter(initialCat);
     </script>
 </div>
