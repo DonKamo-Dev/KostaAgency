@@ -48,43 +48,43 @@
                 font-family: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, sans-serif !important;
             }
 
-            /* Ambient Red Glow Effect */
+            /* Ambient Glow Effect - Optimized for GPU & Mobile Performance */
             .ambient-glow {
                 position: fixed;
                 pointer-events: none;
                 z-index: 0;
+                transform: translateZ(0);
+                will-change: transform, opacity;
             }
 
             .ambient-glow-1 {
-                top: -20%;
+                top: -15%;
                 right: -10%;
-                width: 600px;
-                height: 600px;
-                background: radial-gradient(circle, rgba(255, 255, 255, 0.08) 0%, transparent 70%);
-                filter: blur(80px);
-                animation: pulse-glow 4s ease-in-out infinite;
+                width: 500px;
+                height: 500px;
+                background: radial-gradient(circle, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.02) 40%, transparent 70%);
+                animation: pulse-glow 6s ease-in-out infinite;
             }
 
             .ambient-glow-2 {
-                bottom: -30%;
-                left: -20%;
-                width: 800px;
-                height: 800px;
-                background: radial-gradient(circle, rgba(255, 255, 255, 0.05) 0%, transparent 60%);
-                filter: blur(100px);
-                animation: pulse-glow 6s ease-in-out infinite reverse;
+                bottom: -20%;
+                left: -15%;
+                width: 600px;
+                height: 600px;
+                background: radial-gradient(circle, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0.01) 45%, transparent 70%);
+                animation: pulse-glow 8s ease-in-out infinite reverse;
             }
 
             @keyframes pulse-glow {
-                0%, 100% { opacity: 0.6; transform: scale(1); }
-                50% { opacity: 1; transform: scale(1.1); }
+                0%, 100% { opacity: 0.5; transform: scale(1) translateZ(0); }
+                50% { opacity: 0.9; transform: scale(1.05) translateZ(0); }
             }
 
-            /* Glass Card with Red Edge Glow */
+            /* Glass Card */
             .login-card {
                 background: var(--bg-card);
-                backdrop-filter: blur(20px);
-                -webkit-backdrop-filter: blur(20px);
+                backdrop-filter: blur(16px);
+                -webkit-backdrop-filter: blur(16px);
                 border: 1px solid var(--border-subtle);
                 border-radius: 24px;
                 position: relative;
@@ -96,21 +96,58 @@
                     inset 0 1px 0 rgba(255, 255, 255, 0.1);
             }
 
-            @media (max-width: 640px) {
+            /* Custom Inputs - Fast & Zero-Lag */
+            .custom-input {
+                background: rgba(18, 18, 20, 0.9);
+                border: 1px solid rgba(255, 255, 255, 0.12);
+                border-radius: 12px;
+                color: var(--text-primary);
+                padding: 14px 16px;
+                font-size: 16px; /* 16px prevents iOS Safari auto-zoom */
+                transition: border-color 0.15s ease, box-shadow 0.15s ease;
+                width: 100%;
+                -webkit-appearance: none;
+                appearance: none;
+            }
+
+            .custom-input:hover {
+                border-color: rgba(255, 255, 255, 0.3);
+            }
+
+            .custom-input:focus {
+                outline: none;
+                border-color: #FFFFFF;
+                box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.2);
+            }
+
+            /* Mobile-Specific Performance Overrides */
+            @media (max-width: 768px) {
+                /* Disable heavy fixed glows completely on mobile to eliminate GPU contention with keyboard */
+                .ambient-glow {
+                    display: none !important;
+                }
+                .grid-pattern {
+                    opacity: 0.2 !important;
+                }
                 #main {
-                    padding-top: 28px !important;
+                    padding-top: 24px !important;
                     padding-bottom: 24px !important;
                     padding-left: 16px !important;
                     padding-right: 16px !important;
                 }
                 .login-card {
-                    padding: 28px 20px !important;
-                    border-radius: 20px !important;
+                    padding: 24px 18px !important;
+                    border-radius: 18px !important;
+                    background: #121214 !important;
+                    backdrop-filter: none !important;
+                    -webkit-backdrop-filter: none !important;
+                    border-color: rgba(255, 255, 255, 0.1) !important;
                 }
                 .custom-input {
-                    font-size: 16px !important; /* Prevents auto-zoom on iOS Safari */
+                    font-size: 16px !important;
                     padding: 13px 14px !important;
                     min-height: 48px;
+                    background: #18181b !important;
                 }
                 .btn-primary-red {
                     width: 100% !important;
@@ -119,28 +156,6 @@
                     align-items: center !important;
                     justify-content: center !important;
                 }
-            }
-
-            /* Custom Inputs - Dark with Red Focus */
-            .custom-input {
-                background: rgba(10, 10, 10, 0.6);
-                border: 1px solid rgba(245, 245, 245, 0.1);
-                border-radius: 12px;
-                color: var(--text-primary);
-                padding: 14px 16px;
-                font-size: 15px;
-                transition: all 0.25s ease;
-                width: 100%;
-            }
-
-            .custom-input:hover {
-                border-color: rgba(230, 57, 70, 0.3);
-            }
-
-            .custom-input:focus {
-                outline: none;
-                border-color: var(--red-primary);
-                box-shadow: 0 0 0 3px rgba(230, 57, 70, 0.15);
             }
 
             .custom-input::placeholder {
@@ -375,11 +390,6 @@
         <!-- Main Content -->
         <div id="main" class="min-h-screen flex flex-col justify-start items-center relative z-10 px-4 sm:px-6 pt-20 pb-12">
             {{ $slot }}
-        </div>
-
-        {{-- Global Thinking Orb HUD --}}
-        <div id="global-thinking-hud" class="global-thinking-hud">
-            <thinking-orb state="working" size="20" label="Procesando..." pill></thinking-orb>
         </div>
     </body>
 </html>

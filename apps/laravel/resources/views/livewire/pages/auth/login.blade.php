@@ -47,7 +47,7 @@ new #[Layout('layouts.guest')] class extends Component
             </div>
         @endif
 
-        <form method="POST" action="{{ route('login.store') }}" class="space-y-6">
+        <form wire:ignore method="POST" action="{{ route('login.store') }}" class="space-y-6">
             @csrf
             <!-- Email Address -->
             <div>
@@ -62,6 +62,10 @@ new #[Layout('layouts.guest')] class extends Component
                     required
                     autofocus
                     autocomplete="username"
+                    inputmode="email"
+                    autocapitalize="none"
+                    autocorrect="off"
+                    spellcheck="false"
                     placeholder="tu@email.com"
                     class="custom-input"
                 />
@@ -82,6 +86,9 @@ new #[Layout('layouts.guest')] class extends Component
                         name="password"
                         required
                         autocomplete="current-password"
+                        autocapitalize="none"
+                        autocorrect="off"
+                        spellcheck="false"
                         placeholder="••••••••"
                         class="custom-input"
                         style="padding-right: 48px;"
