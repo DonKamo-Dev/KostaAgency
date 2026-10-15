@@ -14,6 +14,8 @@ RUN apk add --no-cache \
         php84-pdo_mysql \
         php84-sqlite3 \
         php84-pdo_sqlite \
+        php84-pdo_pgsql \
+        php84-pgsql \
         php84-zip \
         php84-gd \
         php84-intl \
