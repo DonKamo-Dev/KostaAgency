@@ -173,21 +173,21 @@
                             <p class="text-white/45 text-sm">{!! __('landing.contact.form_subtitle', ['req' => '<span class="text-red-accent">*</span>']) !!}</p>
                         </div>
 
-                        <form wire:submit.prevent="enviar" novalidate>
+                        <form wire:submit="enviar" novalidate>
                             <div aria-hidden="true" style="position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden;">
                                 <label for="website">Website</label>
-                                <input id="website" type="text" wire:model.defer="website" tabindex="-1" autocomplete="off">
+                                <input id="website" type="text" wire:model="website" tabindex="-1" autocomplete="off">
                             </div>
                             @error('form') <p class="field-error mb-4" role="alert">{{ $message }}</p> @enderror
                             <div class="form-row">
                                 <div class="field-group">
                                     <label class="field-label" for="nombre">{{ __('landing.contact.field_name') }} <span class="req">*</span></label>
-                                    <input id="nombre" type="text" wire:model.defer="nombre" class="field-input" placeholder="{{ __('landing.contact.field_name_placeholder') }}" autocomplete="name">
+                                    <input id="nombre" type="text" wire:model="nombre" class="field-input" placeholder="{{ __('landing.contact.field_name_placeholder') }}" autocomplete="name">
                                     @error('nombre') <span class="field-error">{{ $message }}</span> @enderror
                                 </div>
                                 <div class="field-group">
                                     <label class="field-label" for="email">{{ __('landing.contact.field_email') }} <span class="req">*</span></label>
-                                    <input id="email" type="email" wire:model.defer="email" class="field-input" placeholder="{{ __('landing.contact.field_email_placeholder') }}" autocomplete="email">
+                                    <input id="email" type="email" wire:model="email" class="field-input" placeholder="{{ __('landing.contact.field_email_placeholder') }}" autocomplete="email">
                                     @error('email') <span class="field-error">{{ $message }}</span> @enderror
                                 </div>
                             </div>
@@ -195,12 +195,12 @@
                             <div class="form-row">
                                 <div class="field-group">
                                     <label class="field-label" for="telefono">{{ __('landing.contact.field_phone') }}</label>
-                                    <input id="telefono" type="tel" wire:model.defer="telefono" class="field-input" placeholder="{{ __('landing.contact.field_phone_placeholder') }}" autocomplete="tel">
+                                    <input id="telefono" type="tel" wire:model="telefono" class="field-input" placeholder="{{ __('landing.contact.field_phone_placeholder') }}" autocomplete="tel">
                                     @error('telefono') <span class="field-error">{{ $message }}</span> @enderror
                                 </div>
                                 <div class="field-group">
                                     <label class="field-label" for="servicio">{{ __('landing.contact.field_service') }} <span class="req">*</span></label>
-                                    <select id="servicio" wire:model.defer="servicio" class="field-select">
+                                    <select id="servicio" wire:model="servicio" class="field-select">
                                         <option value="">{{ __('landing.contact.field_service_placeholder') }}</option>
                                         @foreach(__('landing.contact.field_service_options') as $val => $text)
                                             <option value="{{ $val }}">{{ $text }}</option>
@@ -213,7 +213,7 @@
                             <div class="form-row">
                                 <div class="field-group">
                                     <label class="field-label" for="tipo_cliente">{{ __('landing.contact.field_client_type') }}</label>
-                                    <select id="tipo_cliente" wire:model.defer="tipo_cliente" class="field-select">
+                                    <select id="tipo_cliente" wire:model="tipo_cliente" class="field-select">
                                         <option value="">{{ __('landing.contact.field_client_type_placeholder') }}</option>
                                         @foreach(__('landing.contact.field_client_type_options') as $val => $text)
                                             <option value="{{ $val }}">{{ $text }}</option>
@@ -223,7 +223,7 @@
                                 </div>
                                 <div class="field-group">
                                     <label class="field-label" for="presupuesto">{{ __('landing.contact.field_budget') }}</label>
-                                    <select id="presupuesto" wire:model.defer="presupuesto" class="field-select">
+                                    <select id="presupuesto" wire:model="presupuesto" class="field-select">
                                         <option value="">{{ __('landing.contact.field_budget_placeholder') }}</option>
                                         @foreach(__('landing.contact.field_budget_options') as $val => $text)
                                             <option value="{{ $val }}">{{ $text }}</option>
@@ -234,7 +234,7 @@
 
                             <div class="field-group">
                                 <label class="field-label" for="como_nos_conocio">{{ __('landing.contact.field_source') }}</label>
-                                <select id="como_nos_conocio" wire:model.defer="como_nos_conocio" class="field-select">
+                                <select id="como_nos_conocio" wire:model="como_nos_conocio" class="field-select">
                                     <option value="">{{ __('landing.contact.field_source_placeholder') }}</option>
                                     @foreach(__('landing.contact.field_source_options') as $val => $text)
                                         <option value="{{ $val }}">{{ $text }}</option>
@@ -245,9 +245,23 @@
 
                             <div class="field-group">
                                 <label class="field-label" for="mensaje">{{ __('landing.contact.field_message') }}</label>
-                                <textarea id="mensaje" wire:model.defer="mensaje" class="field-textarea" placeholder="{{ __('landing.contact.field_message_placeholder') }}"></textarea>
+                                <textarea id="mensaje" wire:model="mensaje" class="field-textarea" placeholder="{{ __('landing.contact.field_message_placeholder') }}"></textarea>
                                 @error('mensaje') <span class="field-error">{{ $message }}</span> @enderror
                             </div>
+
+                            @if($errors->any())
+                                <div class="mb-5 p-4 rounded-xl border border-red-500/30 bg-red-500/10 text-red-300 text-sm flex items-start gap-3 animate-fadeIn">
+                                    <svg class="w-5 h-5 flex-shrink-0 text-red-400 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                                    <div>
+                                        <p class="font-semibold text-white">{{ __('landing.contact.validation_summary_title') ?? 'Por favor revisa los campos requeridos:' }}</p>
+                                        <ul class="list-disc list-inside mt-1 space-y-0.5 text-xs text-red-200/90">
+                                            @foreach($errors->all() as $error)
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                </div>
+                            @endif
 
                             <button type="submit" class="btn-submit" wire:loading.attr="disabled">
                                 <span wire:loading.remove class="btn-submit-content">
