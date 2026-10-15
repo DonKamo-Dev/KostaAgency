@@ -57,7 +57,7 @@ fi
 # Ejecuta migraciones y crea usuario inicial automáticamente en producción
 echo "Ejecutando migraciones de base de datos..."
 php artisan migrate --force || echo "Aviso: No se pudieron ejecutar migraciones automáticas. Revisa la conexión DB."
-php artisan db:seed --class=InitialSetupSeeder --force || true
+php artisan db:seed --force || true
 
 
 # Optimiza cachés de Laravel en producción si APP_KEY está definida
