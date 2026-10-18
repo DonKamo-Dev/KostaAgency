@@ -17,7 +17,7 @@
         .btn-filter { background: #FFFFFF; color: #000; font-weight: 700; font-size: 13px; padding: 8px 18px; border-radius: 10px; border: none; cursor: pointer; }
         .btn-filter-clear { color: var(--text-muted); font-size: 13px; text-decoration: none; padding: 8px 12px; }
 
-        .leads-card { background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 16px; overflow: hidden; }
+        .leads-card { background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 16px; overflow-x: auto; -webkit-overflow-scrolling: touch; max-width: 100%; }
         .leads-table { width: 100%; min-width: 760px; border-collapse: collapse; text-align: left; }
         .leads-table th { padding: 14px 18px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); font-weight: 600; border-bottom: 1px solid var(--border-subtle); background: rgba(255,255,255,0.02); }
         .leads-table td { padding: 16px 18px; border-bottom: 1px solid var(--border-subtle); font-size: 13px; color: var(--text-secondary); vertical-align: top; }
@@ -99,7 +99,7 @@
         @media (max-width: 640px) {
             .leads-title { font-size: 22px; }
             .stats-strip {
-                grid-template-columns: repeat(2, 1fr);
+                grid-template-columns: repeat(2, minmax(0, 1fr));
                 gap: 10px;
             }
             .stats-strip .stat-box:first-child {
@@ -110,7 +110,8 @@
                 align-items: stretch;
             }
             .filter-input, .filter-select, .btn-filter {
-                width: 100%;
+                width: 100% !important;
+                min-width: 0 !important;
             }
         }
     </style>

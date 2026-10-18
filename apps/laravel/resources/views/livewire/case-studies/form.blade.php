@@ -78,7 +78,7 @@
     </div>
 
     <!-- Main Grid: Form (Left) + Live Preview (Right) -->
-    <div style="display:grid;grid-template-columns:1fr;gap:32px;align-items:start;" class="case-study-grid">
+    <div style="display:grid;grid-template-columns:minmax(0, 1fr);gap:32px;align-items:start;" class="case-study-grid">
         <style>
             @media (min-width: 1100px) {
                 .case-study-grid {
@@ -92,6 +92,9 @@
                 padding: 26px 28px;
                 margin-bottom: 24px;
                 box-shadow: 0 4px 24px rgba(0,0,0,0.25);
+                min-width: 0;
+                max-width: 100%;
+                box-sizing: border-box;
             }
             @media (max-width: 640px) {
                 .form-card-section {
@@ -119,6 +122,18 @@
                 .case-study-action-bar .btn {
                     width: 100% !important;
                     justify-content: center !important;
+                }
+                .films-anchor-selector {
+                    display: flex !important;
+                    flex-wrap: wrap !important;
+                    width: 100% !important;
+                }
+                .films-anchor-selector button {
+                    flex: 1 1 auto !important;
+                    justify-content: center !important;
+                }
+                .video-orientation-grid {
+                    grid-template-columns: minmax(0, 1fr) !important;
                 }
             }
             .section-badge-title {
@@ -517,7 +532,7 @@
                             </div>
                             
                             <!-- Selector: Sin Anclar vs Empresa vs Sitio Web -->
-                            <div style="display:inline-flex;background:rgba(0,0,0,0.5);border:1px solid rgba(255,255,255,0.12);border-radius:10px;padding:3px;gap:2px;">
+                            <div class="films-anchor-selector" style="display:inline-flex;background:rgba(0,0,0,0.5);border:1px solid rgba(255,255,255,0.12);border-radius:10px;padding:3px;gap:2px;">
                                 <button type="button" 
                                         wire:click="setSourceType(null)" 
                                         style="padding:6px 12px;border-radius:8px;border:none;font-size:12px;font-weight:700;cursor:pointer;transition:all .15s ease;display:flex;align-items:center;gap:5px; {{ empty($source_type) ? 'background:rgba(255,255,255,0.18);color:#FFFFFF;box-shadow:0 2px 6px rgba(0,0,0,0.5);' : 'background:transparent;color:rgba(255,255,255,0.5);' }}">
@@ -613,7 +628,7 @@
                         <!-- Selector de Formato: Reel (9:16) vs Horizontal (16:9) -->
                         <div class="form-group" style="margin-bottom:18px;">
                             <label class="form-label">Formato de Video / Orientación <span class="required">*</span></label>
-                            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px;">
+                            <div class="video-orientation-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px;">
                                 <button type="button"
                                         wire:click="$set('video_orientation', 'vertical')"
                                         style="padding:14px 16px;border-radius:12px;border:1px solid {{ $video_orientation === 'vertical' ? '#f43f5e' : 'rgba(255,255,255,0.1)' }};background:{{ $video_orientation === 'vertical' ? 'rgba(244,63,94,0.15)' : 'rgba(255,255,255,0.03)' }};cursor:pointer;display:flex;align-items:center;gap:12px;text-align:left;transition:all 0.2s;">
