@@ -888,8 +888,8 @@
                     $delays = ['80', '160', '240', '100', '200', '300'];
                 @endphp
 
-                @foreach(array_values($services) as $idx => $service)
-                    <article class="service-card" data-reveal="up" data-reveal-delay="{{ $delays[$idx % count($delays)] }}">
+                @foreach($services as $service)
+                    <article class="service-card" data-reveal="up" data-reveal-delay="{{ $delays[$loop->index % count($delays)] }}">
                         <a href="{{ route('services.show', $service['slug']) }}" wire:navigate class="service-card-link" aria-label="{{ $service['title'] }}"></a>
 
                         <!-- Visual Card Header Image -->

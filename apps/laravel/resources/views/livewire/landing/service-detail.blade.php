@@ -679,9 +679,9 @@
             </div>
 
             <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-                @foreach(array_values($otherServices) as $oIdx => $other)
+                @foreach($otherServices as $other)
                     <a href="{{ route('services.show', $other['slug']) }}" wire:navigate
-                       data-reveal="up" data-reveal-delay="{{ ($oIdx + 1) * 100 }}"
+                       data-reveal="up" data-reveal-delay="{{ ($loop->index + 1) * 100 }}"
                        class="group"
                        style="background:rgba(18,18,22,0.8);border:1px solid rgba(255,255,255,0.08);border-radius:20px;overflow:hidden;text-decoration:none;display:flex;flex-direction:column;justify-content:space-between;transition:all .35s ease;"
                        onmouseenter="this.style.borderColor='rgba(230,57,70,0.45)';this.style.transform='translateY(-5px)'"
