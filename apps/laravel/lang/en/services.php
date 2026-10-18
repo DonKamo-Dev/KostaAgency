@@ -47,6 +47,15 @@ return [
             'tags' => ['WordPress', 'React', 'Laravel', 'PHP'],
             'all_tags' => ['WordPress', 'React', 'Laravel', 'PHP', 'Tailwind CSS', 'REST APIs', 'MySQL', 'Technical SEO', 'Core Web Vitals'],
             'btn_text' => 'Explore Web Development',
+            'card_image' => '/img/hero/classy-cartagena.png',
+            'hero_bg' => 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=1600&q=80',
+            'hero_main_image' => '/img/hero/classy-cartagena.png',
+            'hero_main_label' => 'Classy Cartagena — Luxury Portal',
+            'hero_main_tag' => 'LARAVEL + UI',
+            'hero_overlay_image' => 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=900&q=80',
+            'hero_overlay_label' => '98/100 Core Web Vitals',
+            'hero_overlay_tag' => '< 0.8s LOAD',
+            'section_bg_image' => 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=1600&q=80',
             'stats' => [
                 ['value' => '< 0.8s', 'label' => 'Average page load speed'],
                 ['value' => '100%', 'label' => 'Code & asset ownership'],
@@ -56,18 +65,22 @@ return [
                 [
                     'title' => 'High-End Corporate Portals',
                     'desc' => 'Institutional platforms that project uncompromising authority, prestige, and market leadership over competitors.',
+                    'image' => '/img/hero/classy-cartagena.png',
                 ],
                 [
                     'title' => 'High-Conversion Landing Pages',
                     'desc' => 'Engineered with buyer behavioral psychology, compelling copy, and instantaneous response times for your ad campaigns.',
+                    'image' => 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80',
                 ],
                 [
                     'title' => 'WordPress & Self-Managed CMS Panels',
                     'desc' => 'Effortless content management for your internal team without bloated page builders or vulnerable dependencies.',
+                    'image' => 'https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=800&q=80',
                 ],
                 [
                     'title' => 'Custom Web Apps & Portals',
                     'desc' => 'Full-stack engineering with React and Laravel for custom SaaS platforms, client portals, quoting engines, and internal tools.',
+                    'image' => 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80',
                 ],
             ],
             'process' => [
@@ -90,6 +103,15 @@ return [
             'tags' => ['Shopify', 'WooCommerce', 'Custom'],
             'all_tags' => ['Shopify', 'WooCommerce', 'Stripe', 'MercadoPago', 'Wompi', 'Analytics 4', 'Optimized Checkout'],
             'btn_text' => 'Explore E-commerce',
+            'card_image' => '/img/hero/compulago-ecommerce.jpg',
+            'hero_bg' => 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=1600&q=80',
+            'hero_main_image' => '/img/hero/compulago-ecommerce.jpg',
+            'hero_main_label' => 'Compulago — National Tech Storefront',
+            'hero_main_tag' => 'E-COMMERCE PRO',
+            'hero_overlay_image' => 'https://images.unsplash.com/photo-1563013544-824ae1b704d3?auto=format&fit=crop&w=900&q=80',
+            'hero_overlay_label' => 'Frictionless Multi-Gateway Checkout',
+            'hero_overlay_tag' => '+45% CONVERSION',
+            'section_bg_image' => 'https://images.unsplash.com/photo-1472851294608-062f824d29cc?auto=format&fit=crop&w=1600&q=80',
             'stats' => [
                 ['value' => '+45%', 'label' => 'Average checkout conversion'],
                 ['value' => '0 Friction', 'label' => 'Streamlined buying journey'],
@@ -99,18 +121,22 @@ return [
                 [
                     'title' => 'Shopify & WooCommerce Flagships',
                     'desc' => 'Custom storefront development that transcends generic templates, tailored specifically to your operational nuances.',
+                    'image' => '/img/hero/compulago-ecommerce.jpg',
                 ],
                 [
                     'title' => 'Global & Local Payment Gateways',
                     'desc' => 'End-to-end integration with Stripe, MercadoPago, Wompi, and regional payment methods under enterprise SSL encryption.',
+                    'image' => 'https://images.unsplash.com/photo-1563013544-824ae1b704d3?auto=format&fit=crop&w=800&q=80',
                 ],
                 [
                     'title' => 'Agile & Frictionless Checkout',
                     'desc' => 'Checkout flow UX designed to minimize cart abandonment and maximize average order value (AOV).',
+                    'image' => 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=800&q=80',
                 ],
                 [
                     'title' => 'Commercial Tracking & Analytics',
                     'desc' => 'Precision tracking setup with Google Analytics 4, Meta Conversions API (CAPI), and custom purchase events.',
+                    'image' => 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80',
                 ],
             ],
             'process' => [
@@ -133,6 +159,15 @@ return [
             'tags' => ['Reels', 'Motion', 'Storytelling'],
             'all_tags' => ['Cinema 4K', 'Reels', 'Motion Graphics', 'Storytelling', 'Art Direction', 'Color Grading', 'Sound Design'],
             'btn_text' => 'Discover Films & Production',
+            'card_image' => '/img/hero/kosta-film-still.jpg',
+            'hero_bg' => 'https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=1600&q=80',
+            'hero_main_image' => '/img/hero/kosta-film-still.jpg',
+            'hero_main_label' => 'Kosta Films — 4K Cinema Production',
+            'hero_main_tag' => 'REC · 4K RAW',
+            'hero_overlay_image' => 'https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&w=900&q=80',
+            'hero_overlay_label' => 'Color Grading & Post Suite',
+            'hero_overlay_tag' => 'CINEMA SUITE',
+            'section_bg_image' => 'https://images.unsplash.com/photo-1518676590629-3dcbd9c5a5c9?auto=format&fit=crop&w=1600&q=80',
             'stats' => [
                 ['value' => 'Cinema 4K', 'label' => 'Cinema bodies & prime lenses'],
                 ['value' => '100% Story', 'label' => 'Purpose-driven narrative'],
@@ -142,18 +177,22 @@ return [
                 [
                     'title' => 'Brand Films & Corporate Overviews',
                     'desc' => 'Flagship brand films that articulate your mission, scale, and uncompromising quality with Hollywood-grade cinematography.',
+                    'image' => '/img/hero/kosta-film-still.jpg',
                 ],
                 [
                     'title' => 'Strategic Vertical Content & Reels',
                     'desc' => 'High-velocity short-form videos designed to hook attention within 3 seconds and sustain viewer watch time.',
+                    'image' => 'https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=800&q=80',
                 ],
                 [
                     'title' => 'Motion Graphics & Product Demos',
                     'desc' => 'Sophisticated animated visual storytelling explaining complex digital products, software, or business metrics.',
+                    'image' => 'https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&w=800&q=80',
                 ],
                 [
                     'title' => 'High-Performance Ad Creatives',
                     'desc' => 'Hook-tested video variations engineered specifically for high-converting social and search ad campaigns.',
+                    'image' => 'https://images.unsplash.com/photo-1536240478700-b869070f9279?auto=format&fit=crop&w=800&q=80',
                 ],
             ],
             'process' => [
@@ -176,6 +215,15 @@ return [
             'tags' => ['Strategy', 'Audit', 'Growth'],
             'all_tags' => ['Digital Audit', 'Customer Journey', 'Sales Funnels', 'KPI Dashboards', 'Channel Architecture'],
             'btn_text' => 'Discover Digital Strategy',
+            'card_image' => 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=900&q=80',
+            'hero_bg' => 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1600&q=80',
+            'hero_main_image' => 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80',
+            'hero_main_label' => 'Funnel Architecture & KPIs',
+            'hero_main_tag' => 'GROWTH 360°',
+            'hero_overlay_image' => '/img/hero/classy-cartagena.png',
+            'hero_overlay_label' => 'Synchronized Ecosystem',
+            'hero_overlay_tag' => 'EXECUTION ROADMAP',
+            'section_bg_image' => 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1600&q=80',
             'stats' => [
                 ['value' => '360°', 'label' => 'Holistic business vision'],
                 ['value' => 'Zero Chaos', 'label' => 'Synchronized marketing'],
@@ -185,18 +233,22 @@ return [
                 [
                     'title' => 'Comprehensive Digital Audit',
                     'desc' => 'We dissect your web speed, customer journey, conversion bottlenecks, and rival positioning to uncover hidden revenue leaks.',
+                    'image' => 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80',
                 ],
                 [
                     'title' => 'Sales Funnel Engineering',
                     'desc' => 'We structure every step of the buyer journey from cold brand discovery to automated closing and recurring retention.',
+                    'image' => 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80',
                 ],
                 [
                     'title' => 'Channel & Message Synchronization',
                     'desc' => 'We ensure your website, paid ads, emails, and social profiles communicate an aligned, compelling value proposition.',
+                    'image' => '/img/hero/classy-cartagena.png',
                 ],
                 [
                     'title' => 'Executive KPI Dashboards',
                     'desc' => 'Definition and live tracking of true commercial KPIs that genuinely move the needle for executive decision-making.',
+                    'image' => 'https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=800&q=80',
                 ],
             ],
             'process' => [
@@ -219,6 +271,15 @@ return [
             'tags' => ['Meta Ads', 'Google Ads', 'Analytics'],
             'all_tags' => ['Meta Ads', 'Google Search', 'Google Shopping', 'TikTok Ads', 'Server-Side CAPI', 'ROAS Optimization'],
             'btn_text' => 'View Performance & Ads',
+            'card_image' => 'https://images.unsplash.com/photo-1533750349088-cd871a92f312?auto=format&fit=crop&w=900&q=80',
+            'hero_bg' => 'https://images.unsplash.com/photo-1533750349088-cd871a92f312?auto=format&fit=crop&w=1600&q=80',
+            'hero_main_image' => 'https://images.unsplash.com/photo-1533750349088-cd871a92f312?auto=format&fit=crop&w=1200&q=80',
+            'hero_main_label' => 'Meta Ads & Google Ads Attribution',
+            'hero_main_tag' => 'ROAS OPTIMIZED',
+            'hero_overlay_image' => '/img/hero/compulago-ecommerce.jpg',
+            'hero_overlay_label' => 'Server-Side CAPI Tracking',
+            'hero_overlay_tag' => 'DATA-FIRST',
+            'section_bg_image' => 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1600&q=80',
             'stats' => [
                 ['value' => 'Data-First', 'label' => 'Decisions backed by numbers'],
                 ['value' => 'Server-Side', 'label' => '100% reliable tracking'],
@@ -228,18 +289,22 @@ return [
                 [
                     'title' => 'Meta Ads Campaigns (Facebook & Instagram)',
                     'desc' => 'Multi-tier prospecting funnels and dynamic retargeting matrices to capture and convert qualified social audiences.',
+                    'image' => 'https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?auto=format&fit=crop&w=800&q=80',
                 ],
                 [
                     'title' => 'Google Ads (Search & Shopping)',
                     'desc' => 'Intercepting immediate buying intent from high-value prospects actively querying your solution on Google.',
+                    'image' => 'https://images.unsplash.com/photo-1533750349088-cd871a92f312?auto=format&fit=crop&w=800&q=80',
                 ],
                 [
                     'title' => 'Conversions API & Server-Side Tracking',
                     'desc' => 'Robust server-side event pipeline bypassing client-side ad-blockers and iOS privacy restrictions for clean attribution.',
+                    'image' => 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80',
                 ],
                 [
                     'title' => 'Continuous ROAS & CAC Optimization',
                     'desc' => 'Daily monitoring of customer acquisition costs (CAC) and proactive budget reallocation toward top-performing segments.',
+                    'image' => '/img/hero/compulago-ecommerce.jpg',
                 ],
             ],
             'process' => [
@@ -262,6 +327,15 @@ return [
             'tags' => ['Logo', 'Identity', 'Brand Guidelines'],
             'all_tags' => ['Visual Identity', 'Logotypes', 'Brand Manual', 'Curated Typography', 'Packaging Design', 'UI Design Systems'],
             'btn_text' => 'Explore Design & Branding',
+            'card_image' => 'https://images.unsplash.com/photo-1626785774573-4b799315345d?auto=format&fit=crop&w=900&q=80',
+            'hero_bg' => 'https://images.unsplash.com/photo-1626785774573-4b799315345d?auto=format&fit=crop&w=1600&q=80',
+            'hero_main_image' => 'https://images.unsplash.com/photo-1626785774573-4b799315345d?auto=format&fit=crop&w=1200&q=80',
+            'hero_main_label' => 'Identity Systems & Brandbooks',
+            'hero_main_tag' => 'BRAND STUDIO',
+            'hero_overlay_image' => 'https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&w=900&q=80',
+            'hero_overlay_label' => 'Typographic & Chromatic Direction',
+            'hero_overlay_tag' => '100% BESPOKE',
+            'section_bg_image' => 'https://images.unsplash.com/photo-1558655146-d09347e92766?auto=format&fit=crop&w=1600&q=80',
             'stats' => [
                 ['value' => '100% Unique', 'label' => 'Zero generic templates'],
                 ['value' => 'Pro Manual', 'label' => 'Clear implementation rules'],
@@ -271,18 +345,22 @@ return [
                 [
                     'title' => 'Logotype Design & Visual Ecosystem',
                     'desc' => 'Primary mark, responsive lockups, chromatic palette, and bespoke typography selection calibrated for modern screens.',
+                    'image' => 'https://images.unsplash.com/photo-1626785774573-4b799315345d?auto=format&fit=crop&w=800&q=80',
                 ],
                 [
                     'title' => 'Comprehensive Brand Identity Manual',
                     'desc' => 'Normative documentation with clear rules of usage, clearance zones, typography hierarchies, and negative-space rules.',
+                    'image' => 'https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&w=800&q=80',
                 ],
                 [
                     'title' => 'Digital & Corporate Collateral',
                     'desc' => 'Design of executive stationery, email signatures, presentation decks, social templates, and corporate ephemera.',
+                    'image' => 'https://images.unsplash.com/photo-1586717791821-3f44a563fa4c?auto=format&fit=crop&w=800&q=80',
                 ],
                 [
                     'title' => 'Production-Ready Master Assets',
                     'desc' => 'Vector masters (SVG, AI, PDF) and optimized raster web assets (PNG, WebP) organized in a clean directory hierarchy.',
+                    'image' => 'https://images.unsplash.com/photo-1558655146-d09347e92766?auto=format&fit=crop&w=800&q=80',
                 ],
             ],
             'process' => [

@@ -182,12 +182,12 @@
 
         /* ===== SERVICE CARDS ===== */
         .service-card {
-            background: linear-gradient(145deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+            background: linear-gradient(145deg, rgba(20,20,24,0.88), rgba(12,12,15,0.94));
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.09);
             border-radius: 24px;
-            padding: 40px 36px;
+            padding: 0 32px 36px 32px;
             transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
             position: relative;
             overflow: hidden;
@@ -195,7 +195,47 @@
             flex-direction: column;
             cursor: pointer;
         }
-        @media (min-width: 768px) { .service-card { padding: 48px 40px; } }
+        @media (min-width: 768px) { .service-card { padding: 0 36px 40px 36px; } }
+
+        .service-card-media {
+            position: relative;
+            margin: 0 -32px 24px -32px;
+            height: 176px;
+            overflow: hidden;
+            background: #0d0d11;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+        @media (min-width: 768px) {
+            .service-card-media {
+                margin: 0 -36px 26px -36px;
+                height: 188px;
+            }
+        }
+
+        .service-card-media img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center top;
+            opacity: 0.72;
+            filter: saturate(0.92) contrast(1.05);
+            transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.45s ease;
+        }
+
+        .service-card:hover .service-card-media img {
+            transform: scale(1.08);
+            opacity: 0.92;
+        }
+
+        .service-card-media::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                linear-gradient(180deg, rgba(10,10,14,0.2) 0%, rgba(14,14,18,0.65) 65%, rgba(15,15,19,0.98) 100%),
+                radial-gradient(circle at 85% 20%, rgba(230, 57, 70, 0.28), transparent 55%);
+            pointer-events: none;
+        }
 
         .service-card-link {
             position: absolute;
@@ -210,9 +250,9 @@
 
         .service-card:hover {
             transform: translateY(-8px);
-            border-color: rgba(230, 57, 70, 0.4);
-            background: linear-gradient(145deg, rgba(230, 57, 70, 0.08), rgba(230, 57, 70, 0.02));
-            box-shadow: 0 20px 60px rgba(230, 57, 70, 0.15), 0 8px 24px rgba(0,0,0,0.3);
+            border-color: rgba(230, 57, 70, 0.45);
+            background: linear-gradient(145deg, rgba(32, 16, 20, 0.92), rgba(14, 12, 15, 0.96));
+            box-shadow: 0 24px 64px rgba(230, 57, 70, 0.16), 0 10px 28px rgba(0,0,0,0.45);
         }
 
         .service-card::before {
@@ -224,39 +264,43 @@
             opacity: 0;
             transition: opacity 0.5s ease;
             pointer-events: none;
+            z-index: 2;
         }
         .service-card:hover::before { opacity: 1; }
 
         .service-icon {
-            width: 72px; height: 72px;
-            border-radius: 20px;
-            background: linear-gradient(135deg, rgba(230, 57, 70, 0.2), rgba(139, 26, 37, 0.15));
-            border: 1px solid rgba(230, 57, 70, 0.25);
+            width: 60px; height: 60px;
+            border-radius: 18px;
+            background: linear-gradient(135deg, rgba(24, 24, 28, 0.92), rgba(38, 16, 20, 0.92));
+            border: 1px solid rgba(230, 57, 70, 0.4);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 32px;
+            margin-top: -52px;
+            margin-bottom: 18px;
             transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
                         background 0.4s ease,
                         box-shadow 0.4s ease;
             position: relative;
-            z-index: 1;
-            box-shadow: 0 8px 24px rgba(230, 57, 70, 0.15);
+            z-index: 3;
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.55), 0 0 20px rgba(230, 57, 70, 0.2);
         }
 
         /* Single merged hover rule — no conflict */
         .service-card:hover .service-icon {
-            transform: scale(1.12) translateY(-4px);
-            background: linear-gradient(135deg, rgba(230, 57, 70, 0.4), rgba(230, 57, 70, 0.2));
-            box-shadow: 0 16px 40px rgba(230, 57, 70, 0.4);
+            transform: scale(1.1) translateY(-4px);
+            background: linear-gradient(135deg, rgba(230, 57, 70, 0.9), rgba(160, 28, 38, 0.92));
+            box-shadow: 0 16px 36px rgba(230, 57, 70, 0.45);
         }
 
         .service-icon svg {
-            width: 36px; height: 36px;
+            width: 28px; height: 28px;
             color: var(--accent-red);
             transition: transform 0.4s var(--ease-out), color 0.4s var(--ease-out);
         }
-        .service-card:hover .service-icon svg { transform: scale(1.1); color: #FF6B6B; }
+        .service-card:hover .service-icon svg { transform: scale(1.1); color: #FFFFFF; }
 
         .service-title {
             font-family: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -806,34 +850,68 @@
 
 
     <!-- SERVICES -->
-    <section id="servicios" class="relative section-spacing" aria-labelledby="services-heading">
+    <section id="servicios" class="relative section-spacing overflow-hidden" aria-labelledby="services-heading">
+        <!-- Subtle Atmospheric Background Image -->
+        <div class="section-bg-media" aria-hidden="true">
+            <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=1600&q=80" alt="" loading="lazy" decoding="async" style="opacity: 0.08;">
+        </div>
         <div aria-hidden="true" class="absolute top-40 right-0 w-96 h-96 rounded-full blur-[150px]" style="background: var(--accent-red-soft);"></div>
 
-        <div class="relative max-w-7xl mx-auto container-pad">
-            <div class="max-w-3xl mb-12 sm:mb-16">
-                <span class="eyebrow">{{ __('landing.services.eyebrow') }}</span>
-                <h2 id="services-heading" class="font-display text-white mb-8">
-                    {{ __('landing.services.title_prefix') }} <span class="text-red-accent">{{ __('landing.services.title_highlight') }}</span>
-                </h2>
-                <p class="text-white/60 text-base sm:text-xl leading-relaxed">
-                    {{ __('landing.services.subtitle') }}
-                </p>
+        <div class="relative z-10 max-w-7xl mx-auto container-pad">
+            <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8 mb-12 sm:mb-16">
+                <div class="max-w-3xl" data-reveal="up">
+                    <span class="eyebrow">{{ __('landing.services.eyebrow') }}</span>
+                    <h2 id="services-heading" class="font-display text-white mb-6">
+                        {{ __('landing.services.title_prefix') }} <span class="text-red-accent">{{ __('landing.services.title_highlight') }}</span>
+                    </h2>
+                    <p class="text-white/60 text-base sm:text-xl leading-relaxed">
+                        {{ __('landing.services.subtitle') }}
+                    </p>
+                </div>
+
+                <!-- Superimposed Floating Studio Preview Badge (Desktop) -->
+                <div class="hidden lg:flex items-center gap-3.5 px-4 py-3 rounded-2xl bg-zinc-900/80 border border-white/10 backdrop-blur-xl shadow-2xl animate-float-slow shrink-0" data-reveal="right" data-reveal-delay="150">
+                    <div class="relative w-14 h-10 rounded-lg overflow-hidden border border-white/15 shrink-0">
+                        <img src="{{ asset('img/hero/kosta-film-still.jpg') }}" alt="Kosta Studio" class="w-full h-full object-cover" loading="lazy">
+                        <span class="absolute bottom-1 right-1 w-2 h-2 rounded-full bg-red-500 animate-ping"></span>
+                    </div>
+                    <div>
+                        <div class="text-[11px] font-mono uppercase tracking-wider text-red-400 font-semibold">Full-Stack Studio</div>
+                        <div class="text-xs text-white/85 font-medium">Web · E-commerce · Films · Growth</div>
+                    </div>
+                </div>
             </div>
 
             <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
                 @php
                     $services = \App\Livewire\Landing\ServiceDetail::allServices();
+                    $delays = ['80', '160', '240', '100', '200', '300'];
                 @endphp
 
-                @foreach($services as $service)
-                    <article class="service-card">
+                @foreach(array_values($services) as $idx => $service)
+                    <article class="service-card" data-reveal="up" data-reveal-delay="{{ $delays[$idx % count($delays)] }}">
                         <a href="{{ route('services.show', $service['slug']) }}" wire:navigate class="service-card-link" aria-label="{{ $service['title'] }}"></a>
+
+                        <!-- Visual Card Header Image -->
+                        <div class="service-card-media" aria-hidden="true">
+                            <img
+                                src="{{ str_starts_with($service['card_image'] ?? '', 'http') ? $service['card_image'] : asset(ltrim($service['card_image'] ?? 'img/hero/classy-cartagena.png', '/')) }}"
+                                alt="{{ $service['title'] }}"
+                                loading="lazy"
+                                decoding="async"
+                            >
+                            <span class="absolute top-3.5 right-4 z-10 px-2.5 py-1 rounded-full text-[10px] font-mono font-semibold uppercase tracking-wider bg-black/65 text-white/85 border border-white/15 backdrop-blur-md">
+                                {{ $service['pillar'] }}
+                            </span>
+                        </div>
+
+                        <!-- Superimposed Floating Service Icon -->
                         <div class="service-icon">
                             <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="{{ $service['icon'] }}"/>
                             </svg>
                         </div>
-                        <span class="service-pillar">{{ $service['pillar'] }}</span>
+
                         <h3 class="service-title">{{ $service['title'] }}</h3>
                         <p class="service-desc">{{ $service['subtitle'] ?? ($service['desc'] ?? '') }}</p>
                         <div class="service-tags" style="margin-bottom: 24px;">
@@ -857,10 +935,14 @@
 
     <!-- COMPARATIVA: SIN KOSTA VS CON KOSTA -->
     <section id="diferencia" class="relative section-spacing overflow-hidden" aria-labelledby="comparison-heading" style="scroll-margin-top: 110px;">
+        <!-- Atmospheric Background Image -->
+        <div class="section-bg-media" aria-hidden="true">
+            <img src="https://images.unsplash.com/photo-1518676590629-3dcbd9c5a5c9?auto=format&fit=crop&w=1600&q=80" alt="" loading="lazy" decoding="async" style="opacity: 0.11;">
+        </div>
         <div aria-hidden="true" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[380px] rounded-full blur-[180px] pointer-events-none" style="background: radial-gradient(circle, rgba(230, 57, 70, 0.15) 0%, rgba(34, 16, 19, 0.12) 50%, transparent 70%);"></div>
 
-        <div class="relative max-w-7xl mx-auto container-pad">
-            <div class="text-center mb-12 sm:mb-14 max-w-3xl mx-auto">
+        <div class="relative z-10 max-w-7xl mx-auto container-pad">
+            <div class="text-center mb-12 sm:mb-14 max-w-3xl mx-auto" data-reveal="up">
                 <span class="eyebrow">{{ __('landing.comparison.eyebrow') }}</span>
                 <h2 id="comparison-heading" class="font-display text-white mb-6">
                     {{ __('landing.comparison.title_prefix') }} <span class="text-red-accent">{{ __('landing.comparison.title_highlight') }}</span>
@@ -872,7 +954,7 @@
 
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-5xl mx-auto items-stretch">
                 {{-- Tarjeta 1 (Izquierda): Sin Kosta --}}
-                <div class="comparison-card-sin">
+                <div class="comparison-card-sin overflow-hidden" data-reveal="left" data-reveal-delay="100">
                     <div class="comparison-badge-sin">
                         <svg width="13" height="13" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
@@ -907,51 +989,81 @@
                     </ul>
                 </div>
 
-                {{-- Tarjeta 2 (Derecha): Con Kosta --}}
-                <div class="comparison-card-kosta">
-                    <div class="comparison-badge-kosta">
-                        <svg width="13" height="13" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/>
-                        </svg>
-                        <span>{{ __('landing.comparison.con_kosta.badge') }}</span>
+                {{-- Tarjeta 2 (Derecha): Con Kosta (con imágenes superpuestas y de fondo) --}}
+                <div class="comparison-card-kosta overflow-hidden" data-reveal="right" data-reveal-delay="200">
+                    <!-- Subtle ambient project image inside Con Kosta card -->
+                    <img
+                        src="{{ asset('img/hero/classy-cartagena.png') }}"
+                        alt=""
+                        aria-hidden="true"
+                        loading="lazy"
+                        decoding="async"
+                        class="absolute inset-0 w-full h-full object-cover opacity-[0.09] pointer-events-none mix-blend-luminosity"
+                    >
+
+                    <!-- Superimposed Floating Mini Showcase Stack in Top-Right (Desktop/Tablet) -->
+                    <div aria-hidden="true" class="hidden sm:block absolute top-5 right-5 z-10 pointer-events-none">
+                        <div class="relative w-36 h-20">
+                            <div class="absolute top-0 right-0 w-28 h-16 rounded-xl overflow-hidden border border-white/20 shadow-xl rotate-3 bg-black">
+                                <img src="{{ asset('img/hero/compulago-ecommerce.jpg') }}" alt="" class="w-full h-full object-cover opacity-85" loading="lazy">
+                            </div>
+                            <div class="absolute bottom-0 left-0 w-28 h-16 rounded-xl overflow-hidden border border-red-400/50 shadow-2xl -rotate-3 bg-black">
+                                <img src="{{ asset('img/hero/kosta-film-still.jpg') }}" alt="" class="w-full h-full object-cover" loading="lazy">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
+                                <span class="absolute bottom-1 left-2 text-[9px] font-mono font-bold text-white tracking-wider">4K + WEB</span>
+                            </div>
+                        </div>
                     </div>
 
-                    <h3 class="comparison-title-kosta">{{ __('landing.comparison.con_kosta.title') }}</h3>
-                    <p class="comparison-subtitle-kosta">{{ __('landing.comparison.con_kosta.subtitle') }}</p>
+                    <div class="relative z-10">
+                        <div class="comparison-badge-kosta">
+                            <svg width="13" height="13" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/>
+                            </svg>
+                            <span>{{ __('landing.comparison.con_kosta.badge') }}</span>
+                        </div>
 
-                    <ul class="comparison-list">
-                        <li class="comparison-item-kosta">
-                            <span class="comp-icon-check">✓</span>
-                            <span><strong>{{ __('landing.comparison.con_kosta.item1_label') }}</strong> {{ __('landing.comparison.con_kosta.item1_text') }}</span>
-                        </li>
-                        <li class="comparison-item-kosta">
-                            <span class="comp-icon-check">✓</span>
-                            <span><strong>{{ __('landing.comparison.con_kosta.item2_label') }}</strong> {{ __('landing.comparison.con_kosta.item2_text') }}</span>
-                        </li>
-                        <li class="comparison-item-kosta">
-                            <span class="comp-icon-check">✓</span>
-                            <span><strong>{{ __('landing.comparison.con_kosta.item3_label') }}</strong> {{ __('landing.comparison.con_kosta.item3_text') }}</span>
-                        </li>
-                        <li class="comparison-item-kosta">
-                            <span class="comp-icon-check">✓</span>
-                            <span><strong>{{ __('landing.comparison.con_kosta.item4_label') }}</strong> {{ __('landing.comparison.con_kosta.item4_text') }}</span>
-                        </li>
-                        <li class="comparison-item-kosta">
-                            <span class="comp-icon-check">✓</span>
-                            <span><strong>{{ __('landing.comparison.con_kosta.item5_label') }}</strong> {{ __('landing.comparison.con_kosta.item5_text') }}</span>
-                        </li>
-                    </ul>
+                        <h3 class="comparison-title-kosta">{{ __('landing.comparison.con_kosta.title') }}</h3>
+                        <p class="comparison-subtitle-kosta sm:pr-36">{{ __('landing.comparison.con_kosta.subtitle') }}</p>
+
+                        <ul class="comparison-list">
+                            <li class="comparison-item-kosta">
+                                <span class="comp-icon-check">✓</span>
+                                <span><strong>{{ __('landing.comparison.con_kosta.item1_label') }}</strong> {{ __('landing.comparison.con_kosta.item1_text') }}</span>
+                            </li>
+                            <li class="comparison-item-kosta">
+                                <span class="comp-icon-check">✓</span>
+                                <span><strong>{{ __('landing.comparison.con_kosta.item2_label') }}</strong> {{ __('landing.comparison.con_kosta.item2_text') }}</span>
+                            </li>
+                            <li class="comparison-item-kosta">
+                                <span class="comp-icon-check">✓</span>
+                                <span><strong>{{ __('landing.comparison.con_kosta.item3_label') }}</strong> {{ __('landing.comparison.con_kosta.item3_text') }}</span>
+                            </li>
+                            <li class="comparison-item-kosta">
+                                <span class="comp-icon-check">✓</span>
+                                <span><strong>{{ __('landing.comparison.con_kosta.item4_label') }}</strong> {{ __('landing.comparison.con_kosta.item4_text') }}</span>
+                            </li>
+                            <li class="comparison-item-kosta">
+                                <span class="comp-icon-check">✓</span>
+                                <span><strong>{{ __('landing.comparison.con_kosta.item5_label') }}</strong> {{ __('landing.comparison.con_kosta.item5_text') }}</span>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- PROCESS -->
-    <section id="proceso" class="relative section-spacing">
+    <section id="proceso" class="relative section-spacing overflow-hidden">
+        <!-- Atmospheric Background Image -->
+        <div class="section-bg-media" aria-hidden="true">
+            <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1600&q=80" alt="" loading="lazy" decoding="async" style="opacity: 0.08;">
+        </div>
         <div class="absolute inset-0" style="background: linear-gradient(180deg, transparent 0%, rgba(230, 57, 70, 0.03) 50%, transparent 100%);"></div>
 
-        <div class="relative max-w-7xl mx-auto container-pad">
-            <div class="text-center mb-12 sm:mb-16 max-w-3xl mx-auto">
+        <div class="relative z-10 max-w-7xl mx-auto container-pad">
+            <div class="text-center mb-12 sm:mb-16 max-w-3xl mx-auto" data-reveal="up">
                 <span class="eyebrow">{{ __('landing.process.eyebrow') }}</span>
                 <h2 class="font-display text-white mb-8">
                     {{ __('landing.process.title_prefix') }} <span class="text-red-accent">{{ __('landing.process.title_highlight') }}</span>
@@ -976,10 +1088,11 @@
                             'M15.59 14.37a6 6 0 01-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 006.16-12.12A14.98 14.98 0 009.631 8.41m5.96 5.96a14.926 14.926 0 01-5.841 2.58',
                         ];
                         $steps = trans('landing.process.steps');
+                        $stepDelays = ['80', '160', '240', '320'];
                     @endphp
 
                     @foreach($steps as $i => $step)
-                        <div class="text-center group relative process-step-item" data-step="{{ $i }}">
+                        <div class="text-center group relative process-step-item" data-step="{{ $i }}" data-reveal="up" data-reveal-delay="{{ $stepDelays[$i] ?? '100' }}">
                             <div class="relative w-20 h-20 mx-auto mb-8 z-10">
                                 <div aria-hidden="true" class="process-icon-halo absolute inset-0 rounded-2xl blur-2xl group-hover:blur-3xl transition-all duration-500 opacity-40" style="background: var(--accent-red-glow);"></div>
                                 <div class="process-icon-box relative w-full h-full glass-card rounded-2xl flex items-center justify-center" style="border: 1px solid rgba(230, 57, 70, 0.3);">
@@ -1007,9 +1120,14 @@
     </section>
 
     <!-- TESTIMONIALS -->
-    <section id="testimonios" class="relative section-spacing">
-        <div class="relative max-w-7xl mx-auto container-pad">
-            <div class="text-center mb-12 sm:mb-16 max-w-3xl mx-auto">
+    <section id="testimonios" class="relative section-spacing overflow-hidden">
+        <!-- Atmospheric Background Image -->
+        <div class="section-bg-media" aria-hidden="true">
+            <img src="{{ asset('img/hero/classy-cartagena.png') }}" alt="" loading="lazy" decoding="async" style="opacity: 0.07;">
+        </div>
+
+        <div class="relative z-10 max-w-7xl mx-auto container-pad">
+            <div class="text-center mb-12 sm:mb-16 max-w-3xl mx-auto" data-reveal="up">
                 <span class="eyebrow">{{ __('landing.testimonials.eyebrow') }}</span>
                 <h2 class="font-display text-white mb-6">
                     {{ __('landing.testimonials.title_prefix') }} <span class="text-red-accent">{{ __('landing.testimonials.title_highlight') }}</span>
@@ -1019,16 +1137,36 @@
             <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
                 @php
                     $testimonials = trans('landing.testimonials.items');
+                    $testimonialImages = [
+                        asset('img/hero/classy-cartagena.png'),
+                        asset('img/hero/compulago-ecommerce.jpg'),
+                        asset('img/hero/kosta-film-still.jpg'),
+                    ];
+                    $testDelays = ['100', '200', '300'];
                 @endphp
 
-                @foreach($testimonials as $t)
-                    <figure class="testimonial-card flex flex-col">
-                        <div class="flex items-center gap-1 mb-4" aria-label="{{ __('landing.hero.stars_aria') }}">
-                            @for($i = 0; $i < 5; $i++)
-                                <svg class="w-4 h-4 text-red-accent" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
-                                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.176 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
-                                </svg>
-                            @endfor
+                @foreach($testimonials as $idx => $t)
+                    <figure class="testimonial-card flex flex-col relative overflow-hidden" data-reveal="scale" data-reveal-delay="{{ $testDelays[$idx % 3] }}">
+                        <!-- Subtle Project Thumbnail Accent Strip -->
+                        <div class="relative -mx-8 -mt-8 mb-6 h-24 overflow-hidden border-b border-white/10" aria-hidden="true">
+                            <img
+                                src="{{ $testimonialImages[$idx % count($testimonialImages)] }}"
+                                alt=""
+                                class="w-full h-full object-cover opacity-45 transition-transform duration-700 hover:scale-105"
+                                loading="lazy"
+                                decoding="async"
+                            >
+                            <div class="absolute inset-0 bg-gradient-to-t from-[#101014] via-[#101014]/60 to-transparent"></div>
+                            <div class="absolute bottom-3 left-8 right-8 flex items-center justify-between">
+                                <div class="flex items-center gap-1" aria-label="{{ __('landing.hero.stars_aria') }}">
+                                    @for($i = 0; $i < 5; $i++)
+                                        <svg class="w-4 h-4 text-red-accent" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+                                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.176 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                                        </svg>
+                                    @endfor
+                                </div>
+                                <span class="text-[10px] font-mono uppercase tracking-wider px-2 py-0.5 rounded-full bg-white/10 text-white/80 border border-white/15 backdrop-blur-sm">Verified Client</span>
+                            </div>
                         </div>
 
                         <blockquote class="text-white/80 text-base leading-relaxed mb-6 flex-grow">
@@ -1036,7 +1174,7 @@
                         </blockquote>
 
                         <figcaption class="flex items-center gap-3 pt-4 border-t border-white/5">
-                            <div class="w-11 h-11 rounded-full flex items-center justify-center text-sm font-bold text-white" style="background: linear-gradient(135deg, var(--accent-red), var(--accent-red-dark));">
+                            <div class="w-11 h-11 rounded-full flex items-center justify-center text-sm font-bold text-white shadow-lg" style="background: linear-gradient(135deg, #E63946, #8B1A25);">
                                 {{ $t['initial'] }}
                             </div>
                             <div>
@@ -1052,9 +1190,41 @@
 
     <!-- CTA -->
     <section id="contacto" class="relative section-spacing overflow-hidden">
-        <div aria-hidden="true" class="absolute inset-0" style="background: radial-gradient(ellipse at center, var(--accent-red-soft) 0%, transparent 60%);"></div>
+        <!-- Dramatic Background Image -->
+        <div class="section-bg-media" aria-hidden="true">
+            <img src="{{ asset('img/hero/kosta-film-still.jpg') }}" alt="" loading="lazy" decoding="async" style="opacity: 0.16;">
+        </div>
+        <div aria-hidden="true" class="absolute inset-0" style="background: radial-gradient(ellipse at center, rgba(230, 57, 70, 0.14) 0%, transparent 65%);"></div>
 
-        <div class="relative max-w-3xl mx-auto container-pad text-center">
+        <!-- Superimposed Floating Left Card (Desktop) -->
+        <div aria-hidden="true" class="hidden xl:block absolute left-8 top-1/2 -translate-y-1/2 w-60 z-10 pointer-events-none">
+            <div class="overlaid-float-card animate-float-slow" style="--float-rot: -4deg; transform: rotate(-4deg);">
+                <div class="relative aspect-[16/10] overflow-hidden">
+                    <img src="{{ asset('img/hero/classy-cartagena.png') }}" alt="" class="w-full h-full object-cover" loading="lazy">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent"></div>
+                    <div class="absolute bottom-2.5 left-3 right-3 flex items-center justify-between">
+                        <span class="text-[11px] font-bold text-white">Classy Cartagena</span>
+                        <span class="text-[9px] font-mono px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">LIVE</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Superimposed Floating Right Card (Desktop) -->
+        <div aria-hidden="true" class="hidden xl:block absolute right-8 top-1/2 -translate-y-1/2 w-60 z-10 pointer-events-none">
+            <div class="overlaid-float-card animate-float-reverse" style="--float-rot: 4deg; transform: rotate(4deg);">
+                <div class="relative aspect-[16/10] overflow-hidden">
+                    <img src="{{ asset('img/hero/compulago-ecommerce.jpg') }}" alt="" class="w-full h-full object-cover" loading="lazy">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent"></div>
+                    <div class="absolute bottom-2.5 left-3 right-3 flex items-center justify-between">
+                        <span class="text-[11px] font-bold text-white">Compulago Store</span>
+                        <span class="text-[9px] font-mono px-1.5 py-0.5 rounded bg-red-500/25 text-red-200 border border-red-500/40">E-COMMERCE</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="relative z-20 max-w-3xl mx-auto container-pad text-center" data-reveal="scale">
             <span class="eyebrow">{{ __('landing.cta.eyebrow') }}</span>
             <h2 class="font-display text-white mb-8">
                 {{ __('landing.cta.title_prefix') }} <span class="text-red-accent">{{ __('landing.cta.title_highlight') }}</span> {{ __('landing.cta.title_suffix') }}

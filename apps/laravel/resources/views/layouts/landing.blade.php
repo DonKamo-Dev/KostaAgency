@@ -722,6 +722,138 @@
             .brand-marquee__track { animation: none; }
             .brand-marquee__group[aria-hidden="true"] { display: none; }
         }
+
+        /* ===== Scroll-Triggered Entrance Animations ([data-reveal]) ===== */
+        [data-reveal] {
+            opacity: 0;
+            will-change: opacity, transform;
+            transition:
+                opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        [data-reveal="up"] {
+            transform: translate3d(0, 42px, 0);
+        }
+
+        [data-reveal="down"] {
+            transform: translate3d(0, -36px, 0);
+        }
+
+        [data-reveal="left"] {
+            transform: translate3d(-48px, 0, 0);
+        }
+
+        [data-reveal="right"] {
+            transform: translate3d(48px, 0, 0);
+        }
+
+        [data-reveal="scale"] {
+            transform: translate3d(0, 28px, 0) scale(0.94);
+        }
+
+        [data-reveal="zoom"] {
+            transform: scale(0.9);
+        }
+
+        [data-reveal].is-revealed {
+            opacity: 1;
+            transform: translate3d(0, 0, 0) scale(1);
+        }
+
+        [data-reveal-delay="80"]  { transition-delay: 80ms; }
+        [data-reveal-delay="100"] { transition-delay: 100ms; }
+        [data-reveal-delay="150"] { transition-delay: 150ms; }
+        [data-reveal-delay="160"] { transition-delay: 160ms; }
+        [data-reveal-delay="200"] { transition-delay: 200ms; }
+        [data-reveal-delay="240"] { transition-delay: 240ms; }
+        [data-reveal-delay="300"] { transition-delay: 300ms; }
+        [data-reveal-delay="320"] { transition-delay: 320ms; }
+        [data-reveal-delay="400"] { transition-delay: 400ms; }
+        [data-reveal-delay="480"] { transition-delay: 480ms; }
+        [data-reveal-delay="500"] { transition-delay: 500ms; }
+
+        @keyframes floatSlow {
+            0%, 100% { transform: translate3d(0, 0, 0) rotate(var(--float-rot, 0deg)); }
+            50% { transform: translate3d(0, -10px, 0) rotate(var(--float-rot, 0deg)); }
+        }
+
+        @keyframes floatReverse {
+            0%, 100% { transform: translate3d(0, 0, 0) rotate(var(--float-rot, 0deg)); }
+            50% { transform: translate3d(0, 9px, 0) rotate(var(--float-rot, 0deg)); }
+        }
+
+        .animate-float-slow {
+            animation: floatSlow 7s ease-in-out infinite;
+        }
+
+        .animate-float-reverse {
+            animation: floatReverse 8s ease-in-out infinite;
+        }
+
+        /* ===== Atmospheric Section Background Media & Overlaid Cards ===== */
+        .section-bg-media {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .section-bg-media img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            opacity: 0.14;
+            filter: saturate(0.85) contrast(1.08);
+            transform: scale(1.04);
+            transition: transform 8s ease-out, opacity 0.8s ease;
+        }
+
+        .section-bg-media::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse at 50% 45%, rgba(8, 8, 8, 0.55) 0%, rgba(8, 8, 8, 0.94) 75%, #080808 100%),
+                linear-gradient(180deg, #080808 0%, transparent 18%, transparent 82%, #080808 100%);
+        }
+
+        .overlaid-float-card {
+            position: relative;
+            border-radius: 18px;
+            overflow: hidden;
+            background: rgba(16, 16, 20, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            box-shadow:
+                0 28px 65px -12px rgba(0, 0, 0, 0.85),
+                0 0 35px -8px rgba(230, 57, 70, 0.22);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+                        border-color 0.4s ease,
+                        box-shadow 0.4s ease;
+        }
+
+        .overlaid-float-card:hover {
+            border-color: rgba(230, 57, 70, 0.5);
+            box-shadow:
+                0 34px 80px -10px rgba(0, 0, 0, 0.92),
+                0 0 48px -6px rgba(230, 57, 70, 0.35);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            [data-reveal] {
+                opacity: 1 !important;
+                transform: none !important;
+                transition: none !important;
+            }
+            .animate-float-slow,
+            .animate-float-reverse {
+                animation: none !important;
+            }
+        }
     </style>
 </head>
 <body class="font-body antialiased bg-dark text-white overflow-x-hidden">
@@ -734,5 +866,47 @@
     <div id="global-thinking-hud" class="global-thinking-hud">
         <thinking-orb state="working" size="20" label="{{ __('landing.nav.hud_processing') }}" pill></thinking-orb>
     </div>
+
+    <script>
+        (() => {
+            const initScrollReveal = () => {
+                const elements = document.querySelectorAll('[data-reveal]');
+                if (!elements.length) return;
+
+                if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) {
+                    elements.forEach(el => el.classList.add('is-revealed'));
+                    return;
+                }
+
+                const observer = new IntersectionObserver((entries, obs) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('is-revealed');
+                            obs.unobserve(entry.target);
+                        }
+                    });
+                }, {
+                    threshold: 0.12,
+                    rootMargin: '0px 0px -42px 0px'
+                });
+
+                elements.forEach(el => {
+                    if (!el.classList.contains('is-revealed')) {
+                        observer.observe(el);
+                    }
+                });
+            };
+
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', initScrollReveal);
+            } else {
+                initScrollReveal();
+            }
+
+            document.addEventListener('livewire:navigated', () => {
+                requestAnimationFrame(initScrollReveal);
+            });
+        })();
+    </script>
 </body>
 </html>

@@ -2,12 +2,37 @@
     <!-- SEO / Head Meta via component -->
     <x-slot:title>{{ $service['title'] }} — Kosta Agency</x-slot:title>
 
+    @php
+        $resolveImg = function (?string $path, string $fallback = 'img/hero/classy-cartagena.png') {
+            if (!$path) return asset($fallback);
+            return str_starts_with($path, 'http') ? $path : asset(ltrim($path, '/'));
+        };
+        $heroBgUrl = $resolveImg($service['hero_bg'] ?? null, 'img/hero/kosta-film-still.jpg');
+        $heroMainUrl = $resolveImg($service['hero_main_image'] ?? ($service['card_image'] ?? null), 'img/hero/classy-cartagena.png');
+        $heroOverlayUrl = $resolveImg($service['hero_overlay_image'] ?? null, 'img/hero/compulago-ecommerce.jpg');
+        $sectionBgUrl = $resolveImg($service['section_bg_image'] ?? ($service['hero_bg'] ?? null), 'img/hero/kosta-film-still.jpg');
+    @endphp
+
     <style>
         .service-detail-hero {
             position: relative;
-            padding-top: clamp(120px, 16vh, 180px);
+            padding-top: clamp(116px, 15vh, 168px);
             padding-bottom: clamp(60px, 10vh, 100px);
             overflow: hidden;
+        }
+
+        .sd-hero-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 44px;
+            align-items: center;
+            margin-bottom: 56px;
+        }
+        @media (min-width: 1024px) {
+            .sd-hero-grid {
+                grid-template-columns: 1.18fr 0.95fr;
+                gap: 52px;
+            }
         }
 
         .sd-badge {
@@ -16,34 +41,88 @@
             gap: 8px;
             padding: 8px 16px;
             border-radius: 999px;
-            background: rgba(230, 57, 70, 0.12);
-            border: 1px solid rgba(230, 57, 70, 0.35);
+            background: rgba(230, 57, 70, 0.14);
+            border: 1px solid rgba(230, 57, 70, 0.38);
             color: #FFFFFF;
             font-size: 11px;
             font-weight: 700;
             letter-spacing: 0.14em;
             text-transform: uppercase;
-            margin-bottom: 24px;
+            margin-bottom: 22px;
+            backdrop-filter: blur(10px);
         }
 
         .sd-title {
             font-family: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, sans-serif;
-            font-size: clamp(34px, 5.5vw, 64px);
+            font-size: clamp(32px, 4.8vw, 58px);
             font-weight: 800;
             line-height: 1.08;
             color: #FFFFFF;
             letter-spacing: -0.025em;
-            margin-bottom: 24px;
-            max-width: 950px;
+            margin-bottom: 22px;
+            max-width: 900px;
         }
 
         .sd-subtitle {
             font-family: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, sans-serif;
-            font-size: clamp(16px, 1.8vw, 20px);
+            font-size: clamp(15.5px, 1.6vw, 19px);
             line-height: 1.65;
-            color: rgba(255, 255, 255, 0.65);
-            max-width: 780px;
-            margin-bottom: 36px;
+            color: rgba(255, 255, 255, 0.68);
+            max-width: 720px;
+            margin-bottom: 34px;
+        }
+
+        /* ===== HERO SUPERIMPOSED SHOWCASE COLLAGE ===== */
+        .sd-hero-showcase {
+            position: relative;
+            width: 100%;
+            max-width: 540px;
+            margin-inline: auto;
+            padding-top: 16px;
+            padding-bottom: 38px;
+        }
+
+        .sd-showcase-main {
+            position: relative;
+            width: 90%;
+            margin-left: auto;
+            border-radius: 22px;
+            overflow: hidden;
+            background: rgba(16, 16, 20, 0.95);
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            box-shadow:
+                0 32px 80px -12px rgba(0, 0, 0, 0.88),
+                0 0 50px -10px rgba(230, 57, 70, 0.22);
+            z-index: 10;
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease;
+        }
+        .sd-showcase-main:hover {
+            transform: translateY(-4px) scale(1.01);
+            border-color: rgba(255, 255, 255, 0.32);
+        }
+
+        .sd-showcase-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 62%;
+            border-radius: 18px;
+            overflow: hidden;
+            background: rgba(14, 14, 18, 0.94);
+            border: 1px solid rgba(230, 57, 70, 0.45);
+            box-shadow:
+                0 28px 65px -8px rgba(0, 0, 0, 0.92),
+                0 0 35px -6px rgba(230, 57, 70, 0.35);
+            z-index: 20;
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            --float-rot: -2.5deg;
+            transform: rotate(-2.5deg);
+            transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease;
+        }
+        .sd-showcase-overlay:hover {
+            transform: translateY(-4px) rotate(0deg) scale(1.03);
+            border-color: rgba(230, 57, 70, 0.75);
         }
 
         .usa-award-badge {
@@ -78,24 +157,25 @@
         }
 
         .sd-stat-card {
-            background: rgba(18, 18, 20, 0.7);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(18, 18, 22, 0.78);
+            border: 1px solid rgba(255, 255, 255, 0.09);
             border-radius: 18px;
             padding: 24px 28px;
-            backdrop-filter: blur(16px);
-            transition: transform 0.3s ease, border-color 0.3s ease;
+            backdrop-filter: blur(18px);
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
         }
         .sd-stat-card:hover {
-            transform: translateY(-3px);
-            border-color: rgba(230, 57, 70, 0.4);
+            transform: translateY(-4px);
+            border-color: rgba(230, 57, 70, 0.45);
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45), 0 0 24px rgba(230, 57, 70, 0.12);
         }
 
         .sd-card {
-            background: rgba(18, 18, 22, 0.85);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(18, 18, 22, 0.88);
+            border: 1px solid rgba(255, 255, 255, 0.09);
             border-radius: 22px;
-            padding: 32px 28px;
-            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+            padding: 0 28px 30px 28px;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             position: relative;
             overflow: hidden;
             display: flex;
@@ -103,46 +183,78 @@
         }
         .sd-card:hover {
             transform: translateY(-6px);
-            border-color: rgba(230, 57, 70, 0.4);
-            background: linear-gradient(145deg, rgba(230, 57, 70, 0.08), rgba(18, 18, 22, 0.95));
-            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.5), 0 0 30px rgba(230, 57, 70, 0.1);
+            border-color: rgba(230, 57, 70, 0.45);
+            background: linear-gradient(145deg, rgba(230, 57, 70, 0.08), rgba(18, 18, 22, 0.96));
+            box-shadow: 0 22px 48px rgba(0, 0, 0, 0.55), 0 0 32px rgba(230, 57, 70, 0.12);
+        }
+
+        .sd-card-media {
+            position: relative;
+            margin: 0 -28px 22px -28px;
+            height: 170px;
+            overflow: hidden;
+            background: #0d0d11;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+        .sd-card-media img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.72;
+            transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+        }
+        .sd-card:hover .sd-card-media img {
+            transform: scale(1.07);
+            opacity: 0.92;
+        }
+        .sd-card-media::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(10,10,14,0.15) 0%, rgba(18,18,22,0.96) 100%);
+            pointer-events: none;
         }
 
         .sd-pill-tag {
-            padding: 8px 16px;
-            border-radius: 10px;
-            font-size: 13px;
+            padding: 9px 18px;
+            border-radius: 12px;
+            font-size: 13.5px;
             font-weight: 500;
-            color: rgba(255, 255, 255, 0.8);
+            color: rgba(255, 255, 255, 0.82);
             background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.09);
             transition: all 0.25s ease;
         }
         .sd-pill-tag:hover {
-            background: rgba(230, 57, 70, 0.12);
-            border-color: rgba(230, 57, 70, 0.35);
+            background: rgba(230, 57, 70, 0.14);
+            border-color: rgba(230, 57, 70, 0.4);
             color: #FFFFFF;
             transform: translateY(-2px);
         }
 
         .sd-step-box {
-            background: rgba(18, 18, 20, 0.6);
-            border: 1px solid rgba(255, 255, 255, 0.07);
-            border-radius: 18px;
+            background: rgba(18, 18, 22, 0.75);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
             padding: 30px 24px;
             position: relative;
-            transition: all 0.3s ease;
+            backdrop-filter: blur(14px);
+            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+            overflow: hidden;
         }
         .sd-step-box:hover {
-            border-color: rgba(255, 255, 255, 0.2);
-            transform: translateY(-4px);
+            border-color: rgba(230, 57, 70, 0.38);
+            transform: translateY(-5px);
+            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
         }
 
         .sd-cta-banner {
+            position: relative;
+            overflow: hidden;
             background:
                 radial-gradient(ellipse at 10% 0%, rgba(230, 57, 70, 0.32) 0%, transparent 60%),
                 radial-gradient(ellipse at 90% 100%, rgba(230, 57, 70, 0.2) 0%, transparent 50%),
-                linear-gradient(145deg, rgba(35, 14, 18, 0.98) 0%, rgba(20, 10, 12, 0.98) 60%, rgba(12, 8, 10, 0.99) 100%);
+                linear-gradient(145deg, rgba(35, 14, 18, 0.96) 0%, rgba(20, 10, 12, 0.96) 60%, rgba(12, 8, 10, 0.98) 100%);
             border: 1px solid rgba(230, 57, 70, 0.45);
             border-radius: 28px;
             padding: clamp(40px, 6vw, 70px) clamp(24px, 5vw, 60px);
@@ -158,59 +270,132 @@
     @include('partials.landing-nav')
     @include('partials.landing-nav-js')
 
-    <!-- ── 1. HERO SECTION ── -->
+    <!-- ── 1. HERO SECTION (WITH BACKGROUND IMAGE & SUPERIMPOSED COLLAGE) ── -->
     <section class="service-detail-hero">
+        <!-- Atmospheric Background Image -->
+        <div class="section-bg-media" aria-hidden="true">
+            <img src="{{ $heroBgUrl }}" alt="" loading="eager" decoding="async" style="opacity: 0.17;">
+        </div>
+
         <!-- Ambient Red Glow Background -->
         <div aria-hidden="true" class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[450px] rounded-full blur-[200px] pointer-events-none" style="background: radial-gradient(circle, rgba(230, 57, 70, 0.22) 0%, rgba(28, 12, 16, 0.15) 50%, transparent 70%);"></div>
 
-        <div class="relative max-w-7xl mx-auto container-pad">
+        <div class="relative z-10 max-w-7xl mx-auto container-pad">
             <!-- Breadcrumbs -->
-            <nav style="display:flex;align-items:center;gap:10px;margin-bottom:28px;font-size:13px;color:rgba(255,255,255,0.4);">
-                <a href="{{ route('landing') }}" wire:navigate style="color:rgba(255,255,255,0.6);text-decoration:none;transition:color .2s;">{{ __('services.ui.breadcrumbs_home') }}</a>
+            <nav class="animate-fadeInUp" style="display:flex;align-items:center;gap:10px;margin-bottom:24px;font-size:13px;color:rgba(255,255,255,0.4);">
+                <a href="{{ route('landing') }}" wire:navigate style="color:rgba(255,255,255,0.65);text-decoration:none;transition:color .2s;">{{ __('services.ui.breadcrumbs_home') }}</a>
                 <span>/</span>
-                <a href="{{ route('landing') }}#servicios" wire:navigate style="color:rgba(255,255,255,0.6);text-decoration:none;transition:color .2s;">{{ __('services.ui.breadcrumbs_services') }}</a>
+                <a href="{{ route('landing') }}#servicios" wire:navigate style="color:rgba(255,255,255,0.65);text-decoration:none;transition:color .2s;">{{ __('services.ui.breadcrumbs_services') }}</a>
                 <span>/</span>
                 <span style="color:#FFFFFF;font-weight:600;">{{ $service['title'] }}</span>
             </nav>
 
-            <!-- Pillar Badge -->
-            <div class="sd-badge">
-                <span style="width:7px;height:7px;border-radius:50%;background:#EF4444;box-shadow:0 0 10px #EF4444;"></span>
-                <span>{{ $service['pillar'] }}</span>
-            </div>
+            <div class="sd-hero-grid">
+                <!-- Left Column: Copy & CTAs -->
+                <div>
+                    <!-- Pillar Badge -->
+                    <div class="sd-badge animate-fadeInUp">
+                        <span style="width:7px;height:7px;border-radius:50%;background:#EF4444;box-shadow:0 0 10px #EF4444;"></span>
+                        <span>{{ $service['pillar'] }}</span>
+                    </div>
 
-            <!-- Title -->
-            <h1 class="sd-title">
-                {!! $service['headline'] !!}
-            </h1>
+                    <!-- Title -->
+                    <h1 class="sd-title animate-fadeInUp delay-100">
+                        {!! $service['headline'] !!}
+                    </h1>
 
-            <!-- Subtitle -->
-            <p class="sd-subtitle">
-                {{ $service['subtitle'] }}
-            </p>
+                    <!-- Subtitle -->
+                    <p class="sd-subtitle animate-fadeInUp delay-200">
+                        {{ $service['subtitle'] }}
+                    </p>
 
-            <!-- Action Buttons -->
-            <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:60px;">
-                <a href="{{ route('contact', ['servicio' => $service['contact_name']]) }}" wire:navigate class="btn-primary" style="padding:16px 36px;font-size:15px;font-weight:700;box-shadow:0 10px 30px rgba(255,255,255,0.15);">
-                    {{ __('services.ui.request_quote', ['service' => $service['title']]) }}
-                    <svg style="width:16px;height:16px;margin-left:8px;" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
-                    </svg>
-                </a>
-                <a href="{{ route('portfolio') }}" wire:navigate class="btn-secondary" style="padding:16px 28px;font-size:15px;font-weight:600;">
-                    {{ __('services.ui.view_success_cases') }}
-                </a>
+                    <!-- Action Buttons -->
+                    <div class="animate-fadeInUp delay-300" style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
+                        <a href="{{ route('contact', ['servicio' => $service['contact_name']]) }}" wire:navigate class="btn-primary" style="padding:16px 34px;font-size:15px;font-weight:700;box-shadow:0 10px 30px rgba(255,255,255,0.15);">
+                            {{ __('services.ui.request_quote', ['service' => $service['title']]) }}
+                            <svg style="width:16px;height:16px;margin-left:8px;" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                            </svg>
+                        </a>
+                        <a href="{{ route('portfolio') }}" wire:navigate class="btn-secondary" style="padding:16px 28px;font-size:15px;font-weight:600;">
+                            {{ __('services.ui.view_success_cases') }}
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Right Column: Superimposed 2-Card Showcase Collage -->
+                <div class="animate-fadeInUp delay-200">
+                    <div class="sd-hero-showcase">
+                        <!-- Ambient glow behind showcase -->
+                        <div aria-hidden="true" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 h-72 rounded-full blur-[95px] pointer-events-none opacity-55" style="background: radial-gradient(circle, rgba(230, 57, 70, 0.45) 0%, transparent 70%);"></div>
+
+                        <!-- Main Framed Showcase Image -->
+                        <div class="sd-showcase-main group">
+                            <div class="flex items-center justify-between px-4 py-2.5 border-b border-white/10 bg-black/70">
+                                <div class="flex items-center gap-1.5">
+                                    <span class="w-2.5 h-2.5 rounded-full bg-red-500/70"></span>
+                                    <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
+                                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-500/70"></span>
+                                </div>
+                                <span class="text-[11px] font-mono text-white/60 tracking-wider uppercase">{{ $service['slug'] }}.kosta.studio</span>
+                                <span class="text-[10px] font-mono font-bold text-emerald-400 bg-emerald-500/10 px-2.5 py-0.5 rounded-full border border-emerald-500/25">
+                                    {{ $service['hero_main_tag'] ?? 'KOSTA PRO' }}
+                                </span>
+                            </div>
+                            <div class="relative aspect-[16/10] overflow-hidden bg-zinc-950">
+                                <img
+                                    src="{{ $heroMainUrl }}"
+                                    alt="{{ $service['hero_main_label'] ?? $service['title'] }}"
+                                    class="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                                    loading="eager"
+                                    decoding="async"
+                                >
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent pointer-events-none"></div>
+                                <div class="absolute bottom-3.5 left-4 right-4 flex items-center justify-between pointer-events-none">
+                                    <div>
+                                        <div class="text-sm font-bold text-white drop-shadow">{{ $service['hero_main_label'] ?? $service['title'] }}</div>
+                                        <div class="text-[11px] text-white/70">{{ $service['pillar'] }}</div>
+                                    </div>
+                                    <span class="w-8 h-8 rounded-full bg-white/15 backdrop-blur-md border border-white/25 flex items-center justify-center text-white text-xs">↗</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Superimposed Floating Secondary Image Card -->
+                        <div class="sd-showcase-overlay animate-float-slow">
+                            <div class="relative aspect-[16/10] overflow-hidden bg-zinc-950">
+                                <img
+                                    src="{{ $heroOverlayUrl }}"
+                                    alt="{{ $service['hero_overlay_label'] ?? $service['title'] }}"
+                                    class="w-full h-full object-cover"
+                                    loading="eager"
+                                    decoding="async"
+                                >
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/35 to-transparent pointer-events-none"></div>
+                                <div class="absolute top-2.5 left-3 right-3 flex items-center justify-between pointer-events-none">
+                                    <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-black/65 border border-white/15 text-[9.5px] font-mono font-semibold text-white/90 backdrop-blur-md">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse"></span>
+                                        {{ $service['hero_overlay_tag'] ?? 'VERIFIED' }}
+                                    </span>
+                                </div>
+                                <div class="absolute bottom-2.5 left-3 right-3 pointer-events-none">
+                                    <div class="text-xs font-bold text-white drop-shadow">{{ $service['hero_overlay_label'] ?? $service['title'] }}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <!-- Key Metrics / Stats -->
             @if(!empty($service['stats']))
                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
-                    @foreach($service['stats'] as $st)
-                        <div class="sd-stat-card">
+                    @foreach($service['stats'] as $sIdx => $st)
+                        <div class="sd-stat-card" data-reveal="up" data-reveal-delay="{{ ($sIdx + 1) * 100 }}">
                             <div style="font-family:'Google Sans Flex',sans-serif;font-size:clamp(28px, 3.5vw, 40px);font-weight:800;color:#FFFFFF;letter-spacing:-0.03em;margin-bottom:6px;">
                                 {{ $st['value'] }}
                             </div>
-                            <div style="font-size:13.5px;color:rgba(255,255,255,0.55);font-weight:500;">
+                            <div style="font-size:13.5px;color:rgba(255,255,255,0.58);font-weight:500;">
                                 {{ $st['label'] }}
                             </div>
                         </div>
@@ -220,10 +405,10 @@
         </div>
     </section>
 
-    <!-- ── 2. WHAT'S INCLUDED / DELIVERABLES ── -->
-    <section class="relative section-spacing" style="border-top: 1px solid rgba(255,255,255,0.06);background:rgba(10,10,12,0.4);">
-        <div class="relative max-w-7xl mx-auto container-pad">
-            <div class="max-w-2xl mb-14">
+    <!-- ── 2. WHAT'S INCLUDED / DELIVERABLES (WITH VISUAL CARD BANNERS) ── -->
+    <section class="relative section-spacing overflow-hidden" style="border-top: 1px solid rgba(255,255,255,0.06);background:rgba(10,10,12,0.4);">
+        <div class="relative z-10 max-w-7xl mx-auto container-pad">
+            <div class="max-w-2xl mb-14" data-reveal="up">
                 <span class="eyebrow">{{ __('services.ui.deliverables_eyebrow') }}</span>
                 <h2 class="font-display text-white mb-6">
                     {!! str_replace(':service', '<span class="text-red-accent">' . e($service['title']) . '</span>', e(__('services.ui.deliverables_title', ['service' => ':service']))) !!}
@@ -234,22 +419,36 @@
             </div>
 
             <div class="grid sm:grid-cols-2 gap-6 lg:gap-8">
+                @php
+                    $delivDelays = ['80', '160', '240', '320'];
+                @endphp
                 @foreach($service['deliverables'] as $idx => $deliv)
-                    <div class="sd-card">
-                        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;">
-                            <span style="font-family:'Google Sans Flex',sans-serif;font-size:14px;font-weight:700;color:var(--accent-red);background:rgba(230,57,70,0.12);border:1px solid rgba(230,57,70,0.25);border-radius:8px;padding:4px 10px;">
-                                0{{ $idx + 1 }}
-                            </span>
-                            <div style="width:36px;height:36px;border-radius:10px;background:rgba(255,255,255,0.05);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.6);">
-                                <svg style="width:18px;height:18px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                                </svg>
+                    <div class="sd-card" data-reveal="up" data-reveal-delay="{{ $delivDelays[$idx % 4] }}">
+                        <!-- Visual Deliverable Image Banner -->
+                        <div class="sd-card-media" aria-hidden="true">
+                            <img
+                                src="{{ $resolveImg($deliv['image'] ?? ($service['card_image'] ?? null)) }}"
+                                alt="{{ $deliv['title'] }}"
+                                loading="lazy"
+                                decoding="async"
+                            >
+                            <!-- Superimposed Number & Check Badges on the Image -->
+                            <div style="position:absolute;bottom:14px;left:24px;right:24px;z-index:5;display:flex;align-items:center;justify-content:space-between;">
+                                <span style="font-family:'Geist Mono',monospace;font-size:13px;font-weight:700;color:#FFFFFF;background:rgba(230,57,70,0.85);border:1px solid rgba(255,255,255,0.3);border-radius:8px;padding:4px 11px;backdrop-filter:blur(8px);box-shadow:0 6px 16px rgba(230,57,70,0.35);">
+                                    0{{ $idx + 1 }}
+                                </span>
+                                <div style="width:36px;height:36px;border-radius:10px;background:rgba(12,12,16,0.75);border:1px solid rgba(255,255,255,0.16);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;color:#FFFFFF;">
+                                    <svg style="width:18px;height:18px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M5 13l4 4L19 7"/>
+                                    </svg>
+                                </div>
                             </div>
                         </div>
-                        <h3 style="font-family:'Google Sans Flex',sans-serif;font-size:20px;font-weight:700;color:#FFFFFF;margin-bottom:12px;line-height:1.25;">
+
+                        <h3 style="font-family:'Google Sans Flex',sans-serif;font-size:21px;font-weight:700;color:#FFFFFF;margin-bottom:10px;line-height:1.25;">
                             {{ $deliv['title'] }}
                         </h3>
-                        <p style="font-size:14.5px;color:rgba(255,255,255,0.6);line-height:1.65;margin:0;">
+                        <p style="font-size:14.5px;color:rgba(255,255,255,0.62);line-height:1.65;margin:0;">
                             {{ $deliv['desc'] }}
                         </p>
                     </div>
@@ -259,9 +458,9 @@
     </section>
 
     <!-- ── 3. TECH STACK & TOOLS ── -->
-    <section class="relative section-spacing" style="border-top: 1px solid rgba(255,255,255,0.06);">
-        <div class="relative max-w-7xl mx-auto container-pad">
-            <div class="text-center max-w-2xl mx-auto mb-12">
+    <section class="relative section-spacing overflow-hidden" style="border-top: 1px solid rgba(255,255,255,0.06);">
+        <div class="relative z-10 max-w-7xl mx-auto container-pad">
+            <div class="text-center max-w-2xl mx-auto mb-12" data-reveal="up">
                 <span class="eyebrow">{{ __('services.ui.stack_eyebrow') }}</span>
                 <h2 class="font-display text-white mb-4">
                     {{ __('services.ui.stack_title_prefix') }} <span class="text-red-accent">{{ __('services.ui.stack_title_highlight') }}</span>
@@ -271,7 +470,7 @@
                 </p>
             </div>
 
-            <div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center;max-width:900px;margin:0 auto;">
+            <div data-reveal="scale" data-reveal-delay="150" style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center;max-width:900px;margin:0 auto;">
                 @foreach($service['all_tags'] ?? $service['tags'] as $tech)
                     <span class="sd-pill-tag">
                         {{ $tech }}
@@ -281,29 +480,50 @@
         </div>
     </section>
 
-    <!-- ── 4. STEP-BY-STEP PROCESS ── -->
-    <section class="relative section-spacing" style="border-top: 1px solid rgba(255,255,255,0.06);background:rgba(10,10,12,0.5);">
-        <div class="relative max-w-7xl mx-auto container-pad">
-            <div class="max-w-2xl mb-14">
-                <span class="eyebrow">{{ __('services.ui.process_eyebrow') }}</span>
-                <h2 class="font-display text-white mb-6">
-                    {{ __('services.ui.process_title_prefix') }} <span class="text-red-accent">{{ $service['title'] }}</span>
-                </h2>
-                <p class="text-white/60 text-base sm:text-lg leading-relaxed">
-                    {{ __('services.ui.process_subtitle') }}
-                </p>
+    <!-- ── 4. STEP-BY-STEP PROCESS (WITH ATMOSPHERIC BACKGROUND IMAGE) ── -->
+    <section class="relative section-spacing overflow-hidden" style="border-top: 1px solid rgba(255,255,255,0.06);background:rgba(10,10,12,0.5);">
+        <!-- Atmospheric Background Image -->
+        <div class="section-bg-media" aria-hidden="true">
+            <img src="{{ $sectionBgUrl }}" alt="" loading="lazy" decoding="async" style="opacity: 0.12;">
+        </div>
+
+        <div class="relative z-10 max-w-7xl mx-auto container-pad">
+            <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8 mb-14">
+                <div class="max-w-2xl" data-reveal="up">
+                    <span class="eyebrow">{{ __('services.ui.process_eyebrow') }}</span>
+                    <h2 class="font-display text-white mb-6">
+                        {{ __('services.ui.process_title_prefix') }} <span class="text-red-accent">{{ $service['title'] }}</span>
+                    </h2>
+                    <p class="text-white/60 text-base sm:text-lg leading-relaxed">
+                        {{ __('services.ui.process_subtitle') }}
+                    </p>
+                </div>
+
+                <!-- Superimposed Floating Process Preview Card -->
+                <div class="hidden lg:flex items-center gap-3.5 px-4 py-3 rounded-2xl bg-zinc-900/85 border border-white/12 backdrop-blur-xl shadow-2xl animate-float-reverse shrink-0" data-reveal="left" data-reveal-delay="150">
+                    <div class="w-12 h-12 rounded-xl overflow-hidden border border-white/15 shrink-0">
+                        <img src="{{ $heroMainUrl }}" alt="" class="w-full h-full object-cover" loading="lazy">
+                    </div>
+                    <div>
+                        <div class="text-[10.5px] font-mono uppercase tracking-wider text-red-400 font-bold">4-Stage Sprint</div>
+                        <div class="text-xs text-white/85 font-semibold">{{ $service['title'] }} · Kosta Standard</div>
+                    </div>
+                </div>
             </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                @foreach($service['process'] as $step)
-                    <div class="sd-step-box">
-                        <div style="font-family:'Google Sans Flex',sans-serif;font-size:32px;font-weight:800;color:rgba(230,57,70,0.5);line-height:1;margin-bottom:16px;">
+                @php
+                    $procDelays = ['80', '160', '240', '320'];
+                @endphp
+                @foreach($service['process'] as $pIdx => $step)
+                    <div class="sd-step-box" data-reveal="up" data-reveal-delay="{{ $procDelays[$pIdx % 4] }}">
+                        <div style="font-family:'Geist Mono',sans-serif;font-size:32px;font-weight:800;color:rgba(230,57,70,0.65);line-height:1;margin-bottom:16px;">
                             {{ $step['step'] }}
                         </div>
                         <h4 style="font-family:'Google Sans Flex',sans-serif;font-size:17px;font-weight:700;color:#FFFFFF;margin-bottom:10px;line-height:1.3;">
                             {{ $step['title'] }}
                         </h4>
-                        <p style="font-size:13.5px;color:rgba(255,255,255,0.55);line-height:1.6;margin:0;">
+                        <p style="font-size:13.5px;color:rgba(255,255,255,0.6);line-height:1.6;margin:0;">
                             {{ $step['desc'] }}
                         </p>
                     </div>
@@ -313,9 +533,9 @@
     </section>
 
     <!-- ── 5. RELATED PROJECTS / PORTFOLIO LINK ── -->
-    <section class="relative section-spacing" style="border-top: 1px solid rgba(255,255,255,0.06);">
-        <div class="relative max-w-7xl mx-auto container-pad">
-            <div style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:20px;margin-bottom:36px;">
+    <section class="relative section-spacing overflow-hidden" style="border-top: 1px solid rgba(255,255,255,0.06);">
+        <div class="relative z-10 max-w-7xl mx-auto container-pad">
+            <div data-reveal="up" style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:20px;margin-bottom:36px;">
                 <div>
                     <span class="eyebrow">{{ __('services.ui.related_eyebrow') }}</span>
                     <h2 class="font-display text-white">
@@ -329,8 +549,9 @@
 
             @if($relatedStudies->isNotEmpty())
                 <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                    @foreach($relatedStudies as $st)
-                        <div style="background:#131316;border:1px solid rgba(255,255,255,0.08);border-radius:18px;overflow:hidden;transition:transform .3s ease, border-color .3s ease;"
+                    @foreach($relatedStudies as $rIdx => $st)
+                        <div data-reveal="up" data-reveal-delay="{{ ($rIdx % 3 + 1) * 100 }}"
+                             style="background:#131316;border:1px solid rgba(255,255,255,0.08);border-radius:18px;overflow:hidden;transition:transform .3s ease, border-color .3s ease;"
                              onmouseenter="this.style.borderColor='rgba(230,57,70,0.4)';this.style.transform='translateY(-4px)'"
                              onmouseleave="this.style.borderColor='rgba(255,255,255,0.08)';this.style.transform='translateY(0)'">
                             <div style="height:180px;position:relative;background:linear-gradient(135deg, {{ $st->gradient_inicio }}, {{ $st->gradient_fin }});overflow:hidden;">
@@ -340,7 +561,8 @@
                                         <span class="case-preview-hint">Ampliar</span>
                                     </button>
                                 @else
-                                    <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.7);font-family:'Google Sans Flex',sans-serif;font-weight:700;">
+                                    <img src="{{ $heroMainUrl }}" alt="{{ $st->titulo }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.45;mix-blend-mode:luminosity;">
+                                    <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#FFFFFF;font-family:'Google Sans Flex',sans-serif;font-weight:700;text-shadow:0 4px 16px rgba(0,0,0,0.8);">
                                         {{ $st->titulo }}
                                     </div>
                                 @endif
@@ -383,48 +605,73 @@
                     @endforeach
                 </div>
             @else
-                <div style="background:rgba(18,18,22,0.6);border:1px dashed rgba(255,255,255,0.1);border-radius:18px;padding:48px 24px;text-align:center;">
-                    <div style="font-family:'Google Sans Flex',sans-serif;font-size:18px;font-weight:700;color:#FFFFFF;margin-bottom:8px;">
-                        {{ __('services.ui.empty_related_title') }}
+                <div data-reveal="scale" style="position:relative;overflow:hidden;background:rgba(18,18,22,0.75);border:1px solid rgba(255,255,255,0.1);border-radius:22px;padding:52px 24px;text-align:center;">
+                    <img src="{{ $heroMainUrl }}" alt="" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.1;pointer-events:none;">
+                    <div style="position:relative;z-index:2;">
+                        <div style="font-family:'Google Sans Flex',sans-serif;font-size:19px;font-weight:700;color:#FFFFFF;margin-bottom:8px;">
+                            {{ __('services.ui.empty_related_title') }}
+                        </div>
+                        <p style="font-size:14px;color:rgba(255,255,255,0.6);max-width:500px;margin:0 auto 22px;">
+                            {{ __('services.ui.empty_related_desc') }}
+                        </p>
+                        <a href="{{ route('portfolio') }}" wire:navigate class="btn-primary" style="padding:10px 24px;font-size:13.5px;">
+                            {{ __('services.ui.explore_full_gallery') }}
+                        </a>
                     </div>
-                    <p style="font-size:14px;color:rgba(255,255,255,0.55);max-width:500px;margin:0 auto 20px;">
-                        {{ __('services.ui.empty_related_desc') }}
-                    </p>
-                    <a href="{{ route('portfolio') }}" wire:navigate class="btn-primary" style="padding:10px 22px;font-size:13px;">
-                        {{ __('services.ui.explore_full_gallery') }}
-                    </a>
                 </div>
             @endif
         </div>
     </section>
 
-    <!-- ── 6. CONVERSION CTA BANNER ── -->
+    <!-- ── 6. CONVERSION CTA BANNER (WITH BACKGROUND & FLOATING OVERLAY IMAGES) ── -->
     <section class="relative section-spacing">
         <div class="relative max-w-7xl mx-auto container-pad">
-            <div class="sd-cta-banner text-center max-w-5xl mx-auto">
-                <span class="eyebrow" style="color:rgba(255,255,255,0.7);">{{ __('services.ui.cta_eyebrow') }}</span>
-                <h2 class="font-display text-white mb-6" style="font-size:clamp(30px, 4.5vw, 50px);line-height:1.15;">
-                    {{ __('services.ui.cta_title_prefix') }} <span class="text-red-accent">{{ $service['title'] }}</span> {{ __('services.ui.cta_title_suffix') }}
-                </h2>
-                <p class="text-white/75 text-base sm:text-lg max-w-2xl mx-auto mb-10 leading-relaxed">
-                    {{ __('services.ui.cta_subtitle') }}
-                </p>
-                <div style="display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;">
-                    <a href="{{ route('contact', ['servicio' => $service['contact_name']]) }}" wire:navigate class="btn-primary" style="padding:16px 36px;font-size:15px;font-weight:700;">
-                        {{ __('services.ui.cta_start_btn', ['service' => $service['title']]) }}
-                    </a>
-                    <a href="https://wa.me/573113894136?text={{ urlencode(__('services.ui.cta_whatsapp_msg', ['service' => $service['title']])) }}" target="_blank" rel="noopener noreferrer" class="btn-secondary" style="padding:16px 28px;font-size:15px;font-weight:600;">
-                        {{ __('services.ui.cta_whatsapp_btn') }}
-                    </a>
+            <div class="sd-cta-banner text-center max-w-5xl mx-auto" data-reveal="scale">
+                <!-- Background Image Inside CTA Banner -->
+                <img
+                    src="{{ $heroBgUrl }}"
+                    alt=""
+                    aria-hidden="true"
+                    loading="lazy"
+                    decoding="async"
+                    style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.14;mix-blend-mode:luminosity;pointer-events:none;"
+                >
+
+                <!-- Superimposed Floating Image Card Left (Desktop) -->
+                <div aria-hidden="true" class="hidden lg:block absolute -left-6 bottom-6 w-44 rounded-2xl overflow-hidden border border-white/15 shadow-2xl opacity-85 pointer-events-none animate-float-slow" style="--float-rot: -6deg; transform: rotate(-6deg);">
+                    <img src="{{ $heroMainUrl }}" alt="" class="w-full h-28 object-cover" loading="lazy">
+                </div>
+
+                <!-- Superimposed Floating Image Card Right (Desktop) -->
+                <div aria-hidden="true" class="hidden lg:block absolute -right-6 top-6 w-44 rounded-2xl overflow-hidden border border-red-400/35 shadow-2xl opacity-85 pointer-events-none animate-float-reverse" style="--float-rot: 6deg; transform: rotate(6deg);">
+                    <img src="{{ $heroOverlayUrl }}" alt="" class="w-full h-28 object-cover" loading="lazy">
+                </div>
+
+                <div class="relative z-10">
+                    <span class="eyebrow" style="color:rgba(255,255,255,0.75);">{{ __('services.ui.cta_eyebrow') }}</span>
+                    <h2 class="font-display text-white mb-6" style="font-size:clamp(30px, 4.5vw, 50px);line-height:1.15;">
+                        {{ __('services.ui.cta_title_prefix') }} <span class="text-red-accent">{{ $service['title'] }}</span> {{ __('services.ui.cta_title_suffix') }}
+                    </h2>
+                    <p class="text-white/75 text-base sm:text-lg max-w-2xl mx-auto mb-10 leading-relaxed">
+                        {{ __('services.ui.cta_subtitle') }}
+                    </p>
+                    <div style="display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;">
+                        <a href="{{ route('contact', ['servicio' => $service['contact_name']]) }}" wire:navigate class="btn-primary" style="padding:16px 36px;font-size:15px;font-weight:700;">
+                            {{ __('services.ui.cta_start_btn', ['service' => $service['title']]) }}
+                        </a>
+                        <a href="https://wa.me/573113894136?text={{ urlencode(__('services.ui.cta_whatsapp_msg', ['service' => $service['title']])) }}" target="_blank" rel="noopener noreferrer" class="btn-secondary" style="padding:16px 28px;font-size:15px;font-weight:600;">
+                            {{ __('services.ui.cta_whatsapp_btn') }}
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ── 7. OTHER SERVICES ── -->
+    <!-- ── 7. OTHER SERVICES (WITH PREVIEW IMAGES & SCROLL REVEAL) ── -->
     <section class="relative section-spacing" style="border-top:1px solid rgba(255,255,255,0.06);background:#070708;">
         <div class="relative max-w-7xl mx-auto container-pad">
-            <div class="mb-10 text-center">
+            <div class="mb-10 text-center" data-reveal="up">
                 <span class="eyebrow">{{ __('services.ui.other_eyebrow') }}</span>
                 <h3 class="font-display text-white" style="font-size:28px;">
                     {{ __('services.ui.other_title_prefix') }} <span class="text-red-accent">Kosta</span>
@@ -432,27 +679,44 @@
             </div>
 
             <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-                @foreach($otherServices as $other)
+                @foreach(array_values($otherServices) as $oIdx => $other)
                     <a href="{{ route('services.show', $other['slug']) }}" wire:navigate
-                       style="background:rgba(18,18,22,0.7);border:1px solid rgba(255,255,255,0.07);border-radius:18px;padding:24px 22px;text-decoration:none;display:flex;flex-direction:column;justify-content:space-between;transition:all .3s ease;"
-                       onmouseenter="this.style.borderColor='rgba(230,57,70,0.4)';this.style.transform='translateY(-4px)'"
-                       onmouseleave="this.style.borderColor='rgba(255,255,255,0.07)';this.style.transform='translateY(0)'">
-                        <div>
-                            <span style="font-size:10.5px;font-weight:700;color:rgba(255,255,255,0.4);letter-spacing:0.12em;text-transform:uppercase;display:block;margin-bottom:8px;">
+                       data-reveal="up" data-reveal-delay="{{ ($oIdx + 1) * 100 }}"
+                       class="group"
+                       style="background:rgba(18,18,22,0.8);border:1px solid rgba(255,255,255,0.08);border-radius:20px;overflow:hidden;text-decoration:none;display:flex;flex-direction:column;justify-content:space-between;transition:all .35s ease;"
+                       onmouseenter="this.style.borderColor='rgba(230,57,70,0.45)';this.style.transform='translateY(-5px)'"
+                       onmouseleave="this.style.borderColor='rgba(255,255,255,0.08)';this.style.transform='translateY(0)'">
+                        <!-- Visual Thumbnail Header -->
+                        <div style="position:relative;height:132px;overflow:hidden;background:#0d0d11;border-bottom:1px solid rgba(255,255,255,0.06);">
+                            <img
+                                src="{{ $resolveImg($other['card_image'] ?? null) }}"
+                                alt="{{ $other['title'] }}"
+                                loading="lazy"
+                                decoding="async"
+                                style="width:100%;height:100%;object-fit:cover;opacity:0.68;transition:transform .6s ease;"
+                                class="group-hover:scale-105"
+                            >
+                            <div style="position:absolute;inset:0;background:linear-gradient(180deg, rgba(10,10,14,0.15) 0%, rgba(18,18,22,0.95) 100%);"></div>
+                            <span style="position:absolute;top:12px;left:16px;font-size:10px;font-weight:700;color:rgba(255,255,255,0.85);background:rgba(0,0,0,0.6);border:1px solid rgba(255,255,255,0.15);padding:3px 10px;border-radius:999px;letter-spacing:0.12em;text-transform:uppercase;backdrop-filter:blur(8px);">
                                 {{ $other['pillar'] }}
                             </span>
-                            <h4 style="font-family:'Google Sans Flex',sans-serif;font-size:18px;font-weight:700;color:#FFFFFF;margin-bottom:8px;">
-                                {{ $other['title'] }}
-                            </h4>
-                            <p style="font-size:13px;color:rgba(255,255,255,0.5);line-height:1.5;margin:0 0 16px;">
-                                {{ \Illuminate\Support\Str::limit($other['subtitle'], 90) }}
-                            </p>
                         </div>
-                        <div style="display:flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;color:var(--accent-red);">
-                            <span>{{ $other['btn_text'] ?? __('services.ui.other_learn_more') }}</span>
-                            <svg style="width:14px;height:14px;" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
-                            </svg>
+
+                        <div style="padding:20px 22px 22px 22px;display:flex;flex-direction:column;flex-grow:1;justify-content:space-between;">
+                            <div>
+                                <h4 style="font-family:'Google Sans Flex',sans-serif;font-size:18px;font-weight:700;color:#FFFFFF;margin-bottom:8px;">
+                                    {{ $other['title'] }}
+                                </h4>
+                                <p style="font-size:13px;color:rgba(255,255,255,0.55);line-height:1.55;margin:0 0 16px;">
+                                    {{ \Illuminate\Support\Str::limit($other['subtitle'], 95) }}
+                                </p>
+                            </div>
+                            <div style="display:flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;color:var(--accent-red);">
+                                <span>{{ $other['btn_text'] ?? __('services.ui.other_learn_more') }}</span>
+                                <svg style="width:14px;height:14px;" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                                </svg>
+                            </div>
                         </div>
                     </a>
                 @endforeach
