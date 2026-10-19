@@ -36,15 +36,100 @@
         .hero-mockup-col { order: 2; width: 100%; }
 
         .hero-headline {
-            font-size: clamp(26px, 3.8vw, 44px);
-            line-height: 1.12;
+            font-size: clamp(32px, 4.6vw, 56px);
+            line-height: 1.08;
             letter-spacing: -0.03em;
             font-weight: 800;
         }
         @media (min-width: 1440px) {
             .hero-headline {
-                font-size: 48px;
-                line-height: 1.1;
+                font-size: 60px;
+                line-height: 1.06;
+            }
+        }
+
+        /* ===== HERO ROTATING HEADLINE LOOP ===== */
+        .hero-rotator {
+            display: grid;
+            grid-template-areas: "rotator-stack";
+            align-items: center;
+            position: relative;
+            min-height: 2.25em;
+        }
+
+        .hero-rotator__item {
+            grid-area: rotator-stack;
+            display: block;
+            width: 100%;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transform: translate3d(0, 32px, 0) scale(0.97);
+            filter: blur(8px);
+            will-change: transform, opacity, filter;
+            transition:
+                opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+                filter 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+                visibility 0.65s;
+        }
+
+        .hero-rotator__item.is-active {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+            transform: translate3d(0, 0, 0) scale(1);
+            filter: blur(0px);
+        }
+
+        .hero-rotator__item.is-exiting {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transform: translate3d(0, -28px, 0) scale(0.98);
+            filter: blur(6px);
+        }
+
+        .hero-rotator__indicators {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 14px;
+        }
+
+        .hero-rotator__dot {
+            height: 4px;
+            width: 22px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.16);
+            overflow: hidden;
+            position: relative;
+            transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1), background 0.3s ease;
+        }
+
+        .hero-rotator__dot.is-active {
+            width: 44px;
+            background: rgba(255, 255, 255, 0.22);
+        }
+
+        .hero-rotator__dot-fill {
+            position: absolute;
+            inset: 0;
+            width: 0%;
+            background: linear-gradient(90deg, #E63946, #FFFFFF);
+            border-radius: inherit;
+        }
+
+        .hero-rotator__dot.is-active .hero-rotator__dot-fill {
+            width: 100%;
+            transition: width var(--rotator-duration, 2600ms) linear;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .hero-rotator__item {
+                transition: opacity 0.2s ease !important;
+                transform: none !important;
+                filter: none !important;
             }
         }
 
@@ -576,11 +661,24 @@
                         <span class="text-xs sm:text-sm text-white/85 font-medium">{{ __('landing.hero.accepting_prefix') }} {{ now()->locale(app()->getLocale())->isoFormat('MMMM') }}</span>
                     </div>
 
-                    <h1 id="hero-heading" class="font-display hero-headline text-white mb-6 animate-fadeInUp delay-100">
-                        <span class="block text-white">{{ __('landing.hero.title_line_1') }}</span>
-                        <span class="block text-gradient">{{ __('landing.hero.title_line_2') }}</span>
-                        <span class="block text-white">{{ __('landing.hero.title_line_3') }}</span>
-                    </h1>
+                    <div class="mb-6 animate-fadeInUp delay-100">
+                        <h1 id="hero-heading" class="font-display hero-headline text-white hero-rotator" aria-live="polite">
+                            <span class="hero-rotator__item is-active text-white" data-duration="2200">
+                                {{ __('landing.hero.title_line_1') }}
+                            </span>
+                            <span class="hero-rotator__item text-gradient" data-duration="2500">
+                                {{ __('landing.hero.title_line_2') }}
+                            </span>
+                            <span class="hero-rotator__item text-white" data-duration="3000">
+                                {{ __('landing.hero.title_line_3') }}
+                            </span>
+                        </h1>
+                        <div class="hero-rotator__indicators" aria-hidden="true">
+                            <span class="hero-rotator__dot is-active" style="--rotator-duration: 2200ms;"><span class="hero-rotator__dot-fill"></span></span>
+                            <span class="hero-rotator__dot" style="--rotator-duration: 2500ms;"><span class="hero-rotator__dot-fill"></span></span>
+                            <span class="hero-rotator__dot" style="--rotator-duration: 3000ms;"><span class="hero-rotator__dot-fill"></span></span>
+                        </div>
+                    </div>
 
                     <p class="text-base sm:text-lg lg:text-xl text-white/70 mb-7 max-w-xl leading-relaxed animate-fadeInUp delay-200">
                         {{ __('landing.hero.subtitle') }}
@@ -1501,7 +1599,74 @@
             window.addEventListener('resize', onScroll, { passive: true });
         };
 
+        // ===== HERO HEADLINE ROTATOR LOOP =====
+        const initHeroRotator = () => {
+            if (window.__kostaHeroRotatorTimer) {
+                clearTimeout(window.__kostaHeroRotatorTimer);
+                window.__kostaHeroRotatorTimer = null;
+            }
+
+            const rotator = document.getElementById('hero-heading');
+            if (!rotator) return;
+
+            const items = Array.from(rotator.querySelectorAll('.hero-rotator__item'));
+            const dots = Array.from(rotator.parentElement?.querySelectorAll('.hero-rotator__dot') || []);
+            if (items.length < 2) return;
+
+            let currentIndex = 0;
+
+            const activateIndex = (nextIndex) => {
+                const prevIndex = currentIndex;
+                currentIndex = nextIndex;
+
+                items.forEach((item, idx) => {
+                    if (idx === currentIndex) {
+                        item.classList.remove('is-exiting');
+                        item.classList.add('is-active');
+                    } else if (idx === prevIndex) {
+                        item.classList.remove('is-active');
+                        item.classList.add('is-exiting');
+                        setTimeout(() => {
+                            if (currentIndex !== idx) {
+                                item.classList.remove('is-exiting');
+                            }
+                        }, 680);
+                    } else {
+                        item.classList.remove('is-active', 'is-exiting');
+                    }
+                });
+
+                dots.forEach((dot, idx) => {
+                    dot.classList.remove('is-active');
+                    const fill = dot.querySelector('.hero-rotator__dot-fill');
+                    if (fill) {
+                        fill.style.transition = 'none';
+                        fill.style.width = '0%';
+                    }
+                    if (idx === currentIndex) {
+                        const dur = parseInt(items[idx].getAttribute('data-duration') || '2500', 10);
+                        dot.style.setProperty('--rotator-duration', `${dur}ms`);
+                        void dot.offsetWidth;
+                        if (fill) {
+                            fill.style.transition = `width ${dur}ms linear`;
+                            fill.style.width = '100%';
+                        }
+                        dot.classList.add('is-active');
+                    }
+                });
+
+                const duration = parseInt(items[currentIndex].getAttribute('data-duration') || '2500', 10);
+                window.__kostaHeroRotatorTimer = setTimeout(() => {
+                    activateIndex((currentIndex + 1) % items.length);
+                }, duration);
+            };
+
+            // Start loop from first phrase
+            activateIndex(0);
+        };
+
         const setupAll = () => {
+            initHeroRotator();
             initScrollStats();
             initScrollProcess();
         };
