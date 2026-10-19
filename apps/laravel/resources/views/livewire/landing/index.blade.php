@@ -1033,10 +1033,6 @@
 
     <!-- COMPARATIVA: SIN KOSTA VS CON KOSTA -->
     <section id="diferencia" class="relative section-spacing overflow-hidden" aria-labelledby="comparison-heading" style="scroll-margin-top: 110px;">
-        <!-- Atmospheric Background Image -->
-        <div class="section-bg-media" aria-hidden="true">
-            <img src="https://images.unsplash.com/photo-1518676590629-3dcbd9c5a5c9?auto=format&fit=crop&w=1600&q=80" alt="" loading="lazy" decoding="async" style="opacity: 0.11;">
-        </div>
         <div aria-hidden="true" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[380px] rounded-full blur-[180px] pointer-events-none" style="background: radial-gradient(circle, rgba(230, 57, 70, 0.15) 0%, rgba(34, 16, 19, 0.12) 50%, transparent 70%);"></div>
 
         <div class="relative z-10 max-w-7xl mx-auto container-pad">
@@ -1052,7 +1048,7 @@
 
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-5xl mx-auto items-stretch">
                 {{-- Tarjeta 1 (Izquierda): Sin Kosta --}}
-                <div class="comparison-card-sin overflow-hidden" data-reveal="left" data-reveal-delay="100">
+                <div class="comparison-card-sin" data-reveal="left" data-reveal-delay="100">
                     <div class="comparison-badge-sin">
                         <svg width="13" height="13" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
@@ -1087,66 +1083,40 @@
                     </ul>
                 </div>
 
-                {{-- Tarjeta 2 (Derecha): Con Kosta (con imágenes superpuestas y de fondo) --}}
-                <div class="comparison-card-kosta overflow-hidden" data-reveal="right" data-reveal-delay="200">
-                    <!-- Subtle ambient project image inside Con Kosta card -->
-                    <img
-                        src="{{ asset('img/hero/classy-cartagena.png') }}"
-                        alt=""
-                        aria-hidden="true"
-                        loading="lazy"
-                        decoding="async"
-                        class="absolute inset-0 w-full h-full object-cover opacity-[0.09] pointer-events-none mix-blend-luminosity"
-                    >
-
-                    <!-- Superimposed Floating Mini Showcase Stack in Top-Right (Desktop/Tablet) -->
-                    <div aria-hidden="true" class="hidden sm:block absolute top-5 right-5 z-10 pointer-events-none">
-                        <div class="relative w-36 h-20">
-                            <div class="absolute top-0 right-0 w-28 h-16 rounded-xl overflow-hidden border border-white/20 shadow-xl rotate-3 bg-black">
-                                <img src="{{ asset('img/hero/compulago-ecommerce.jpg') }}" alt="" class="w-full h-full object-cover opacity-85" loading="lazy">
-                            </div>
-                            <div class="absolute bottom-0 left-0 w-28 h-16 rounded-xl overflow-hidden border border-red-400/50 shadow-2xl -rotate-3 bg-black">
-                                <img src="{{ asset('img/hero/kosta-film-still.jpg') }}" alt="" class="w-full h-full object-cover" loading="lazy">
-                                <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
-                                <span class="absolute bottom-1 left-2 text-[9px] font-mono font-bold text-white tracking-wider">4K + WEB</span>
-                            </div>
-                        </div>
+                {{-- Tarjeta 2 (Derecha): Con Kosta --}}
+                <div class="comparison-card-kosta" data-reveal="right" data-reveal-delay="200">
+                    <div class="comparison-badge-kosta">
+                        <svg width="13" height="13" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/>
+                        </svg>
+                        <span>{{ __('landing.comparison.con_kosta.badge') }}</span>
                     </div>
 
-                    <div class="relative z-10">
-                        <div class="comparison-badge-kosta">
-                            <svg width="13" height="13" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/>
-                            </svg>
-                            <span>{{ __('landing.comparison.con_kosta.badge') }}</span>
-                        </div>
+                    <h3 class="comparison-title-kosta">{{ __('landing.comparison.con_kosta.title') }}</h3>
+                    <p class="comparison-subtitle-kosta">{{ __('landing.comparison.con_kosta.subtitle') }}</p>
 
-                        <h3 class="comparison-title-kosta">{{ __('landing.comparison.con_kosta.title') }}</h3>
-                        <p class="comparison-subtitle-kosta sm:pr-36">{{ __('landing.comparison.con_kosta.subtitle') }}</p>
-
-                        <ul class="comparison-list">
-                            <li class="comparison-item-kosta">
-                                <span class="comp-icon-check">✓</span>
-                                <span><strong>{{ __('landing.comparison.con_kosta.item1_label') }}</strong> {{ __('landing.comparison.con_kosta.item1_text') }}</span>
-                            </li>
-                            <li class="comparison-item-kosta">
-                                <span class="comp-icon-check">✓</span>
-                                <span><strong>{{ __('landing.comparison.con_kosta.item2_label') }}</strong> {{ __('landing.comparison.con_kosta.item2_text') }}</span>
-                            </li>
-                            <li class="comparison-item-kosta">
-                                <span class="comp-icon-check">✓</span>
-                                <span><strong>{{ __('landing.comparison.con_kosta.item3_label') }}</strong> {{ __('landing.comparison.con_kosta.item3_text') }}</span>
-                            </li>
-                            <li class="comparison-item-kosta">
-                                <span class="comp-icon-check">✓</span>
-                                <span><strong>{{ __('landing.comparison.con_kosta.item4_label') }}</strong> {{ __('landing.comparison.con_kosta.item4_text') }}</span>
-                            </li>
-                            <li class="comparison-item-kosta">
-                                <span class="comp-icon-check">✓</span>
-                                <span><strong>{{ __('landing.comparison.con_kosta.item5_label') }}</strong> {{ __('landing.comparison.con_kosta.item5_text') }}</span>
-                            </li>
-                        </ul>
-                    </div>
+                    <ul class="comparison-list">
+                        <li class="comparison-item-kosta">
+                            <span class="comp-icon-check">✓</span>
+                            <span><strong>{{ __('landing.comparison.con_kosta.item1_label') }}</strong> {{ __('landing.comparison.con_kosta.item1_text') }}</span>
+                        </li>
+                        <li class="comparison-item-kosta">
+                            <span class="comp-icon-check">✓</span>
+                            <span><strong>{{ __('landing.comparison.con_kosta.item2_label') }}</strong> {{ __('landing.comparison.con_kosta.item2_text') }}</span>
+                        </li>
+                        <li class="comparison-item-kosta">
+                            <span class="comp-icon-check">✓</span>
+                            <span><strong>{{ __('landing.comparison.con_kosta.item3_label') }}</strong> {{ __('landing.comparison.con_kosta.item3_text') }}</span>
+                        </li>
+                        <li class="comparison-item-kosta">
+                            <span class="comp-icon-check">✓</span>
+                            <span><strong>{{ __('landing.comparison.con_kosta.item4_label') }}</strong> {{ __('landing.comparison.con_kosta.item4_text') }}</span>
+                        </li>
+                        <li class="comparison-item-kosta">
+                            <span class="comp-icon-check">✓</span>
+                            <span><strong>{{ __('landing.comparison.con_kosta.item5_label') }}</strong> {{ __('landing.comparison.con_kosta.item5_text') }}</span>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
