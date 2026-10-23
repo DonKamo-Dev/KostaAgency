@@ -10,36 +10,60 @@ use App\Services\MetaWhatsAppService;
 use App\Services\ResendEmailService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Mail;
 use Tests\TestCase;
 
 class AutomationTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_guests_cannot_access_automations_module(): void
+    public function test_guests_cannot_access_automations_subpages(): void
     {
-        $response = $this->get(route('automations.index'));
+        $response = $this->get(route('automations.email'));
         $response->assertRedirect(route('login'));
+
+        $responseWa = $this->get(route('automations.whatsapp'));
+        $responseWa->assertRedirect(route('login'));
     }
 
-    public function test_authenticated_user_can_view_automations_dashboard(): void
+    public function test_automations_index_redirects_to_email_subpage(): void
     {
         $user = User::factory()->create();
 
         $response = $this->actingAs($user)->get(route('automations.index'));
-
-        $response->assertOk();
-        $response->assertSee('Automatizaciones');
-        $response->assertSee('Resend');
-        $response->assertSee('Meta Business');
+        $response->assertRedirect(route('automations.email'));
     }
 
-    public function test_user_can_update_resend_and_meta_settings(): void
+    public function test_authenticated_user_can_view_email_subpage(): void
     {
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->post(route('automations.update'), [
+        $response = $this->actingAs($user)->get(route('automations.email'));
+
+        $response->assertOk();
+        $response->assertSee('Automatizaciones: Correo');
+        $response->assertSee('Configuración de Resend');
+        $response->assertSee('Auto-responder de cortesía');
+        $response->assertDontSee('Meta Phone Number ID');
+    }
+
+    public function test_authenticated_user_can_view_whatsapp_subpage(): void
+    {
+        $user = User::factory()->create();
+
+        $response = $this->actingAs($user)->get(route('automations.whatsapp'));
+
+        $response->assertOk();
+        $response->assertSee('Automatizaciones: WhatsApp');
+        $response->assertSee('Meta WhatsApp Cloud API');
+        $response->assertSee('Meta Phone Number ID');
+        $response->assertDontSee('API Key de Resend');
+    }
+
+    public function test_user_can_update_email_settings_on_dedicated_subpage(): void
+    {
+        $user = User::factory()->create();
+
+        $response = $this->actingAs($user)->post(route('automations.email.update'), [
             'automation_email_enabled' => 1,
             'automation_email_recipient' => 'notificaciones@kostastudio.com',
             'automation_email_cc' => 'socio@kostastudio.com',
@@ -47,19 +71,32 @@ class AutomationTest extends TestCase
             'resend_api_key' => 're_test_key_12345',
             'resend_from_email' => 'hola@kostastudio.com',
             'resend_from_name' => 'Kosta Studio',
-            'automation_whatsapp_enabled' => 1,
-            'automation_whatsapp_number' => '+57 311 389 4136',
-            'whatsapp_meta_phone_number_id' => '105934529384729',
-            'whatsapp_meta_access_token' => 'EAAGm0PX4ZCBO_test_token',
-            'whatsapp_meta_business_account_id' => 'waba_999999',
         ]);
 
-        $response->assertRedirect(route('automations.index'));
+        $response->assertRedirect(route('automations.email'));
         $response->assertSessionHas('status');
 
         $this->assertEquals('notificaciones@kostastudio.com', Setting::get('automation_email_recipient'));
         $this->assertEquals('re_test_key_12345', Setting::get('resend_api_key'));
         $this->assertEquals('hola@kostastudio.com', Setting::get('resend_from_email'));
+    }
+
+    public function test_user_can_update_whatsapp_settings_on_dedicated_subpage(): void
+    {
+        $user = User::factory()->create();
+
+        $response = $this->actingAs($user)->post(route('automations.whatsapp.update'), [
+            'automation_whatsapp_enabled' => 1,
+            'automation_whatsapp_number' => '+57 311 389 4136',
+            'whatsapp_meta_phone_number_id' => '105934529384729',
+            'whatsapp_meta_access_token' => 'EAAGm0PX4ZCBO_test_token',
+            'whatsapp_meta_business_account_id' => 'waba_999999',
+            'automation_whatsapp_webhook_url' => 'https://hook.make.com/custom',
+        ]);
+
+        $response->assertRedirect(route('automations.whatsapp'));
+        $response->assertSessionHas('status');
+
         $this->assertEquals('573113894136', Setting::get('automation_whatsapp_number'));
         $this->assertEquals('105934529384729', Setting::get('whatsapp_meta_phone_number_id'));
         $this->assertEquals('EAAGm0PX4ZCBO_test_token', Setting::get('whatsapp_meta_access_token'));

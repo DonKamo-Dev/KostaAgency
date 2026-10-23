@@ -186,9 +186,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/leads/{lead}/convert-client', [LeadController::class, 'convertClient'])->name('leads.convert-client');
     Route::delete('/leads/{lead}', [LeadController::class, 'destroy'])->name('leads.destroy');
 
-    // ── Automatizaciones (Emails & WhatsApp) ──────────────────────────────────
+    // ── Automatizaciones (Subpáginas Separadas para Correo y WhatsApp) ──────
     Route::get('/automations', [AutomationController::class, 'index'])->name('automations.index');
-    Route::post('/automations/settings', [AutomationController::class, 'update'])->name('automations.update');
+    Route::get('/automations/email', [AutomationController::class, 'email'])->name('automations.email');
+    Route::post('/automations/email', [AutomationController::class, 'updateEmail'])->name('automations.email.update');
+    Route::get('/automations/whatsapp', [AutomationController::class, 'whatsapp'])->name('automations.whatsapp');
+    Route::post('/automations/whatsapp', [AutomationController::class, 'updateWhatsapp'])->name('automations.whatsapp.update');
     Route::post('/automations/test-email', [AutomationController::class, 'testEmail'])->name('automations.test-email');
     Route::post('/automations/test-whatsapp', [AutomationController::class, 'testWhatsapp'])->name('automations.test-whatsapp');
 });
