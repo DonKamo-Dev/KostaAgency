@@ -882,193 +882,365 @@
         </div>
     </section>
 
-    <!-- STATS -->
-    <section class="stats-section section-spacing" aria-label="{{ __('landing.stats.delivered_projects_label') }}">
-        <div class="relative max-w-7xl mx-auto container-pad">
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-12 md:gap-8 lg:gap-12">
-                <div class="text-center">
-                    <div class="stats-number"
-                         data-counter
-                         data-target="50"
-                         data-prefix="+"
-                         data-suffix=""
-                         aria-label="{{ __('landing.stats.delivered_projects') }} {{ __('landing.stats.delivered_projects_label') }}">
-                        <span class="counter-value">{{ __('landing.stats.delivered_projects') }}</span>
-                    </div>
-                    <div class="stats-bar-track" aria-hidden="true">
-                        <div class="stats-bar-fill" data-bar-target="100" style="width: 100%;"></div>
-                    </div>
-                    <div class="stats-label mt-3">{{ __('landing.stats.delivered_projects_label') }}</div>
+    <!-- 03: PROYECTOS DESTACADOS -->
+    <section id="proyectos-destacados" class="relative section-spacing overflow-hidden" aria-labelledby="featured-heading">
+        <div aria-hidden="true" class="absolute top-1/3 left-1/2 -translate-x-1/2 w-[650px] h-[350px] rounded-full blur-[160px] pointer-events-none opacity-25" style="background: radial-gradient(circle, rgba(230, 57, 70, 0.35) 0%, transparent 70%);"></div>
+
+        <div class="relative z-10 max-w-7xl mx-auto container-pad">
+            <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12 sm:mb-16">
+                <div class="max-w-2xl" data-reveal="up">
+                    <span class="eyebrow">{{ __('landing.featured_projects.eyebrow') }}</span>
+                    <h2 id="featured-heading" class="font-display text-white mb-4">
+                        {{ __('landing.featured_projects.title') }}
+                    </h2>
+                    <p class="text-white/65 text-base sm:text-lg leading-relaxed">
+                        {{ __('landing.featured_projects.subtitle') }}
+                    </p>
                 </div>
-                <div class="text-center">
-                    <div class="stats-number"
-                         data-counter
-                         data-target="98"
-                         data-prefix="+"
-                         data-suffix="%"
-                         aria-label="{{ __('landing.stats.satisfied_rate') }} {{ __('landing.stats.satisfied_rate_label') }}">
-                        <span class="counter-value">{{ __('landing.stats.satisfied_rate') }}</span>
-                    </div>
-                    <div class="stats-bar-track" aria-hidden="true">
-                        <div class="stats-bar-fill" data-bar-target="95" style="width: 95%;"></div>
-                    </div>
-                    <div class="stats-label mt-3">{{ __('landing.stats.satisfied_rate_label') }}</div>
+                <div data-reveal="right">
+                    <a href="{{ route('portfolio') }}" wire:navigate class="inline-flex items-center gap-2 px-5 py-3 rounded-xl border border-white/15 bg-white/[0.04] text-white hover:bg-white/[0.08] hover:border-white/30 transition-all duration-300 text-sm font-semibold group">
+                        <span>{{ __('landing.featured_projects.cta_all') }}</span>
+                        <svg class="w-4 h-4 text-red-accent transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                    </a>
                 </div>
-                <div class="text-center">
-                    <div class="stats-number"
-                         data-counter
-                         data-target="100"
-                         data-prefix=""
-                         data-suffix="%"
-                         aria-label="{{ __('landing.stats.custom_solutions') }} {{ __('landing.stats.custom_solutions_label') }}">
-                        <span class="counter-value">{{ __('landing.stats.custom_solutions') }}</span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10">
+                <!-- Project 1: Compulago -->
+                <article class="group relative rounded-3xl overflow-hidden border border-white/10 bg-white/[0.02] backdrop-blur-md transition-all duration-500 hover:border-white/25 hover:-translate-y-1.5 hover:shadow-2xl flex flex-col" data-reveal="up" data-reveal-delay="100">
+                    <div class="relative aspect-[16/10] overflow-hidden bg-zinc-950">
+                        <img
+                            src="{{ asset('img/hero/compulago-ecommerce.jpg') }}"
+                            alt="Compulago E-commerce"
+                            class="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                            loading="lazy"
+                        >
+                        <div class="absolute inset-0 bg-gradient-to-t from-[#101014] via-transparent to-black/30"></div>
+                        <div class="absolute top-4 left-4 right-4 flex items-center justify-between">
+                            <span class="px-3 py-1 rounded-full text-[10.5px] font-mono font-semibold uppercase tracking-wider bg-black/70 text-emerald-300 border border-emerald-500/30 backdrop-blur-md">
+                                E-COMMERCE & DIGITAL
+                            </span>
+                            <span class="px-2.5 py-1 rounded-full text-[10px] font-mono text-white/70 bg-black/60 border border-white/15 backdrop-blur-md">
+                                compulago.net
+                            </span>
+                        </div>
                     </div>
-                    <div class="stats-bar-track" aria-hidden="true">
-                        <div class="stats-bar-fill" data-bar-target="100" style="width: 100%;"></div>
+                    <div class="p-6 sm:p-8 flex flex-col flex-grow justify-between">
+                        <div>
+                            <div class="text-xs font-mono uppercase tracking-wider text-red-accent font-semibold mb-2">Retail Tecnológico · E-commerce</div>
+                            <h3 class="text-2xl font-bold text-white mb-3 group-hover:text-red-accent transition-colors">Compulago</h3>
+                            <p class="text-white/60 text-sm leading-relaxed mb-6">
+                                Plataforma de comercio electrónico de alto rendimiento con catálogo omnicanal, sincronización de stock y pasarela de pago optimizada para conversión en Colombia.
+                            </p>
+                        </div>
+                        <div class="pt-4 border-t border-white/5 flex items-center justify-between">
+                            <span class="text-xs text-white/45 font-mono">Desarrollo Web · UI/UX · Checkout</span>
+                            <a href="https://compulago.net" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-xs font-semibold text-white group-hover:text-red-accent transition-colors">
+                                <span>Visitar sitio</span>
+                                <span class="text-sm">↗</span>
+                            </a>
+                        </div>
                     </div>
-                    <div class="stats-label mt-3">{{ __('landing.stats.custom_solutions_label') }}</div>
-                </div>
-                <div class="text-center">
-                    <div class="stats-number"
-                         data-counter
-                         data-target="8"
-                         data-prefix=""
-                         data-suffix="{{ __('landing.stats.years_suffix') }}"
-                         aria-label="{{ __('landing.stats.years_building') }} {{ __('landing.stats.years_building_label') }}">
-                        <span class="counter-value">{{ __('landing.stats.years_building') }}</span>
+                </article>
+
+                <!-- Project 2: Classy Cartagena -->
+                <article class="group relative rounded-3xl overflow-hidden border border-white/10 bg-white/[0.02] backdrop-blur-md transition-all duration-500 hover:border-white/25 hover:-translate-y-1.5 hover:shadow-2xl flex flex-col" data-reveal="up" data-reveal-delay="200">
+                    <div class="relative aspect-[16/10] overflow-hidden bg-zinc-950">
+                        <img
+                            src="{{ asset('img/hero/classy-cartagena.png') }}"
+                            alt="Classy Cartagena Luxury Tourism"
+                            class="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                            loading="lazy"
+                        >
+                        <div class="absolute inset-0 bg-gradient-to-t from-[#101014] via-transparent to-black/30"></div>
+                        <div class="absolute top-4 left-4 right-4 flex items-center justify-between">
+                            <span class="px-3 py-1 rounded-full text-[10.5px] font-mono font-semibold uppercase tracking-wider bg-black/70 text-emerald-300 border border-emerald-500/30 backdrop-blur-md">
+                                WEB & TURISMO PREMIUM
+                            </span>
+                            <span class="px-2.5 py-1 rounded-full text-[10px] font-mono text-white/70 bg-black/60 border border-white/15 backdrop-blur-md">
+                                classycartagena.com
+                            </span>
+                        </div>
                     </div>
-                    <div class="stats-bar-track" aria-hidden="true">
-                        <div class="stats-bar-fill" data-bar-target="100" style="width: 100%;"></div>
+                    <div class="p-6 sm:p-8 flex flex-col flex-grow justify-between">
+                        <div>
+                            <div class="text-xs font-mono uppercase tracking-wider text-red-accent font-semibold mb-2">Turismo de Lujo & Yates · Cartagena</div>
+                            <h3 class="text-2xl font-bold text-white mb-3 group-hover:text-red-accent transition-colors">Classy Cartagena</h3>
+                            <p class="text-white/60 text-sm leading-relaxed mb-6">
+                                Experiencia web inmersiva para el mercado turístico internacional en Cartagena: alquiler de botes de lujo, villas exclusivas y reservas fluidas multidivisa.
+                            </p>
+                        </div>
+                        <div class="pt-4 border-t border-white/5 flex items-center justify-between">
+                            <span class="text-xs text-white/45 font-mono">Diseño Web · Identidad · Conversión</span>
+                            <a href="https://classycartagena.com" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-xs font-semibold text-white group-hover:text-red-accent transition-colors">
+                                <span>Visitar sitio</span>
+                                <span class="text-sm">↗</span>
+                            </a>
+                        </div>
                     </div>
-                    <div class="stats-label mt-3">{{ __('landing.stats.years_building_label') }}</div>
-                </div>
+                </article>
+
+                <!-- Project 3: CESD -->
+                <article class="group relative rounded-3xl overflow-hidden border border-white/10 bg-white/[0.02] backdrop-blur-md transition-all duration-500 hover:border-white/25 hover:-translate-y-1.5 hover:shadow-2xl flex flex-col" data-reveal="up" data-reveal-delay="150">
+                    <div class="relative aspect-[16/10] overflow-hidden bg-zinc-950">
+                        <img
+                            src="https://pub-e1e6c45a16d04ab888631d49250d2b1f.r2.dev/Casos-de-Estudio/Sitios-Web/CESD.png"
+                            alt="CESD Soluciones Digitales"
+                            class="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                            loading="lazy"
+                        >
+                        <div class="absolute inset-0 bg-gradient-to-t from-[#101014] via-transparent to-black/30"></div>
+                        <div class="absolute top-4 left-4 right-4 flex items-center justify-between">
+                            <span class="px-3 py-1 rounded-full text-[10.5px] font-mono font-semibold uppercase tracking-wider bg-black/70 text-white/90 border border-white/15 backdrop-blur-md">
+                                CORPORATIVO & DIGITAL
+                            </span>
+                        </div>
+                    </div>
+                    <div class="p-6 sm:p-8 flex flex-col flex-grow justify-between">
+                        <div>
+                            <div class="text-xs font-mono uppercase tracking-wider text-red-accent font-semibold mb-2">Desarrollo Web & Servicios</div>
+                            <h3 class="text-2xl font-bold text-white mb-3 group-hover:text-red-accent transition-colors">CESD</h3>
+                            <p class="text-white/60 text-sm leading-relaxed mb-6">
+                                Arquitectura digital y desarrollo web corporativo para fortalecer la autoridad institucional, comunicación clara de portafolio y captación directa de contactos.
+                            </p>
+                        </div>
+                        <div class="pt-4 border-t border-white/5 flex items-center justify-between">
+                            <span class="text-xs text-white/45 font-mono">Arquitectura Web · UI · Rendimiento</span>
+                            <a href="{{ route('portfolio') }}" wire:navigate class="inline-flex items-center gap-1.5 text-xs font-semibold text-white group-hover:text-red-accent transition-colors">
+                                <span>Ver en portafolio</span>
+                                <span class="text-sm">→</span>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Project 4: Lux by LS -->
+                <article class="group relative rounded-3xl overflow-hidden border border-white/10 bg-white/[0.02] backdrop-blur-md transition-all duration-500 hover:border-white/25 hover:-translate-y-1.5 hover:shadow-2xl flex flex-col" data-reveal="up" data-reveal-delay="250">
+                    <div class="relative aspect-[16/10] overflow-hidden bg-zinc-950">
+                        <img
+                            src="https://pub-e1e6c45a16d04ab888631d49250d2b1f.r2.dev/Casos-de-Estudio/Sitios-Web/12-LUx.png"
+                            alt="Lux by LS Interiors"
+                            class="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                            loading="lazy"
+                        >
+                        <div class="absolute inset-0 bg-gradient-to-t from-[#101014] via-transparent to-black/30"></div>
+                        <div class="absolute top-4 left-4 right-4 flex items-center justify-between">
+                            <span class="px-3 py-1 rounded-full text-[10.5px] font-mono font-semibold uppercase tracking-wider bg-black/70 text-white/90 border border-white/15 backdrop-blur-md">
+                                INTERNACIONAL & INTERIORISMO
+                            </span>
+                        </div>
+                    </div>
+                    <div class="p-6 sm:p-8 flex flex-col flex-grow justify-between">
+                        <div>
+                            <div class="text-xs font-mono uppercase tracking-wider text-red-accent font-semibold mb-2">Diseño Web & Interiorismo</div>
+                            <h3 class="text-2xl font-bold text-white mb-3 group-hover:text-red-accent transition-colors">Lux by LS Interiors</h3>
+                            <p class="text-white/60 text-sm leading-relaxed mb-6">
+                                Sitio web editorial diseñado para posicionar la firma ante clientes de alto perfil, transmitiendo exclusividad, acabados de autor y galerías visuales impecables.
+                            </p>
+                        </div>
+                        <div class="pt-4 border-t border-white/5 flex items-center justify-between">
+                            <span class="text-xs text-white/45 font-mono">Diseño Editorial · Branding · Web</span>
+                            <a href="{{ route('portfolio') }}" wire:navigate class="inline-flex items-center gap-1.5 text-xs font-semibold text-white group-hover:text-red-accent transition-colors">
+                                <span>Ver en portafolio</span>
+                                <span class="text-sm">→</span>
+                            </a>
+                        </div>
+                    </div>
+                </article>
             </div>
         </div>
     </section>
 
-
-    <!-- SERVICES -->
+    <!-- 04: NUESTROS SERVICIOS (4 PILARES) -->
     <section id="servicios" class="relative section-spacing overflow-hidden" aria-labelledby="services-heading">
-        <!-- Subtle Atmospheric Background Image -->
         <div class="section-bg-media" aria-hidden="true">
-            <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=1600&q=80" alt="" loading="lazy" decoding="async" style="opacity: 0.08;">
+            <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=1600&q=80" alt="" loading="lazy" decoding="async" style="opacity: 0.06;">
         </div>
         <div aria-hidden="true" class="absolute top-40 right-0 w-96 h-96 rounded-full blur-[150px]" style="background: var(--accent-red-soft);"></div>
 
         <div class="relative z-10 max-w-7xl mx-auto container-pad">
-            <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8 mb-12 sm:mb-16">
-                <div class="max-w-3xl" data-reveal="up">
-                    <span class="eyebrow">{{ __('landing.services.eyebrow') }}</span>
-                    <h2 id="services-heading" class="font-display text-white mb-6">
-                        {{ __('landing.services.title_prefix') }} <span class="text-red-accent">{{ __('landing.services.title_highlight') }}</span>
-                    </h2>
-                    <p class="text-white/60 text-base sm:text-xl leading-relaxed">
-                        {{ __('landing.services.subtitle') }}
-                    </p>
-                </div>
+            <div class="max-w-3xl mb-12 sm:mb-16" data-reveal="up">
+                <span class="eyebrow">{{ __('landing.services.eyebrow') }}</span>
+                <h2 id="services-heading" class="font-display text-white mb-6">
+                    {{ __('landing.services.title_prefix') }} <span class="text-red-accent">{{ __('landing.services.title_highlight') }}</span>
+                </h2>
+                <p class="text-white/60 text-base sm:text-xl leading-relaxed">
+                    {{ __('landing.services.subtitle') }}
+                </p>
+            </div>
 
-                <!-- Superimposed Floating Studio Preview Badge (Desktop) -->
-                <div class="hidden lg:flex items-center gap-3.5 px-4 py-3 rounded-2xl bg-zinc-900/80 border border-white/10 backdrop-blur-xl shadow-2xl animate-float-slow shrink-0" data-reveal="right" data-reveal-delay="150">
-                    <div class="relative w-14 h-10 rounded-lg overflow-hidden border border-white/15 shrink-0">
-                        <img src="{{ asset('img/hero/kosta-film-still.jpg') }}" alt="Kosta Studio" class="w-full h-full object-cover" loading="lazy">
-                        <span class="absolute bottom-1 right-1 w-2 h-2 rounded-full bg-red-500 animate-ping"></span>
-                    </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+                <!-- PILAR 01: DIGITAL -->
+                <article class="group relative rounded-3xl p-7 sm:p-9 border border-white/10 bg-white/[0.02] backdrop-blur-md transition-all duration-300 hover:border-white/20 hover:bg-white/[0.04] flex flex-col justify-between" data-reveal="up" data-reveal-delay="100">
                     <div>
-                        <div class="text-[11px] font-mono uppercase tracking-wider text-red-400 font-semibold">Full-Stack Studio</div>
-                        <div class="text-xs text-white/85 font-medium">Web · E-commerce · Films · Growth</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 4 Disciplines Overview Bar (Pág. 04 Guía Visual) -->
-            <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-10 sm:mb-12" data-reveal="up">
-                <div class="p-4 rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur transition-all duration-300 hover:border-white/20 hover:bg-white/[0.05]">
-                    <div class="flex items-center gap-2 mb-1.5">
-                        <span class="w-2 h-2 rounded-full bg-white"></span>
-                        <span class="text-xs font-mono font-bold uppercase tracking-wider text-white">Digital</span>
-                    </div>
-                    <p class="text-xs text-white/50 leading-relaxed">Web · E-commerce · Sistemas</p>
-                </div>
-                <div class="p-4 rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur transition-all duration-300 hover:border-white/20 hover:bg-white/[0.05]">
-                    <div class="flex items-center gap-2 mb-1.5">
-                        <span class="w-2 h-2 rounded-full bg-white"></span>
-                        <span class="text-xs font-mono font-bold uppercase tracking-wider text-white">Films</span>
-                    </div>
-                    <p class="text-xs text-white/50 leading-relaxed">Video · Reels · Fotografía</p>
-                </div>
-                <div class="p-4 rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur transition-all duration-300 hover:border-white/20 hover:bg-white/[0.05]">
-                    <div class="flex items-center gap-2 mb-1.5">
-                        <span class="w-2 h-2 rounded-full bg-white"></span>
-                        <span class="text-xs font-mono font-bold uppercase tracking-wider text-white">Estrategia</span>
-                    </div>
-                    <p class="text-xs text-white/50 leading-relaxed">Plan digital · Pauta · Medición</p>
-                </div>
-                <div class="p-4 rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur transition-all duration-300 hover:border-white/20 hover:bg-white/[0.05]">
-                    <div class="flex items-center gap-2 mb-1.5">
-                        <span class="w-2 h-2 rounded-full bg-white"></span>
-                        <span class="text-xs font-mono font-bold uppercase tracking-wider text-white">Brand</span>
-                    </div>
-                    <p class="text-xs text-white/50 leading-relaxed">Identidad · Diseño</p>
-                </div>
-            </div>
-
-            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-                @php
-                    $services = \App\Livewire\Landing\ServiceDetail::allServices();
-                    $delays = ['80', '160', '240', '100', '200', '300'];
-                @endphp
-
-                @foreach($services as $service)
-                    <article class="service-card" data-reveal="up" data-reveal-delay="{{ $delays[$loop->index % count($delays)] }}">
-                        <a href="{{ route('services.show', $service['slug']) }}" wire:navigate class="service-card-link" aria-label="{{ $service['title'] }}"></a>
-
-                        <!-- Visual Card Header Image -->
-                        <div class="service-card-media" aria-hidden="true">
-                            <img
-                                src="{{ str_starts_with($service['card_image'] ?? '', 'http') ? $service['card_image'] : asset(ltrim($service['card_image'] ?? 'img/hero/classy-cartagena.png', '/')) }}"
-                                alt="{{ $service['title'] }}"
-                                loading="lazy"
-                                decoding="async"
-                            >
-                            <span class="absolute top-3.5 right-4 z-10 px-2.5 py-1 rounded-full text-[10px] font-mono font-semibold uppercase tracking-wider bg-black/65 text-white/85 border border-white/15 backdrop-blur-md">
-                                {{ $service['pillar'] }}
+                        <div class="flex items-center justify-between mb-6">
+                            <span class="font-mono text-xs sm:text-sm font-bold text-red-accent px-3 py-1 rounded-full bg-red-accent/10 border border-red-accent/20">
+                                01 · Desarrollo Web
                             </span>
-                        </div>
-
-                        <!-- Superimposed Floating Service Icon -->
-                        <div class="service-icon">
-                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="{{ $service['icon'] }}"/>
-                            </svg>
-                        </div>
-
-                        <h3 class="service-title">{{ $service['title'] }}</h3>
-                        <p class="service-desc">{{ $service['subtitle'] ?? ($service['desc'] ?? '') }}</p>
-                        <div class="service-tags" style="margin-bottom: 24px;">
-                            @foreach($service['tags'] as $tag)
-                                <span class="service-tag">{{ $tag }}</span>
-                            @endforeach
-                        </div>
-                        <div class="service-action-wrap" style="margin-top: auto; padding-top: 18px; border-top: 1px solid rgba(255,255,255,0.07); position: relative; z-index: 1;">
-                            <div class="service-action-btn" aria-hidden="true">
-                                <span>{{ $service['btn_text'] ?? ($service['btn'] ?? '') }}</span>
-                                <svg class="service-action-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
-                                </svg>
+                            <div class="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-white/70 group-hover:text-red-accent group-hover:border-red-accent/30 transition-colors">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
                             </div>
                         </div>
-                    </article>
-                @endforeach
+
+                        <h3 class="text-2xl sm:text-3xl font-bold text-white mb-2 group-hover:text-red-accent transition-colors">
+                            {{ __('landing.services.pillars.digital.title') }}
+                        </h3>
+                        <p class="text-xs sm:text-sm font-mono text-white/60 mb-4">
+                            {{ __('landing.services.pillars.digital.sub') }}
+                        </p>
+                        <p class="text-sm sm:text-base text-white/70 leading-relaxed mb-6">
+                            {{ __('landing.services.pillars.digital.desc') }}
+                        </p>
+
+                        <div class="flex flex-wrap gap-2 mb-8">
+                            <span class="px-2.5 py-1 rounded-lg text-xs font-medium text-white/65 bg-white/5 border border-white/10">WordPress</span>
+                            <span class="px-2.5 py-1 rounded-lg text-xs font-medium text-white/65 bg-white/5 border border-white/10">React</span>
+                            <span class="px-2.5 py-1 rounded-lg text-xs font-medium text-white/65 bg-white/5 border border-white/10">Laravel</span>
+                            <span class="px-2.5 py-1 rounded-lg text-xs font-medium text-white/65 bg-white/5 border border-white/10">PHP</span>
+                        </div>
+                    </div>
+
+                    <div class="pt-5 border-t border-white/10 flex flex-wrap items-center justify-between gap-3">
+                        <a href="{{ route('services.show', 'desarrollo-web') }}" wire:navigate class="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-white hover:text-red-accent transition-colors">
+                            <span>Explorar Desarrollo Web</span>
+                            <svg class="w-4 h-4 text-red-accent transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                        </a>
+                        <a href="{{ route('services.show', 'ecommerce') }}" wire:navigate class="inline-flex items-center gap-1.5 text-xs text-white/60 hover:text-white transition-colors">
+                            <span>Explorar E-commerce</span>
+                            <span class="text-sm">↗</span>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- PILAR 02: FILMS -->
+                <article class="group relative rounded-3xl p-7 sm:p-9 border border-white/10 bg-white/[0.02] backdrop-blur-md transition-all duration-300 hover:border-white/20 hover:bg-white/[0.04] flex flex-col justify-between" data-reveal="up" data-reveal-delay="200">
+                    <div>
+                        <div class="flex items-center justify-between mb-6">
+                            <span class="font-mono text-xs sm:text-sm font-bold text-red-accent px-3 py-1 rounded-full bg-red-accent/10 border border-red-accent/20">
+                                02 · Films
+                            </span>
+                            <div class="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-white/70 group-hover:text-red-accent group-hover:border-red-accent/30 transition-colors">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+                            </div>
+                        </div>
+
+                        <h3 class="text-2xl sm:text-3xl font-bold text-white mb-2 group-hover:text-red-accent transition-colors">
+                            {{ __('landing.services.pillars.films.title') }}
+                        </h3>
+                        <p class="text-xs sm:text-sm font-mono text-white/60 mb-4">
+                            {{ __('landing.services.pillars.films.sub') }}
+                        </p>
+                        <p class="text-sm sm:text-base text-white/70 leading-relaxed mb-6">
+                            {{ __('landing.services.pillars.films.desc') }}
+                        </p>
+
+                        <div class="flex flex-wrap gap-2 mb-8">
+                            <span class="px-2.5 py-1 rounded-lg text-xs font-medium text-white/65 bg-white/5 border border-white/10">Cine Publicitario</span>
+                            <span class="px-2.5 py-1 rounded-lg text-xs font-medium text-white/65 bg-white/5 border border-white/10">Reels 4K</span>
+                            <span class="px-2.5 py-1 rounded-lg text-xs font-medium text-white/65 bg-white/5 border border-white/10">Color Grading</span>
+                            <span class="px-2.5 py-1 rounded-lg text-xs font-medium text-white/65 bg-white/5 border border-white/10">Fotografía Comercial</span>
+                        </div>
+                    </div>
+
+                    <div class="pt-5 border-t border-white/10 flex items-center justify-between">
+                        <a href="{{ route('services.show', 'films-contenido') }}" wire:navigate class="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-white hover:text-red-accent transition-colors">
+                            <span>{{ 'Conocer Producción & Films' }}</span>
+                            <svg class="w-4 h-4 text-red-accent transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                        </a>
+                        <span class="text-xs text-white/40 font-mono">Narrativa visual</span>
+                    </div>
+                </article>
+
+                <!-- PILAR 03: GROWTH -->
+                <article class="group relative rounded-3xl p-7 sm:p-9 border border-white/10 bg-white/[0.02] backdrop-blur-md transition-all duration-300 hover:border-white/20 hover:bg-white/[0.04] flex flex-col justify-between" data-reveal="up" data-reveal-delay="300">
+                    <div>
+                        <div class="flex items-center justify-between mb-6">
+                            <span class="font-mono text-xs sm:text-sm font-bold text-red-accent px-3 py-1 rounded-full bg-red-accent/10 border border-red-accent/20">
+                                03 · Estrategia
+                            </span>
+                            <div class="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-white/70 group-hover:text-red-accent group-hover:border-red-accent/30 transition-colors">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+                            </div>
+                        </div>
+
+                        <h3 class="text-2xl sm:text-3xl font-bold text-white mb-2 group-hover:text-red-accent transition-colors">
+                            {{ __('landing.services.pillars.growth.title') }}
+                        </h3>
+                        <p class="text-xs sm:text-sm font-mono text-white/60 mb-4">
+                            {{ __('landing.services.pillars.growth.sub') }}
+                        </p>
+                        <p class="text-sm sm:text-base text-white/70 leading-relaxed mb-6">
+                            {{ __('landing.services.pillars.growth.desc') }}
+                        </p>
+
+                        <div class="flex flex-wrap gap-2 mb-8">
+                            <span class="px-2.5 py-1 rounded-lg text-xs font-medium text-white/65 bg-white/5 border border-white/10">Plan Digital</span>
+                            <span class="px-2.5 py-1 rounded-lg text-xs font-medium text-white/65 bg-white/5 border border-white/10">Meta Ads</span>
+                            <span class="px-2.5 py-1 rounded-lg text-xs font-medium text-white/65 bg-white/5 border border-white/10">Google Ads</span>
+                            <span class="px-2.5 py-1 rounded-lg text-xs font-medium text-white/65 bg-white/5 border border-white/10">Analítica & ROI</span>
+                        </div>
+                    </div>
+
+                    <div class="pt-5 border-t border-white/10 flex flex-wrap items-center justify-between gap-3">
+                        <a href="{{ route('services.show', 'estrategia-digital') }}" wire:navigate class="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-white hover:text-red-accent transition-colors">
+                            <span>Conocer Estrategia Digital</span>
+                            <svg class="w-4 h-4 text-red-accent transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                        </a>
+                        <a href="{{ route('services.show', 'performance-pauta') }}" wire:navigate class="inline-flex items-center gap-1.5 text-xs text-white/60 hover:text-white transition-colors">
+                            <span>{{ 'Ver Performance & Pauta' }}</span>
+                            <span class="text-sm">↗</span>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- PILAR 04: BRAND -->
+                <article class="group relative rounded-3xl p-7 sm:p-9 border border-white/10 bg-white/[0.02] backdrop-blur-md transition-all duration-300 hover:border-white/20 hover:bg-white/[0.04] flex flex-col justify-between" data-reveal="up" data-reveal-delay="400">
+                    <div>
+                        <div class="flex items-center justify-between mb-6">
+                            <span class="font-mono text-xs sm:text-sm font-bold text-red-accent px-3 py-1 rounded-full bg-red-accent/10 border border-red-accent/20">
+                                04 · {{ 'Diseño & Branding' }}
+                            </span>
+                            <div class="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-white/70 group-hover:text-red-accent group-hover:border-red-accent/30 transition-colors">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/></svg>
+                            </div>
+                        </div>
+
+                        <h3 class="text-2xl sm:text-3xl font-bold text-white mb-2 group-hover:text-red-accent transition-colors">
+                            {{ __('landing.services.pillars.brand.title') }}
+                        </h3>
+                        <p class="text-xs sm:text-sm font-mono text-white/60 mb-4">
+                            {{ __('landing.services.pillars.brand.sub') }}
+                        </p>
+                        <p class="text-sm sm:text-base text-white/70 leading-relaxed mb-6">
+                            {{ __('landing.services.pillars.brand.desc') }}
+                        </p>
+
+                        <div class="flex flex-wrap gap-2 mb-8">
+                            <span class="px-2.5 py-1 rounded-lg text-xs font-medium text-white/65 bg-white/5 border border-white/10">Identidad Visual</span>
+                            <span class="px-2.5 py-1 rounded-lg text-xs font-medium text-white/65 bg-white/5 border border-white/10">Sistemas de Diseño</span>
+                            <span class="px-2.5 py-1 rounded-lg text-xs font-medium text-white/65 bg-white/5 border border-white/10">Brand Book</span>
+                            <span class="px-2.5 py-1 rounded-lg text-xs font-medium text-white/65 bg-white/5 border border-white/10">Dirección de Arte</span>
+                        </div>
+                    </div>
+
+                    <div class="pt-5 border-t border-white/10 flex items-center justify-between">
+                        <a href="{{ route('services.show', 'diseno-branding') }}" wire:navigate class="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-white hover:text-red-accent transition-colors">
+                            <span>{{ 'Explorar Diseño & Branding' }}</span>
+                            <svg class="w-4 h-4 text-red-accent transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                        </a>
+                        <span class="text-xs text-white/40 font-mono">Identidad de autor</span>
+                    </div>
+                </article>
             </div>
         </div>
     </section>
 
-    <!-- COMPARATIVA: SIN KOSTA VS CON KOSTA -->
+    <!-- 05: LA DIFERENCIA KOSTA (3 DIFERENCIADORES) -->
     <section id="diferencia" class="relative section-spacing overflow-hidden" aria-labelledby="comparison-heading" style="scroll-margin-top: 110px;">
         <div aria-hidden="true" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[380px] rounded-full blur-[180px] pointer-events-none" style="background: radial-gradient(circle, rgba(230, 57, 70, 0.15) 0%, rgba(34, 16, 19, 0.12) 50%, transparent 70%);"></div>
 
         <div class="relative z-10 max-w-7xl mx-auto container-pad">
-            <div class="text-center mb-12 sm:mb-14 max-w-3xl mx-auto" data-reveal="up">
+            <div class="text-center mb-12 sm:mb-16 max-w-3xl mx-auto" data-reveal="up">
                 <span class="eyebrow">{{ __('landing.comparison.eyebrow') }}</span>
                 <h2 id="comparison-heading" class="font-display text-white mb-6">
                     {{ __('landing.comparison.title_prefix') }} <span class="text-red-accent">{{ __('landing.comparison.title_highlight') }}</span>
@@ -1078,162 +1250,58 @@
                 </p>
             </div>
 
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-5xl mx-auto items-stretch">
-                {{-- Tarjeta 1 (Izquierda): Sin Kosta --}}
-                <div class="comparison-card-sin" data-reveal="left" data-reveal-delay="100">
-                    <div class="comparison-badge-sin">
-                        <svg width="13" height="13" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
-                        </svg>
-                        <span>{{ __('landing.comparison.sin_kosta.badge') }}</span>
-                    </div>
+            @php
+                $diffItems = trans('landing.comparison.items');
+                $diffIcons = [
+                    'connected' => 'M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1',
+                    'freedom' => 'M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z',
+                    'purpose' => 'M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z',
+                ];
+            @endphp
 
-                    <h3 class="comparison-title-sin">{{ __('landing.comparison.sin_kosta.title') }}</h3>
-                    <p class="comparison-subtitle-sin">{{ __('landing.comparison.sin_kosta.subtitle') }}</p>
-
-                    <ul class="comparison-list">
-                        <li class="comparison-item-sin">
-                            <span class="comp-icon-x">✕</span>
-                            <span><strong>{{ __('landing.comparison.sin_kosta.item1_label') }}</strong> {{ __('landing.comparison.sin_kosta.item1_text') }}</span>
-                        </li>
-                        <li class="comparison-item-sin">
-                            <span class="comp-icon-x">✕</span>
-                            <span><strong>{{ __('landing.comparison.sin_kosta.item2_label') }}</strong> {{ __('landing.comparison.sin_kosta.item2_text') }}</span>
-                        </li>
-                        <li class="comparison-item-sin">
-                            <span class="comp-icon-x">✕</span>
-                            <span><strong>{{ __('landing.comparison.sin_kosta.item3_label') }}</strong> {{ __('landing.comparison.sin_kosta.item3_text') }}</span>
-                        </li>
-                        <li class="comparison-item-sin">
-                            <span class="comp-icon-x">✕</span>
-                            <span><strong>{{ __('landing.comparison.sin_kosta.item4_label') }}</strong> {{ __('landing.comparison.sin_kosta.item4_text') }}</span>
-                        </li>
-                        <li class="comparison-item-sin">
-                            <span class="comp-icon-x">✕</span>
-                            <span><strong>{{ __('landing.comparison.sin_kosta.item5_label') }}</strong> {{ __('landing.comparison.sin_kosta.item5_text') }}</span>
-                        </li>
-                    </ul>
-                </div>
-
-                {{-- Tarjeta 2 (Derecha): Con Kosta --}}
-                <div class="comparison-card-kosta" data-reveal="right" data-reveal-delay="200">
-                    <div class="comparison-badge-kosta">
-                        <svg width="13" height="13" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/>
-                        </svg>
-                        <span>{{ __('landing.comparison.con_kosta.badge') }}</span>
-                    </div>
-
-                    <h3 class="comparison-title-kosta">{{ __('landing.comparison.con_kosta.title') }}</h3>
-                    <p class="comparison-subtitle-kosta">{{ __('landing.comparison.con_kosta.subtitle') }}</p>
-
-                    <ul class="comparison-list">
-                        <li class="comparison-item-kosta">
-                            <span class="comp-icon-check">✓</span>
-                            <span><strong>{{ __('landing.comparison.con_kosta.item1_label') }}</strong> {{ __('landing.comparison.con_kosta.item1_text') }}</span>
-                        </li>
-                        <li class="comparison-item-kosta">
-                            <span class="comp-icon-check">✓</span>
-                            <span><strong>{{ __('landing.comparison.con_kosta.item2_label') }}</strong> {{ __('landing.comparison.con_kosta.item2_text') }}</span>
-                        </li>
-                        <li class="comparison-item-kosta">
-                            <span class="comp-icon-check">✓</span>
-                            <span><strong>{{ __('landing.comparison.con_kosta.item3_label') }}</strong> {{ __('landing.comparison.con_kosta.item3_text') }}</span>
-                        </li>
-                        <li class="comparison-item-kosta">
-                            <span class="comp-icon-check">✓</span>
-                            <span><strong>{{ __('landing.comparison.con_kosta.item4_label') }}</strong> {{ __('landing.comparison.con_kosta.item4_text') }}</span>
-                        </li>
-                        <li class="comparison-item-kosta">
-                            <span class="comp-icon-check">✓</span>
-                            <span><strong>{{ __('landing.comparison.con_kosta.item5_label') }}</strong> {{ __('landing.comparison.con_kosta.item5_text') }}</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- PROCESS -->
-    <section id="proceso" class="relative section-spacing overflow-hidden">
-        <!-- Atmospheric Background Image -->
-        <div class="section-bg-media" aria-hidden="true">
-            <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1600&q=80" alt="" loading="lazy" decoding="async" style="opacity: 0.08;">
-        </div>
-        <div class="absolute inset-0" style="background: linear-gradient(180deg, transparent 0%, rgba(230, 57, 70, 0.03) 50%, transparent 100%);"></div>
-
-        <div class="relative z-10 max-w-7xl mx-auto container-pad">
-            <div class="text-center mb-12 sm:mb-16 max-w-3xl mx-auto" data-reveal="up">
-                <span class="eyebrow">{{ __('landing.process.eyebrow') }}</span>
-                <h2 class="font-display text-white mb-8">
-                    {{ __('landing.process.title_prefix') }} <span class="text-red-accent">{{ __('landing.process.title_highlight') }}</span>
-                </h2>
-                <p class="text-white/60 text-base sm:text-lg leading-relaxed">
-                    {{ __('landing.process.subtitle') }}
-                </p>
-            </div>
-
-            <div class="relative process-timeline-wrapper">
-                <!-- Desktop Connecting Track & Progress Line -->
-                <div aria-hidden="true" class="hidden lg:block absolute process-timeline-track">
-                    <div class="process-timeline-fill" style="width: 0%;"></div>
-                </div>
-
-                <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-12 sm:gap-10 lg:gap-8 relative z-10">
-                    @php
-                        $stepIcons = [
-                            'M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z',
-                            'M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4',
-                            'M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z',
-                            'M15.59 14.37a6 6 0 01-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 006.16-12.12A14.98 14.98 0 009.631 8.41m5.96 5.96a14.926 14.926 0 01-5.841 2.58',
-                        ];
-                        $steps = trans('landing.process.steps');
-                        $stepDelays = ['80', '160', '240', '320'];
-                    @endphp
-
-                    @foreach($steps as $i => $step)
-                        <div class="text-center group relative process-step-item" data-step="{{ $i }}" data-reveal="up" data-reveal-delay="{{ $stepDelays[$i] ?? '100' }}">
-                            <div class="relative w-20 h-20 mx-auto mb-8 z-10">
-                                <div aria-hidden="true" class="process-icon-halo absolute inset-0 rounded-2xl blur-2xl group-hover:blur-3xl transition-all duration-500 opacity-40" style="background: var(--accent-red-glow);"></div>
-                                <div class="process-icon-box relative w-full h-full glass-card rounded-2xl flex items-center justify-center" style="border: 1px solid rgba(230, 57, 70, 0.3);">
-                                    <svg class="w-8 h-8 text-red-accent transition-transform duration-300 group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="{{ $stepIcons[$i] ?? '' }}"/>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 max-w-5xl mx-auto items-stretch">
+                @if(is_array($diffItems))
+                    @foreach($diffItems as $diff)
+                        <div class="p-8 rounded-3xl border border-white/10 bg-white/[0.02] backdrop-blur-md flex flex-col justify-between transition-all duration-300 hover:border-white/25 hover:bg-white/[0.04] hover:-translate-y-1" data-reveal="up" data-reveal-delay="{{ 100 * ($loop->index + 1) }}">
+                            <div>
+                                <div class="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-red-accent mb-6">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="{{ $diffIcons[$diff['icon'] ?? 'connected'] ?? 'M5 13l4 4L19 7' }}"/>
                                     </svg>
                                 </div>
-                                <span class="process-step-badge">
-                                    <span class="step-num">{{ $step['num'] }}</span>
-                                    <span class="step-check hidden" aria-hidden="true">
-                                        <svg class="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
-                                        </svg>
-                                    </span>
-                                </span>
+                                <h3 class="text-lg font-bold text-white tracking-wider uppercase mb-3">
+                                    {{ $diff['title'] }}
+                                </h3>
+                                <p class="text-white/65 text-sm sm:text-base leading-relaxed">
+                                    {{ $diff['desc'] }}
+                                </p>
                             </div>
-
-                            <h3 class="text-lg sm:text-xl font-bold text-white mb-4 transition-colors duration-300">{{ $step['title'] }}</h3>
-                            <p class="text-white/45 text-sm sm:text-base leading-relaxed">{{ $step['desc'] }}</p>
+                            <div class="mt-6 pt-4 border-t border-white/5 flex items-center gap-2 text-xs font-mono text-red-accent font-semibold">
+                                <span class="w-1.5 h-1.5 rounded-full bg-red-accent"></span>
+                                <span>Principio Kosta</span>
+                            </div>
                         </div>
                     @endforeach
-                </div>
+                @endif
             </div>
         </div>
     </section>
 
-    <!-- TEAM SECTION (Pág. 07 Guía Visual) -->
+    <!-- 07: EQUIPO KOSTA -->
     <section id="equipo" class="relative section-spacing overflow-hidden border-t border-white/5" aria-labelledby="team-heading">
         <div class="relative z-10 max-w-7xl mx-auto container-pad">
             <div class="text-center mb-12 sm:mb-16 max-w-3xl mx-auto" data-reveal="up">
-                <span class="eyebrow">Equipo Kosta</span>
+                <span class="eyebrow">{{ __('landing.team.eyebrow') }}</span>
                 <h2 id="team-heading" class="font-display text-white mb-4">
-                    El equipo detrás de <span class="text-red-accent">tu proyecto</span>
+                    {{ __('landing.team.title_prefix') }} <span class="text-red-accent">{{ __('landing.team.title_highlight') }}</span>
                 </h2>
                 <p class="text-white/60 text-base sm:text-xl leading-relaxed">
-                    Conoce a las personas que conectan estrategia, diseño, desarrollo y producción audiovisual en Kosta.
+                    {{ __('landing.team.subtitle') }}
                 </p>
             </div>
 
             <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 max-w-5xl mx-auto">
-                <!-- Member 1 -->
+                <!-- Member 1: Yohan Blanco -->
                 <div class="p-6 sm:p-7 rounded-2xl border border-white/10 bg-white/[0.02] backdrop-blur flex flex-col items-center text-center transition-all duration-300 hover:border-white/20 hover:-translate-y-1 hover:shadow-2xl" data-reveal="up" data-reveal-delay="100">
                     <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden border-2 border-white/20 mb-5 relative bg-zinc-800 shadow-xl">
                         <img src="{{ asset('img/kamo.png') }}" alt="Yohan Blanco" class="w-full h-full object-cover grayscale contrast-125 hover:grayscale-0 transition-all duration-500" onerror="this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80'">
@@ -1245,7 +1313,7 @@
                     </p>
                 </div>
 
-                <!-- Member 2 -->
+                <!-- Member 2: Creativa & Films -->
                 <div class="p-6 sm:p-7 rounded-2xl border border-white/10 bg-white/[0.02] backdrop-blur flex flex-col items-center text-center transition-all duration-300 hover:border-white/20 hover:-translate-y-1 hover:shadow-2xl" data-reveal="up" data-reveal-delay="200">
                     <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden border-2 border-white/20 mb-5 relative bg-zinc-800 shadow-xl">
                         <img src="{{ asset('img/hero/kosta-film-still.jpg') }}" alt="Dirección Audiovisual" class="w-full h-full object-cover grayscale contrast-125 hover:grayscale-0 transition-all duration-500">
@@ -1257,7 +1325,7 @@
                     </p>
                 </div>
 
-                <!-- Member 3 -->
+                <!-- Member 3: Marca & UI -->
                 <div class="p-6 sm:p-7 rounded-2xl border border-white/10 bg-white/[0.02] backdrop-blur flex flex-col items-center text-center transition-all duration-300 hover:border-white/20 hover:-translate-y-1 hover:shadow-2xl sm:col-span-2 lg:col-span-1 max-w-sm sm:max-w-none mx-auto w-full" data-reveal="up" data-reveal-delay="300">
                     <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden border-2 border-white/20 mb-5 relative bg-zinc-800 shadow-xl">
                         <img src="{{ asset('img/hero/classy-cartagena.png') }}" alt="Diseño & UI/UX" class="w-full h-full object-cover grayscale contrast-125 hover:grayscale-0 transition-all duration-500">
@@ -1272,86 +1340,75 @@
         </div>
     </section>
 
-    <!-- TESTIMONIALS -->
-    <section id="testimonios" class="relative section-spacing overflow-hidden">
-        <!-- Atmospheric Background Image -->
+    <!-- 08: NUESTRO PROCESO -->
+    <section id="proceso" class="relative section-spacing overflow-hidden border-t border-white/5">
         <div class="section-bg-media" aria-hidden="true">
-            <img src="{{ asset('img/hero/classy-cartagena.png') }}" alt="" loading="lazy" decoding="async" style="opacity: 0.07;">
+            <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1600&q=80" alt="" loading="lazy" decoding="async" style="opacity: 0.06;">
         </div>
+        <div class="absolute inset-0" style="background: linear-gradient(180deg, transparent 0%, rgba(230, 57, 70, 0.03) 50%, transparent 100%);"></div>
 
         <div class="relative z-10 max-w-7xl mx-auto container-pad">
             <div class="text-center mb-12 sm:mb-16 max-w-3xl mx-auto" data-reveal="up">
-                <span class="eyebrow">{{ __('landing.testimonials.eyebrow') }}</span>
+                <span class="eyebrow">{{ __('landing.process.eyebrow') }}</span>
                 <h2 class="font-display text-white mb-6">
-                    {{ __('landing.testimonials.title_prefix') }} <span class="text-red-accent">{{ __('landing.testimonials.title_highlight') }}</span>
+                    {{ __('landing.process.title_prefix') }} <span class="text-red-accent">{{ __('landing.process.title_highlight') }}</span>
                 </h2>
+                <p class="text-white/60 text-base sm:text-lg leading-relaxed">
+                    {{ __('landing.process.subtitle') }}
+                </p>
             </div>
 
-            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-                @php
-                    $testimonials = trans('landing.testimonials.items');
-                    $testimonialImages = [
-                        asset('img/hero/classy-cartagena.png'),
-                        asset('img/hero/compulago-ecommerce.jpg'),
-                        asset('img/hero/kosta-film-still.jpg'),
-                    ];
-                    $testDelays = ['100', '200', '300'];
-                @endphp
+            <div class="relative process-timeline-wrapper">
+                <div aria-hidden="true" class="hidden lg:block absolute process-timeline-track">
+                    <div class="process-timeline-fill" style="width: 0%;"></div>
+                </div>
 
-                @foreach($testimonials as $idx => $t)
-                    <figure class="testimonial-card flex flex-col relative overflow-hidden" data-reveal="scale" data-reveal-delay="{{ $testDelays[$idx % 3] }}">
-                        <!-- Subtle Project Thumbnail Accent Strip -->
-                        <div class="relative -mx-8 -mt-8 mb-6 h-24 overflow-hidden border-b border-white/10" aria-hidden="true">
-                            <img
-                                src="{{ $testimonialImages[$idx % count($testimonialImages)] }}"
-                                alt=""
-                                class="w-full h-full object-cover opacity-45 transition-transform duration-700 hover:scale-105"
-                                loading="lazy"
-                                decoding="async"
-                            >
-                            <div class="absolute inset-0 bg-gradient-to-t from-[#101014] via-[#101014]/60 to-transparent"></div>
-                            <div class="absolute bottom-3 left-8 right-8 flex items-center justify-between">
-                                <div class="flex items-center gap-1" aria-label="{{ __('landing.hero.stars_aria') }}">
-                                    @for($i = 0; $i < 5; $i++)
-                                        <svg class="w-4 h-4 text-red-accent" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
-                                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.176 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-10 sm:gap-8 lg:gap-8 relative z-10">
+                    @php
+                        $stepIcons = [
+                            'M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z',
+                            'M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4',
+                            'M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z',
+                            'M15.59 14.37a6 6 0 01-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 006.16-12.12A14.98 14.98 0 009.631 8.41m5.96 5.96a14.926 14.926 0 01-5.841 2.58',
+                        ];
+                        $steps = trans('landing.process.steps');
+                        $stepDelays = ['80', '160', '240', '320'];
+                    @endphp
+
+                    @if(is_array($steps))
+                        @foreach($steps as $i => $step)
+                            <div class="text-center group relative process-step-item" data-step="{{ $i }}" data-reveal="up" data-reveal-delay="{{ $stepDelays[$i] ?? '100' }}">
+                                <div class="relative w-20 h-20 mx-auto mb-6 z-10">
+                                    <div aria-hidden="true" class="process-icon-halo absolute inset-0 rounded-2xl blur-2xl group-hover:blur-3xl transition-all duration-500 opacity-40" style="background: var(--accent-red-glow);"></div>
+                                    <div class="process-icon-box relative w-full h-full glass-card rounded-2xl flex items-center justify-center" style="border: 1px solid rgba(230, 57, 70, 0.3);">
+                                        <svg class="w-8 h-8 text-red-accent transition-transform duration-300 group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="{{ $stepIcons[$i] ?? '' }}"/>
                                         </svg>
-                                    @endfor
+                                    </div>
+                                    <span class="process-step-badge">
+                                        <span class="step-num">{{ $step['num'] }}</span>
+                                        <span class="step-check hidden" aria-hidden="true">
+                                            <svg class="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+                                            </svg>
+                                        </span>
+                                    </span>
                                 </div>
-                                <span class="text-[10px] font-mono uppercase tracking-wider px-2 py-0.5 rounded-full bg-white/10 text-white/80 border border-white/15 backdrop-blur-sm">Verified Client</span>
-                            </div>
-                        </div>
 
-                        <blockquote class="text-white/80 text-base leading-relaxed mb-6 flex-grow">
-                            "{{ $t['quote'] }}"
-                        </blockquote>
-
-                        <figcaption class="flex items-center gap-3 pt-4 border-t border-white/5">
-                            <div class="w-11 h-11 rounded-full flex items-center justify-center text-sm font-bold text-white shadow-lg" style="background: linear-gradient(135deg, #E63946, #8B1A25);">
-                                {{ $t['initial'] }}
+                                <h3 class="text-lg sm:text-xl font-bold text-white mb-3 transition-colors duration-300">{{ $step['title'] }}</h3>
+                                <p class="text-white/50 text-sm leading-relaxed">{{ $step['desc'] }}</p>
                             </div>
-                            <div>
-                                <div class="text-sm font-semibold text-white">{{ $t['name'] }}</div>
-                                <div class="text-xs text-white/50">{{ $t['role'] }}</div>
-                            </div>
-                        </figcaption>
-                        <div class="mt-3 pt-3 border-t border-white/5">
-                            <a href="{{ route('portfolio') }}" class="inline-flex items-center gap-1.5 text-xs font-semibold text-white/70 hover:text-white transition-colors">
-                                <span>Conocer el proyecto</span>
-                                <svg class="w-3.5 h-3.5 text-red-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
-                            </a>
-                        </div>
-                    </figure>
-                @endforeach
+                        @endforeach
+                    @endif
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- CTA -->
-    <section id="contacto" class="relative section-spacing overflow-hidden">
-        <!-- Dramatic Background Image -->
+    <!-- 09: CTA FINAL -->
+    <section id="contacto" class="relative section-spacing overflow-hidden border-t border-white/5">
         <div class="section-bg-media" aria-hidden="true">
-            <img src="{{ asset('img/hero/kosta-film-still.jpg') }}" alt="" loading="lazy" decoding="async" style="opacity: 0.16;">
+            <img src="{{ asset('img/hero/kosta-film-still.jpg') }}" alt="" loading="lazy" decoding="async" style="opacity: 0.12;">
         </div>
         <div aria-hidden="true" class="absolute inset-0" style="background: radial-gradient(ellipse at center, rgba(230, 57, 70, 0.14) 0%, transparent 65%);"></div>
 
@@ -1385,19 +1442,23 @@
 
         <div class="relative z-20 max-w-3xl mx-auto container-pad text-center" data-reveal="scale">
             <span class="eyebrow">{{ __('landing.cta.eyebrow') }}</span>
-            <h2 class="font-display text-white mb-8">
-                {{ __('landing.cta.title_prefix') }} <span class="text-red-accent">{{ __('landing.cta.title_highlight') }}</span> {{ __('landing.cta.title_suffix') }}
+            <h2 class="font-display text-white mb-6">
+                {{ __('landing.cta.title_prefix') }} <span class="text-red-accent">{{ __('landing.cta.title_highlight') }}</span>
             </h2>
             <p class="text-base sm:text-xl text-white/65 mb-8 max-w-2xl mx-auto leading-relaxed">
                 {{ __('landing.cta.subtitle') }}
             </p>
 
-            <div class="cta-group justify-center" style="max-width: 480px; margin: 0 auto;">
+            <div class="cta-group justify-center gap-4" style="max-width: 520px; margin: 0 auto;">
                 <a href="{{ route('contact') }}" wire:navigate class="btn-primary">
-                    {{ __('landing.cta.btn_project') }}
+                    <span>{{ __('landing.cta.btn_project') }}</span>
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
                     </svg>
+                </a>
+                <a href="https://wa.me/573000000000" target="_blank" rel="noopener noreferrer" class="btn-secondary">
+                    <span>{{ __('landing.cta.btn_whatsapp') }}</span>
+                    <span class="text-sm">↗</span>
                 </a>
             </div>
 

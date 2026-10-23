@@ -61,6 +61,22 @@ final class CaseStudySource
 
             try {
                 DB::table('case_studies')->where('categoria', 'social')->update(['categoria' => 'films']);
+
+                $orderMap = [
+                    'Compulago' => 1,
+                    'Classy Cartagena' => 2,
+                    'Auto Clean Bridge' => 3,
+                    'Lux by LS' => 4,
+                    'CESD Plataform' => 5,
+                    'HB Mantenimiento' => 6,
+                    'Hi Custom Blinds' => 7,
+                    'SIT Plataform' => 8,
+                    'Cartagena English Speaking Dentist' => 9,
+                ];
+
+                foreach ($orderMap as $title => $ord) {
+                    DB::table('case_studies')->where('titulo', 'like', "%{$title}%")->update(['orden' => $ord]);
+                }
             } catch (\Throwable) {
                 // Ignore if update fails
             }

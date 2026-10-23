@@ -69,6 +69,11 @@ Route::get('/case-studies/{caseStudy}/image', CaseStudyImageController::class)->
 Route::redirect('/servicios', '/#servicios')->name('services.landing');
 Route::redirect('/bento', '/kamo');
 Route::view('/privacidad', 'privacy')->name('privacy');
+Route::get('/sitemap.xml', function () {
+    return response()->file(public_path('sitemap.xml'), [
+        'Content-Type' => 'application/xml',
+    ]);
+});
 
 // ── Sincronización y Respaldo Seguro de Datos de Producción ──────────────────
 Route::get('/kosta-sync-export', function (\Illuminate\Http\Request $request) {

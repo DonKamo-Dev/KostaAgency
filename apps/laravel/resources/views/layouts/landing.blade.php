@@ -7,6 +7,63 @@
 
     <title>{{ $title ?? __('landing.seo.title') }}</title>
     <meta name="description" content="{{ $description ?? __('landing.seo.description') }}">
+    <link rel="canonical" href="{{ url()->current() }}">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:title" content="{{ $title ?? __('landing.seo.title') }}">
+    <meta property="og:description" content="{{ $description ?? __('landing.seo.description') }}">
+    <meta property="og:image" content="{{ asset('img/hero/classy-cartagena.png') }}">
+    <meta property="og:site_name" content="Kosta Studio">
+    <meta property="og:locale" content="{{ app()->getLocale() === 'en' ? 'en_US' : 'es_CO' }}">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ $title ?? __('landing.seo.title') }}">
+    <meta name="twitter:description" content="{{ $description ?? __('landing.seo.description') }}">
+    <meta name="twitter:image" content="{{ asset('img/hero/classy-cartagena.png') }}">
+
+    <!-- Local SEO Cartagena, Colombia -->
+    <meta name="geo.region" content="CO-BOL">
+    <meta name="geo.placename" content="Cartagena">
+    <meta name="geo.position" content="10.3910;-75.4794">
+    <meta name="ICBM" content="10.3910, -75.4794">
+
+    <!-- Schema.org JSON-LD -->
+    <script type="application/ld+json">
+    {
+      "@@context": "https://schema.org",
+      "@@type": "ProfessionalService",
+      "name": "Kosta Studio",
+      "url": "https://kostastudio.com",
+      "logo": "{{ asset('img/WEB-Kosta-White.svg') }}",
+      "image": "{{ asset('img/hero/classy-cartagena.png') }}",
+      "description": "Estudio creativo y digital en Cartagena. Diseño web, e-commerce, producción audiovisual, branding y estrategia.",
+      "telephone": "+573113894136",
+      "address": {
+        "@@type": "PostalAddress",
+        "addressLocality": "Cartagena",
+        "addressRegion": "Bolívar",
+        "addressCountry": "CO"
+      },
+      "geo": {
+        "@@type": "GeoCoordinates",
+        "latitude": 10.3910,
+        "longitude": -75.4794
+      },
+      "openingHoursSpecification": {
+        "@@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+        "opens": "08:00",
+        "closes": "18:00"
+      },
+      "sameAs": [
+        "https://www.instagram.com/kostastudiofilms"
+      ],
+      "priceRange": "$$"
+    }
+    </script>
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="{{ asset('img/favicon.png') }}">
