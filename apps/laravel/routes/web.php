@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AutomationController;
 use App\Http\Controllers\BillController;
 use App\Http\Controllers\CaseStudyImageController;
 use App\Http\Controllers\ClientController;
@@ -184,6 +185,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/leads/{lead}/quote', [LeadController::class, 'createQuote'])->name('leads.create-quote');
     Route::post('/leads/{lead}/convert-client', [LeadController::class, 'convertClient'])->name('leads.convert-client');
     Route::delete('/leads/{lead}', [LeadController::class, 'destroy'])->name('leads.destroy');
+
+    // ── Automatizaciones (Emails & WhatsApp) ──────────────────────────────────
+    Route::get('/automations', [AutomationController::class, 'index'])->name('automations.index');
+    Route::post('/automations/settings', [AutomationController::class, 'update'])->name('automations.update');
+    Route::post('/automations/test-email', [AutomationController::class, 'testEmail'])->name('automations.test-email');
+    Route::post('/automations/test-whatsapp', [AutomationController::class, 'testWhatsapp'])->name('automations.test-whatsapp');
 });
 
 // ── Logout ────────────────────────────────────────────────────────────────────
