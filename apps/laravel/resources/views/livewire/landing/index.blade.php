@@ -905,46 +905,9 @@
                 </div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10">
-                <!-- Project 1: Compulago -->
-                <article class="group relative rounded-3xl overflow-hidden border border-white/10 bg-white/[0.02] backdrop-blur-md transition-all duration-500 hover:border-white/25 hover:-translate-y-1.5 hover:shadow-2xl flex flex-col" data-reveal="up" data-reveal-delay="100">
-                    <div class="relative aspect-[16/10] overflow-hidden bg-zinc-950">
-                        <img
-                            src="{{ asset('img/hero/compulago-ecommerce.jpg') }}"
-                            alt="Compulago E-commerce"
-                            class="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
-                            loading="lazy"
-                        >
-                        <div class="absolute inset-0 bg-gradient-to-t from-[#101014] via-transparent to-black/30"></div>
-                        <div class="absolute top-4 left-4 right-4 flex items-center justify-between">
-                            <span class="px-3 py-1 rounded-full text-[10.5px] font-mono font-semibold uppercase tracking-wider bg-black/70 text-emerald-300 border border-emerald-500/30 backdrop-blur-md">
-                                E-COMMERCE & DIGITAL
-                            </span>
-                            <span class="px-2.5 py-1 rounded-full text-[10px] font-mono text-white/70 bg-black/60 border border-white/15 backdrop-blur-md">
-                                compulago.net
-                            </span>
-                        </div>
-                    </div>
-                    <div class="p-6 sm:p-8 flex flex-col flex-grow justify-between">
-                        <div>
-                            <div class="text-xs font-mono uppercase tracking-wider text-red-accent font-semibold mb-2">Retail Tecnológico · E-commerce</div>
-                            <h3 class="text-2xl font-bold text-white mb-3 group-hover:text-red-accent transition-colors">Compulago</h3>
-                            <p class="text-white/60 text-sm leading-relaxed mb-6">
-                                Plataforma de comercio electrónico de alto rendimiento con catálogo omnicanal, sincronización de stock y pasarela de pago optimizada para conversión en Colombia.
-                            </p>
-                        </div>
-                        <div class="pt-4 border-t border-white/5 flex items-center justify-between">
-                            <span class="text-xs text-white/45 font-mono">Desarrollo Web · UI/UX · Checkout</span>
-                            <a href="https://compulago.net" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-xs font-semibold text-white group-hover:text-red-accent transition-colors">
-                                <span>Visitar sitio</span>
-                                <span class="text-sm">↗</span>
-                            </a>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- Project 2: Classy Cartagena -->
-                <article class="group relative rounded-3xl overflow-hidden border border-white/10 bg-white/[0.02] backdrop-blur-md transition-all duration-500 hover:border-white/25 hover:-translate-y-1.5 hover:shadow-2xl flex flex-col" data-reveal="up" data-reveal-delay="200">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-6">
+                <!-- Project 1: Classy Cartagena -->
+                <article class="group relative rounded-2xl sm:rounded-3xl overflow-hidden border border-white/10 bg-white/[0.02] backdrop-blur-md transition-all duration-500 hover:border-white/25 hover:-translate-y-1.5 hover:shadow-2xl flex flex-col h-full" data-reveal="up" data-reveal-delay="100">
                     <div class="relative aspect-[16/10] overflow-hidden bg-zinc-950">
                         <img
                             src="{{ asset('img/hero/classy-cartagena.png') }}"
@@ -953,35 +916,35 @@
                             loading="lazy"
                         >
                         <div class="absolute inset-0 bg-gradient-to-t from-[#101014] via-transparent to-black/30"></div>
-                        <div class="absolute top-4 left-4 right-4 flex items-center justify-between">
-                            <span class="px-3 py-1 rounded-full text-[10.5px] font-mono font-semibold uppercase tracking-wider bg-black/70 text-emerald-300 border border-emerald-500/30 backdrop-blur-md">
-                                WEB & TURISMO PREMIUM
+                        <div class="absolute top-3 left-3 right-3 flex items-center justify-between gap-1.5">
+                            <span class="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-semibold uppercase tracking-wider bg-black/75 text-emerald-300 border border-emerald-500/30 backdrop-blur-md">
+                                TURISMO DE LUJO
                             </span>
-                            <span class="px-2.5 py-1 rounded-full text-[10px] font-mono text-white/70 bg-black/60 border border-white/15 backdrop-blur-md">
+                            <span class="px-2 py-0.5 rounded-full text-[9px] font-mono text-white/70 bg-black/60 border border-white/15 backdrop-blur-md truncate max-w-[130px]">
                                 classycartagena.com
                             </span>
                         </div>
                     </div>
-                    <div class="p-6 sm:p-8 flex flex-col flex-grow justify-between">
+                    <div class="p-5 sm:p-6 flex flex-col flex-grow justify-between">
                         <div>
-                            <div class="text-xs font-mono uppercase tracking-wider text-red-accent font-semibold mb-2">Turismo de Lujo & Yates · Cartagena</div>
-                            <h3 class="text-2xl font-bold text-white mb-3 group-hover:text-red-accent transition-colors">Classy Cartagena</h3>
-                            <p class="text-white/60 text-sm leading-relaxed mb-6">
+                            <div class="text-[11px] font-mono uppercase tracking-wider text-red-accent font-semibold mb-2">Turismo & Yates · Cartagena</div>
+                            <h3 class="text-lg sm:text-xl font-bold text-white mb-2.5 group-hover:text-red-accent transition-colors leading-snug">Classy Cartagena</h3>
+                            <p class="text-white/60 text-xs sm:text-[13px] leading-relaxed mb-5">
                                 Experiencia web inmersiva para el mercado turístico internacional en Cartagena: alquiler de botes de lujo, villas exclusivas y reservas fluidas multidivisa.
                             </p>
                         </div>
-                        <div class="pt-4 border-t border-white/5 flex items-center justify-between">
-                            <span class="text-xs text-white/45 font-mono">Diseño Web · Identidad · Conversión</span>
-                            <a href="https://classycartagena.com" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-xs font-semibold text-white group-hover:text-red-accent transition-colors">
-                                <span>Visitar sitio</span>
-                                <span class="text-sm">↗</span>
+                        <div class="pt-3.5 border-t border-white/5 flex items-center justify-between text-xs">
+                            <span class="text-[11px] text-white/45 font-mono truncate mr-2">Diseño Web · UI/UX · Reservas</span>
+                            <a href="https://classycartagena.com" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 font-semibold text-white group-hover:text-red-accent transition-colors flex-shrink-0">
+                                <span>Visitar</span>
+                                <span class="text-xs">↗</span>
                             </a>
                         </div>
                     </div>
                 </article>
 
-                <!-- Project 3: CESD -->
-                <article class="group relative rounded-3xl overflow-hidden border border-white/10 bg-white/[0.02] backdrop-blur-md transition-all duration-500 hover:border-white/25 hover:-translate-y-1.5 hover:shadow-2xl flex flex-col" data-reveal="up" data-reveal-delay="150">
+                <!-- Project 2: CESD -->
+                <article class="group relative rounded-2xl sm:rounded-3xl overflow-hidden border border-white/10 bg-white/[0.02] backdrop-blur-md transition-all duration-500 hover:border-white/25 hover:-translate-y-1.5 hover:shadow-2xl flex flex-col h-full" data-reveal="up" data-reveal-delay="200">
                     <div class="relative aspect-[16/10] overflow-hidden bg-zinc-950">
                         <img
                             src="https://pub-e1e6c45a16d04ab888631d49250d2b1f.r2.dev/Casos-de-Estudio/Sitios-Web/CESD.png"
@@ -990,59 +953,102 @@
                             loading="lazy"
                         >
                         <div class="absolute inset-0 bg-gradient-to-t from-[#101014] via-transparent to-black/30"></div>
-                        <div class="absolute top-4 left-4 right-4 flex items-center justify-between">
-                            <span class="px-3 py-1 rounded-full text-[10.5px] font-mono font-semibold uppercase tracking-wider bg-black/70 text-white/90 border border-white/15 backdrop-blur-md">
+                        <div class="absolute top-3 left-3 right-3 flex items-center justify-between gap-1.5">
+                            <span class="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-semibold uppercase tracking-wider bg-black/75 text-white/90 border border-white/15 backdrop-blur-md">
                                 CORPORATIVO & DIGITAL
                             </span>
                         </div>
                     </div>
-                    <div class="p-6 sm:p-8 flex flex-col flex-grow justify-between">
+                    <div class="p-5 sm:p-6 flex flex-col flex-grow justify-between">
                         <div>
-                            <div class="text-xs font-mono uppercase tracking-wider text-red-accent font-semibold mb-2">Desarrollo Web & Servicios</div>
-                            <h3 class="text-2xl font-bold text-white mb-3 group-hover:text-red-accent transition-colors">CESD</h3>
-                            <p class="text-white/60 text-sm leading-relaxed mb-6">
+                            <div class="text-[11px] font-mono uppercase tracking-wider text-red-accent font-semibold mb-2">Desarrollo Web & Servicios</div>
+                            <h3 class="text-lg sm:text-xl font-bold text-white mb-2.5 group-hover:text-red-accent transition-colors leading-snug">CESD</h3>
+                            <p class="text-white/60 text-xs sm:text-[13px] leading-relaxed mb-5">
                                 Arquitectura digital y desarrollo web corporativo para fortalecer la autoridad institucional, comunicación clara de portafolio y captación directa de contactos.
                             </p>
                         </div>
-                        <div class="pt-4 border-t border-white/5 flex items-center justify-between">
-                            <span class="text-xs text-white/45 font-mono">Arquitectura Web · UI · Rendimiento</span>
-                            <a href="{{ route('portfolio') }}" wire:navigate class="inline-flex items-center gap-1.5 text-xs font-semibold text-white group-hover:text-red-accent transition-colors">
-                                <span>Ver en portafolio</span>
-                                <span class="text-sm">→</span>
+                        <div class="pt-3.5 border-t border-white/5 flex items-center justify-between text-xs">
+                            <span class="text-[11px] text-white/45 font-mono truncate mr-2">Arquitectura Web · UI · Perf</span>
+                            <a href="{{ route('portfolio') }}" wire:navigate class="inline-flex items-center gap-1 font-semibold text-white group-hover:text-red-accent transition-colors flex-shrink-0">
+                                <span>Ver caso</span>
+                                <span class="text-xs">→</span>
                             </a>
                         </div>
                     </div>
                 </article>
 
-                <!-- Project 4: Lux by LS -->
-                <article class="group relative rounded-3xl overflow-hidden border border-white/10 bg-white/[0.02] backdrop-blur-md transition-all duration-500 hover:border-white/25 hover:-translate-y-1.5 hover:shadow-2xl flex flex-col" data-reveal="up" data-reveal-delay="250">
+                <!-- Project 3: Compulago -->
+                <article class="group relative rounded-2xl sm:rounded-3xl overflow-hidden border border-white/10 bg-white/[0.02] backdrop-blur-md transition-all duration-500 hover:border-white/25 hover:-translate-y-1.5 hover:shadow-2xl flex flex-col h-full" data-reveal="up" data-reveal-delay="300">
                     <div class="relative aspect-[16/10] overflow-hidden bg-zinc-950">
                         <img
-                            src="https://pub-e1e6c45a16d04ab888631d49250d2b1f.r2.dev/Casos-de-Estudio/Sitios-Web/12-LUx.png"
-                            alt="Lux by LS Interiors"
+                            src="{{ asset('img/hero/compulago-ecommerce.jpg') }}"
+                            alt="Compulago E-commerce"
                             class="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
                             loading="lazy"
                         >
                         <div class="absolute inset-0 bg-gradient-to-t from-[#101014] via-transparent to-black/30"></div>
-                        <div class="absolute top-4 left-4 right-4 flex items-center justify-between">
-                            <span class="px-3 py-1 rounded-full text-[10.5px] font-mono font-semibold uppercase tracking-wider bg-black/70 text-white/90 border border-white/15 backdrop-blur-md">
-                                INTERNACIONAL & INTERIORISMO
+                        <div class="absolute top-3 left-3 right-3 flex items-center justify-between gap-1.5">
+                            <span class="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-semibold uppercase tracking-wider bg-black/75 text-emerald-300 border border-emerald-500/30 backdrop-blur-md">
+                                E-COMMERCE & DIGITAL
+                            </span>
+                            <span class="px-2 py-0.5 rounded-full text-[9px] font-mono text-white/70 bg-black/60 border border-white/15 backdrop-blur-md truncate max-w-[120px]">
+                                compulago.net
                             </span>
                         </div>
                     </div>
-                    <div class="p-6 sm:p-8 flex flex-col flex-grow justify-between">
+                    <div class="p-5 sm:p-6 flex flex-col flex-grow justify-between">
                         <div>
-                            <div class="text-xs font-mono uppercase tracking-wider text-red-accent font-semibold mb-2">Diseño Web & Interiorismo</div>
-                            <h3 class="text-2xl font-bold text-white mb-3 group-hover:text-red-accent transition-colors">Lux by LS Interiors</h3>
-                            <p class="text-white/60 text-sm leading-relaxed mb-6">
-                                Sitio web editorial diseñado para posicionar la firma ante clientes de alto perfil, transmitiendo exclusividad, acabados de autor y galerías visuales impecables.
+                            <div class="text-[11px] font-mono uppercase tracking-wider text-red-accent font-semibold mb-2">Retail Tecnológico · E-commerce</div>
+                            <h3 class="text-lg sm:text-xl font-bold text-white mb-2.5 group-hover:text-red-accent transition-colors leading-snug">Compulago</h3>
+                            <p class="text-white/60 text-xs sm:text-[13px] leading-relaxed mb-5">
+                                Plataforma de comercio electrónico de alto rendimiento con catálogo omnicanal, sincronización de stock y pasarela de pago optimizada para conversión en Colombia.
                             </p>
                         </div>
-                        <div class="pt-4 border-t border-white/5 flex items-center justify-between">
-                            <span class="text-xs text-white/45 font-mono">Diseño Editorial · Branding · Web</span>
-                            <a href="{{ route('portfolio') }}" wire:navigate class="inline-flex items-center gap-1.5 text-xs font-semibold text-white group-hover:text-red-accent transition-colors">
-                                <span>Ver en portafolio</span>
-                                <span class="text-sm">→</span>
+                        <div class="pt-3.5 border-t border-white/5 flex items-center justify-between text-xs">
+                            <span class="text-[11px] text-white/45 font-mono truncate mr-2">Desarrollo Web · UI/UX · Checkout</span>
+                            <a href="https://compulago.net" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 font-semibold text-white group-hover:text-red-accent transition-colors flex-shrink-0">
+                                <span>Visitar</span>
+                                <span class="text-xs">↗</span>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Project 4: Lux by LS Interiors (*project usa*) -->
+                <article class="group relative rounded-2xl sm:rounded-3xl overflow-hidden border border-white/10 bg-white/[0.02] backdrop-blur-md transition-all duration-500 hover:border-white/25 hover:-translate-y-1.5 hover:shadow-2xl flex flex-col h-full ring-1 ring-red-accent/20" data-reveal="up" data-reveal-delay="400">
+                    <div class="relative aspect-[16/10] overflow-hidden bg-zinc-950">
+                        <img
+                            src="https://pub-e1e6c45a16d04ab888631d49250d2b1f.r2.dev/Casos-de-Estudio/Sitios-Web/12-LUx.png"
+                            alt="Lux by LS Interiors - Project USA"
+                            class="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                            loading="lazy"
+                        >
+                        <div class="absolute inset-0 bg-gradient-to-t from-[#101014] via-transparent to-black/30"></div>
+                        <div class="absolute top-3 left-3 right-3 flex items-center justify-between gap-1.5">
+                            <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold uppercase tracking-wider bg-red-accent text-white shadow-md border border-white/20 backdrop-blur-md">
+                                ★ PROJECT USA
+                            </span>
+                            <span class="px-2 py-0.5 rounded-full text-[9px] font-mono text-white/80 bg-black/70 border border-white/15 backdrop-blur-md">
+                                INTERIORISMO
+                            </span>
+                        </div>
+                    </div>
+                    <div class="p-5 sm:p-6 flex flex-col flex-grow justify-between">
+                        <div>
+                            <div class="flex items-center justify-between gap-2 mb-2">
+                                <span class="text-[11px] font-mono uppercase tracking-wider text-red-accent font-semibold truncate">Diseño Web & Interiorismo</span>
+                                <span class="px-2 py-0.5 rounded text-[9px] font-mono font-bold uppercase tracking-wider bg-red-accent/15 text-red-accent border border-red-accent/30 flex-shrink-0">*project usa*</span>
+                            </div>
+                            <h3 class="text-lg sm:text-xl font-bold text-white mb-2.5 group-hover:text-red-accent transition-colors leading-snug">Lux by LS Interiors</h3>
+                            <p class="text-white/60 text-xs sm:text-[13px] leading-relaxed mb-5">
+                                Sitio web editorial diseñado para posicionar la firma ante clientes de alto perfil en EE.UU., transmitiendo exclusividad, acabados de autor y galerías visuales impecables.
+                            </p>
+                        </div>
+                        <div class="pt-3.5 border-t border-white/5 flex items-center justify-between text-xs">
+                            <span class="text-[11px] text-white/45 font-mono truncate mr-2">Diseño Editorial · Branding · Web</span>
+                            <a href="{{ route('portfolio') }}" wire:navigate class="inline-flex items-center gap-1 font-semibold text-white group-hover:text-red-accent transition-colors flex-shrink-0">
+                                <span>Ver caso</span>
+                                <span class="text-xs">→</span>
                             </a>
                         </div>
                     </div>
