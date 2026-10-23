@@ -77,7 +77,7 @@ class ContactFormSecurityTest extends TestCase
         ]);
 
         Mail::assertSent(NewLeadReceivedMail::class, function ($mail) {
-            return $mail->hasTo('kostastudioco@gmail.com') && $mail->lead->nombre === 'Carlos Rodriguez';
+            return $mail->hasTo('hola@kostastudio.com') && $mail->lead->nombre === 'Carlos Rodriguez';
         });
     }
 

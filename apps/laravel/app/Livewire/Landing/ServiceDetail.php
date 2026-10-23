@@ -44,8 +44,14 @@ class ServiceDetail extends Component
 
     public function render()
     {
+        $serviceTitle = $this->service['title'] ?? 'Servicio';
+        $serviceDesc = $this->service['subtitle'] ?? ($this->service['desc'] ?? '');
+
         return view('livewire.landing.service-detail', [
             'otherServices' => collect(self::allServices())->except($this->slug)->values(),
-        ])->layout('layouts.landing');
+        ])->layout('layouts.landing', [
+            'title' => $serviceTitle . ' | Kosta Studio',
+            'description' => strip_tags($serviceDesc),
+        ]);
     }
 }

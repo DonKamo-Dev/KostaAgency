@@ -45,8 +45,9 @@
         @media (max-width: 580px) { .form-row { grid-template-columns: 1fr; } }
 
         /* ── Submit button ── */
-        .btn-submit { width: 100%; height: 54px; border-radius: 12px; background: #FFFFFF; border: none; color: #000000; font-size: 15px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: background 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease; box-shadow: 0 4px 20px rgba(255,255,255,0.15); font-family: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, sans-serif; text-decoration: none; }
+        .btn-submit { width: 100%; height: 54px; border-radius: 12px; background: #FFFFFF; border: none; color: #000000; font-size: 15px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: background 0.2s ease, transform 0.15s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease; box-shadow: 0 4px 20px rgba(255,255,255,0.15); font-family: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, sans-serif; text-decoration: none; }
         .btn-submit:hover:not(:disabled) { background: #E4E4E7; transform: translateY(-1px); box-shadow: 0 8px 28px rgba(255,255,255,0.25); }
+        .btn-submit:active:not(:disabled) { transform: scale(0.98); }
         .btn-submit:disabled { opacity: 0.6; cursor: not-allowed; }
         .btn-submit-content { display: inline-flex; align-items: center; justify-content: center; gap: 8px; width: 100%; white-space: nowrap; line-height: 1; }
         .btn-submit-content svg { flex-shrink: 0; display: inline-block; vertical-align: middle; }
@@ -101,7 +102,7 @@
                             </div>
                             <div>
                                 <p class="text-xs text-white/40 font-medium uppercase tracking-wider mb-1">{{ __('landing.contact.email_label') }}</p>
-                                <a href="mailto:kostastudioco@gmail.com" class="text-white font-semibold hover:text-white/80 transition-colors">kostastudioco@gmail.com</a>
+                                <a href="mailto:hola@kostastudio.com" class="text-white font-semibold hover:text-white/80 transition-colors">hola@kostastudio.com</a>
                             </div>
                         </div>
 

@@ -100,6 +100,9 @@ class Contact extends Component
     public function render()
     {
         return view('livewire.landing.contact')
-            ->layout('layouts.landing');
+            ->layout('layouts.landing', [
+                'title' => __('landing.contact.seo_title') ?? 'Hablemos de tu proyecto | Kosta Studio',
+                'description' => __('landing.contact.seo_description') ?? 'Contáctanos para desarrollar tu sitio web, producción audiovisual o identidad de marca. Te responderemos en menos de 24 horas.',
+            ]);
     }
 }

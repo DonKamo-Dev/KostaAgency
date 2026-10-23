@@ -391,5 +391,10 @@
         <div id="main" class="min-h-screen flex flex-col justify-start items-center relative z-10 px-4 sm:px-6 pt-20 pb-12">
             {{ $slot }}
         </div>
+
+        {{-- Global Thinking Orb HUD --}}
+        <div id="global-thinking-hud" class="global-thinking-hud">
+            <thinking-orb state="working" size="20" label="{{ __('landing.nav.hud_processing') ?? 'Procesando...' }}" pill></thinking-orb>
+        </div>
     </body>
 </html>

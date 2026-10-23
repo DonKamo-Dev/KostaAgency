@@ -12,6 +12,9 @@ class Portfolio extends Component
         $estudios = $caseStudies->active();
 
         return view('livewire.landing.portfolio', compact('estudios'))
-            ->layout('layouts.landing');
+            ->layout('layouts.landing', [
+                'title' => __('landing.portfolio.seo_title') ?? 'Proyectos de web, contenido y marca | Kosta Studio',
+                'description' => __('landing.portfolio.seo_description') ?? 'Explora proyectos de Kosta Studio y conoce el contexto, nuestra participación y las entregas de cada trabajo.',
+            ]);
     }
 }

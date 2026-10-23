@@ -889,7 +889,7 @@
                 <div class="text-center">
                     <div class="stats-number"
                          data-counter
-                         data-target="20"
+                         data-target="50"
                          data-prefix="+"
                          data-suffix=""
                          aria-label="{{ __('landing.stats.delivered_projects') }} {{ __('landing.stats.delivered_projects_label') }}">
@@ -903,7 +903,7 @@
                 <div class="text-center">
                     <div class="stats-number"
                          data-counter
-                         data-target="95"
+                         data-target="98"
                          data-prefix="+"
                          data-suffix="%"
                          aria-label="{{ __('landing.stats.satisfied_rate') }} {{ __('landing.stats.satisfied_rate_label') }}">
@@ -977,6 +977,38 @@
                         <div class="text-[11px] font-mono uppercase tracking-wider text-red-400 font-semibold">Full-Stack Studio</div>
                         <div class="text-xs text-white/85 font-medium">Web · E-commerce · Films · Growth</div>
                     </div>
+                </div>
+            </div>
+
+            <!-- 4 Disciplines Overview Bar (Pág. 04 Guía Visual) -->
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-10 sm:mb-12" data-reveal="up">
+                <div class="p-4 rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur transition-all duration-300 hover:border-white/20 hover:bg-white/[0.05]">
+                    <div class="flex items-center gap-2 mb-1.5">
+                        <span class="w-2 h-2 rounded-full bg-white"></span>
+                        <span class="text-xs font-mono font-bold uppercase tracking-wider text-white">Digital</span>
+                    </div>
+                    <p class="text-xs text-white/50 leading-relaxed">Web · E-commerce · Sistemas</p>
+                </div>
+                <div class="p-4 rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur transition-all duration-300 hover:border-white/20 hover:bg-white/[0.05]">
+                    <div class="flex items-center gap-2 mb-1.5">
+                        <span class="w-2 h-2 rounded-full bg-white"></span>
+                        <span class="text-xs font-mono font-bold uppercase tracking-wider text-white">Films</span>
+                    </div>
+                    <p class="text-xs text-white/50 leading-relaxed">Video · Reels · Fotografía</p>
+                </div>
+                <div class="p-4 rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur transition-all duration-300 hover:border-white/20 hover:bg-white/[0.05]">
+                    <div class="flex items-center gap-2 mb-1.5">
+                        <span class="w-2 h-2 rounded-full bg-white"></span>
+                        <span class="text-xs font-mono font-bold uppercase tracking-wider text-white">Estrategia</span>
+                    </div>
+                    <p class="text-xs text-white/50 leading-relaxed">Plan digital · Pauta · Medición</p>
+                </div>
+                <div class="p-4 rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur transition-all duration-300 hover:border-white/20 hover:bg-white/[0.05]">
+                    <div class="flex items-center gap-2 mb-1.5">
+                        <span class="w-2 h-2 rounded-full bg-white"></span>
+                        <span class="text-xs font-mono font-bold uppercase tracking-wider text-white">Brand</span>
+                    </div>
+                    <p class="text-xs text-white/50 leading-relaxed">Identidad · Diseño</p>
                 </div>
             </div>
 
@@ -1187,6 +1219,59 @@
         </div>
     </section>
 
+    <!-- TEAM SECTION (Pág. 07 Guía Visual) -->
+    <section id="equipo" class="relative section-spacing overflow-hidden border-t border-white/5" aria-labelledby="team-heading">
+        <div class="relative z-10 max-w-7xl mx-auto container-pad">
+            <div class="text-center mb-12 sm:mb-16 max-w-3xl mx-auto" data-reveal="up">
+                <span class="eyebrow">Equipo Kosta</span>
+                <h2 id="team-heading" class="font-display text-white mb-4">
+                    El equipo detrás de <span class="text-red-accent">tu proyecto</span>
+                </h2>
+                <p class="text-white/60 text-base sm:text-xl leading-relaxed">
+                    Conoce a las personas que conectan estrategia, diseño, desarrollo y producción audiovisual en Kosta.
+                </p>
+            </div>
+
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 max-w-5xl mx-auto">
+                <!-- Member 1 -->
+                <div class="p-6 sm:p-7 rounded-2xl border border-white/10 bg-white/[0.02] backdrop-blur flex flex-col items-center text-center transition-all duration-300 hover:border-white/20 hover:-translate-y-1 hover:shadow-2xl" data-reveal="up" data-reveal-delay="100">
+                    <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden border-2 border-white/20 mb-5 relative bg-zinc-800 shadow-xl">
+                        <img src="{{ asset('img/kamo.png') }}" alt="Yohan Blanco" class="w-full h-full object-cover grayscale contrast-125 hover:grayscale-0 transition-all duration-500" onerror="this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80'">
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-1">Yohan Blanco</h3>
+                    <div class="text-xs font-mono uppercase tracking-wider text-red-accent font-semibold mb-3">Dirección Estratégica & Tech</div>
+                    <p class="text-xs sm:text-sm text-white/55 leading-relaxed">
+                        Arquitectura de software, sistemas web de alto rendimiento y alineación del roadmap técnico de tu negocio.
+                    </p>
+                </div>
+
+                <!-- Member 2 -->
+                <div class="p-6 sm:p-7 rounded-2xl border border-white/10 bg-white/[0.02] backdrop-blur flex flex-col items-center text-center transition-all duration-300 hover:border-white/20 hover:-translate-y-1 hover:shadow-2xl" data-reveal="up" data-reveal-delay="200">
+                    <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden border-2 border-white/20 mb-5 relative bg-zinc-800 shadow-xl">
+                        <img src="{{ asset('img/hero/kosta-film-still.jpg') }}" alt="Dirección Audiovisual" class="w-full h-full object-cover grayscale contrast-125 hover:grayscale-0 transition-all duration-500">
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-1">Dirección Creativa & Films</h3>
+                    <div class="text-xs font-mono uppercase tracking-wider text-red-accent font-semibold mb-3">Producción & Storytelling</div>
+                    <p class="text-xs sm:text-sm text-white/55 leading-relaxed">
+                        Cine publicitario, narrativa visual, reels de alto impacto y dirección de arte con calidad cinematográfica.
+                    </p>
+                </div>
+
+                <!-- Member 3 -->
+                <div class="p-6 sm:p-7 rounded-2xl border border-white/10 bg-white/[0.02] backdrop-blur flex flex-col items-center text-center transition-all duration-300 hover:border-white/20 hover:-translate-y-1 hover:shadow-2xl sm:col-span-2 lg:col-span-1 max-w-sm sm:max-w-none mx-auto w-full" data-reveal="up" data-reveal-delay="300">
+                    <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden border-2 border-white/20 mb-5 relative bg-zinc-800 shadow-xl">
+                        <img src="{{ asset('img/hero/classy-cartagena.png') }}" alt="Diseño & UI/UX" class="w-full h-full object-cover grayscale contrast-125 hover:grayscale-0 transition-all duration-500">
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-1">Diseño de Marca & UI</h3>
+                    <div class="text-xs font-mono uppercase tracking-wider text-red-accent font-semibold mb-3">Identidad & Experiencia</div>
+                    <p class="text-xs sm:text-sm text-white/55 leading-relaxed">
+                        Sistemas de diseño, identidades visuales memorables e interfaces intuitivas que transmiten estatus y confianza.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- TESTIMONIALS -->
     <section id="testimonios" class="relative section-spacing overflow-hidden">
         <!-- Atmospheric Background Image -->
@@ -1250,6 +1335,12 @@
                                 <div class="text-xs text-white/50">{{ $t['role'] }}</div>
                             </div>
                         </figcaption>
+                        <div class="mt-3 pt-3 border-t border-white/5">
+                            <a href="{{ route('portfolio') }}" class="inline-flex items-center gap-1.5 text-xs font-semibold text-white/70 hover:text-white transition-colors">
+                                <span>Conocer el proyecto</span>
+                                <svg class="w-3.5 h-3.5 text-red-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                            </a>
+                        </div>
                     </figure>
                 @endforeach
             </div>

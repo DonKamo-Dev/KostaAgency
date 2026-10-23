@@ -20,7 +20,7 @@ class LeadNotificationService
         $meta['notifications'] = [];
 
         // 1. Notificación por Correo Electrónico
-        $recipientEmail = config('services.kosta.lead_notification_email', 'kostastudioco@gmail.com');
+        $recipientEmail = config('services.kosta.lead_notification_email', 'hola@kostastudio.com');
         try {
             Mail::to($recipientEmail)->send(new NewLeadReceivedMail($lead));
             $meta['notifications']['email'] = [

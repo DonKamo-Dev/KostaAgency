@@ -3,8 +3,9 @@
 
         /* ── Filter tabs ── */
         .filter-tabs { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; margin-bottom: 56px; }
-        .filter-btn { padding: 9px 22px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.04); color: rgba(255,255,255,0.55); font-size: 14px; font-weight: 500; cursor: pointer; transition: all 0.2s ease; font-family: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, sans-serif; }
+        .filter-btn { padding: 9px 22px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.04); color: rgba(255,255,255,0.55); font-size: 14px; font-weight: 500; cursor: pointer; transition: all 0.2s cubic-bezier(0.16,1,0.3,1); font-family: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, sans-serif; }
         .filter-btn:hover { border-color: rgba(255,255,255,0.2); color: rgba(255,255,255,0.85); background: rgba(255,255,255,0.07); }
+        .filter-btn:active { transform: scale(0.96); }
         .filter-btn.active { background: var(--accent-red); border-color: var(--accent-red); color: #0A0A0A; font-weight: 700; }
         .filter-btn:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
 
@@ -105,8 +106,9 @@
         .project-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 16px; }
         .project-tag { padding: 3px 8px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); border-radius: 6px; font-size: 10.5px; color: rgba(255,255,255,0.5); font-weight: 500; }
         .project-actions { display: flex; flex-direction: column; gap: 8px; margin-top: auto; }
-        .project-link { min-height: 38px; width: 100%; display: inline-flex; align-items: center; justify-content: center; gap: 7px; padding: 0 12px; border-radius: 999px; font-size: 12px; font-weight: 700; color: rgba(255,255,255,0.78); text-decoration: none; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.04); transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease, transform 0.2s ease; }
+        .project-link { min-height: 38px; width: 100%; display: inline-flex; align-items: center; justify-content: center; gap: 7px; padding: 0 12px; border-radius: 999px; font-size: 12px; font-weight: 700; color: rgba(255,255,255,0.78); text-decoration: none; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.04); transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease, transform 0.15s cubic-bezier(0.16,1,0.3,1); }
         .project-link:hover { color: #fff; border-color: rgba(230,57,70,0.34); background: rgba(230,57,70,0.12); transform: translateY(-1px); }
+        .project-link:active { transform: scale(0.98); }
         .project-link.visit { color: #09090B; background: #FFFFFF; border-color: #FFFFFF; box-shadow: 0 4px 16px rgba(255, 255, 255, 0.15); }
         .project-link.visit:hover { color: #000000; background: #E4E4E7; border-color: #E4E4E7; }
         .project-link svg { width: 13px; height: 13px; flex-shrink: 0; transition: transform 0.2s ease; }
@@ -521,7 +523,8 @@
 
             <!-- Filter tabs -->
             <div class="filter-tabs animate-fadeInUp delay-300">
-                <button class="filter-btn active" data-filter="web" aria-pressed="true">{{ __('landing.portfolio.filters.web') }}</button>
+                <button class="filter-btn active" data-filter="all" aria-pressed="true">{{ __('landing.portfolio.filters.all') }}</button>
+                <button class="filter-btn" data-filter="web" aria-pressed="false">{{ __('landing.portfolio.filters.web') }}</button>
                 <button class="filter-btn" data-filter="ecommerce" aria-pressed="false">{{ __('landing.portfolio.filters.ecommerce') }}</button>
                 <button class="filter-btn" data-filter="sistema" aria-pressed="false">{{ __('landing.portfolio.filters.sistema') }}</button>
                 <button class="filter-btn" data-filter="films" aria-pressed="false">{{ __('landing.portfolio.filters.films') }}</button>
@@ -740,6 +743,21 @@
                                     </div>
                                 @endif
                                 <div class="project-actions">
+                                    @if($estudio->image_url)
+                                        <button type="button"
+                                                class="project-link"
+                                                data-case-preview
+                                                data-image="{{ $estudio->image_url }}"
+                                                data-title="{{ $estudio->titulo }}"
+                                                data-url="{{ $estudio->public_url ?? '' }}"
+                                                aria-label="Conocer el proyecto {{ $estudio->titulo }}">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" style="width: 13px; height: 13px;" aria-hidden="true">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                                            </svg>
+                                            {{ __('landing.portfolio.action_know_project') }}
+                                        </button>
+                                    @endif
                                     @if($estudio->public_url)
                                         <a href="{{ $estudio->public_url }}" target="_blank" rel="noopener noreferrer" class="project-link visit">
                                             {{ $estudio->categoria === 'sistema' ? __('landing.portfolio.action_visit_system') : __('landing.portfolio.action_visit_web') }}
