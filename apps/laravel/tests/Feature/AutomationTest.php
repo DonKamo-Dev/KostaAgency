@@ -2,12 +2,12 @@
 
 namespace Tests\Feature;
 
-use App\Mail\LeadConfirmationMail;
-use App\Mail\NewLeadReceivedMail;
 use App\Models\Lead;
 use App\Models\Setting;
 use App\Models\User;
 use App\Services\LeadNotificationService;
+use App\Services\MetaWhatsAppService;
+use App\Services\ResendEmailService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
@@ -31,11 +31,11 @@ class AutomationTest extends TestCase
 
         $response->assertOk();
         $response->assertSee('Automatizaciones');
-        $response->assertSee('Notificación a tu Bandeja de Correo');
-        $response->assertSee('Alerta Instantánea a WhatsApp');
+        $response->assertSee('Resend');
+        $response->assertSee('Meta Business');
     }
 
-    public function test_user_can_update_automation_settings(): void
+    public function test_user_can_update_resend_and_meta_settings(): void
     {
         $user = User::factory()->create();
 
@@ -44,69 +44,96 @@ class AutomationTest extends TestCase
             'automation_email_recipient' => 'notificaciones@kostastudio.com',
             'automation_email_cc' => 'socio@kostastudio.com',
             'automation_auto_responder_enabled' => 1,
+            'resend_api_key' => 're_test_key_12345',
+            'resend_from_email' => 'hola@kostastudio.com',
+            'resend_from_name' => 'Kosta Studio',
             'automation_whatsapp_enabled' => 1,
             'automation_whatsapp_number' => '+57 311 389 4136',
-            'automation_whatsapp_webhook_url' => 'https://hook.make.com/custom-webhook',
-            'automation_whatsapp_webhook_token' => 'token123',
+            'whatsapp_meta_phone_number_id' => '105934529384729',
+            'whatsapp_meta_access_token' => 'EAAGm0PX4ZCBO_test_token',
+            'whatsapp_meta_business_account_id' => 'waba_999999',
         ]);
 
         $response->assertRedirect(route('automations.index'));
         $response->assertSessionHas('status');
 
         $this->assertEquals('notificaciones@kostastudio.com', Setting::get('automation_email_recipient'));
-        $this->assertEquals('socio@kostastudio.com', Setting::get('automation_email_cc'));
+        $this->assertEquals('re_test_key_12345', Setting::get('resend_api_key'));
+        $this->assertEquals('hola@kostastudio.com', Setting::get('resend_from_email'));
         $this->assertEquals('573113894136', Setting::get('automation_whatsapp_number'));
-        $this->assertEquals('https://hook.make.com/custom-webhook', Setting::get('automation_whatsapp_webhook_url'));
-        $this->assertEquals('token123', Setting::get('automation_whatsapp_webhook_token'));
+        $this->assertEquals('105934529384729', Setting::get('whatsapp_meta_phone_number_id'));
+        $this->assertEquals('EAAGm0PX4ZCBO_test_token', Setting::get('whatsapp_meta_access_token'));
     }
 
-    public function test_user_can_dispatch_test_email(): void
-    {
-        Mail::fake();
-
-        $user = User::factory()->create();
-        Setting::set('automation_email_recipient', 'test@kostastudio.com');
-
-        $response = $this->actingAs($user)->post(route('automations.test-email'));
-
-        $response->assertRedirect(route('automations.index'));
-        $response->assertSessionHas('status');
-
-        Mail::assertSent(NewLeadReceivedMail::class, function ($mail) {
-            return $mail->hasTo('test@kostastudio.com');
-        });
-    }
-
-    public function test_user_can_test_whatsapp_webhook(): void
+    public function test_resend_email_service_dispatches_http_call_when_api_key_present(): void
     {
         Http::fake([
-            'https://hook.make.com/*' => Http::response(['success' => true], 200),
+            'https://api.resend.com/emails' => Http::response(['id' => 're_msg_123456'], 200),
         ]);
 
-        $user = User::factory()->create();
-        Setting::set('automation_whatsapp_webhook_url', 'https://hook.make.com/test-endpoint');
-        Setting::set('automation_whatsapp_number', '573113894136');
+        Setting::set('resend_api_key', 're_valid_key');
+        Setting::set('resend_from_email', 'hola@kostastudio.com');
 
-        $response = $this->actingAs($user)->post(route('automations.test-whatsapp'));
+        $result = ResendEmailService::send(
+            to: 'yohan@kostastudio.com',
+            subject: 'Test Subject',
+            htmlContent: '<p>Hola</p>'
+        );
 
-        $response->assertRedirect(route('automations.index'));
-        $response->assertSessionHas('status');
+        $this->assertTrue($result['success']);
+        $this->assertEquals('re_msg_123456', $result['id']);
 
         Http::assertSent(function ($request) {
-            return str_contains($request->url(), 'hook.make.com')
-                && $request['event'] === 'automation.test'
-                && isset($request['whatsapp']['recipient']);
+            return $request->url() === 'https://api.resend.com/emails'
+                && $request->hasHeader('Authorization', 'Bearer re_valid_key')
+                && $request['subject'] === 'Test Subject';
         });
     }
 
-    public function test_lead_creation_notifies_configured_email_and_client_auto_responder(): void
+    public function test_meta_whatsapp_service_dispatches_http_call(): void
     {
-        Mail::fake();
+        Http::fake([
+            'https://graph.facebook.com/v21.0/105934529384729/messages' => Http::response([
+                'messaging_product' => 'whatsapp',
+                'contacts' => [['input' => '573113894136', 'wa_id' => '573113894136']],
+                'messages' => [['id' => 'wamid.HBgTEST123456']],
+            ], 200),
+        ]);
+
+        Setting::set('whatsapp_meta_phone_number_id', '105934529384729');
+        Setting::set('whatsapp_meta_access_token', 'EAAGm0_TEST_TOKEN');
+
+        $result = MetaWhatsAppService::sendMessage('573113894136', 'Alerta de prueba');
+
+        $this->assertTrue($result['success']);
+        $this->assertEquals('wamid.HBgTEST123456', $result['message_id']);
+
+        Http::assertSent(function ($request) {
+            return str_contains($request->url(), '105934529384729/messages')
+                && $request->hasHeader('Authorization', 'Bearer EAAGm0_TEST_TOKEN')
+                && $request['to'] === '573113894136'
+                && $request['text']['body'] === 'Alerta de prueba';
+        });
+    }
+
+    public function test_lead_creation_triggers_resend_and_meta_cloud_api(): void
+    {
+        Http::fake([
+            'https://api.resend.com/emails' => Http::response(['id' => 're_msg_success'], 200),
+            'https://graph.facebook.com/v21.0/105934529384729/messages' => Http::response([
+                'messages' => [['id' => 'wamid.HBgLEAD_ALERT']],
+            ], 200),
+        ]);
 
         Setting::set('automation_email_enabled', '1');
         Setting::set('automation_email_recipient', 'direccion@kostastudio.com');
-        Setting::set('automation_email_cc', 'operaciones@kostastudio.com');
+        Setting::set('resend_api_key', 're_valid_api_key');
         Setting::set('automation_auto_responder_enabled', '1');
+
+        Setting::set('automation_whatsapp_enabled', '1');
+        Setting::set('automation_whatsapp_number', '573113894136');
+        Setting::set('whatsapp_meta_phone_number_id', '105934529384729');
+        Setting::set('whatsapp_meta_access_token', 'EAAGm0_TEST_TOKEN');
 
         $lead = Lead::create([
             'nombre' => 'Mateo Gómez',
@@ -118,21 +145,10 @@ class AutomationTest extends TestCase
 
         LeadNotificationService::notify($lead);
 
-        // 1. Notificación al estudio
-        Mail::assertSent(NewLeadReceivedMail::class, function ($mail) {
-            return $mail->hasTo('direccion@kostastudio.com')
-                && $mail->hasCc('operaciones@kostastudio.com');
-        });
-
-        // 2. Auto-responder al cliente
-        Mail::assertSent(LeadConfirmationMail::class, function ($mail) {
-            return $mail->hasTo('mateo@startup.co');
-        });
-
-        // 3. Metadatos de notificación en el lead
         $lead->refresh();
         $this->assertEquals('sent', $lead->metadata['notifications']['email']['status']);
-        $this->assertEquals('sent', $lead->metadata['notifications']['auto_responder']['status']);
-        $this->assertEquals('573113894136', $lead->metadata['notifications']['whatsapp']['target_phone']);
+        $this->assertEquals('re_msg_success', $lead->metadata['notifications']['email']['resend_id']);
+        $this->assertEquals('sent_meta_cloud', $lead->metadata['notifications']['whatsapp']['status']);
+        $this->assertEquals('wamid.HBgLEAD_ALERT', $lead->metadata['notifications']['whatsapp']['meta_cloud']['message_id']);
     }
 }

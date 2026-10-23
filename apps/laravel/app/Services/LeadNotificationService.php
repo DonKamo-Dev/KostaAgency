@@ -8,7 +8,6 @@ use App\Models\Lead;
 use App\Models\Setting;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Mail;
 use Throwable;
 
 class LeadNotificationService
@@ -21,32 +20,43 @@ class LeadNotificationService
         $meta = $lead->metadata ?? [];
         $meta['notifications'] = [];
 
-        // 1. Notificación por Correo Electrónico al Estudio
+        // ── 1. Notificación por Correo Electrónico con Resend / Mailer ───────
         $emailEnabled = (string) Setting::get('automation_email_enabled', '1') === '1';
         $recipientEmail = Setting::get('automation_email_recipient', config('services.kosta.lead_notification_email', 'hola@kostastudio.com'));
         $ccEmailsRaw = Setting::get('automation_email_cc', '');
+        $ccList = filled($ccEmailsRaw) ? array_filter(array_map('trim', explode(',', (string) $ccEmailsRaw))) : [];
 
         if ($emailEnabled && filled($recipientEmail)) {
             try {
-                $mailable = new NewLeadReceivedMail($lead);
-                $pendingMail = Mail::to($recipientEmail);
+                $subject = sprintf(
+                    '🚀 Nuevo Lead: %s (%s) — KOSTA Studio',
+                    $lead->nombre,
+                    $lead->servicio ?: 'Consulta general'
+                );
 
-                if (filled($ccEmailsRaw)) {
-                    $ccList = array_filter(array_map('trim', explode(',', (string) $ccEmailsRaw)));
-                    if (! empty($ccList)) {
-                        $pendingMail->cc($ccList);
-                    }
-                }
+                $htmlContent = view('emails.new-lead', ['lead' => $lead])->render();
+                $fallbackMailable = new NewLeadReceivedMail($lead);
 
-                $pendingMail->send($mailable);
+                $result = ResendEmailService::send(
+                    to: $recipientEmail,
+                    subject: $subject,
+                    htmlContent: $htmlContent,
+                    replyTo: $lead->email,
+                    cc: $ccList,
+                    fallbackMailable: $fallbackMailable
+                );
 
                 $meta['notifications']['email'] = [
-                    'status' => 'sent',
+                    'status' => $result['success'] ? 'sent' : 'failed',
+                    'provider' => filled(Setting::get('resend_api_key', env('RESEND_API_KEY'))) ? 'resend_api' : 'laravel_mailer',
+                    'resend_id' => $result['id'] ?? null,
                     'recipient' => $recipientEmail,
                     'cc' => $ccEmailsRaw ?: null,
+                    'error' => $result['error'] ?? null,
                     'sent_at' => now()->toIso8601String(),
                 ];
-                Log::info("Lead notification email dispatched to {$recipientEmail} for lead #{$lead->id}");
+
+                Log::info("Lead notification email processed for lead #{$lead->id} (Status: {$result['status']})");
             } catch (Throwable $e) {
                 $meta['notifications']['email'] = [
                     'status' => 'failed',
@@ -59,21 +69,35 @@ class LeadNotificationService
         } else {
             $meta['notifications']['email'] = [
                 'status' => 'disabled',
-                'reason' => 'Email notifications are disabled or recipient is empty',
+                'reason' => 'Email notifications disabled or recipient empty',
             ];
         }
 
-        // 2. Respuesta Automática al Cliente (Auto-responder)
+        // ── 2. Respuesta Automática al Cliente (Auto-responder) ───────────────
         $autoResponderEnabled = (string) Setting::get('automation_auto_responder_enabled', '1') === '1';
         if ($autoResponderEnabled && filled($lead->email)) {
             try {
-                Mail::to($lead->email)->send(new LeadConfirmationMail($lead));
+                $autoSubject = '¡Hemos recibido tu mensaje! — Kosta Studio & Films';
+                $autoHtml = view('emails.lead-confirmation', ['lead' => $lead])->render();
+                $autoFallback = new LeadConfirmationMail($lead);
+
+                $autoResult = ResendEmailService::send(
+                    to: $lead->email,
+                    subject: $autoSubject,
+                    htmlContent: $autoHtml,
+                    replyTo: $recipientEmail,
+                    cc: [],
+                    fallbackMailable: $autoFallback
+                );
+
                 $meta['notifications']['auto_responder'] = [
-                    'status' => 'sent',
+                    'status' => $autoResult['success'] ? 'sent' : 'failed',
+                    'resend_id' => $autoResult['id'] ?? null,
                     'recipient' => $lead->email,
+                    'error' => $autoResult['error'] ?? null,
                     'sent_at' => now()->toIso8601String(),
                 ];
-                Log::info("Lead auto-responder email dispatched to client {$lead->email}");
+                Log::info("Lead auto-responder email processed for {$lead->email}");
             } catch (Throwable $e) {
                 $meta['notifications']['auto_responder'] = [
                     'status' => 'failed',
@@ -85,7 +109,7 @@ class LeadNotificationService
             }
         }
 
-        // 3. Notificación y Alerta de WhatsApp
+        // ── 3. Alertas de WhatsApp (Meta Cloud API & Webhook / Link) ─────────
         $whatsappEnabled = (string) Setting::get('automation_whatsapp_enabled', '1') === '1';
         $kostaWhatsApp = Setting::get('automation_whatsapp_number', config('services.kosta.whatsapp_number', '573113894136'));
         $waMessage = self::formatWhatsAppMessage($lead);
@@ -94,44 +118,61 @@ class LeadNotificationService
         $meta['notifications']['whatsapp'] = [
             'enabled' => $whatsappEnabled,
             'target_phone' => $kostaWhatsApp,
-            'message_preview' => $waMessage,
             'direct_alert_url' => $waAlertLink,
             'prepared_at' => now()->toIso8601String(),
             'status' => $whatsappEnabled ? 'prepared' : 'disabled',
         ];
 
-        // Si hay webhook configurado para automatización externa (Make, Zapier, n8n, Evolution API, Meta Cloud)
-        $webhookUrl = Setting::get('automation_whatsapp_webhook_url', config('services.kosta.whatsapp_webhook_url'));
-        $webhookToken = Setting::get('automation_whatsapp_webhook_token');
+        if ($whatsappEnabled) {
+            // A. Envío automático vía Meta WhatsApp Cloud API (Meta Business Developer)
+            $metaPhoneId = Setting::get('whatsapp_meta_phone_number_id', env('WHATSAPP_PHONE_NUMBER_ID'));
+            $metaToken = Setting::get('whatsapp_meta_access_token', env('WHATSAPP_ACCESS_TOKEN'));
 
-        if ($whatsappEnabled && filled($webhookUrl)) {
-            try {
-                $client = Http::timeout(6);
-                if (filled($webhookToken)) {
-                    $client = $client->withToken($webhookToken);
+            if (filled($metaPhoneId) && filled($metaToken)) {
+                $metaResult = MetaWhatsAppService::sendMessage($kostaWhatsApp, $waMessage);
+                $meta['notifications']['whatsapp']['meta_cloud'] = [
+                    'status' => $metaResult['status'],
+                    'message_id' => $metaResult['message_id'],
+                    'error' => $metaResult['error'],
+                ];
+                if ($metaResult['success']) {
+                    $meta['notifications']['whatsapp']['status'] = 'sent_meta_cloud';
                 }
+            }
 
-                $response = $client->post($webhookUrl, [
-                    'event' => 'lead.created',
-                    'lead' => $lead->toArray(),
-                    'whatsapp' => [
-                        'recipient' => $kostaWhatsApp,
-                        'message' => $waMessage,
-                        'direct_url' => $waAlertLink,
-                    ],
-                ]);
+            // B. Envío vía Webhook adicional (Make, Zapier, n8n, etc.) si está configurado
+            $webhookUrl = Setting::get('automation_whatsapp_webhook_url', config('services.kosta.whatsapp_webhook_url'));
+            $webhookToken = Setting::get('automation_whatsapp_webhook_token');
 
-                $meta['notifications']['whatsapp']['webhook_status'] = $response->successful() ? 'dispatched' : 'error';
-                $meta['notifications']['whatsapp']['webhook_code'] = $response->status();
-                $meta['notifications']['whatsapp']['status'] = $response->successful() ? 'sent' : 'webhook_failed';
-            } catch (Throwable $e) {
-                $meta['notifications']['whatsapp']['webhook_status'] = 'failed';
-                $meta['notifications']['whatsapp']['webhook_error'] = $e->getMessage();
-                Log::warning('WhatsApp webhook notification failed: '.$e->getMessage());
+            if (filled($webhookUrl)) {
+                try {
+                    $client = Http::timeout(6);
+                    if (filled($webhookToken)) {
+                        $client = $client->withToken($webhookToken);
+                    }
+
+                    $response = $client->post($webhookUrl, [
+                        'event' => 'lead.created',
+                        'lead' => $lead->toArray(),
+                        'whatsapp' => [
+                            'recipient' => $kostaWhatsApp,
+                            'message' => $waMessage,
+                            'direct_url' => $waAlertLink,
+                        ],
+                    ]);
+
+                    $meta['notifications']['whatsapp']['webhook_status'] = $response->successful() ? 'dispatched' : 'error';
+                    $meta['notifications']['whatsapp']['webhook_code'] = $response->status();
+                    if ($response->successful() && $meta['notifications']['whatsapp']['status'] !== 'sent_meta_cloud') {
+                        $meta['notifications']['whatsapp']['status'] = 'sent_webhook';
+                    }
+                } catch (Throwable $e) {
+                    $meta['notifications']['whatsapp']['webhook_status'] = 'failed';
+                    $meta['notifications']['whatsapp']['webhook_error'] = $e->getMessage();
+                    Log::warning('WhatsApp webhook notification failed: '.$e->getMessage());
+                }
             }
         }
-
-        Log::info("WhatsApp lead alert prepared for {$kostaWhatsApp}: {$waAlertLink}");
 
         $lead->updateQuietly([
             'metadata' => $meta,
