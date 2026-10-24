@@ -32,7 +32,7 @@
         <div x-show="!loadingModal">
             <!-- Cliente + Fechas -->
             <div class="modal-body" style="padding-bottom:0;">
-                <div class="form-grid-2" style="margin-bottom:18px;">
+                <div class="form-grid-2 doc-meta-grid" style="margin-bottom:18px;">
                     <div class="form-group" style="margin-bottom:0;">
                         <label class="form-label">Cliente <span class="required">*</span></label>
                         <select x-model="form.client_id" class="form-select" :disabled="readOnly">
@@ -43,7 +43,7 @@
                         </select>
                         <span x-show="errors.client_id" x-text="errors.client_id" class="form-error"></span>
                     </div>
-                    <div class="form-grid-2" style="margin-bottom:0;">
+                    <div class="form-grid-2 doc-dates-grid" style="margin-bottom:0;">
                         <div class="form-group" style="margin-bottom:0;">
                             <label class="form-label">Fecha <span class="required">*</span></label>
                             <input type="date" x-model="form.date" class="form-input" style="color-scheme:dark;" :disabled="readOnly"/>
@@ -60,7 +60,7 @@
             <div class="modal-body" style="padding-top:0;padding-bottom:0;">
                 <div class="doc-items-box">
                     <div class="doc-items-table-header">
-                        <span></span>
+                        <span style="text-align:center;">#</span>
                         <span>Servicio</span>
                         <span style="text-align:center;">Cant.</span>
                         <span style="text-align:right;">P. Unit.</span>
@@ -74,7 +74,7 @@
                                 <div class="doc-item-row-header-mobile">
                                     <span class="doc-item-badge" x-text="'Ítem #' + (i + 1)"></span>
                                     <button type="button" x-show="form.items.length > 1 && !readOnly"
-                                            @click="removeItem(i)" class="action-btn danger" style="width:28px;height:28px;" title="Eliminar ítem">
+                                            @click="removeItem(i)" class="action-btn danger" title="Eliminar ítem">
                                         <svg style="width:14px;height:14px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
                                     </button>
                                 </div>
@@ -104,11 +104,11 @@
                                 <!-- Inputs: Cantidad & Precio (Responsive) -->
                                 <div class="doc-item-inputs-mobile">
                                     <div>
-                                        <label class="form-label" style="display:none;font-size:11px;margin-bottom:3px;color:var(--text-muted);">Cantidad</label>
+                                        <label class="form-label doc-item-label-mobile">Cantidad</label>
                                         <input type="number" step="0.01" min="0.01" x-model="item.quantity" @input="calcRow(i)" :disabled="readOnly" class="form-input numeric-input" style="font-size:13px;padding:9px 10px;text-align:center;" placeholder="1"/>
                                     </div>
                                     <div>
-                                        <label class="form-label" style="display:none;font-size:11px;margin-bottom:3px;color:var(--text-muted);">P. Unitario</label>
+                                        <label class="form-label doc-item-label-mobile">P. Unitario</label>
                                         <input type="number" step="0.01" min="0" x-model="item.unit_price" @input="calcRow(i)" :disabled="readOnly" class="form-input money-input" style="font-size:13px;padding:9px 10px;text-align:right;" placeholder="0"/>
                                     </div>
                                 </div>

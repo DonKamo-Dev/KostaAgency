@@ -4,7 +4,7 @@
     form, readOnly, clients, errors, filteredServices(), pickService(), calcRow(),
     addItem(), removeItem(), grandTotal
 --}}
-<div class="form-grid-2" style="margin-bottom:18px;">
+<div class="form-grid-2 doc-meta-grid" style="margin-bottom:18px;">
     <div class="form-group" style="margin-bottom:0;">
         <label class="form-label">Cliente <span class="required">*</span></label>
         <div style="display:flex;gap:8px;">
@@ -23,7 +23,7 @@
         </div>
         <span x-show="errors.client_id" x-text="errors.client_id" class="form-error"></span>
     </div>
-    <div class="form-grid-2" style="margin-bottom:0;">
+    <div class="form-grid-2 doc-dates-grid" style="margin-bottom:0;">
         <div class="form-group" style="margin-bottom:0;">
             <label class="form-label">Fecha <span class="required">*</span></label>
             <input type="date" x-model="form.date" class="form-input" style="color-scheme:dark;" :disabled="readOnly"/>
@@ -38,7 +38,7 @@
 
 <div class="doc-items-box">
     <div class="doc-items-table-header">
-        <span></span>
+        <span style="text-align:center;">#</span>
         <span>Servicio</span>
         <span style="text-align:center;">Cant.</span>
         <span style="text-align:right;">P. Unit.</span>
@@ -53,7 +53,7 @@
                 <div class="doc-item-row-header-mobile">
                     <span class="doc-item-badge" x-text="'Ítem #' + (i + 1)"></span>
                     <button type="button" x-show="form.items.length > 1 && !readOnly"
-                            @click="removeItem(i)" class="action-btn danger" style="width:28px;height:28px;" title="Eliminar ítem">
+                            @click="removeItem(i)" class="action-btn danger" title="Eliminar ítem">
                         <svg style="width:14px;height:14px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
                         </svg>
@@ -107,7 +107,7 @@
                 <!-- Inputs: Cantidad & Precio (Responsive) -->
                 <div class="doc-item-inputs-mobile">
                     <div>
-                        <label class="form-label" style="display:none;font-size:11px;margin-bottom:3px;color:var(--text-muted);">Cantidad</label>
+                        <label class="form-label doc-item-label-mobile">Cantidad</label>
                         <input type="number" step="0.01" min="0.01" x-model="item.quantity"
                                @input="calcRow(item)"
                                :disabled="readOnly"
@@ -115,7 +115,7 @@
                                :aria-label="'Cantidad del ítem ' + (i + 1)"/>
                     </div>
                     <div>
-                        <label class="form-label" style="display:none;font-size:11px;margin-bottom:3px;color:var(--text-muted);">P. Unitario</label>
+                        <label class="form-label doc-item-label-mobile">P. Unitario</label>
                         <input type="text" inputmode="numeric" x-model="item.unit_price_display"
                                @input="syncMoney(item, $event)"
                                @focus="$event.target.select()"
