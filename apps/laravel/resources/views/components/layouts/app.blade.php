@@ -17,6 +17,16 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400..900&family=Geist+Mono:wght@400..800&family=Google+Sans+Flex:opsz,wght@6..144,1..1000&display=swap" rel="stylesheet">
 
+        <script>
+            (function() {
+                try {
+                    if (localStorage.getItem('kosta_sidebar_collapsed') === 'true' && window.innerWidth >= 1024) {
+                        document.documentElement.classList.add('sidebar-is-collapsed');
+                    }
+                } catch(e) {}
+            })();
+        </script>
+
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/site.js'])
         <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
@@ -58,7 +68,7 @@
                 --negative: #EF4444;
                 --warning: #F59E0B;
 
-                --sidebar-width: 280px;
+                --sidebar-width: 260px;
                 --bottom-nav-height: 72px;
             }
 
@@ -113,6 +123,47 @@
                 position: relative;
                 z-index: 1;
                 max-width: 100vw;
+                transition: grid-template-columns 0.24s cubic-bezier(0.16, 1, 0.3, 1);
+            }
+
+            html.sidebar-is-collapsed body .app-shell,
+            body.sidebar-collapsed .app-shell {
+                grid-template-columns: 0px minmax(0, 1fr) !important;
+            }
+
+            /* Floating button to reopen sidebar when collapsed */
+            .sidebar-floating-toggle {
+                position: fixed;
+                top: 14px;
+                left: 16px;
+                z-index: 99;
+                display: none;
+                align-items: center;
+                justify-content: center;
+                width: 36px;
+                height: 36px;
+                background: #171717;
+                border: 1px solid rgba(255, 255, 255, 0.14);
+                border-radius: 8px;
+                color: #b4b4b4;
+                cursor: pointer;
+                box-shadow: 0 4px 18px rgba(0, 0, 0, 0.45);
+                transition: all 0.18s ease;
+            }
+            .sidebar-floating-toggle:hover {
+                background: #262626;
+                color: #ffffff;
+                border-color: rgba(255, 255, 255, 0.25);
+                transform: scale(1.05);
+            }
+
+            html.sidebar-is-collapsed body .sidebar-floating-toggle,
+            body.sidebar-collapsed .sidebar-floating-toggle {
+                display: flex !important;
+            }
+
+            @media (max-width: 1023px) {
+                .sidebar-floating-toggle { display: none !important; }
             }
 
             /* ===== Mobile-First App Navigation System ===== */
@@ -551,393 +602,376 @@
                 }
             }
 
-            /* ===== Sidebar (Desktop - LEFT) ===== */
+            /* ===== Sidebar (Desktop - LEFT) — Estilo ChatGPT ===== */
             .sidebar {
                 position: sticky;
                 top: 0;
                 left: 0;
                 width: var(--sidebar-width);
                 height: 100vh;
-                background: #0F0F0F;
-                border-right: 1px solid var(--border-subtle);
-                padding: 28px 16px;
+                background: #171717; /* ChatGPT dark charcoal */
+                border-right: 1px solid rgba(255, 255, 255, 0.08);
+                padding: 10px 8px 12px;
                 display: flex;
                 flex-direction: column;
                 z-index: 50;
                 overflow: hidden;
-                box-shadow: -1px 0 0 rgba(255, 255, 255, 0.05);
+                transition: transform 0.24s cubic-bezier(0.16, 1, 0.3, 1),
+                            width 0.24s cubic-bezier(0.16, 1, 0.3, 1),
+                            padding 0.24s cubic-bezier(0.16, 1, 0.3, 1),
+                            opacity 0.2s ease,
+                            visibility 0.24s ease;
             }
 
-            /* Decorative accent line on right edge */
-            .sidebar::before {
-                content: '';
-                position: absolute;
-                top: 0;
-                right: 0;
-                width: 1px;
-                height: 200px;
-                background: linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.25), transparent);
-                opacity: 0.6;
+            /* Collapsed state */
+            html.sidebar-is-collapsed body .sidebar,
+            body.sidebar-collapsed .sidebar {
+                transform: translateX(-100%) !important;
+                width: 0 !important;
+                min-width: 0 !important;
+                max-width: 0 !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                border-right: none !important;
+                opacity: 0 !important;
+                pointer-events: none !important;
+                visibility: hidden !important;
             }
 
             @media (max-width: 1023px) {
-                .sidebar { display: none; }
+                .sidebar { display: none !important; }
             }
 
+            /* Header estilo ChatGPT */
+            .chatgpt-sidebar-header {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 4px 6px 10px;
+                gap: 8px;
+            }
+
+            .chatgpt-brand-btn {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                padding: 6px 8px;
+                border-radius: 8px;
+                color: #ececec;
+                text-decoration: none;
+                font-size: 14px;
+                font-weight: 600;
+                transition: background 0.15s ease;
+                background: transparent;
+                border: none;
+                cursor: pointer;
+            }
+            .chatgpt-brand-btn:hover {
+                background: rgba(255, 255, 255, 0.08);
+                color: #ffffff;
+            }
+            .chatgpt-brand-avatar {
+                width: 24px;
+                height: 24px;
+                border-radius: 6px;
+                background: #262626;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-shrink: 0;
+            }
+            .chatgpt-brand-title {
+                letter-spacing: -0.01em;
+            }
+            .chatgpt-brand-chevron {
+                color: #737373;
+                width: 14px;
+                height: 14px;
+                transition: transform 0.2s ease;
+            }
+
+            .chatgpt-header-actions {
+                display: flex;
+                align-items: center;
+                gap: 2px;
+            }
+
+            .chatgpt-icon-btn {
+                width: 32px;
+                height: 32px;
+                border-radius: 8px;
+                background: transparent;
+                border: none;
+                color: #9ca3af;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                text-decoration: none;
+                position: relative;
+                transition: all 0.15s ease;
+            }
+            .chatgpt-icon-btn:hover {
+                background: rgba(255, 255, 255, 0.08);
+                color: #ffffff;
+            }
+            .chatgpt-badge-dot {
+                position: absolute;
+                top: 6px;
+                right: 6px;
+                width: 6px;
+                height: 6px;
+                border-radius: 50%;
+                background: #e63946;
+                box-shadow: 0 0 6px rgba(230, 57, 70, 0.8);
+            }
+
+            /* Botón "Nuevo Chat" / Acción Primaria */
+            .chatgpt-new-action-wrap {
+                padding: 0 4px 10px;
+            }
+            .chatgpt-new-action-btn {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                width: 100%;
+                padding: 8px 10px;
+                border-radius: 8px;
+                background: rgba(255, 255, 255, 0.04);
+                border: 1px solid rgba(255, 255, 255, 0.08);
+                color: #ececec;
+                text-decoration: none;
+                font-size: 13px;
+                font-weight: 500;
+                transition: all 0.18s ease;
+            }
+            .chatgpt-new-action-btn:hover {
+                background: rgba(255, 255, 255, 0.08);
+                border-color: rgba(255, 255, 255, 0.18);
+                color: #ffffff;
+            }
+            .chatgpt-new-action-btn svg {
+                width: 16px;
+                height: 16px;
+                color: #a1a1aa;
+                margin-right: 8px;
+                flex-shrink: 0;
+            }
+            .chatgpt-shortcut-pill {
+                font-size: 11px;
+                font-family: inherit;
+                color: #71717a;
+                background: rgba(255, 255, 255, 0.06);
+                padding: 1px 6px;
+                border-radius: 4px;
+                border: 1px solid rgba(255, 255, 255, 0.08);
+            }
+
+            /* Navigation Scroll Area */
             .sidebar-nav {
                 flex: 1;
                 min-height: 0;
                 overflow-y: auto;
                 overflow-x: hidden;
-                padding: 0 2px 22px;
+                padding: 2px 4px 16px;
             }
-
             .sidebar-nav::-webkit-scrollbar {
                 width: 4px;
             }
-
             .sidebar-nav::-webkit-scrollbar-thumb {
-                background: rgba(245, 245, 245, 0.12);
+                background: rgba(255, 255, 255, 0.1);
                 border-radius: 999px;
             }
 
-            .sidebar-footer {
-                flex-shrink: 0;
-                padding: 16px 4px 0;
-                margin-top: 8px;
-                border-top: 1px solid var(--border-subtle);
-                background: linear-gradient(180deg, rgba(15, 15, 15, 0), #0F0F0F 18px);
-            }
-
-            .sidebar-brand {
-                display: flex;
-                align-items: center;
-                gap: 12px;
-                padding: 8px 12px 24px;
-                border-bottom: 1px solid var(--border-subtle);
-                margin-bottom: 20px;
-                position: relative;
-            }
-
-            .sidebar-brand-logo {
-                width: 42px;
-                height: 42px;
-                background: linear-gradient(135deg, #18181B 0%, #27272A 50%, #3F3F46 100%);
-                border: 1px solid rgba(255, 255, 255, 0.15);
-                border-radius: 12px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                box-shadow:
-                    0 4px 20px rgba(0, 0, 0, 0.6),
-                    inset 0 1px 0 rgba(255, 255, 255, 0.2);
-                position: relative;
-                overflow: hidden;
-            }
-
-            .sidebar-brand-logo::before {
-                content: '';
-                position: absolute;
-                inset: 0;
-                background: linear-gradient(135deg, transparent 0%, rgba(255, 255, 255, 0.15) 50%, transparent 100%);
-                opacity: 0;
-                transition: opacity 0.4s ease;
-            }
-
-            .sidebar-brand:hover .sidebar-brand-logo::before {
-                opacity: 1;
-            }
-
-            .sidebar-brand-name {
-                font-family: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, sans-serif;
-                font-size: 19px;
-                font-weight: 700;
-                color: var(--text-primary);
-                letter-spacing: -0.02em;
-            }
-
-            .sidebar-brand-tag {
-                font-size: 10px;
-                color: rgba(255, 255, 255, 0.5);
-                margin-top: 2px;
-                text-transform: uppercase;
-                letter-spacing: 0.14em;
-                font-weight: 600;
-            }
-
+            /* Section Labels tipo "Fijados", "Proyectos" */
             .sidebar-section-label {
-                font-size: 10px;
-                color: var(--text-subtle);
+                font-size: 11px;
+                color: #737373;
                 text-transform: uppercase;
-                letter-spacing: 0.15em;
-                font-weight: 700;
-                padding: 16px 16px 8px;
+                letter-spacing: 0.06em;
+                font-weight: 600;
+                padding: 14px 10px 4px;
                 display: flex;
                 align-items: center;
-                gap: 8px;
+                justify-content: space-between;
+                user-select: none;
             }
 
-            .sidebar-section-label::after {
-                content: '';
-                flex: 1;
-                height: 1px;
-                background: linear-gradient(to right, var(--border-subtle), transparent);
-            }
-
+            /* Navigation Links (Estilo items de chat de ChatGPT) */
             .nav-link {
                 display: flex;
                 align-items: center;
-                gap: 12px;
-                padding: 11px 14px;
-                border-radius: 10px;
-                color: var(--text-secondary);
+                gap: 9px;
+                padding: 7px 10px;
+                border-radius: 8px;
+                color: #b4b4b4;
                 text-decoration: none;
-                font-size: 13.5px;
-                font-weight: 500;
-                transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-                position: relative;
+                font-size: 13px;
+                font-weight: 450;
+                transition: all 0.15s ease;
                 margin: 1px 0;
+                position: relative;
                 white-space: nowrap;
                 overflow: hidden;
+                text-overflow: ellipsis;
             }
-
-            .nav-link::before {
-                content: '';
-                position: absolute;
-                inset: 0;
-                border-radius: 10px;
-                background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05));
-                opacity: 0;
-                transition: opacity 0.25s ease;
-                pointer-events: none;
-            }
-
             .nav-link:hover {
-                color: var(--text-primary);
-                transform: translateX(2px);
+                color: #ffffff;
+                background: rgba(255, 255, 255, 0.06);
             }
-
-            .nav-link:hover::before {
-                opacity: 1;
-            }
-
             .nav-link:hover svg {
-                color: #FFFFFF;
-                filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.4));
+                color: #ffffff;
             }
-
             .nav-link.active {
-                background: linear-gradient(90deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0.10) 100%);
-                color: #FFFFFF;
-                border: 1px solid rgba(255, 255, 255, 0.12);
-                font-weight: 600;
+                background: #212121;
+                color: #ffffff;
+                font-weight: 500;
+                box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
             }
-
-            .nav-link.active::before {
-                opacity: 0;
-            }
-
-            .nav-link.active::after {
-                content: '';
-                position: absolute;
-                left: -16px;
-                top: 50%;
-                transform: translateY(-50%);
-                width: 3px;
-                height: 28px;
-                background: #FFFFFF;
-                border-radius: 0 3px 3px 0;
-                box-shadow: 0 0 12px rgba(255, 255, 255, 0.5);
-            }
-
-            .nav-link.active svg {
-                color: var(--red-primary);
-            }
-
             .nav-link svg {
-                width: 18px;
-                height: 18px;
+                width: 16px;
+                height: 16px;
                 flex-shrink: 0;
-                transition: color 0.25s cubic-bezier(0.16, 1, 0.3, 1), filter 0.25s ease;
-                color: var(--text-muted);
+                color: #8e8e8e;
+                transition: color 0.15s ease;
+            }
+            .nav-link.active svg {
+                color: #ffffff;
             }
 
-            /* Sub-links inside collapsible nav group */
-            .nav-group-btn {
-                width: 100%;
-                text-align: left;
-                background: none;
-                border: none;
-                cursor: pointer;
-                font-family: 'Inter', sans-serif;
-            }
+            /* Subenlaces */
             .nav-sublink {
                 display: flex;
                 align-items: center;
-                gap: 10px;
-                padding: 7px 12px 7px 22px;
-                border-radius: 8px;
-                color: var(--text-muted);
+                gap: 8px;
+                padding: 5px 10px 5px 26px;
+                border-radius: 6px;
+                color: #8a8a8e;
                 text-decoration: none;
-                font-size: 12.5px;
-                font-weight: 500;
-                transition: all 0.2s ease;
-                margin: 2px 0;
-                position: relative;
-                list-style: none !important;
-            }
-            .nav-sublink::before,
-            .nav-sublink::after,
-            .nav-sublink:hover::before,
-            .nav-sublink:hover::after,
-            .nav-sublink.active::before,
-            .nav-sublink.active::after {
-                content: none !important;
-                display: none !important;
-                width: 0 !important;
-                height: 0 !important;
-                opacity: 0 !important;
-                visibility: hidden !important;
-                pointer-events: none !important;
-            }
-            .nav-sublink svg {
-                width: 14px;
-                height: 14px;
-                flex-shrink: 0;
-                opacity: 0.65;
-                transition: all 0.2s ease;
+                font-size: 12px;
+                font-weight: 400;
+                transition: all 0.15s ease;
+                margin: 1px 0;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
             }
             .nav-sublink:hover {
-                color: var(--text-primary);
-                background: rgba(255,255,255,0.05);
-            }
-            .nav-sublink:hover svg {
-                opacity: 1;
-                transform: scale(1.1);
+                color: #ececec;
+                background: rgba(255, 255, 255, 0.04);
             }
             .nav-sublink.active {
-                color: var(--red-primary);
-                background: rgba(229, 9, 20, 0.08);
-                font-weight: 600;
+                color: #ffffff;
+                background: #212121;
+                font-weight: 500;
+            }
+            .nav-sublink svg {
+                width: 13px;
+                height: 13px;
+                flex-shrink: 0;
+                color: #71717a;
             }
             .nav-sublink.active svg {
-                color: var(--red-primary);
-                opacity: 1;
+                color: #ffffff;
             }
-            .nav-chevron { transition: transform 0.25s ease; }
-            .nav-chevron.open { transform: rotate(180deg); }
 
-            /* Badge for nav items (optional, for future use) */
-            .nav-link-badge {
+            /* Badge pill */
+            .nav-badge-pill {
                 margin-left: auto;
-                padding: 2px 8px;
-                background: var(--red-soft);
-                color: var(--red-primary);
-                border-radius: 999px;
+                background: #e63946;
+                color: #ffffff;
                 font-size: 10px;
                 font-weight: 700;
+                padding: 1px 6px;
+                border-radius: 999px;
             }
 
+            /* Footer usuario estilo ChatGPT */
+            .sidebar-footer {
+                flex-shrink: 0;
+                padding: 8px 4px 0;
+                margin-top: auto;
+                border-top: 1px solid rgba(255, 255, 255, 0.08);
+            }
             .sidebar-user {
                 width: 100%;
-                padding: 12px;
-                background:
-                    linear-gradient(135deg, rgba(22, 22, 22, 0.94), rgba(10, 10, 10, 0.88)),
-                    rgba(17, 17, 17, 0.92);
-                border: 1px solid rgba(245, 245, 245, 0.08);
-                border-radius: 16px;
+                padding: 7px 8px;
+                background: transparent;
+                border: 1px solid transparent;
+                border-radius: 8px;
                 display: flex;
                 align-items: center;
-                gap: 10px;
-                position: relative;
-                overflow: hidden;
-                z-index: 2;
-                backdrop-filter: blur(12px);
-                -webkit-backdrop-filter: blur(12px);
-                box-shadow:
-                    0 10px 24px rgba(0, 0, 0, 0.28),
-                    inset 0 1px 0 rgba(255, 255, 255, 0.04);
-                transition: border-color 0.25s ease, transform 0.25s ease;
+                gap: 9px;
+                transition: background 0.15s ease;
             }
-
-            .sidebar-user::before {
-                content: '';
-                position: absolute;
-                top: 0;
-                left: 0;
-                right: 0;
-                height: 1px;
-                background: linear-gradient(90deg, transparent, rgba(230, 57, 70, 0.3), transparent);
-            }
-
             .sidebar-user:hover {
-                border-color: rgba(255, 255, 255, 0.2);
-                transform: translateY(-1px);
+                background: rgba(255, 255, 255, 0.06);
             }
-
             .sidebar-user-avatar {
-                width: 38px;
-                height: 38px;
+                width: 28px;
+                height: 28px;
                 border-radius: 50%;
-                background: linear-gradient(135deg, #27272A, #09090B);
+                background: linear-gradient(135deg, #3f3f46, #18181b);
                 border: 1px solid rgba(255, 255, 255, 0.2);
                 display: flex;
                 align-items: center;
                 justify-content: center;
                 font-weight: 600;
-                color: #FFFFFF;
-                font-size: 14px;
+                color: #ffffff;
+                font-size: 12px;
+                position: relative;
                 flex-shrink: 0;
             }
-
+            .sidebar-user-avatar::after {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                right: 0;
+                width: 7px;
+                height: 7px;
+                background: #10B981;
+                border: 1.5px solid #171717;
+                border-radius: 50%;
+            }
             .sidebar-user-info {
                 flex: 1;
                 min-width: 0;
-                line-height: 1.2;
+                line-height: 1.25;
             }
-
             .sidebar-user-name {
                 font-size: 13px;
-                font-weight: 600;
-                color: var(--text-primary);
+                font-weight: 500;
+                color: #ececec;
                 white-space: nowrap;
                 overflow: hidden;
                 text-overflow: ellipsis;
             }
-
             .sidebar-user-email {
                 font-size: 11px;
-                color: var(--text-muted);
+                color: #71717a;
                 white-space: nowrap;
                 overflow: hidden;
                 text-overflow: ellipsis;
-                margin-top: 3px;
             }
-
             .sidebar-user-form {
                 flex-shrink: 0;
-                display: flex;
             }
-
             .sidebar-logout {
-                width: 34px;
-                height: 34px;
+                width: 28px;
+                height: 28px;
                 display: inline-flex;
                 align-items: center;
                 justify-content: center;
-                background: rgba(255, 255, 255, 0.03);
-                border: 1px solid rgba(245, 245, 245, 0.07);
-                color: var(--text-muted);
+                background: transparent;
+                border: none;
+                color: #71717a;
                 cursor: pointer;
-                padding: 0;
-                border-radius: 10px;
-                transition: all 0.2s ease;
+                border-radius: 6px;
+                transition: all 0.15s ease;
             }
-
             .sidebar-logout:hover {
-                background: rgba(230, 57, 70, 0.14);
-                border-color: rgba(230, 57, 70, 0.28);
-                color: var(--red-primary);
+                background: rgba(230, 57, 70, 0.15);
+                color: #e63946;
             }
 
             /* ===== Main Content ===== */
@@ -1857,168 +1891,206 @@
         <div class="ambient-glow ambient-glow-br"></div>
 
         <div class="app-shell">
-            <!-- Sidebar (Desktop - LEFT) -->
-            <aside class="sidebar">
-                <!-- Brand -->
-                <a href="{{ route('dashboard') }}" class="sidebar-brand" style="text-decoration: none; padding: 12px 14px 24px; display: block;">
-                    <img src="{{ asset('img/WEB-Kosta-White.svg') }}" alt="Kosta Studio Films" style="height: 46px; width: auto; max-width: 195px; object-fit: contain;">
-                </a>
+            <!-- Floating button to reopen sidebar when collapsed on desktop -->
+            <button type="button" id="sidebar-floating-toggle" class="sidebar-floating-toggle" onclick="toggleSidebar()" title="Abrir barra lateral (Ctrl + B)" aria-label="Abrir barra lateral">
+                <svg style="width: 18px; height: 18px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <rect x="3" y="3" width="18" height="18" rx="3" stroke-width="2"/>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v18"/>
+                </svg>
+            </button>
 
-                <!-- Nav Section: Principal -->
+            <!-- Sidebar (Desktop - LEFT) — Estilo ChatGPT -->
+            <aside class="sidebar" id="app-sidebar">
+                @php
+                    $nuevosCount = 0;
+                    try {
+                        if (\Illuminate\Support\Facades\Schema::hasTable('leads') && \Illuminate\Support\Facades\Schema::hasColumn('leads', 'estado')) {
+                            $nuevosCount = \App\Models\Lead::where('estado', 'nuevo')->count();
+                        }
+                    } catch (\Throwable $e) {
+                        $nuevosCount = 0;
+                    }
+                @endphp
+
+                <!-- ChatGPT Header -->
+                <div class="chatgpt-sidebar-header">
+                    <a href="{{ route('dashboard') }}" class="chatgpt-brand-btn" wire:navigate title="Kosta Platform">
+                        <span class="chatgpt-brand-avatar">
+                            <img src="{{ asset('img/favicon.png') }}" alt="Kosta" style="width: 16px; height: 16px; object-fit: contain;">
+                        </span>
+                        <div style="display: flex; align-items: center; gap: 6px;">
+                            <span class="chatgpt-brand-title">Kosta Studio</span>
+                            <svg class="chatgpt-brand-chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                        </div>
+                    </a>
+
+                    <div class="chatgpt-header-actions">
+                        <a href="{{ route('leads.index') }}" class="chatgpt-icon-btn" title="Prospectos / Notificaciones" wire:navigate>
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
+                            </svg>
+                            @if($nuevosCount > 0)
+                                <span class="chatgpt-badge-dot"></span>
+                            @endif
+                        </a>
+                        <button type="button" class="chatgpt-icon-btn" onclick="toggleSidebar()" title="Cerrar barra lateral (Ctrl + B)" aria-label="Cerrar barra lateral">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <rect x="3" y="3" width="18" height="18" rx="3" stroke-width="2"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v18"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Botón "Nuevo Chat" / Acción Primaria -->
+                <div class="chatgpt-new-action-wrap">
+                    <a wire:navigate href="{{ route('quotes.create') }}" class="chatgpt-new-action-btn">
+                        <div style="display: flex; align-items: center;">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+                            </svg>
+                            <span>Nueva cotización</span>
+                        </div>
+                        <span class="chatgpt-shortcut-pill">+</span>
+                    </a>
+                </div>
+
+                <!-- Navegación por secciones -->
                 <div class="sidebar-nav">
-                    <div class="sidebar-section-label">Principal</div>
+                    <!-- Sección: Fijados -->
+                    <div class="sidebar-section-label">Fijados</div>
+                    
                     <a wire:navigate href="{{ route('dashboard') }}" class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}">
                         <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
                         </svg>
-                        Dashboard
+                        <span>Dashboard</span>
                     </a>
+
+                    <a wire:navigate href="{{ route('leads.index') }}" class="nav-link {{ request()->routeIs('leads.*') ? 'active' : '' }}">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                        </svg>
+                        <span>Prospectos (Leads)</span>
+                        @if($nuevosCount > 0)
+                            <span class="nav-badge-pill">{{ $nuevosCount }}</span>
+                        @endif
+                    </a>
+
+                    <a wire:navigate href="{{ route('clients.index') }}" class="nav-link {{ request()->routeIs('clients.*') ? 'active' : '' }}">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+                        </svg>
+                        <span>Clientes</span>
+                    </a>
+
+                    <!-- Sección: Operaciones (Estilo carpetas ChatGPT) -->
+                    <div class="sidebar-section-label" style="margin-top: 10px;">Operaciones</div>
+
+                    <a wire:navigate href="{{ route('quotes.index') }}" class="nav-link {{ request()->routeIs('quotes.*') ? 'active' : '' }}">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                        </svg>
+                        <span>Cotizaciones</span>
+                    </a>
+
+                    <a wire:navigate href="{{ route('bills.index') }}" class="nav-link {{ request()->routeIs('bills.*') ? 'active' : '' }}">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/>
+                        </svg>
+                        <span>Cuentas de Cobro</span>
+                    </a>
+
+                    <a wire:navigate href="{{ route('invoices.index') }}" class="nav-link {{ request()->routeIs('invoices.*') ? 'active' : '' }}">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 14l6-6m-5.5.5h.01m4.99 5h.01M19 21l-7-4-7 4V5a2 2 0 012-2h10a2 2 0 012 2v16z"/>
+                        </svg>
+                        <span>Facturas</span>
+                    </a>
+
+                    <a wire:navigate href="{{ route('expenses.index') }}" class="nav-link {{ request()->routeIs('expenses.*') ? 'active' : '' }}">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6"/>
+                        </svg>
+                        <span>Gastos</span>
+                    </a>
+
+                    <a wire:navigate href="{{ route('services.index') }}" class="nav-link {{ request()->routeIs('services.index') ? 'active' : '' }}">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
+                        </svg>
+                        <span>Servicios</span>
+                    </a>
+
+                    <!-- Sección: Proyectos (Casos de Estudio) -->
+                    <div class="sidebar-section-label" style="margin-top: 10px;">Proyectos</div>
+
+                    <a wire:navigate href="{{ route('case-studies.index') }}" class="nav-link {{ request()->routeIs('case-studies.*') ? 'active' : '' }}">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"/>
+                        </svg>
+                        <span>Casos de Estudio</span>
+                    </a>
+                    <a wire:navigate href="{{ route('case-studies.index') }}?cat=web" class="nav-sublink {{ request()->get('cat') === 'web' ? 'active' : '' }}">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/></svg>
+                        <span>Páginas Web</span>
+                    </a>
+                    <a wire:navigate href="{{ route('case-studies.index') }}?cat=ecommerce" class="nav-sublink {{ request()->get('cat') === 'ecommerce' ? 'active' : '' }}">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+                        <span>E-commerce</span>
+                    </a>
+                    <a wire:navigate href="{{ route('case-studies.index') }}?cat=sistema" class="nav-sublink {{ request()->get('cat') === 'sistema' ? 'active' : '' }}">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
+                        <span>Sistemas</span>
+                    </a>
+                    <a wire:navigate href="{{ route('case-studies.index') }}?cat=films" class="nav-sublink {{ in_array(request()->get('cat'), ['films', 'social'], true) ? 'active' : '' }}">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+                        <span>Films & Reels</span>
+                    </a>
+                    <a wire:navigate href="{{ route('case-studies.index') }}?cat=branding" class="nav-sublink {{ request()->get('cat') === 'branding' ? 'active' : '' }}">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>
+                        <span>Branding</span>
+                    </a>
+
+                    <!-- Sección: Herramientas -->
+                    <div class="sidebar-section-label" style="margin-top: 10px;">Herramientas</div>
+
+                    <a wire:navigate href="{{ route('automations.email') }}" class="nav-link {{ request()->routeIs('automations.email') || request()->routeIs('automations.index') ? 'active' : '' }}">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                        </svg>
+                        <span>Correo (Resend)</span>
+                    </a>
+
+                    <a wire:navigate href="{{ route('automations.whatsapp') }}" class="nav-link {{ request()->routeIs('automations.whatsapp') ? 'active' : '' }}">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+                        </svg>
+                        <span>WhatsApp (Meta)</span>
+                    </a>
+
                     <a href="{{ route('kamo') }}" target="_blank" class="nav-link {{ request()->routeIs('kamo', 'perfil', 'cv') ? 'active' : '' }}" title="Ver Perfil Kamo">
                         <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
                         </svg>
-                        Kamo
+                        <span>Kamo (CV)</span>
                         <svg style="width: 12px; height: 12px; margin-left: auto; opacity: 0.4;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
                         </svg>
                     </a>
 
-                <!-- Nav Section: Finanzas -->
-                <div class="sidebar-section-label" style="margin-top: 16px;">Finanzas</div>
-                <a wire:navigate href="{{ route('quotes.index') }}" class="nav-link {{ request()->routeIs('quotes.*') ? 'active' : '' }}">
-                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-                    </svg>
-                    Cotizaciones
-                </a>
-                <a wire:navigate href="{{ route('bills.index') }}" class="nav-link {{ request()->routeIs('bills.*') ? 'active' : '' }}">
-                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/>
-                    </svg>
-                    Cuentas de Cobro
-                </a>
-                <a wire:navigate href="{{ route('invoices.index') }}" class="nav-link {{ request()->routeIs('invoices.*') ? 'active' : '' }}">
-                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 14l6-6m-5.5.5h.01m4.99 5h.01M19 21l-7-4-7 4V5a2 2 0 012-2h10a2 2 0 012 2v16z"/>
-                    </svg>
-                    Facturas
-                </a>
-                <a wire:navigate href="{{ route('expenses.index') }}" class="nav-link {{ request()->routeIs('expenses.*') ? 'active' : '' }}">
-                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6"/>
-                    </svg>
-                    Gastos
-                </a>
-
-                <!-- Nav Section: Negocio -->
-                <div class="sidebar-section-label" style="margin-top: 16px;">Negocio</div>
-                <a wire:navigate href="{{ route('clients.index') }}" class="nav-link {{ request()->routeIs('clients.*') ? 'active' : '' }}">
-                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
-                    </svg>
-                    Clientes
-                </a>
-                <a wire:navigate href="{{ route('services.index') }}" class="nav-link {{ request()->routeIs('services.index') ? 'active' : '' }}">
-                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
-                    </svg>
-                    Servicios
-                </a>
-                <a wire:navigate href="{{ route('leads.index') }}" class="nav-link {{ request()->routeIs('leads.*') ? 'active' : '' }}" style="position: relative;">
-                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
-                    </svg>
-                    <span>Prospectos (Leads)</span>
-                    @php
-                        $nuevosCount = 0;
-                        try {
-                            if (\Illuminate\Support\Facades\Schema::hasTable('leads') && \Illuminate\Support\Facades\Schema::hasColumn('leads', 'estado')) {
-                                $nuevosCount = \App\Models\Lead::where('estado', 'nuevo')->count();
-                            }
-                        } catch (\Throwable $e) {
-                            $nuevosCount = 0;
-                        }
-                    @endphp
-                    @if($nuevosCount > 0)
-                        <span style="margin-left: auto; background: #e63946; color: #fff; font-size: 11px; font-weight: 700; padding: 2px 7px; border-radius: 999px;">{{ $nuevosCount }}</span>
-                    @endif
-                </a>
-                <a wire:navigate href="{{ route('automations.email') }}" class="nav-link {{ request()->routeIs('automations.*') ? 'active' : '' }}">
-                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
-                    </svg>
-                    <span>Automatizaciones</span>
-                </a>
-                <a wire:navigate href="{{ route('automations.email') }}"
-                   class="nav-sublink {{ request()->routeIs('automations.email') || request()->routeIs('automations.index') ? 'active' : '' }}">
-                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-                    </svg>
-                    <span>Correo (Resend)</span>
-                </a>
-                <a wire:navigate href="{{ route('automations.whatsapp') }}"
-                   class="nav-sublink {{ request()->routeIs('automations.whatsapp') ? 'active' : '' }}">
-                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
-                    </svg>
-                    <span>WhatsApp (Meta)</span>
-                </a>
-
-                <!-- Nav Section: Sitio Web -->
-                <div class="sidebar-section-label" style="margin-top: 16px;">Sitio Web</div>
-
-                <a wire:navigate href="{{ route('case-studies.index') }}" class="nav-link {{ request()->routeIs('case-studies.*') ? 'active' : '' }}">
-                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-                    </svg>
-                    Casos de Estudio
-                </a>
-                <a wire:navigate href="{{ route('case-studies.index') }}"
-                   class="nav-sublink {{ request()->routeIs('case-studies.*') && !request()->get('cat') ? 'active' : '' }}">
-                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/>
-                    </svg>
-                    <span>Todos los casos</span>
-                </a>
-                <a wire:navigate href="{{ route('case-studies.index') }}?cat=web"
-                   class="nav-sublink {{ request()->get('cat') === 'web' ? 'active' : '' }}">
-                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/>
-                    </svg>
-                    <span>Páginas Web</span>
-                </a>
-                <a wire:navigate href="{{ route('case-studies.index') }}?cat=ecommerce"
-                   class="nav-sublink {{ request()->get('cat') === 'ecommerce' ? 'active' : '' }}">
-                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
-                    </svg>
-                    <span>E-commerce</span>
-                </a>
-                <a wire:navigate href="{{ route('case-studies.index') }}?cat=sistema"
-                   class="nav-sublink {{ request()->get('cat') === 'sistema' ? 'active' : '' }}">
-                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
-                    </svg>
-                    <span>Sistemas</span>
-                </a>
-                <a wire:navigate href="{{ route('case-studies.index') }}?cat=films"
-                   class="nav-sublink {{ in_array(request()->get('cat'), ['films', 'social'], true) ? 'active' : '' }}">
-                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/>
-                    </svg>
-                    <span>Films & Reels</span>
-                </a>
-                <a wire:navigate href="{{ route('case-studies.index') }}?cat=branding"
-                   class="nav-sublink {{ request()->get('cat') === 'branding' ? 'active' : '' }}">
-                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/>
-                    </svg>
-                    <span>Branding</span>
-                </a>
+                    <a href="{{ route('landing') }}" target="_blank" rel="noopener" class="nav-link" title="Visitar kostastudio.com">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/>
+                        </svg>
+                        <span>Sitio Web Kosta</span>
+                        <svg style="width: 12px; height: 12px; margin-left: auto; opacity: 0.4;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                        </svg>
+                    </a>
                 </div>
 
-                <!-- User Card -->
+                <!-- Footer Usuario estilo ChatGPT -->
                 <div class="sidebar-footer">
                     @auth
                         <div class="sidebar-user">
@@ -2026,13 +2098,15 @@
                                 {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
                             </div>
                             <div class="sidebar-user-info">
-                                <div class="sidebar-user-name" title="{{ auth()->user()->name }}">{{ auth()->user()->name }}</div>
-                                <div class="sidebar-user-email" title="{{ auth()->user()->email }}">{{ auth()->user()->email }}</div>
+                                <a href="{{ route('profile') }}" wire:navigate style="text-decoration: none; display: block;" title="Ver mi perfil">
+                                    <div class="sidebar-user-name">{{ auth()->user()->name }}</div>
+                                    <div class="sidebar-user-email">{{ auth()->user()->email }}</div>
+                                </a>
                             </div>
                             <form method="POST" action="{{ route('logout') }}" class="sidebar-user-form">
                                 @csrf
                                 <button type="submit" class="sidebar-logout" title="Cerrar sesión" aria-label="Cerrar sesión">
-                                    <svg style="width: 18px; height: 18px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <svg style="width: 16px; height: 16px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
                                     </svg>
                                 </button>
@@ -2387,11 +2461,47 @@
             document.getElementById('bottom-nav-fab-btn')?.classList.remove('is-open');
         }
 
+        function toggleSidebar() {
+            const isCurrentlyCollapsed = document.body.classList.contains('sidebar-collapsed') || document.documentElement.classList.contains('sidebar-is-collapsed');
+            const newState = !isCurrentlyCollapsed;
+            
+            document.body.classList.toggle('sidebar-collapsed', newState);
+            document.documentElement.classList.toggle('sidebar-is-collapsed', newState);
+            
+            try {
+                localStorage.setItem('kosta_sidebar_collapsed', newState ? 'true' : 'false');
+            } catch (e) {}
+        }
+
+        function initSidebarState() {
+            try {
+                if (window.innerWidth >= 1024 && localStorage.getItem('kosta_sidebar_collapsed') === 'true') {
+                    document.body.classList.add('sidebar-collapsed');
+                    document.documentElement.classList.add('sidebar-is-collapsed');
+                } else if (window.innerWidth >= 1024) {
+                    document.body.classList.remove('sidebar-collapsed');
+                    document.documentElement.classList.remove('sidebar-is-collapsed');
+                }
+            } catch (e) {}
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'b') {
+                const target = document.activeElement;
+                if (!target || !['INPUT', 'TEXTAREA', 'SELECT'].includes(target.tagName)) {
+                    e.preventDefault();
+                    toggleSidebar();
+                }
+            }
+        });
+
         document.addEventListener('livewire:navigated', () => {
             closeAllSheets();
+            initSidebarState();
         });
 
         document.addEventListener('DOMContentLoaded', () => {
+            initSidebarState();
             document.querySelectorAll('.nav-link').forEach(link => {
                 const elements = link.querySelectorAll('svg path, svg polyline, svg line, svg circle, svg rect, svg ellipse');
 
