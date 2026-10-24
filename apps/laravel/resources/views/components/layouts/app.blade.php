@@ -68,7 +68,9 @@
                 --negative: #EF4444;
                 --warning: #F59E0B;
 
-                --sidebar-width: 260px;
+                --rail-width: 52px;
+                --panel-width: 248px;
+                --sidebar-width: 300px;
                 --bottom-nav-height: 72px;
             }
 
@@ -115,20 +117,20 @@
                 opacity: 0.2;
             }
 
-            /* ===== App Shell Layout (Sidebar Left) ===== */
+            /* ===== App Shell Layout (Rail + Panel + Main Content) ===== */
             .app-shell {
                 display: grid;
-                grid-template-columns: var(--sidebar-width) minmax(0, 1fr);
+                grid-template-columns: var(--rail-width) var(--panel-width) minmax(0, 1fr);
                 min-height: 100vh;
                 position: relative;
                 z-index: 1;
                 max-width: 100vw;
-                transition: grid-template-columns 0.24s cubic-bezier(0.16, 1, 0.3, 1);
+                transition: grid-template-columns 0.22s cubic-bezier(0.16, 1, 0.3, 1);
             }
 
             html.sidebar-is-collapsed body .app-shell,
             body.sidebar-collapsed .app-shell {
-                grid-template-columns: 0px minmax(0, 1fr) !important;
+                grid-template-columns: var(--rail-width) 0px minmax(0, 1fr) !important;
             }
 
             /* Floating button to reopen sidebar when collapsed */
@@ -602,12 +604,210 @@
                 }
             }
 
-            /* ===== Sidebar (Desktop - LEFT) — Estilo ChatGPT ===== */
-            .sidebar {
+            /* ===== Leftmost Icon Rail (Tier 1) — Estilo ChatGPT Desktop ===== */
+            .chatgpt-rail {
                 position: sticky;
                 top: 0;
                 left: 0;
-                width: var(--sidebar-width);
+                width: var(--rail-width);
+                height: 100vh;
+                background: #111111;
+                border-right: 1px solid rgba(255, 255, 255, 0.08);
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: space-between;
+                padding: 12px 0 14px;
+                z-index: 55;
+                flex-shrink: 0;
+                user-select: none;
+            }
+
+            @media (max-width: 1023px) {
+                .chatgpt-rail,
+                .chatgpt-panel { display: none !important; }
+            }
+
+            .chatgpt-rail-group {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 8px;
+                width: 100%;
+            }
+
+            .chatgpt-rail-btn {
+                width: 38px;
+                height: 38px;
+                border-radius: 10px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: #8e8e8e;
+                background: transparent;
+                border: none;
+                cursor: pointer;
+                position: relative;
+                transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+                text-decoration: none;
+                padding: 0;
+            }
+
+            .chatgpt-rail-btn:hover {
+                color: #ffffff;
+                background: rgba(255, 255, 255, 0.08);
+                transform: scale(1.05);
+            }
+
+            .chatgpt-rail-btn.active {
+                color: #ffffff;
+                background: rgba(255, 255, 255, 0.14);
+            }
+
+            /* ChatGPT Home Icon Green Accent */
+            .chatgpt-rail-btn.rail-home {
+                color: #10B981;
+            }
+            .chatgpt-rail-btn.rail-home:hover,
+            .chatgpt-rail-btn.rail-home.active {
+                background: #10B981;
+                color: #ffffff;
+                box-shadow: 0 0 14px rgba(16, 185, 129, 0.4);
+            }
+
+            /* Active indicator bar on rail */
+            .chatgpt-rail-btn.active::before {
+                content: '';
+                position: absolute;
+                left: 0;
+                top: 50%;
+                transform: translateY(-50%);
+                width: 3px;
+                height: 18px;
+                background: #ffffff;
+                border-radius: 0 3px 3px 0;
+            }
+
+            /* Rail Tooltip */
+            .chatgpt-rail-btn::after {
+                content: attr(data-tooltip);
+                position: absolute;
+                left: calc(100% + 10px);
+                top: 50%;
+                transform: translateY(-50%);
+                background: #1f1f1f;
+                border: 1px solid rgba(255, 255, 255, 0.12);
+                color: #ffffff;
+                font-size: 11px;
+                font-weight: 500;
+                padding: 5px 9px;
+                border-radius: 6px;
+                white-space: nowrap;
+                opacity: 0;
+                pointer-events: none;
+                transition: opacity 0.15s ease, transform 0.15s ease;
+                z-index: 100;
+                box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5);
+            }
+
+            .chatgpt-rail-btn:hover::after {
+                opacity: 1;
+                transform: translateY(-50%) translateX(2px);
+            }
+
+            /* Dot indicator for alerts/leads */
+            .chatgpt-rail-dot {
+                position: absolute;
+                top: 5px;
+                right: 5px;
+                width: 7px;
+                height: 7px;
+                border-radius: 50%;
+                background: #e63946;
+                border: 1.5px solid #111111;
+            }
+
+            /* Bottom user avatar on rail */
+            .chatgpt-rail-avatar {
+                width: 34px;
+                height: 34px;
+                border-radius: 50%;
+                background: linear-gradient(135deg, #27272a, #09090b);
+                border: 1.5px solid rgba(255, 255, 255, 0.2);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 13px;
+                font-weight: 700;
+                color: #ffffff;
+                position: relative;
+                cursor: pointer;
+                transition: transform 0.15s ease;
+            }
+            .chatgpt-rail-avatar:hover {
+                transform: scale(1.08);
+                border-color: #ffffff;
+            }
+            .chatgpt-rail-avatar::after {
+                content: '';
+                position: absolute;
+                bottom: -1px;
+                right: -1px;
+                width: 8px;
+                height: 8px;
+                border-radius: 50%;
+                background: #10B981;
+                border: 1.5px solid #111111;
+            }
+
+            /* Web Kosta circle icon at bottom of rail */
+            .chatgpt-rail-web-btn {
+                width: 34px;
+                height: 34px;
+                border-radius: 50%;
+                background: rgba(34, 197, 94, 0.12);
+                color: #22c55e;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border: 1px solid rgba(34, 197, 94, 0.25);
+                transition: all 0.15s ease;
+                position: relative;
+            }
+            .chatgpt-rail-web-btn:hover {
+                background: #22c55e;
+                color: #000000;
+                transform: scale(1.08);
+            }
+            .chatgpt-rail-web-btn::after {
+                content: attr(data-tooltip);
+                position: absolute;
+                left: calc(100% + 10px);
+                top: 50%;
+                transform: translateY(-50%);
+                background: #1f1f1f;
+                border: 1px solid rgba(255, 255, 255, 0.12);
+                color: #ffffff;
+                font-size: 11px;
+                font-weight: 500;
+                padding: 5px 9px;
+                border-radius: 6px;
+                white-space: nowrap;
+                opacity: 0;
+                pointer-events: none;
+                transition: opacity 0.15s ease;
+                z-index: 100;
+            }
+            .chatgpt-rail-web-btn:hover::after {
+                opacity: 1;
+            }
+
+            /* ===== Secondary Menu Panel (Tier 2) — Estilo ChatGPT ===== */
+            .chatgpt-panel {
+                position: sticky;
+                top: 0;
+                left: var(--rail-width);
+                width: var(--panel-width);
                 height: 100vh;
                 background: #171717; /* ChatGPT dark charcoal */
                 border-right: 1px solid rgba(255, 255, 255, 0.08);
@@ -616,16 +816,16 @@
                 flex-direction: column;
                 z-index: 50;
                 overflow: hidden;
-                transition: transform 0.24s cubic-bezier(0.16, 1, 0.3, 1),
-                            width 0.24s cubic-bezier(0.16, 1, 0.3, 1),
-                            padding 0.24s cubic-bezier(0.16, 1, 0.3, 1),
-                            opacity 0.2s ease,
-                            visibility 0.24s ease;
+                transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+                            width 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+                            padding 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+                            opacity 0.18s ease,
+                            visibility 0.22s ease;
             }
 
             /* Collapsed state */
-            html.sidebar-is-collapsed body .sidebar,
-            body.sidebar-collapsed .sidebar {
+            html.sidebar-is-collapsed body .chatgpt-panel,
+            body.sidebar-collapsed .chatgpt-panel {
                 transform: translateX(-100%) !important;
                 width: 0 !important;
                 min-width: 0 !important;
@@ -638,12 +838,8 @@
                 visibility: hidden !important;
             }
 
-            @media (max-width: 1023px) {
-                .sidebar { display: none !important; }
-            }
-
-            /* Header estilo ChatGPT */
-            .chatgpt-sidebar-header {
+            /* Panel Header */
+            .chatgpt-panel-header {
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
@@ -651,55 +847,26 @@
                 gap: 8px;
             }
 
-            .chatgpt-brand-btn {
+            .chatgpt-panel-title-wrap {
                 display: flex;
                 align-items: center;
-                gap: 8px;
-                padding: 6px 8px;
-                border-radius: 8px;
+                gap: 6px;
                 color: #ececec;
-                text-decoration: none;
-                font-size: 14px;
+                font-size: 13.5px;
                 font-weight: 600;
-                transition: background 0.15s ease;
-                background: transparent;
-                border: none;
-                cursor: pointer;
-            }
-            .chatgpt-brand-btn:hover {
-                background: rgba(255, 255, 255, 0.08);
-                color: #ffffff;
-            }
-            .chatgpt-brand-avatar {
-                width: 24px;
-                height: 24px;
-                border-radius: 6px;
-                background: #262626;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                flex-shrink: 0;
-            }
-            .chatgpt-brand-title {
-                letter-spacing: -0.01em;
-            }
-            .chatgpt-brand-chevron {
-                color: #737373;
-                width: 14px;
-                height: 14px;
-                transition: transform 0.2s ease;
+                user-select: none;
             }
 
-            .chatgpt-header-actions {
+            .chatgpt-panel-actions {
                 display: flex;
                 align-items: center;
                 gap: 2px;
             }
 
             .chatgpt-icon-btn {
-                width: 32px;
-                height: 32px;
-                border-radius: 8px;
+                width: 30px;
+                height: 30px;
+                border-radius: 7px;
                 background: transparent;
                 border: none;
                 color: #9ca3af;
@@ -715,18 +882,8 @@
                 background: rgba(255, 255, 255, 0.08);
                 color: #ffffff;
             }
-            .chatgpt-badge-dot {
-                position: absolute;
-                top: 6px;
-                right: 6px;
-                width: 6px;
-                height: 6px;
-                border-radius: 50%;
-                background: #e63946;
-                box-shadow: 0 0 6px rgba(230, 57, 70, 0.8);
-            }
 
-            /* Botón "Nuevo Chat" / Acción Primaria */
+            /* Action CTA Button ("Nuevo Chat" style) */
             .chatgpt-new-action-wrap {
                 padding: 0 4px 10px;
             }
@@ -751,15 +908,14 @@
                 color: #ffffff;
             }
             .chatgpt-new-action-btn svg {
-                width: 16px;
-                height: 16px;
+                width: 15px;
+                height: 15px;
                 color: #a1a1aa;
                 margin-right: 8px;
                 flex-shrink: 0;
             }
             .chatgpt-shortcut-pill {
                 font-size: 11px;
-                font-family: inherit;
                 color: #71717a;
                 background: rgba(255, 255, 255, 0.06);
                 padding: 1px 6px;
@@ -767,18 +923,18 @@
                 border: 1px solid rgba(255, 255, 255, 0.08);
             }
 
-            /* Navigation Scroll Area */
-            .sidebar-nav {
+            /* Panel Scrollable Navigation Area */
+            .chatgpt-panel-nav {
                 flex: 1;
                 min-height: 0;
                 overflow-y: auto;
                 overflow-x: hidden;
                 padding: 2px 4px 16px;
             }
-            .sidebar-nav::-webkit-scrollbar {
+            .chatgpt-panel-nav::-webkit-scrollbar {
                 width: 4px;
             }
-            .sidebar-nav::-webkit-scrollbar-thumb {
+            .chatgpt-panel-nav::-webkit-scrollbar-thumb {
                 background: rgba(255, 255, 255, 0.1);
                 border-radius: 999px;
             }
@@ -790,14 +946,14 @@
                 text-transform: uppercase;
                 letter-spacing: 0.06em;
                 font-weight: 600;
-                padding: 14px 10px 4px;
+                padding: 12px 10px 4px;
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
                 user-select: none;
             }
 
-            /* Navigation Links (Estilo items de chat de ChatGPT) */
+            /* Navigation Links */
             .nav-link {
                 display: flex;
                 align-items: center;
@@ -829,8 +985,8 @@
                 box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
             }
             .nav-link svg {
-                width: 16px;
-                height: 16px;
+                width: 15px;
+                height: 15px;
                 flex-shrink: 0;
                 color: #8e8e8e;
                 transition: color 0.15s ease;
@@ -844,7 +1000,7 @@
                 display: flex;
                 align-items: center;
                 gap: 8px;
-                padding: 5px 10px 5px 26px;
+                padding: 5px 10px 5px 24px;
                 border-radius: 6px;
                 color: #8a8a8e;
                 text-decoration: none;
@@ -886,8 +1042,8 @@
                 border-radius: 999px;
             }
 
-            /* Footer usuario estilo ChatGPT */
-            .sidebar-footer {
+            /* Panel Footer */
+            .chatgpt-panel-footer {
                 flex-shrink: 0;
                 padding: 8px 4px 0;
                 margin-top: auto;
@@ -895,21 +1051,21 @@
             }
             .sidebar-user {
                 width: 100%;
-                padding: 7px 8px;
+                padding: 6px 8px;
                 background: transparent;
                 border: 1px solid transparent;
                 border-radius: 8px;
                 display: flex;
                 align-items: center;
-                gap: 9px;
+                gap: 8px;
                 transition: background 0.15s ease;
             }
             .sidebar-user:hover {
                 background: rgba(255, 255, 255, 0.06);
             }
             .sidebar-user-avatar {
-                width: 28px;
-                height: 28px;
+                width: 26px;
+                height: 26px;
                 border-radius: 50%;
                 background: linear-gradient(135deg, #3f3f46, #18181b);
                 border: 1px solid rgba(255, 255, 255, 0.2);
@@ -918,7 +1074,7 @@
                 justify-content: center;
                 font-weight: 600;
                 color: #ffffff;
-                font-size: 12px;
+                font-size: 11px;
                 position: relative;
                 flex-shrink: 0;
             }
@@ -927,10 +1083,10 @@
                 position: absolute;
                 bottom: 0;
                 right: 0;
-                width: 7px;
-                height: 7px;
+                width: 6px;
+                height: 6px;
                 background: #10B981;
-                border: 1.5px solid #171717;
+                border: 1px solid #171717;
                 border-radius: 50%;
             }
             .sidebar-user-info {
@@ -939,7 +1095,7 @@
                 line-height: 1.25;
             }
             .sidebar-user-name {
-                font-size: 13px;
+                font-size: 12.5px;
                 font-weight: 500;
                 color: #ececec;
                 white-space: nowrap;
@@ -957,8 +1113,8 @@
                 flex-shrink: 0;
             }
             .sidebar-logout {
-                width: 28px;
-                height: 28px;
+                width: 26px;
+                height: 26px;
                 display: inline-flex;
                 align-items: center;
                 justify-content: center;
@@ -1891,40 +2047,101 @@
         <div class="ambient-glow ambient-glow-br"></div>
 
         <div class="app-shell">
-            <!-- Floating button to reopen sidebar when collapsed on desktop -->
-            <button type="button" id="sidebar-floating-toggle" class="sidebar-floating-toggle" onclick="toggleSidebar()" title="Abrir barra lateral (Ctrl + B)" aria-label="Abrir barra lateral">
-                <svg style="width: 18px; height: 18px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <rect x="3" y="3" width="18" height="18" rx="3" stroke-width="2"/>
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v18"/>
-                </svg>
-            </button>
-
-            <!-- Sidebar (Desktop - LEFT) — Estilo ChatGPT -->
-            <aside class="sidebar" id="app-sidebar">
-                @php
-                    $nuevosCount = 0;
-                    try {
-                        if (\Illuminate\Support\Facades\Schema::hasTable('leads') && \Illuminate\Support\Facades\Schema::hasColumn('leads', 'estado')) {
-                            $nuevosCount = \App\Models\Lead::where('estado', 'nuevo')->count();
-                        }
-                    } catch (\Throwable $e) {
-                        $nuevosCount = 0;
+            @php
+                $nuevosCount = 0;
+                try {
+                    if (\Illuminate\Support\Facades\Schema::hasTable('leads') && \Illuminate\Support\Facades\Schema::hasColumn('leads', 'estado')) {
+                        $nuevosCount = \App\Models\Lead::where('estado', 'nuevo')->count();
                     }
-                @endphp
+                } catch (\Throwable $e) {
+                    $nuevosCount = 0;
+                }
 
-                <!-- ChatGPT Header -->
-                <div class="chatgpt-sidebar-header">
-                    <a href="{{ route('dashboard') }}" class="chatgpt-brand-btn" wire:navigate title="Kosta Platform">
-                        <span class="chatgpt-brand-avatar">
-                            <img src="{{ asset('img/favicon.png') }}" alt="Kosta" style="width: 16px; height: 16px; object-fit: contain;">
-                        </span>
-                        <div style="display: flex; align-items: center; gap: 6px;">
-                            <span class="chatgpt-brand-title">Kosta Studio</span>
-                            <svg class="chatgpt-brand-chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-                        </div>
+                $activeTab = 'principal';
+                if (request()->routeIs('quotes.*', 'bills.*', 'invoices.*', 'expenses.*', 'services.*')) {
+                    $activeTab = 'operaciones';
+                } elseif (request()->routeIs('case-studies.*')) {
+                    $activeTab = 'proyectos';
+                } elseif (request()->routeIs('automations.*')) {
+                    $activeTab = 'automatizaciones';
+                } elseif (request()->routeIs('profile', 'kamo')) {
+                    $activeTab = 'ajustes';
+                }
+            @endphp
+
+            <!-- ========================================== -->
+            <!-- 1. LEFT ICON RAIL (Tier 1) — ChatGPT Style -->
+            <!-- ========================================== -->
+            <nav class="chatgpt-rail" id="chatgpt-rail" aria-label="Navegación principal">
+                <div class="chatgpt-rail-group">
+                    <!-- Icono 1: Principal / Home -->
+                    <button type="button" class="chatgpt-rail-btn rail-home" data-tab="principal" data-tooltip="Principal & Dashboard" onclick="setMenuTab('principal')" aria-label="Principal & Dashboard">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+                        </svg>
+                        @if($nuevosCount > 0)
+                            <span class="chatgpt-rail-dot"></span>
+                        @endif
+                    </button>
+
+                    <!-- Icono 2: Finanzas & Operaciones -->
+                    <button type="button" class="chatgpt-rail-btn" data-tab="operaciones" data-tooltip="Finanzas & Operación" onclick="setMenuTab('operaciones')" aria-label="Finanzas & Operación">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                        </svg>
+                    </button>
+
+                    <!-- Icono 3: Proyectos & Portafolio -->
+                    <button type="button" class="chatgpt-rail-btn" data-tab="proyectos" data-tooltip="Proyectos & Portafolio" onclick="setMenuTab('proyectos')" aria-label="Proyectos & Portafolio">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"/>
+                        </svg>
+                    </button>
+
+                    <!-- Icono 4: Automatizaciones -->
+                    <button type="button" class="chatgpt-rail-btn" data-tab="automatizaciones" data-tooltip="Automatizaciones (Email & WA)" onclick="setMenuTab('automatizaciones')" aria-label="Automatizaciones">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                        </svg>
+                    </button>
+
+                    <!-- Icono 5: Ajustes & Más -->
+                    <button type="button" class="chatgpt-rail-btn" data-tab="ajustes" data-tooltip="Ajustes & Sistema" onclick="setMenuTab('ajustes')" aria-label="Ajustes">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"/>
+                        </svg>
+                    </button>
+                </div>
+
+                <div class="chatgpt-rail-group">
+                    <!-- Icono Web Kosta Externa -->
+                    <a href="{{ route('landing') }}" target="_blank" rel="noopener" class="chatgpt-rail-web-btn" data-tooltip="Visitar kostastudio.com" aria-label="Visitar sitio web">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                        </svg>
                     </a>
 
-                    <div class="chatgpt-header-actions">
+                    <!-- Avatar Usuario -->
+                    @auth
+                        <div class="chatgpt-rail-avatar" data-tooltip="{{ auth()->user()->name }} (Mi Perfil)" onclick="setMenuTab('ajustes')">
+                            {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
+                        </div>
+                    @endauth
+                </div>
+            </nav>
+
+            <!-- ============================================== -->
+            <!-- 2. SECONDARY PANEL (Tier 2) — ChatGPT Style    -->
+            <!-- ============================================== -->
+            <aside class="chatgpt-panel" id="chatgpt-panel">
+                <!-- Panel Header con Título Dinámico y Botón de Recoger [ | ] -->
+                <div class="chatgpt-panel-header">
+                    <div class="chatgpt-panel-title-wrap">
+                        <span id="chatgpt-panel-title">Kosta Studio</span>
+                        <svg class="w-3.5 h-3.5 text-neutral-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                    </div>
+
+                    <div class="chatgpt-panel-actions">
                         <a href="{{ route('leads.index') }}" class="chatgpt-icon-btn" title="Prospectos / Notificaciones" wire:navigate>
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
@@ -1933,7 +2150,7 @@
                                 <span class="chatgpt-badge-dot"></span>
                             @endif
                         </a>
-                        <button type="button" class="chatgpt-icon-btn" onclick="toggleSidebar()" title="Cerrar barra lateral (Ctrl + B)" aria-label="Cerrar barra lateral">
+                        <button type="button" class="chatgpt-icon-btn" onclick="toggleSidebar()" title="Recoger barra lateral (Ctrl + B)" aria-label="Recoger barra lateral">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <rect x="3" y="3" width="18" height="18" rx="3" stroke-width="2"/>
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v18"/>
@@ -1942,7 +2159,7 @@
                     </div>
                 </div>
 
-                <!-- Botón "Nuevo Chat" / Acción Primaria -->
+                <!-- Botón de Acción Superior tipo "Nuevo Chat" -->
                 <div class="chatgpt-new-action-wrap">
                     <a wire:navigate href="{{ route('quotes.create') }}" class="chatgpt-new-action-btn">
                         <div style="display: flex; align-items: center;">
@@ -1955,143 +2172,178 @@
                     </a>
                 </div>
 
-                <!-- Navegación por secciones -->
-                <div class="sidebar-nav">
-                    <!-- Sección: Fijados -->
-                    <div class="sidebar-section-label">Fijados</div>
-                    
-                    <a wire:navigate href="{{ route('dashboard') }}" class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}">
-                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
-                        </svg>
-                        <span>Dashboard</span>
-                    </a>
+                <!-- Contenido Dinámico según Icono seleccionado en el Rail -->
+                <div class="chatgpt-panel-nav">
+                    <!-- ================= TAB 1: PRINCIPAL ================= -->
+                    <div class="chatgpt-tab-content" data-tab="principal">
+                        <div class="sidebar-section-label">Fijados</div>
+                        <a wire:navigate href="{{ route('dashboard') }}" class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+                            </svg>
+                            <span>Dashboard General</span>
+                        </a>
 
-                    <a wire:navigate href="{{ route('leads.index') }}" class="nav-link {{ request()->routeIs('leads.*') ? 'active' : '' }}">
-                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
-                        </svg>
-                        <span>Prospectos (Leads)</span>
-                        @if($nuevosCount > 0)
-                            <span class="nav-badge-pill">{{ $nuevosCount }}</span>
-                        @endif
-                    </a>
+                        <a wire:navigate href="{{ route('leads.index') }}" class="nav-link {{ request()->routeIs('leads.*') ? 'active' : '' }}">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                            </svg>
+                            <span>Prospectos (Leads)</span>
+                            @if($nuevosCount > 0)
+                                <span class="nav-badge-pill">{{ $nuevosCount }}</span>
+                            @endif
+                        </a>
 
-                    <a wire:navigate href="{{ route('clients.index') }}" class="nav-link {{ request()->routeIs('clients.*') ? 'active' : '' }}">
-                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
-                        </svg>
-                        <span>Clientes</span>
-                    </a>
+                        <a wire:navigate href="{{ route('clients.index') }}" class="nav-link {{ request()->routeIs('clients.*') ? 'active' : '' }}">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+                            </svg>
+                            <span>Clientes</span>
+                        </a>
 
-                    <!-- Sección: Operaciones (Estilo carpetas ChatGPT) -->
-                    <div class="sidebar-section-label" style="margin-top: 10px;">Operaciones</div>
+                        <div class="sidebar-section-label" style="margin-top: 10px;">Atajos Rápidos</div>
+                        <a wire:navigate href="{{ route('quotes.index') }}" class="nav-link">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                            <span>Ver Cotizaciones</span>
+                        </a>
+                        <a wire:navigate href="{{ route('invoices.index') }}" class="nav-link">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 14l6-6m-5.5.5h.01m4.99 5h.01M19 21l-7-4-7 4V5a2 2 0 012-2h10a2 2 0 012 2v16z"/></svg>
+                            <span>Ver Facturas</span>
+                        </a>
+                    </div>
 
-                    <a wire:navigate href="{{ route('quotes.index') }}" class="nav-link {{ request()->routeIs('quotes.*') ? 'active' : '' }}">
-                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-                        </svg>
-                        <span>Cotizaciones</span>
-                    </a>
+                    <!-- ================= TAB 2: OPERACIONES & FINANZAS ================= -->
+                    <div class="chatgpt-tab-content" data-tab="operaciones" style="display: none;">
+                        <div class="sidebar-section-label">Comercial & Cobros</div>
+                        <a wire:navigate href="{{ route('quotes.index') }}" class="nav-link {{ request()->routeIs('quotes.*') ? 'active' : '' }}">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                            </svg>
+                            <span>Cotizaciones</span>
+                        </a>
 
-                    <a wire:navigate href="{{ route('bills.index') }}" class="nav-link {{ request()->routeIs('bills.*') ? 'active' : '' }}">
-                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/>
-                        </svg>
-                        <span>Cuentas de Cobro</span>
-                    </a>
+                        <a wire:navigate href="{{ route('bills.index') }}" class="nav-link {{ request()->routeIs('bills.*') ? 'active' : '' }}">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/>
+                            </svg>
+                            <span>Cuentas de Cobro</span>
+                        </a>
 
-                    <a wire:navigate href="{{ route('invoices.index') }}" class="nav-link {{ request()->routeIs('invoices.*') ? 'active' : '' }}">
-                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 14l6-6m-5.5.5h.01m4.99 5h.01M19 21l-7-4-7 4V5a2 2 0 012-2h10a2 2 0 012 2v16z"/>
-                        </svg>
-                        <span>Facturas</span>
-                    </a>
+                        <a wire:navigate href="{{ route('invoices.index') }}" class="nav-link {{ request()->routeIs('invoices.*') ? 'active' : '' }}">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 14l6-6m-5.5.5h.01m4.99 5h.01M19 21l-7-4-7 4V5a2 2 0 012-2h10a2 2 0 012 2v16z"/>
+                            </svg>
+                            <span>Facturas</span>
+                        </a>
 
-                    <a wire:navigate href="{{ route('expenses.index') }}" class="nav-link {{ request()->routeIs('expenses.*') ? 'active' : '' }}">
-                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6"/>
-                        </svg>
-                        <span>Gastos</span>
-                    </a>
+                        <div class="sidebar-section-label" style="margin-top: 10px;">Costos & Catálogo</div>
+                        <a wire:navigate href="{{ route('expenses.index') }}" class="nav-link {{ request()->routeIs('expenses.*') ? 'active' : '' }}">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6"/>
+                            </svg>
+                            <span>Gastos de Operación</span>
+                        </a>
 
-                    <a wire:navigate href="{{ route('services.index') }}" class="nav-link {{ request()->routeIs('services.index') ? 'active' : '' }}">
-                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
-                        </svg>
-                        <span>Servicios</span>
-                    </a>
+                        <a wire:navigate href="{{ route('services.index') }}" class="nav-link {{ request()->routeIs('services.index') ? 'active' : '' }}">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
+                            </svg>
+                            <span>Catálogo de Servicios</span>
+                        </a>
+                    </div>
 
-                    <!-- Sección: Proyectos (Casos de Estudio) -->
-                    <div class="sidebar-section-label" style="margin-top: 10px;">Proyectos</div>
+                    <!-- ================= TAB 3: PROYECTOS & CASOS ================= -->
+                    <div class="chatgpt-tab-content" data-tab="proyectos" style="display: none;">
+                        <div class="sidebar-section-label">Portafolio & Casos</div>
+                        <a wire:navigate href="{{ route('case-studies.index') }}" class="nav-link {{ request()->routeIs('case-studies.*') ? 'active' : '' }}">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"/>
+                            </svg>
+                            <span>Todos los Casos</span>
+                        </a>
 
-                    <a wire:navigate href="{{ route('case-studies.index') }}" class="nav-link {{ request()->routeIs('case-studies.*') ? 'active' : '' }}">
-                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"/>
-                        </svg>
-                        <span>Casos de Estudio</span>
-                    </a>
-                    <a wire:navigate href="{{ route('case-studies.index') }}?cat=web" class="nav-sublink {{ request()->get('cat') === 'web' ? 'active' : '' }}">
-                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/></svg>
-                        <span>Páginas Web</span>
-                    </a>
-                    <a wire:navigate href="{{ route('case-studies.index') }}?cat=ecommerce" class="nav-sublink {{ request()->get('cat') === 'ecommerce' ? 'active' : '' }}">
-                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
-                        <span>E-commerce</span>
-                    </a>
-                    <a wire:navigate href="{{ route('case-studies.index') }}?cat=sistema" class="nav-sublink {{ request()->get('cat') === 'sistema' ? 'active' : '' }}">
-                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
-                        <span>Sistemas</span>
-                    </a>
-                    <a wire:navigate href="{{ route('case-studies.index') }}?cat=films" class="nav-sublink {{ in_array(request()->get('cat'), ['films', 'social'], true) ? 'active' : '' }}">
-                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
-                        <span>Films & Reels</span>
-                    </a>
-                    <a wire:navigate href="{{ route('case-studies.index') }}?cat=branding" class="nav-sublink {{ request()->get('cat') === 'branding' ? 'active' : '' }}">
-                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>
-                        <span>Branding</span>
-                    </a>
+                        <a wire:navigate href="{{ route('case-studies.index') }}?cat=web" class="nav-sublink {{ request()->get('cat') === 'web' ? 'active' : '' }}">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/></svg>
+                            <span>Páginas Web</span>
+                        </a>
 
-                    <!-- Sección: Herramientas -->
-                    <div class="sidebar-section-label" style="margin-top: 10px;">Herramientas</div>
+                        <a wire:navigate href="{{ route('case-studies.index') }}?cat=ecommerce" class="nav-sublink {{ request()->get('cat') === 'ecommerce' ? 'active' : '' }}">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+                            <span>E-commerce</span>
+                        </a>
 
-                    <a wire:navigate href="{{ route('automations.email') }}" class="nav-link {{ request()->routeIs('automations.email') || request()->routeIs('automations.index') ? 'active' : '' }}">
-                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-                        </svg>
-                        <span>Correo (Resend)</span>
-                    </a>
+                        <a wire:navigate href="{{ route('case-studies.index') }}?cat=sistema" class="nav-sublink {{ request()->get('cat') === 'sistema' ? 'active' : '' }}">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
+                            <span>Sistemas & Software</span>
+                        </a>
 
-                    <a wire:navigate href="{{ route('automations.whatsapp') }}" class="nav-link {{ request()->routeIs('automations.whatsapp') ? 'active' : '' }}">
-                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
-                        </svg>
-                        <span>WhatsApp (Meta)</span>
-                    </a>
+                        <a wire:navigate href="{{ route('case-studies.index') }}?cat=films" class="nav-sublink {{ in_array(request()->get('cat'), ['films', 'social'], true) ? 'active' : '' }}">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+                            <span>Films & Reels</span>
+                        </a>
 
-                    <a href="{{ route('kamo') }}" target="_blank" class="nav-link {{ request()->routeIs('kamo', 'perfil', 'cv') ? 'active' : '' }}" title="Ver Perfil Kamo">
-                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
-                        </svg>
-                        <span>Kamo (CV)</span>
-                        <svg style="width: 12px; height: 12px; margin-left: auto; opacity: 0.4;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
-                        </svg>
-                    </a>
+                        <a wire:navigate href="{{ route('case-studies.index') }}?cat=branding" class="nav-sublink {{ request()->get('cat') === 'branding' ? 'active' : '' }}">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>
+                            <span>Branding</span>
+                        </a>
+                    </div>
 
-                    <a href="{{ route('landing') }}" target="_blank" rel="noopener" class="nav-link" title="Visitar kostastudio.com">
-                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/>
-                        </svg>
-                        <span>Sitio Web Kosta</span>
-                        <svg style="width: 12px; height: 12px; margin-left: auto; opacity: 0.4;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
-                        </svg>
-                    </a>
+                    <!-- ================= TAB 4: AUTOMATIZACIONES ================= -->
+                    <div class="chatgpt-tab-content" data-tab="automatizaciones" style="display: none;">
+                        <div class="sidebar-section-label">Canales & Respuestas</div>
+                        <a wire:navigate href="{{ route('automations.email') }}" class="nav-link {{ request()->routeIs('automations.email') || request()->routeIs('automations.index') ? 'active' : '' }}">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                            </svg>
+                            <span>Correo (Resend)</span>
+                        </a>
+
+                        <a wire:navigate href="{{ route('automations.whatsapp') }}" class="nav-link {{ request()->routeIs('automations.whatsapp') ? 'active' : '' }}">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+                            </svg>
+                            <span>WhatsApp (Meta)</span>
+                        </a>
+
+                        <div class="sidebar-section-label" style="margin-top: 10px;">Plantillas & Metacampos</div>
+                        <a wire:navigate href="{{ route('automations.email') }}" class="nav-sublink">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                            <span>Plantilla Kosta</span>
+                        </a>
+                        <a wire:navigate href="{{ route('automations.email') }}" class="nav-sublink">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+                            <span>Auto-responder Cliente</span>
+                        </a>
+                    </div>
+
+                    <!-- ================= TAB 5: AJUSTES & CUENTA ================= -->
+                    <div class="chatgpt-tab-content" data-tab="ajustes" style="display: none;">
+                        <div class="sidebar-section-label">Mi Cuenta</div>
+                        <a wire:navigate href="{{ route('profile') }}" class="nav-link {{ request()->routeIs('profile') ? 'active' : '' }}">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                            </svg>
+                            <span>Mi Perfil</span>
+                        </a>
+
+                        <a href="{{ route('kamo') }}" target="_blank" class="nav-link {{ request()->routeIs('kamo', 'perfil', 'cv') ? 'active' : '' }}" title="Ver Perfil Kamo">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                            </svg>
+                            <span>Kamo (CV Público)</span>
+                        </a>
+
+                        <a href="{{ route('landing') }}" target="_blank" rel="noopener" class="nav-link">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/>
+                            </svg>
+                            <span>Web Kosta Studio ↗</span>
+                        </a>
+                    </div>
                 </div>
 
-                <!-- Footer Usuario estilo ChatGPT -->
-                <div class="sidebar-footer">
+                <!-- Footer Usuario del Panel -->
+                <div class="chatgpt-panel-footer">
                     @auth
                         <div class="sidebar-user">
                             <div class="sidebar-user-avatar">
@@ -2106,7 +2358,7 @@
                             <form method="POST" action="{{ route('logout') }}" class="sidebar-user-form">
                                 @csrf
                                 <button type="submit" class="sidebar-logout" title="Cerrar sesión" aria-label="Cerrar sesión">
-                                    <svg style="width: 16px; height: 16px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <svg style="width: 15px; height: 15px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
                                     </svg>
                                 </button>
@@ -2461,6 +2713,61 @@
             document.getElementById('bottom-nav-fab-btn')?.classList.remove('is-open');
         }
 
+        let currentTab = localStorage.getItem('kosta_active_tab') || '{{ $activeTab }}';
+
+        function setMenuTab(tabName) {
+            const isCollapsed = document.body.classList.contains('sidebar-collapsed') || document.documentElement.classList.contains('sidebar-is-collapsed');
+            
+            // If clicking the current tab while open, toggle/collapse it!
+            if (!isCollapsed && currentTab === tabName) {
+                toggleSidebar();
+                return;
+            }
+            
+            // Otherwise, switch to selected tab and make sure panel is open!
+            currentTab = tabName;
+            try {
+                localStorage.setItem('kosta_active_tab', tabName);
+            } catch (e) {}
+
+            if (isCollapsed) {
+                document.body.classList.remove('sidebar-collapsed');
+                document.documentElement.classList.remove('sidebar-is-collapsed');
+                try {
+                    localStorage.setItem('kosta_sidebar_collapsed', 'false');
+                } catch (e) {}
+            }
+            
+            renderActiveTab();
+        }
+
+        function renderActiveTab() {
+            // Update rail buttons active class
+            document.querySelectorAll('.chatgpt-rail-btn[data-tab]').forEach(btn => {
+                const isActive = btn.getAttribute('data-tab') === currentTab;
+                btn.classList.toggle('active', isActive);
+            });
+
+            // Update panel views
+            document.querySelectorAll('.chatgpt-tab-content').forEach(pane => {
+                const isMatch = pane.getAttribute('data-tab') === currentTab;
+                pane.style.display = isMatch ? 'block' : 'none';
+            });
+
+            // Update panel header title
+            const titles = {
+                'principal': 'Kosta Studio',
+                'operaciones': 'Finanzas & Operación',
+                'proyectos': 'Proyectos & Casos',
+                'automatizaciones': 'Automatizaciones',
+                'ajustes': 'Configuración'
+            };
+            const titleEl = document.getElementById('chatgpt-panel-title');
+            if (titleEl && titles[currentTab]) {
+                titleEl.textContent = titles[currentTab];
+            }
+        }
+
         function toggleSidebar() {
             const isCurrentlyCollapsed = document.body.classList.contains('sidebar-collapsed') || document.documentElement.classList.contains('sidebar-is-collapsed');
             const newState = !isCurrentlyCollapsed;
@@ -2475,6 +2782,12 @@
 
         function initSidebarState() {
             try {
+                const savedTab = localStorage.getItem('kosta_active_tab');
+                if (savedTab) {
+                    currentTab = savedTab;
+                }
+                renderActiveTab();
+
                 if (window.innerWidth >= 1024 && localStorage.getItem('kosta_sidebar_collapsed') === 'true') {
                     document.body.classList.add('sidebar-collapsed');
                     document.documentElement.classList.add('sidebar-is-collapsed');
