@@ -1,9 +1,31 @@
+@php
+    use App\Models\Setting;
+    use App\Services\LeadNotificationService;
+
+    $badge = Setting::get('email_tpl_client_badge', 'KOSTA STUDIO & FILMS');
+    $title = Setting::get('email_tpl_client_title', '¡Hola, {{nombre}}!');
+    $subtitle = Setting::get('email_tpl_client_subtitle', 'Hemos recibido tu mensaje con éxito');
+    $p1 = Setting::get('email_tpl_client_p1', 'Gracias por ponerte en contacto con nosotros. Nuestro equipo creativo y técnico ya está revisando los detalles de tu consulta sobre {{servicio}}.');
+    $p2 = Setting::get('email_tpl_client_p2', 'Analizamos cada reto de manera personalizada para proponerte la mejor dirección técnica, creativa y comercial. Nos pondremos en contacto contigo en menos de 24 horas laborables.');
+    $waText = Setting::get('email_tpl_client_wa_text', '¿Necesitas atención inmediata o tienes un proyecto urgente?');
+    $waBtn = Setting::get('email_tpl_client_wa_btn', 'Escríbenos directamente por WhatsApp');
+    $footerText = Setting::get('email_tpl_client_footer', 'KOSTA STUDIO & FILMS · Creando marcas que se ven, historias que conectan y experiencias que venden.');
+
+    $badge = LeadNotificationService::replaceMetaPlaceholders($badge, $lead);
+    $title = LeadNotificationService::replaceMetaPlaceholders($title, $lead);
+    $subtitle = LeadNotificationService::replaceMetaPlaceholders($subtitle, $lead);
+    $p1 = LeadNotificationService::replaceMetaPlaceholders($p1, $lead);
+    $p2 = LeadNotificationService::replaceMetaPlaceholders($p2, $lead);
+    $waText = LeadNotificationService::replaceMetaPlaceholders($waText, $lead);
+    $waBtn = LeadNotificationService::replaceMetaPlaceholders($waBtn, $lead);
+    $footerText = LeadNotificationService::replaceMetaPlaceholders($footerText, $lead);
+@endphp
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mensaje Recibido — Kosta Studio</title>
+    <title>{{ $title }}</title>
     <style>
         body { margin: 0; padding: 0; background-color: #0a0a0c; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #f4f4f5; }
         .wrapper { max-width: 580px; margin: 30px auto; background-color: #121216; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 20px; overflow: hidden; }
@@ -13,9 +35,6 @@
         .subtitle { color: rgba(255, 255, 255, 0.65); font-size: 14px; margin: 0; }
         .body { padding: 32px; font-size: 14px; line-height: 1.7; color: rgba(255, 255, 255, 0.85); }
         .highlight-box { background: rgba(0, 0, 0, 0.4); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; padding: 20px; margin: 24px 0; }
-        .highlight-row { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 13px; }
-        .highlight-label { color: rgba(255, 255, 255, 0.5); font-weight: 500; }
-        .highlight-value { color: #ffffff; font-weight: 600; text-align: right; }
         .btn-wa { display: inline-block; background: #25D366; color: #ffffff; text-decoration: none; font-weight: 700; font-size: 14px; padding: 13px 26px; border-radius: 12px; margin: 12px 0; }
         .footer { padding: 24px 32px; background: #0c0c0e; border-top: 1px solid rgba(255, 255, 255, 0.06); text-align: center; font-size: 12px; color: rgba(255, 255, 255, 0.4); line-height: 1.6; }
     </style>
@@ -23,18 +42,18 @@
 <body>
     <div class="wrapper">
         <div class="header">
-            <span class="badge">KOSTA STUDIO & FILMS</span>
-            <h1 class="title">¡Hola, {{ $lead->nombre }}!</h1>
-            <p class="subtitle">Hemos recibido tu mensaje con éxito</p>
+            <span class="badge">{{ $badge }}</span>
+            <h1 class="title">{{ $title }}</h1>
+            @if(filled($subtitle))
+                <p class="subtitle">{{ $subtitle }}</p>
+            @endif
         </div>
 
         <div class="body">
-            <p>
-                Gracias por ponerte en contacto con nosotros. Nuestro equipo creativo y técnico ya está revisando los detalles de tu consulta sobre <strong>{{ $lead->servicio }}</strong>.
-            </p>
-            <p>
-                Analizamos cada reto de manera personalizada para proponerte la mejor dirección técnica, creativa y comercial. Nos pondremos en contacto contigo en menos de <strong>24 horas laborables</strong>.
-            </p>
+            <p>{!! nl2br(e($p1)) !!}</p>
+            @if(filled($p2))
+                <p>{!! nl2br(e($p2)) !!}</p>
+            @endif
 
             <div class="highlight-box">
                 <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: #e63946; font-weight: 700; margin-bottom: 14px;">Resumen de tu solicitud</div>
@@ -56,10 +75,18 @@
                 </table>
             </div>
 
-            <p style="margin-bottom: 6px;">¿Necesitas atención inmediata o tienes un proyecto urgente?</p>
+            @if(filled($waText))
+                <p style="margin-bottom: 6px;">{{ $waText }}</p>
+            @endif
+
+            @php
+                $studioWa = \App\Models\Setting::get('automation_whatsapp_number', '573113894136');
+                $waClickUrl = "https://wa.me/{$studioWa}?text=" . urlencode("Hola Kosta, acabo de enviar una consulta desde la web sobre {$lead->servicio} y me gustaría hablar directamente.");
+            @endphp
+
             <div style="text-align: center; margin: 16px 0 24px;">
-                <a href="https://wa.me/573113894136?text={{ urlencode('Hola Kosta, acabo de enviar una consulta desde la web sobre ' . $lead->servicio . ' y me gustaría hablar directamente.') }}" target="_blank" class="btn-wa">
-                    Escríbenos directamente por WhatsApp
+                <a href="{{ $waClickUrl }}" target="_blank" class="btn-wa">
+                    {{ $waBtn }}
                 </a>
             </div>
 
@@ -71,7 +98,7 @@
         </div>
 
         <div class="footer">
-            KOSTA STUDIO & FILMS · Creando marcas que se ven, historias que conectan y experiencias que venden.<br>
+            {{ $footerText }}<br>
             <a href="https://kostastudio.com" style="color: #e63946; text-decoration: none;">kostastudio.com</a>
         </div>
     </div>

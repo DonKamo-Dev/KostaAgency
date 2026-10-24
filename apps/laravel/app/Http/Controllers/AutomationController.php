@@ -10,9 +10,9 @@ use App\Services\MetaWhatsAppService;
 use App\Services\ResendEmailService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Http;
 use Illuminate\View\View;
-use Throwable;
 
 class AutomationController extends Controller
 {
@@ -25,11 +25,12 @@ class AutomationController extends Controller
     }
 
     /**
-     * Subpágina 1: Configuración de Correo Electrónico y Resend.
+     * Subpágina 1: Configuración de Correo Electrónico, Resend y Editor de Plantillas.
      */
     public function email(): View
     {
         $settings = [
+            // Resend & Enrutamiento
             'automation_email_enabled' => Setting::get('automation_email_enabled', '1') === '1',
             'automation_email_recipient' => Setting::get('automation_email_recipient', config('services.kosta.lead_notification_email', 'hola@kostastudio.com')),
             'automation_email_cc' => Setting::get('automation_email_cc', ''),
@@ -37,6 +38,24 @@ class AutomationController extends Controller
             'resend_api_key' => Setting::get('resend_api_key', env('RESEND_API_KEY', config('services.resend.key', ''))),
             'resend_from_email' => Setting::get('resend_from_email', env('MAIL_FROM_ADDRESS', 'hola@kostastudio.com')),
             'resend_from_name' => Setting::get('resend_from_name', env('MAIL_FROM_NAME', 'Kosta Studio')),
+
+            // Plantilla 1: Notificación para Kosta
+            'email_tpl_kosta_subject' => Setting::get('email_tpl_kosta_subject', '🚀 Nuevo Lead: {{nombre}} ({{servicio}}) — KOSTA Studio'),
+            'email_tpl_kosta_badge' => Setting::get('email_tpl_kosta_badge', 'KOSTA STUDIO & FILMS · NUEVO PROSPECTO'),
+            'email_tpl_kosta_title' => Setting::get('email_tpl_kosta_title', '¡Nuevo contacto recibido en la web!'),
+            'email_tpl_kosta_intro' => Setting::get('email_tpl_kosta_intro', 'Se ha registrado una nueva solicitud desde el formulario de contacto.'),
+            'email_tpl_kosta_footer' => Setting::get('email_tpl_kosta_footer', 'Notificación automática generada por KOSTA Platform'),
+
+            // Plantilla 2: Auto-responder para el Cliente
+            'email_tpl_client_subject' => Setting::get('email_tpl_client_subject', '¡Hemos recibido tu mensaje! — Kosta Studio & Films'),
+            'email_tpl_client_badge' => Setting::get('email_tpl_client_badge', 'KOSTA STUDIO & FILMS'),
+            'email_tpl_client_title' => Setting::get('email_tpl_client_title', '¡Hola, {{nombre}}!'),
+            'email_tpl_client_subtitle' => Setting::get('email_tpl_client_subtitle', 'Hemos recibido tu mensaje con éxito'),
+            'email_tpl_client_p1' => Setting::get('email_tpl_client_p1', 'Gracias por ponerte en contacto con nosotros. Nuestro equipo creativo y técnico ya está revisando los detalles de tu consulta sobre {{servicio}}.'),
+            'email_tpl_client_p2' => Setting::get('email_tpl_client_p2', 'Analizamos cada reto de manera personalizada para proponerte la mejor dirección técnica, creativa y comercial. Nos pondremos en contacto contigo en menos de 24 horas laborables.'),
+            'email_tpl_client_wa_text' => Setting::get('email_tpl_client_wa_text', '¿Necesitas atención inmediata o tienes un proyecto urgente?'),
+            'email_tpl_client_wa_btn' => Setting::get('email_tpl_client_wa_btn', 'Escríbenos directamente por WhatsApp'),
+            'email_tpl_client_footer' => Setting::get('email_tpl_client_footer', 'KOSTA STUDIO & FILMS · Creando marcas que se ven, historias que conectan y experiencias que venden.'),
         ];
 
         $hasResendKey = filled($settings['resend_api_key']);
@@ -54,11 +73,32 @@ class AutomationController extends Controller
             ->limit(10)
             ->get();
 
+        $sampleLead = $this->getSampleLead();
+
         return view('automations.email', compact(
             'settings',
             'mailInfo',
-            'recentNotifications'
+            'recentNotifications',
+            'sampleLead'
         ));
+    }
+
+    /**
+     * Previsualización HTML en vivo de una plantilla de correo.
+     */
+    public function previewEmail(string $template): Response
+    {
+        $sampleLead = $this->getSampleLead();
+
+        if ($template === 'client') {
+            $html = view('emails.lead-confirmation', ['lead' => $sampleLead])->render();
+        } else {
+            $html = view('emails.new-lead', ['lead' => $sampleLead])->render();
+        }
+
+        return response($html, 200, [
+            'Content-Type' => 'text/html; charset=UTF-8',
+        ]);
     }
 
     /**
@@ -89,18 +129,7 @@ class AutomationController extends Controller
             ->limit(10)
             ->get();
 
-        $sampleLead = Lead::latest()->first() ?? new Lead([
-            'nombre' => 'Carolina Mendoza',
-            'email' => 'carolina@luxurytravel.co',
-            'telefono' => '+57 300 123 4567',
-            'tipo_cliente' => 'Empresa / Marca',
-            'servicio' => 'Diseño & Desarrollo Web',
-            'presupuesto' => '$5M - $10M COP',
-            'como_nos_conocio' => 'Instagram',
-            'mensaje' => 'Hola equipo de Kosta, queremos renovar nuestro portal de reservas exclusivo y nos encantó su trabajo con Classy Cartagena.',
-            'created_at' => now(),
-        ]);
-
+        $sampleLead = $this->getSampleLead();
         $sampleWaMessage = LeadNotificationService::formatWhatsAppMessage($sampleLead);
 
         return view('automations.whatsapp', compact(
@@ -113,11 +142,12 @@ class AutomationController extends Controller
     }
 
     /**
-     * Guarda la configuración de Correo y Resend.
+     * Guarda la configuración de Correo, Resend y Plantillas editadas.
      */
     public function updateEmail(Request $request): RedirectResponse
     {
         $validated = $request->validate([
+            // Credenciales y Enrutamiento
             'automation_email_enabled' => 'nullable|boolean',
             'automation_email_recipient' => 'required|email|max:150',
             'automation_email_cc' => 'nullable|string|max:255',
@@ -125,8 +155,27 @@ class AutomationController extends Controller
             'resend_api_key' => 'nullable|string|max:255',
             'resend_from_email' => 'nullable|email|max:150',
             'resend_from_name' => 'nullable|string|max:100',
+
+            // Plantilla Kosta
+            'email_tpl_kosta_subject' => 'nullable|string|max:255',
+            'email_tpl_kosta_badge' => 'nullable|string|max:100',
+            'email_tpl_kosta_title' => 'nullable|string|max:200',
+            'email_tpl_kosta_intro' => 'nullable|string|max:500',
+            'email_tpl_kosta_footer' => 'nullable|string|max:300',
+
+            // Plantilla Cliente
+            'email_tpl_client_subject' => 'nullable|string|max:255',
+            'email_tpl_client_badge' => 'nullable|string|max:100',
+            'email_tpl_client_title' => 'nullable|string|max:200',
+            'email_tpl_client_subtitle' => 'nullable|string|max:200',
+            'email_tpl_client_p1' => 'nullable|string|max:2000',
+            'email_tpl_client_p2' => 'nullable|string|max:2000',
+            'email_tpl_client_wa_text' => 'nullable|string|max:300',
+            'email_tpl_client_wa_btn' => 'nullable|string|max:100',
+            'email_tpl_client_footer' => 'nullable|string|max:300',
         ]);
 
+        // Guardar enrutamiento & Resend
         Setting::set('automation_email_enabled', $request->boolean('automation_email_enabled') ? '1' : '0');
         Setting::set('automation_email_recipient', trim($validated['automation_email_recipient']));
         Setting::set('automation_email_cc', trim((string) ($validated['automation_email_cc'] ?? '')));
@@ -142,8 +191,26 @@ class AutomationController extends Controller
             Setting::set('resend_from_name', trim($validated['resend_from_name']));
         }
 
+        // Guardar Plantilla Kosta
+        $kostaKeys = ['subject', 'badge', 'title', 'intro', 'footer'];
+        foreach ($kostaKeys as $k) {
+            $formKey = "email_tpl_kosta_{$k}";
+            if (isset($validated[$formKey])) {
+                Setting::set($formKey, trim((string) $validated[$formKey]));
+            }
+        }
+
+        // Guardar Plantilla Cliente
+        $clientKeys = ['subject', 'badge', 'title', 'subtitle', 'p1', 'p2', 'wa_text', 'wa_btn', 'footer'];
+        foreach ($clientKeys as $k) {
+            $formKey = "email_tpl_client_{$k}";
+            if (isset($validated[$formKey])) {
+                Setting::set($formKey, trim((string) $validated[$formKey]));
+            }
+        }
+
         return redirect()->route('automations.email')
-            ->with('status', '¡Configuración de Correo & Resend guardada con éxito!');
+            ->with('status', '¡Configuración y plantillas de correo guardadas con éxito!');
     }
 
     /**
@@ -188,21 +255,12 @@ class AutomationController extends Controller
     public function testEmail(Request $request): RedirectResponse
     {
         $recipient = $request->input('test_email') ?: Setting::get('automation_email_recipient', config('services.kosta.lead_notification_email', 'hola@kostastudio.com'));
+        $testLead = $this->getSampleLead();
 
-        $testLead = new Lead([
-            'id' => 999999,
-            'nombre' => 'Test Lead (Resend Kosta Studio)',
-            'email' => 'prospecto.prueba@kostastudio.com',
-            'telefono' => '+57 311 000 0000',
-            'tipo_cliente' => 'Test Resend API',
-            'servicio' => 'Prueba de Entrega con Resend',
-            'presupuesto' => '$5M - $10M COP',
-            'como_nos_conocio' => 'Panel de Automatizaciones',
-            'mensaje' => 'Este correo de prueba confirma que la integración con Resend y Render está funcionando y los correos llegan a tu bandeja.',
-            'created_at' => now(),
-        ]);
-
-        $subject = '🚀 [TEST RESEND] Nuevo Lead de Prueba — Kosta Studio';
+        $subject = LeadNotificationService::replaceMetaPlaceholders(
+            Setting::get('email_tpl_kosta_subject', '🚀 Nuevo Lead: {{nombre}} ({{servicio}}) — KOSTA Studio'),
+            $testLead
+        );
         $htmlContent = view('emails.new-lead', ['lead' => $testLead])->render();
         $fallbackMailable = new NewLeadReceivedMail($testLead);
 
@@ -236,19 +294,7 @@ class AutomationController extends Controller
         $metaToken = Setting::get('whatsapp_meta_access_token', env('WHATSAPP_ACCESS_TOKEN'));
         $webhookUrl = Setting::get('automation_whatsapp_webhook_url');
 
-        $testLead = new Lead([
-            'id' => 999999,
-            'nombre' => 'Test Lead (Meta WhatsApp)',
-            'email' => 'test@kostastudio.com',
-            'telefono' => '+57 311 389 4136',
-            'tipo_cliente' => 'Prueba Meta Business',
-            'servicio' => 'Desarrollo Web & Films',
-            'presupuesto' => '$10M+',
-            'como_nos_conocio' => 'Meta Developer Console',
-            'mensaje' => 'Alerta de prueba enviada desde el Módulo de Automatizaciones vía Meta WhatsApp Cloud API.',
-            'created_at' => now(),
-        ]);
-
+        $testLead = $this->getSampleLead();
         $waMessage = LeadNotificationService::formatWhatsAppMessage($testLead);
         $directUrl = 'https://wa.me/'.$kostaWhatsApp.'?text='.urlencode($waMessage);
 
@@ -298,5 +344,24 @@ class AutomationController extends Controller
         return redirect()->route('automations.whatsapp')
             ->with('status', "ℹ️ Enlace directo de alerta generado para WhatsApp (+{$kostaWhatsApp}).")
             ->with('open_whatsapp_url', $directUrl);
+    }
+
+    /**
+     * Retorna un lead modelo con datos realistas para previsualizaciones.
+     */
+    protected function getSampleLead(): Lead
+    {
+        return Lead::latest()->first() ?? new Lead([
+            'id' => 999999,
+            'nombre' => 'Carolina Mendoza',
+            'email' => 'carolina@luxurytravel.co',
+            'telefono' => '+57 300 123 4567',
+            'tipo_cliente' => 'Empresa / Marca',
+            'servicio' => 'Diseño & Desarrollo Web',
+            'presupuesto' => '$5M - $10M COP',
+            'como_nos_conocio' => 'Instagram',
+            'mensaje' => 'Hola equipo de Kosta, queremos renovar nuestro portal de reservas exclusivo y nos encantó su trabajo con Classy Cartagena.',
+            'created_at' => now(),
+        ]);
     }
 }

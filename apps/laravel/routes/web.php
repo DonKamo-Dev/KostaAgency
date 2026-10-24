@@ -189,6 +189,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // ── Automatizaciones (Subpáginas Separadas para Correo y WhatsApp) ──────
     Route::get('/automations', [AutomationController::class, 'index'])->name('automations.index');
     Route::get('/automations/email', [AutomationController::class, 'email'])->name('automations.email');
+    Route::get('/automations/email/preview/{template}', [AutomationController::class, 'previewEmail'])->name('automations.email.preview');
     Route::post('/automations/email', [AutomationController::class, 'updateEmail'])->name('automations.email.update');
     Route::get('/automations/whatsapp', [AutomationController::class, 'whatsapp'])->name('automations.whatsapp');
     Route::post('/automations/whatsapp', [AutomationController::class, 'updateWhatsapp'])->name('automations.whatsapp.update');

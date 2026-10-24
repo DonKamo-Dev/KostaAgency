@@ -28,11 +28,8 @@ class LeadNotificationService
 
         if ($emailEnabled && filled($recipientEmail)) {
             try {
-                $subject = sprintf(
-                    '🚀 Nuevo Lead: %s (%s) — KOSTA Studio',
-                    $lead->nombre,
-                    $lead->servicio ?: 'Consulta general'
-                );
+                $rawSubject = Setting::get('email_tpl_kosta_subject', '🚀 Nuevo Lead: {{nombre}} ({{servicio}}) — KOSTA Studio');
+                $subject = self::replaceMetaPlaceholders($rawSubject, $lead);
 
                 $htmlContent = view('emails.new-lead', ['lead' => $lead])->render();
                 $fallbackMailable = new NewLeadReceivedMail($lead);
@@ -77,7 +74,8 @@ class LeadNotificationService
         $autoResponderEnabled = (string) Setting::get('automation_auto_responder_enabled', '1') === '1';
         if ($autoResponderEnabled && filled($lead->email)) {
             try {
-                $autoSubject = '¡Hemos recibido tu mensaje! — Kosta Studio & Films';
+                $rawAutoSubject = Setting::get('email_tpl_client_subject', '¡Hemos recibido tu mensaje! — Kosta Studio & Films');
+                $autoSubject = self::replaceMetaPlaceholders($rawAutoSubject, $lead);
                 $autoHtml = view('emails.lead-confirmation', ['lead' => $lead])->render();
                 $autoFallback = new LeadConfirmationMail($lead);
 
@@ -197,5 +195,31 @@ class LeadNotificationService
             ."📅 *Fecha:* {$fecha}\n\n"
             .'📝 *Mensaje:* '.($lead->mensaje ? "\n\"{$lead->mensaje}\"" : 'Sin mensaje adicional')."\n\n"
             .'🔗 *Ver en panel:* '.url('/leads');
+    }
+
+    /**
+     * Reemplaza las variables dinámicas / metacampos dentro de los textos de plantilla.
+     */
+    public static function replaceMetaPlaceholders(?string $text, Lead $lead): string
+    {
+        if (blank($text)) {
+            return '';
+        }
+
+        $replacements = [
+            '{{nombre}}' => (string) ($lead->nombre ?? ''),
+            '{{email}}' => (string) ($lead->email ?? ''),
+            '{{telefono}}' => (string) ($lead->telefono ?: 'No especificado'),
+            '{{servicio}}' => (string) ($lead->servicio ?? ''),
+            '{{tipo_cliente}}' => (string) ($lead->tipo_cliente ?: 'No indicado'),
+            '{{presupuesto}}' => (string) ($lead->presupuesto ?: 'Sin definir'),
+            '{{como_nos_conocio}}' => (string) ($lead->como_nos_conocio ?: 'No indicado'),
+            '{{mensaje}}' => (string) ($lead->mensaje ?: ''),
+            '{{fecha}}' => $lead->created_at?->format('d/m/Y H:i') ?? now()->format('d/m/Y H:i'),
+            '{{url_panel}}' => url('/leads'),
+            '{{url_whatsapp}}' => $lead->whatsapp_url ?? '#',
+        ];
+
+        return str_replace(array_keys($replacements), array_values($replacements), $text);
     }
 }

@@ -1,15 +1,30 @@
+@php
+    use App\Models\Setting;
+    use App\Services\LeadNotificationService;
+
+    $badge = Setting::get('email_tpl_kosta_badge', 'KOSTA STUDIO & FILMS · NUEVO PROSPECTO');
+    $title = Setting::get('email_tpl_kosta_title', '¡Nuevo contacto recibido en la web!');
+    $intro = Setting::get('email_tpl_kosta_intro', 'Se ha registrado una nueva solicitud desde el formulario de contacto.');
+    $footerText = Setting::get('email_tpl_kosta_footer', 'Notificación automática generada por KOSTA Platform · ' . config('app.url'));
+
+    $badge = LeadNotificationService::replaceMetaPlaceholders($badge, $lead);
+    $title = LeadNotificationService::replaceMetaPlaceholders($title, $lead);
+    $intro = LeadNotificationService::replaceMetaPlaceholders($intro, $lead);
+    $footerText = LeadNotificationService::replaceMetaPlaceholders($footerText, $lead);
+@endphp
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nuevo Lead Recibido</title>
+    <title>{{ $title }}</title>
     <style>
         body { margin: 0; padding: 0; background-color: #0d0d0f; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #f4f4f5; }
         .wrapper { max-width: 600px; margin: 30px auto; background-color: #18181b; border: 1px solid #27272a; border-radius: 16px; overflow: hidden; }
         .header { background: linear-gradient(135deg, #18181b 0%, #0d0d0f 100%); padding: 32px; border-bottom: 1px solid #27272a; text-align: center; }
         .badge { display: inline-block; background: rgba(230, 57, 70, 0.15); border: 1px solid rgba(230, 57, 70, 0.3); color: #e63946; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; padding: 4px 12px; border-radius: 999px; margin-bottom: 12px; }
         .title { color: #ffffff; font-size: 22px; font-weight: 700; margin: 0; }
+        .intro-text { color: #a1a1aa; font-size: 13.5px; margin: 8px 0 0 0; }
         .body { padding: 32px; }
         .info-grid { width: 100%; border-collapse: collapse; margin-bottom: 24px; }
         .info-grid td { padding: 12px 0; border-bottom: 1px solid #27272a; font-size: 14px; vertical-align: top; }
@@ -26,8 +41,11 @@
 <body>
     <div class="wrapper">
         <div class="header">
-            <span class="badge">KOSTA STUDIO & FILMS · NUEVO PROSPECTO</span>
-            <h1 class="title">¡Nuevo contacto recibido en la web!</h1>
+            <span class="badge">{{ $badge }}</span>
+            <h1 class="title">{{ $title }}</h1>
+            @if(filled($intro))
+                <p class="intro-text">{{ $intro }}</p>
+            @endif
         </div>
 
         <div class="body">
@@ -82,7 +100,7 @@
         </div>
 
         <div class="footer">
-            Notificación automática generada por KOSTA Platform · {{ config('app.url') }}
+            {{ $footerText }}
         </div>
     </div>
 </body>

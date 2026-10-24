@@ -188,4 +188,49 @@ class AutomationTest extends TestCase
         $this->assertEquals('sent_meta_cloud', $lead->metadata['notifications']['whatsapp']['status']);
         $this->assertEquals('wamid.HBgLEAD_ALERT', $lead->metadata['notifications']['whatsapp']['meta_cloud']['message_id']);
     }
+
+    public function test_authenticated_user_can_update_email_templates_with_meta_fields(): void
+    {
+        $user = User::factory()->create();
+
+        $response = $this->actingAs($user)->post(route('automations.email.update'), [
+            'automation_email_recipient' => 'ceo@kostastudio.com',
+            'resend_api_key' => 're_new_api_key_123',
+            'resend_from_email' => 'contact@kostastudio.com',
+            'resend_from_name' => 'Kosta Studio Oficial',
+            'email_tpl_kosta_subject' => '🔥 Proyecto Nuevo: {{nombre}} - {{servicio}}',
+            'email_tpl_kosta_badge' => 'OPORTUNIDAD COMERCIAL',
+            'email_tpl_kosta_title' => 'Nueva Solicitud Entrante',
+            'email_tpl_kosta_intro' => 'El cliente {{nombre}} ha solicitado cotización.',
+            'email_tpl_kosta_footer' => 'Notificación automática de Kosta.',
+            'email_tpl_client_subject' => '¡Hola {{nombre}}, recibimos tu mensaje!',
+            'email_tpl_client_title' => '¡Hola, {{nombre}}!',
+            'email_tpl_client_subtitle' => 'Tu solicitud sobre {{servicio}} está en manos de nuestro equipo',
+            'email_tpl_client_p1' => 'Hemos recibido tu interés en {{servicio}}.',
+            'email_tpl_client_p2' => 'Te responderemos en menos de 24 horas.',
+            'email_tpl_client_wa_text' => '¿Necesitas respuesta inmediata?',
+            'email_tpl_client_wa_btn' => 'Chatear por WhatsApp',
+            'email_tpl_client_footer' => 'Kosta Studio Cartagena',
+        ]);
+
+        $response->assertRedirect(route('automations.email'));
+        $this->assertEquals('🔥 Proyecto Nuevo: {{nombre}} - {{servicio}}', Setting::get('email_tpl_kosta_subject'));
+        $this->assertEquals('¡Hola {{nombre}}, recibimos tu mensaje!', Setting::get('email_tpl_client_subject'));
+        $this->assertEquals('OPORTUNIDAD COMERCIAL', Setting::get('email_tpl_kosta_badge'));
+    }
+
+    public function test_authenticated_user_can_preview_email_templates(): void
+    {
+        $user = User::factory()->create();
+
+        $resKosta = $this->actingAs($user)->get(route('automations.email.preview', 'kosta'));
+        $resKosta->assertOk();
+        $resKosta->assertSee('Carolina Mendoza');
+        $resKosta->assertSee('Diseño & Desarrollo Web');
+
+        $resClient = $this->actingAs($user)->get(route('automations.email.preview', 'client'));
+        $resClient->assertOk();
+        $resClient->assertSee('Carolina');
+        $resClient->assertSee('Kosta Studio');
+    }
 }
