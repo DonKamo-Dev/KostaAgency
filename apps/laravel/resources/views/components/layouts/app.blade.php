@@ -727,6 +727,35 @@
                 border: 1.5px solid #111111;
             }
 
+            /* Leads button special accent on rail */
+            .chatgpt-rail-btn.rail-leads {
+                color: #fb7185;
+            }
+            .chatgpt-rail-btn.rail-leads:hover,
+            .chatgpt-rail-btn.rail-leads.active {
+                background: rgba(225, 29, 72, 0.18);
+                color: #ffffff;
+            }
+
+            .chatgpt-rail-badge-count {
+                position: absolute;
+                top: 0;
+                right: 0;
+                background: #e11d48;
+                color: #ffffff;
+                font-size: 9px;
+                font-weight: 800;
+                min-width: 16px;
+                height: 16px;
+                padding: 0 4px;
+                border-radius: 999px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border: 1.5px solid #111111;
+                box-shadow: 0 0 8px rgba(225, 29, 72, 0.7);
+            }
+
             /* Bottom user avatar on rail */
             .chatgpt-rail-avatar {
                 width: 34px;
@@ -2058,7 +2087,9 @@
                 }
 
                 $activeTab = 'principal';
-                if (request()->routeIs('quotes.*', 'bills.*', 'invoices.*', 'expenses.*', 'services.*')) {
+                if (request()->routeIs('leads.*')) {
+                    $activeTab = 'leads';
+                } elseif (request()->routeIs('quotes.*', 'bills.*', 'invoices.*', 'expenses.*', 'services.*')) {
                     $activeTab = 'operaciones';
                 } elseif (request()->routeIs('case-studies.*')) {
                     $activeTab = 'proyectos';
@@ -2075,37 +2106,45 @@
             <nav class="chatgpt-rail" id="chatgpt-rail" aria-label="Navegación principal">
                 <div class="chatgpt-rail-group">
                     <!-- Icono 1: Principal / Home -->
-                    <button type="button" class="chatgpt-rail-btn rail-home" data-tab="principal" data-tooltip="Principal & Dashboard" onclick="setMenuTab('principal')" aria-label="Principal & Dashboard">
+                    <button type="button" class="chatgpt-rail-btn rail-home" data-tab="principal" data-tooltip="Dashboard General" onclick="setMenuTab('principal')" aria-label="Dashboard General">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
                         </svg>
+                    </button>
+
+                    <!-- Icono 2: Leads (Exclusivo en el Rail) -->
+                    <button type="button" class="chatgpt-rail-btn rail-leads" data-tab="leads" data-tooltip="Prospectos & Leads @if($nuevosCount > 0)({{ $nuevosCount }} nuevos)@endif" onclick="setMenuTab('leads')" aria-label="Prospectos & Leads">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                        </svg>
                         @if($nuevosCount > 0)
-                            <span class="chatgpt-rail-dot"></span>
+                            <span class="chatgpt-rail-badge-count">{{ $nuevosCount > 9 ? '9+' : $nuevosCount }}</span>
                         @endif
                     </button>
 
-                    <!-- Icono 2: Finanzas & Operaciones -->
+                    <!-- Icono 3: Finanzas & Operaciones -->
                     <button type="button" class="chatgpt-rail-btn" data-tab="operaciones" data-tooltip="Finanzas & Operación" onclick="setMenuTab('operaciones')" aria-label="Finanzas & Operación">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
                         </svg>
                     </button>
 
-                    <!-- Icono 3: Proyectos & Portafolio -->
+                    <!-- Icono 4: Proyectos & Portafolio -->
                     <button type="button" class="chatgpt-rail-btn" data-tab="proyectos" data-tooltip="Proyectos & Portafolio" onclick="setMenuTab('proyectos')" aria-label="Proyectos & Portafolio">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"/>
                         </svg>
                     </button>
 
-                    <!-- Icono 4: Automatizaciones -->
+                    <!-- Icono 5: Automatizaciones -->
                     <button type="button" class="chatgpt-rail-btn" data-tab="automatizaciones" data-tooltip="Automatizaciones (Email & WA)" onclick="setMenuTab('automatizaciones')" aria-label="Automatizaciones">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
                         </svg>
                     </button>
 
-                    <!-- Icono 5: Ajustes & Más -->
+                    <!-- Icono 6: Ajustes & Más -->
                     <button type="button" class="chatgpt-rail-btn" data-tab="ajustes" data-tooltip="Ajustes & Sistema" onclick="setMenuTab('ajustes')" aria-label="Ajustes">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"/>
@@ -2142,7 +2181,7 @@
                     </div>
 
                     <div class="chatgpt-panel-actions">
-                        <a href="{{ route('leads.index') }}" class="chatgpt-icon-btn" title="Prospectos / Notificaciones" wire:navigate>
+                        <a href="{{ route('leads.index') }}" class="chatgpt-icon-btn" title="Bandeja de Leads" wire:navigate>
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
                             </svg>
@@ -2176,7 +2215,7 @@
                 <div class="chatgpt-panel-nav">
                     <!-- ================= TAB 1: PRINCIPAL ================= -->
                     <div class="chatgpt-tab-content" data-tab="principal">
-                        <div class="sidebar-section-label">Fijados</div>
+                        <div class="sidebar-section-label">General</div>
                         <a wire:navigate href="{{ route('dashboard') }}" class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}">
                             <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
@@ -2184,21 +2223,85 @@
                             <span>Dashboard General</span>
                         </a>
 
+                        <a wire:navigate href="{{ route('clients.index') }}" class="nav-link {{ request()->routeIs('clients.*') ? 'active' : '' }}">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+                            </svg>
+                            <span>Clientes Registrados</span>
+                        </a>
+
+                        <div class="sidebar-section-label" style="margin-top: 10px;">Atajos Rápidos</div>
                         <a wire:navigate href="{{ route('leads.index') }}" class="nav-link {{ request()->routeIs('leads.*') ? 'active' : '' }}">
                             <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
                             </svg>
-                            <span>Prospectos (Leads)</span>
+                            <span>Bandeja de Leads</span>
+                            @if($nuevosCount > 0)
+                                <span class="nav-badge-pill">{{ $nuevosCount }}</span>
+                            @endif
+                        </a>
+                        <a wire:navigate href="{{ route('quotes.index') }}" class="nav-link">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                            <span>Cotizaciones Activas</span>
+                        </a>
+                        <a wire:navigate href="{{ route('invoices.index') }}" class="nav-link">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 14l6-6m-5.5.5h.01m4.99 5h.01M19 21l-7-4-7 4V5a2 2 0 012-2h10a2 2 0 012 2v16z"/></svg>
+                            <span>Facturas Emitidas</span>
+                        </a>
+                    </div>
+
+                    <!-- ================= TAB 2: LEADS (EXCLUSIVO) ================= -->
+                    <div class="chatgpt-tab-content" data-tab="leads" style="display: none;">
+                        <div class="sidebar-section-label">Bandeja Principal</div>
+                        <a wire:navigate href="{{ route('leads.index') }}" class="nav-link {{ request()->routeIs('leads.*') && !request()->has('estado') ? 'active' : '' }}">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"/>
+                            </svg>
+                            <span>Todos los Prospectos</span>
                             @if($nuevosCount > 0)
                                 <span class="nav-badge-pill">{{ $nuevosCount }}</span>
                             @endif
                         </a>
 
-                        <a wire:navigate href="{{ route('clients.index') }}" class="nav-link {{ request()->routeIs('clients.*') ? 'active' : '' }}">
-                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
-                            </svg>
-                            <span>Clientes</span>
+                        <div class="sidebar-section-label" style="margin-top: 10px;">Filtros por Estado</div>
+                        <a wire:navigate href="{{ route('leads.index') }}?estado=nuevo" class="nav-sublink {{ request()->get('estado') === 'nuevo' ? 'active' : '' }}">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                            <span>Nuevos (Sin atender)</span>
+                            @if($nuevosCount > 0)
+                                <span class="nav-badge-pill">{{ $nuevosCount }}</span>
+                            @endif
+                        </a>
+
+                        <a wire:navigate href="{{ route('leads.index') }}?estado=contactado" class="nav-sublink {{ request()->get('estado') === 'contactado' ? 'active' : '' }}">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+                            <span>Contactados / Chat</span>
+                        </a>
+
+                        <a wire:navigate href="{{ route('leads.index') }}?estado=cotizado" class="nav-sublink {{ request()->get('estado') === 'cotizado' ? 'active' : '' }}">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                            <span>Cotizados</span>
+                        </a>
+
+                        <a wire:navigate href="{{ route('leads.index') }}?estado=ganado" class="nav-sublink {{ request()->get('estado') === 'ganado' ? 'active' : '' }}">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                            <span>Ganados / Clientes</span>
+                        </a>
+
+                        <a wire:navigate href="{{ route('leads.index') }}?estado=descartado" class="nav-sublink {{ request()->get('estado') === 'descartado' ? 'active' : '' }}">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                            <span>Descartados</span>
+                        </a>
+
+                        <div class="sidebar-section-label" style="margin-top: 10px;">Automatizaciones</div>
+                        <a wire:navigate href="{{ route('automations.email') }}" class="nav-link">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                            <span>Configurar Alertas Email</span>
+                        </a>
+                        <a wire:navigate href="{{ route('automations.whatsapp') }}" class="nav-link">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+                            <span>Configurar WhatsApp Meta</span>
+                        </a>
+                    </div>
                         </a>
 
                         <div class="sidebar-section-label" style="margin-top: 10px;">Atajos Rápidos</div>
@@ -2757,6 +2860,7 @@
             // Update panel header title
             const titles = {
                 'principal': 'Kosta Studio',
+                'leads': 'Prospectos (Leads)',
                 'operaciones': 'Finanzas & Operación',
                 'proyectos': 'Proyectos & Casos',
                 'automatizaciones': 'Automatizaciones',
@@ -2782,9 +2886,14 @@
 
         function initSidebarState() {
             try {
+                const serverRouteTab = '{{ $activeTab }}';
                 const savedTab = localStorage.getItem('kosta_active_tab');
-                if (savedTab) {
+                if (serverRouteTab && serverRouteTab !== 'principal') {
+                    currentTab = serverRouteTab;
+                } else if (savedTab) {
                     currentTab = savedTab;
+                } else {
+                    currentTab = serverRouteTab;
                 }
                 renderActiveTab();
 
