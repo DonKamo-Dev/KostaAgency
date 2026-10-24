@@ -80,9 +80,9 @@
 <!-- Navigation -->
 <nav class="floating-site-nav" aria-label="{{ __('landing.nav.aria_main') }}">
     <div class="relative max-w-7xl mx-auto container-pad floating-site-nav-frame">
-        <div class="flex justify-between items-center h-20 sm:h-[84px]">
+        <div class="flex justify-between items-center nav-inner-row">
             <a href="{{ route('landing') }}" class="flex items-center" aria-label="Kosta - {{ __('landing.nav.home') }}">
-                <img src="{{ asset('img/WEB-Kosta-White.svg') }}" alt="Kosta" class="h-11 sm:h-13 md:h-14 w-auto transition-all duration-200 hover:opacity-95" style="height: 50px; max-height: 54px; width: auto;">
+                <img src="{{ asset('img/WEB-Kosta-White.svg') }}" alt="Kosta" class="nav-logo-img transition-all duration-300 hover:opacity-95" style="max-height: 54px; width: auto;">
             </a>
 
             <div class="hidden md:flex items-center gap-8">

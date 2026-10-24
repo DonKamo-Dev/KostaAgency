@@ -293,31 +293,35 @@
             outline-offset: 3px;
         }
 
-        /* ===== Nav Links ===== */
+        /* ===== Nav Links & Floating Dynamic Island Transformation ===== */
         .floating-site-nav {
             position: fixed;
-            top: 16px;
+            top: 0;
             left: 0;
             right: 0;
             z-index: 50;
-            padding: 0 18px;
+            padding: 0;
             pointer-events: none;
+            transition: top 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                        padding 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .floating-site-nav-frame {
             pointer-events: auto;
+            position: relative;
             overflow: hidden;
-            border-radius: 28px;
-            background:
-                linear-gradient(135deg, rgba(34, 16, 19, 0.86), rgba(14, 14, 14, 0.86)),
-                rgba(12, 12, 12, 0.82);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow:
-                0 18px 50px rgba(0, 0, 0, 0.32),
-                0 0 0 1px rgba(230, 57, 70, 0.06),
-                inset 0 1px 0 rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(22px);
-            -webkit-backdrop-filter: blur(22px);
+            border-radius: 0;
+            background: transparent;
+            border: 1px solid transparent;
+            box-shadow: none;
+            backdrop-filter: blur(0px);
+            -webkit-backdrop-filter: blur(0px);
+            transition: background 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                        border-radius 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                        border-color 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                        box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                        backdrop-filter 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                        -webkit-backdrop-filter 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .floating-site-nav-frame::before {
@@ -325,17 +329,85 @@
             position: absolute;
             inset: 0;
             pointer-events: none;
-            background: radial-gradient(circle at 12% 0%, rgba(230, 57, 70, 0.18), transparent 38%);
+            background: radial-gradient(circle at 12% 0%, rgba(230, 57, 70, 0.22), transparent 42%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .nav-inner-row {
+            height: 84px;
+            transition: height 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .nav-logo-img {
+            height: 48px;
+            max-height: 52px;
+            width: auto;
+            transition: height 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                        transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* ===== SCROLLED / FLOATING CAPSULE (Efecto Chévere) ===== */
+        .floating-site-nav.is-scrolled {
+            top: 16px;
+            padding: 0 18px;
+        }
+
+        .floating-site-nav.is-scrolled .floating-site-nav-frame {
+            border-radius: 28px;
+            background:
+                linear-gradient(135deg, rgba(34, 16, 19, 0.88), rgba(14, 14, 14, 0.88)),
+                rgba(12, 12, 12, 0.84);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            box-shadow:
+                0 20px 48px -8px rgba(0, 0, 0, 0.55),
+                0 0 0 1px rgba(230, 57, 70, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+        }
+
+        .floating-site-nav.is-scrolled .floating-site-nav-frame::before {
+            opacity: 1;
+        }
+
+        .floating-site-nav.is-scrolled .nav-inner-row {
+            height: 68px;
+        }
+
+        .floating-site-nav.is-scrolled .nav-logo-img {
+            height: 40px;
         }
 
         @media (max-width: 767px) {
             .floating-site-nav {
+                top: 0;
+                padding: 0;
+            }
+
+            .nav-inner-row {
+                height: 72px;
+            }
+
+            .nav-logo-img {
+                height: 42px;
+            }
+
+            .floating-site-nav.is-scrolled {
                 top: 10px;
                 padding: 0 12px;
             }
 
-            .floating-site-nav-frame {
+            .floating-site-nav.is-scrolled .floating-site-nav-frame {
                 border-radius: 22px;
+            }
+
+            .floating-site-nav.is-scrolled .nav-inner-row {
+                height: 60px;
+            }
+
+            .floating-site-nav.is-scrolled .nav-logo-img {
+                height: 35px;
             }
         }
 
