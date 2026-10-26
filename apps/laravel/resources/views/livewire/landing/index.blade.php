@@ -51,7 +51,7 @@
         .hero-headline strong,
         .hero-headline .hero-bold {
             font-weight: 850;
-            color: #ffffff;
+            color: #E63946 !important;
             display: inline;
         }
 
