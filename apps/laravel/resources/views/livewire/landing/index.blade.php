@@ -1298,58 +1298,6 @@
         </div>
     </section>
 
-    <!-- 07: EQUIPO KOSTA -->
-    <section id="equipo" class="relative section-spacing overflow-hidden border-t border-white/5" aria-labelledby="team-heading">
-        <div class="relative z-10 max-w-7xl mx-auto container-pad">
-            <div class="text-center mb-12 sm:mb-16 max-w-3xl mx-auto" data-reveal="up">
-                <span class="eyebrow">{{ __('landing.team.eyebrow') }}</span>
-                <h2 id="team-heading" class="font-display text-white mb-4">
-                    {{ __('landing.team.title_prefix') }} <span class="text-red-accent">{{ __('landing.team.title_highlight') }}</span>
-                </h2>
-                <p class="text-white/60 text-base sm:text-xl leading-relaxed">
-                    {{ __('landing.team.subtitle') }}
-                </p>
-            </div>
-
-            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 max-w-5xl mx-auto">
-                <!-- Member 1: Yohan Blanco -->
-                <div class="p-6 sm:p-7 rounded-2xl border border-white/10 bg-white/[0.02] backdrop-blur flex flex-col items-center text-center transition-all duration-300 hover:border-white/20 hover:-translate-y-1 hover:shadow-2xl" data-reveal="up" data-reveal-delay="100">
-                    <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden border-2 border-white/20 mb-5 relative bg-zinc-800 shadow-xl">
-                        <img src="{{ asset('img/kamo.png') }}" alt="Yohan Blanco" class="w-full h-full object-cover grayscale contrast-125 hover:grayscale-0 transition-all duration-500" onerror="this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80'">
-                    </div>
-                    <h3 class="text-lg font-bold text-white mb-1">Yohan Blanco</h3>
-                    <div class="text-xs font-mono uppercase tracking-wider text-red-accent font-semibold mb-3">Dirección Estratégica & Tech</div>
-                    <p class="text-xs sm:text-sm text-white/55 leading-relaxed">
-                        Arquitectura de software, sistemas web de alto rendimiento y alineación del roadmap técnico de tu negocio.
-                    </p>
-                </div>
-
-                <!-- Member 2: Creativa & Films -->
-                <div class="p-6 sm:p-7 rounded-2xl border border-white/10 bg-white/[0.02] backdrop-blur flex flex-col items-center text-center transition-all duration-300 hover:border-white/20 hover:-translate-y-1 hover:shadow-2xl" data-reveal="up" data-reveal-delay="200">
-                    <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden border-2 border-white/20 mb-5 relative bg-zinc-800 shadow-xl">
-                        <img src="{{ asset('img/hero/kosta-film-still.jpg') }}" alt="Dirección Audiovisual" class="w-full h-full object-cover grayscale contrast-125 hover:grayscale-0 transition-all duration-500">
-                    </div>
-                    <h3 class="text-lg font-bold text-white mb-1">Dirección Creativa & Films</h3>
-                    <div class="text-xs font-mono uppercase tracking-wider text-red-accent font-semibold mb-3">Producción & Storytelling</div>
-                    <p class="text-xs sm:text-sm text-white/55 leading-relaxed">
-                        Cine publicitario, narrativa visual, reels de alto impacto y dirección de arte con calidad cinematográfica.
-                    </p>
-                </div>
-
-                <!-- Member 3: Marca & UI -->
-                <div class="p-6 sm:p-7 rounded-2xl border border-white/10 bg-white/[0.02] backdrop-blur flex flex-col items-center text-center transition-all duration-300 hover:border-white/20 hover:-translate-y-1 hover:shadow-2xl sm:col-span-2 lg:col-span-1 max-w-sm sm:max-w-none mx-auto w-full" data-reveal="up" data-reveal-delay="300">
-                    <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden border-2 border-white/20 mb-5 relative bg-zinc-800 shadow-xl">
-                        <img src="{{ asset('img/hero/classy-cartagena.png') }}" alt="Diseño & UI/UX" class="w-full h-full object-cover grayscale contrast-125 hover:grayscale-0 transition-all duration-500">
-                    </div>
-                    <h3 class="text-lg font-bold text-white mb-1">Diseño de Marca & UI</h3>
-                    <div class="text-xs font-mono uppercase tracking-wider text-red-accent font-semibold mb-3">Identidad & Experiencia</div>
-                    <p class="text-xs sm:text-sm text-white/55 leading-relaxed">
-                        Sistemas de diseño, identidades visuales memorables e interfaces intuitivas que transmiten estatus y confianza.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
 
     <!-- 08: NUESTRO PROCESO -->
     <section id="proceso" class="relative section-spacing overflow-hidden border-t border-white/5">
