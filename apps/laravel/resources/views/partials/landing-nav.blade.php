@@ -33,8 +33,8 @@
     /* ── Floating WhatsApp FAB & Radar Waves ── */
     .floating-whatsapp-fab {
         position: fixed;
-        bottom: 28px;
-        right: 28px;
+        bottom: 42px;
+        right: 38px;
         z-index: 48;
         display: flex;
         align-items: center;
@@ -92,8 +92,8 @@
     }
     @media (max-width: 767px) {
         .floating-whatsapp-fab {
-            bottom: 20px;
-            right: 20px;
+            bottom: 30px;
+            right: 24px;
             width: 52px;
             height: 52px;
         }
