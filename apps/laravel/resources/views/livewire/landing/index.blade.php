@@ -36,16 +36,23 @@
         .hero-mockup-col { order: 2; width: 100%; }
 
         .hero-headline {
-            font-size: clamp(44px, 6.2vw, 84px);
-            line-height: 1.04;
-            letter-spacing: -0.035em;
+            font-size: clamp(52px, 7.8vw, 86px);
+            line-height: 1.02;
+            letter-spacing: -0.038em;
             font-weight: 300;
             color: rgba(255, 255, 255, 0.88);
         }
+        @media (max-width: 640px) {
+            .hero-headline {
+                font-size: clamp(48px, 13.5vw, 58px);
+                line-height: 1.02;
+                letter-spacing: -0.04em;
+            }
+        }
         @media (min-width: 1440px) {
             .hero-headline {
-                font-size: 92px;
-                line-height: 1.02;
+                font-size: 94px;
+                line-height: 1.01;
             }
         }
         .hero-headline strong,
@@ -65,7 +72,7 @@
         }
         @media (max-width: 640px) {
             .hero-rotator {
-                min-height: 3.3em;
+                min-height: 3.35em;
             }
         }
 
