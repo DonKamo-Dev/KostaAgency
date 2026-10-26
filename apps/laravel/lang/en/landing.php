@@ -33,9 +33,9 @@ return [
     'hero' => [
         'accepting_prefix' => 'Creative & digital studio in Cartagena',
         'availability' => 'Available for projects in Colombia and internationally',
-        'title_line_1' => 'We create brands that get seen.',
-        'title_line_2' => 'Stories that connect.',
-        'title_line_3' => 'Experiences that sell.',
+        'title_line_1' => 'We create brands that <strong class="hero-bold">Get Seen</strong>',
+        'title_line_2' => 'Stories that <strong class="hero-bold">Connect</strong>',
+        'title_line_3' => 'Experiences that <strong class="hero-bold">Sell</strong>',
         'subtitle' => 'We are a creative and digital studio in Cartagena. We design web experiences, produce audiovisual content, and develop strategies for brands that want to grow.',
         'cta_start' => 'Start a project',
         'cta_projects' => 'Explore projects',

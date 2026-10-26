@@ -33,9 +33,9 @@ return [
     'hero' => [
         'accepting_prefix' => 'Estudio creativo y digital en Cartagena',
         'availability' => 'Disponible para proyectos en Colombia e internacional',
-        'title_line_1' => 'Creamos marcas que se ven.',
-        'title_line_2' => 'Historias que conectan.',
-        'title_line_3' => 'Experiencias que venden.',
+        'title_line_1' => 'Creamos marcas que <strong class="hero-bold">Se Ven</strong>',
+        'title_line_2' => 'Historias que <strong class="hero-bold">Conectan</strong>',
+        'title_line_3' => 'Experiencias que <strong class="hero-bold">Venden</strong>',
         'subtitle' => 'Somos un estudio creativo y digital en Cartagena. Diseñamos experiencias web, producimos contenido audiovisual y desarrollamos estrategias para marcas que quieren crecer.',
         'cta_start' => 'Empezar un proyecto',
         'cta_projects' => 'Explorar proyectos',

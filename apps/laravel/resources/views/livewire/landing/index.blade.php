@@ -36,16 +36,23 @@
         .hero-mockup-col { order: 2; width: 100%; }
 
         .hero-headline {
-            font-size: clamp(32px, 4.6vw, 56px);
-            line-height: 1.08;
+            font-size: clamp(38px, 5.2vw, 68px);
+            line-height: 1.06;
             letter-spacing: -0.03em;
-            font-weight: 800;
+            font-weight: 300;
+            color: rgba(255, 255, 255, 0.88);
         }
         @media (min-width: 1440px) {
             .hero-headline {
-                font-size: 60px;
-                line-height: 1.06;
+                font-size: 74px;
+                line-height: 1.04;
             }
+        }
+        .hero-headline strong,
+        .hero-headline .hero-bold {
+            font-weight: 850;
+            color: #ffffff;
+            display: inline;
         }
 
         /* ===== HERO ROTATING HEADLINE LOOP ===== */
@@ -54,7 +61,12 @@
             grid-template-areas: "rotator-stack";
             align-items: center;
             position: relative;
-            min-height: 2.25em;
+            min-height: 2.3em;
+        }
+        @media (max-width: 640px) {
+            .hero-rotator {
+                min-height: 3.2em;
+            }
         }
 
         .hero-rotator__item {
@@ -664,13 +676,13 @@
                     <div class="mb-6 animate-fadeInUp delay-100">
                         <h1 id="hero-heading" class="font-display hero-headline text-white hero-rotator" aria-live="polite">
                             <span class="hero-rotator__item is-active text-white" data-duration="2200">
-                                {{ __('landing.hero.title_line_1') }}
+                                {!! __('landing.hero.title_line_1') !!}
                             </span>
-                            <span class="hero-rotator__item text-gradient" data-duration="2500">
-                                {{ __('landing.hero.title_line_2') }}
+                            <span class="hero-rotator__item text-white" data-duration="2500">
+                                {!! __('landing.hero.title_line_2') !!}
                             </span>
                             <span class="hero-rotator__item text-white" data-duration="3000">
-                                {{ __('landing.hero.title_line_3') }}
+                                {!! __('landing.hero.title_line_3') !!}
                             </span>
                         </h1>
                         <div class="hero-rotator__indicators" aria-hidden="true">
