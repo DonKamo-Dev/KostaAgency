@@ -36,16 +36,16 @@
         .hero-mockup-col { order: 2; width: 100%; }
 
         .hero-headline {
-            font-size: clamp(38px, 5.2vw, 68px);
-            line-height: 1.06;
-            letter-spacing: -0.03em;
+            font-size: clamp(44px, 6.2vw, 84px);
+            line-height: 1.04;
+            letter-spacing: -0.035em;
             font-weight: 300;
             color: rgba(255, 255, 255, 0.88);
         }
         @media (min-width: 1440px) {
             .hero-headline {
-                font-size: 74px;
-                line-height: 1.04;
+                font-size: 92px;
+                line-height: 1.02;
             }
         }
         .hero-headline strong,
@@ -65,7 +65,7 @@
         }
         @media (max-width: 640px) {
             .hero-rotator {
-                min-height: 3.2em;
+                min-height: 3.3em;
             }
         }
 
