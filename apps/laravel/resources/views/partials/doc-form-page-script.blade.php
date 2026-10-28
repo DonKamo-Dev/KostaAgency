@@ -7,7 +7,7 @@
  *   payments, storeUrl, updateUrl, showBaseUrl, paymentUrl (opcional), defaultNotes,
  *   clientStoreUrl, clientReloadUrl.
  */
-function documentFormPage(cfg) {
+window.documentFormPage = function documentFormPage(cfg) {
     const TOKEN = document.querySelector('meta[name="csrf-token"]')?.content || '';
     const moneyFormatter = new Intl.NumberFormat('es-CO', { maximumFractionDigits: 0 });
     const formatMoneyInput = value => moneyFormatter.format(Number(value) || 0);

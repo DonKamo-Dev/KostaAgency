@@ -59,7 +59,7 @@
         .preview-iframe { width: 100%; height: 560px; border: none; background: #0d0d0f; }
     </style>
 
-    <div style="max-width: 1400px; margin: 0 auto; padding: 24px 20px;" x-data="{ activeTpl: 'kosta', previewTpl: 'kosta' }">
+    <div style="max-width: 1400px; margin: 0 auto; padding: 24px 20px;" x-data="{ activeTpl: '{{ request('tpl') === 'client' ? 'client' : 'kosta' }}', previewTpl: '{{ request('tpl') === 'client' ? 'client' : 'kosta' }}' }">
         <!-- Header -->
         <div class="auto-header">
             <div>

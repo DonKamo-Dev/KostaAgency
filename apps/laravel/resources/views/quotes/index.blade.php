@@ -1,4 +1,119 @@
 <x-layouts.app>
+<script>
+window.quotesListApp = function quotesListApp() {
+    const TOKEN = document.querySelector('meta[name="csrf-token"]')?.content || '';
+
+    return {
+        quotes      : @js($initialQuotes ?? []),
+        meta        : @js($initialMeta ?? ['current_page' => 1, 'last_page' => 1, 'total' => 0]),
+        search      : '',
+        searchTimer : null,
+        loadingList : false,
+        toast       : { show: false, message: '', timer: null },
+
+        init() {
+            if (new URLSearchParams(window.location.search).get('create') === '1') {
+                window.location.replace('{{ route('quotes.create') }}');
+            }
+        },
+
+        async request(url, options = {}) {
+            const response = await fetch(url, options);
+            const isJson = response.headers.get('content-type')?.includes('application/json');
+            const data = isJson ? await response.json() : {};
+
+            if (response.status === 401 || response.status === 419) {
+                window.location.assign('/login');
+                throw new Error('Tu sesión expiró. Inicia sesión nuevamente.');
+            }
+
+            if (!response.ok) {
+                const error = new Error(data.message || 'No se pudo completar la solicitud.');
+                error.data = data;
+                throw error;
+            }
+
+            return data;
+        },
+
+        async loadQuotes(page = 1) {
+            this.loadingList = true;
+            try {
+                const data = await this.request(`{{ route("quotes.index") }}?search=${encodeURIComponent(this.search)}&page=${page}`, { headers: { Accept: 'application/json' } });
+                this.quotes = data.data;
+                this.meta   = data.meta;
+            } catch (error) {
+                this.notify(error.message);
+            } finally {
+                this.loadingList = false;
+            }
+        },
+
+        onSearch() {
+            clearTimeout(this.searchTimer);
+            this.searchTimer = setTimeout(() => this.loadQuotes(1), 400);
+        },
+
+        goPage(p) {
+            if (p < 1 || p > this.meta.last_page) return;
+            this.loadQuotes(p);
+        },
+
+        async convert(id) {
+            if (!confirm('¿Convertir esta cotización a factura?')) return;
+            try {
+                const d = await this.request(`/quotes/${id}/convert`, {
+                    method: 'POST', headers: { Accept: 'application/json', 'X-CSRF-TOKEN': TOKEN },
+                });
+                this.notify(d.message);
+                this.loadQuotes(this.meta.current_page);
+            } catch (error) { this.notify(error.message); }
+        },
+
+        async cancel(id) {
+            if (!confirm('¿Cancelar esta cotización? Quedará marcada como cancelada.')) return;
+            try {
+                const d = await this.request(`/quotes/${id}/cancel`, {
+                    method: 'POST', headers: { Accept: 'application/json', 'X-CSRF-TOKEN': TOKEN },
+                });
+                this.notify(d.message);
+                this.loadQuotes(this.meta.current_page);
+            } catch (error) { this.notify(error.message); }
+        },
+
+        async duplicate(id) {
+            if (!confirm('¿Duplicar esta cotización?')) return;
+            try {
+                const d = await this.request(`/quotes/${id}/duplicate`, {
+                    method: 'POST', headers: { Accept: 'application/json', 'X-CSRF-TOKEN': TOKEN },
+                });
+                this.notify(d.message);
+                this.loadQuotes(this.meta.current_page);
+            } catch (error) { this.notify(error.message); }
+        },
+
+        async del(id) {
+            if (!confirm('¿Eliminar esta cotización? No se puede deshacer.')) return;
+            try {
+                const d = await this.request(`/quotes/${id}`, {
+                    method: 'DELETE', headers: { Accept: 'application/json', 'X-CSRF-TOKEN': TOKEN },
+                });
+                this.notify(d.message);
+                this.loadQuotes(this.meta.current_page);
+            } catch (error) { this.notify(error.message); }
+        },
+
+        fmt(v) { return '$' + new Intl.NumberFormat('es-CO', { maximumFractionDigits: 0 }).format(v || 0); },
+
+        notify(msg, ms = 3000) {
+            clearTimeout(this.toast.timer);
+            this.toast.message = msg;
+            this.toast.show    = true;
+            this.toast.timer   = setTimeout(() => this.toast.show = false, ms);
+        },
+    };
+};
+</script>
 <div x-data="quotesListApp()" x-init="init()" aria-live="polite">
 
     <!-- Header -->
@@ -149,120 +264,4 @@
         </button>
     </div>
 </div>
-
-<script>
-function quotesListApp() {
-    const TOKEN = document.querySelector('meta[name="csrf-token"]')?.content || '';
-
-    return {
-        quotes      : @js($initialQuotes ?? []),
-        meta        : @js($initialMeta ?? ['current_page' => 1, 'last_page' => 1, 'total' => 0]),
-        search      : '',
-        searchTimer : null,
-        loadingList : false,
-        toast       : { show: false, message: '', timer: null },
-
-        init() {
-            if (new URLSearchParams(window.location.search).get('create') === '1') {
-                window.location.replace('{{ route('quotes.create') }}');
-            }
-        },
-
-        async request(url, options = {}) {
-            const response = await fetch(url, options);
-            const isJson = response.headers.get('content-type')?.includes('application/json');
-            const data = isJson ? await response.json() : {};
-
-            if (response.status === 401 || response.status === 419) {
-                window.location.assign('/login');
-                throw new Error('Tu sesión expiró. Inicia sesión nuevamente.');
-            }
-
-            if (!response.ok) {
-                const error = new Error(data.message || 'No se pudo completar la solicitud.');
-                error.data = data;
-                throw error;
-            }
-
-            return data;
-        },
-
-        async loadQuotes(page = 1) {
-            this.loadingList = true;
-            try {
-                const data = await this.request(`{{ route("quotes.index") }}?search=${encodeURIComponent(this.search)}&page=${page}`, { headers: { Accept: 'application/json' } });
-                this.quotes = data.data;
-                this.meta   = data.meta;
-            } catch (error) {
-                this.notify(error.message);
-            } finally {
-                this.loadingList = false;
-            }
-        },
-
-        onSearch() {
-            clearTimeout(this.searchTimer);
-            this.searchTimer = setTimeout(() => this.loadQuotes(1), 400);
-        },
-
-        goPage(p) {
-            if (p < 1 || p > this.meta.last_page) return;
-            this.loadQuotes(p);
-        },
-
-        async convert(id) {
-            if (!confirm('¿Convertir esta cotización a factura?')) return;
-            try {
-                const d = await this.request(`/quotes/${id}/convert`, {
-                    method: 'POST', headers: { Accept: 'application/json', 'X-CSRF-TOKEN': TOKEN },
-                });
-                this.notify(d.message);
-                this.loadQuotes(this.meta.current_page);
-            } catch (error) { this.notify(error.message); }
-        },
-
-        async cancel(id) {
-            if (!confirm('¿Cancelar esta cotización? Quedará marcada como cancelada.')) return;
-            try {
-                const d = await this.request(`/quotes/${id}/cancel`, {
-                    method: 'POST', headers: { Accept: 'application/json', 'X-CSRF-TOKEN': TOKEN },
-                });
-                this.notify(d.message);
-                this.loadQuotes(this.meta.current_page);
-            } catch (error) { this.notify(error.message); }
-        },
-
-        async duplicate(id) {
-            if (!confirm('¿Duplicar esta cotización?')) return;
-            try {
-                const d = await this.request(`/quotes/${id}/duplicate`, {
-                    method: 'POST', headers: { Accept: 'application/json', 'X-CSRF-TOKEN': TOKEN },
-                });
-                this.notify(d.message);
-                this.loadQuotes(this.meta.current_page);
-            } catch (error) { this.notify(error.message); }
-        },
-
-        async del(id) {
-            if (!confirm('¿Eliminar esta cotización? No se puede deshacer.')) return;
-            try {
-                const d = await this.request(`/quotes/${id}`, {
-                    method: 'DELETE', headers: { Accept: 'application/json', 'X-CSRF-TOKEN': TOKEN },
-                });
-                this.notify(d.message);
-                this.loadQuotes(this.meta.current_page);
-            } catch (error) { this.notify(error.message); }
-        },
-
-        fmt(v) { return '$' + new Intl.NumberFormat('es-CO', { maximumFractionDigits: 0 }).format(v || 0); },
-
-        notify(msg, ms = 3000) {
-            clearTimeout(this.toast.timer);
-            this.toast.message = msg;
-            this.toast.show    = true;
-            this.toast.timer   = setTimeout(() => this.toast.show = false, ms);
-        },
-    };
-}
-</script>
 </x-layouts.app>

@@ -1,4 +1,65 @@
 <x-layouts.app>
+<script>
+window.expensesApp = function expensesApp() {
+    const TOKEN   = document.querySelector('meta[name="csrf-token"]')?.content || '';
+    const listUrl = '{{ route('expenses.index') }}';
+
+    const blank = () => ({ date: new Date().toISOString().slice(0,10), category:'', description:'', amount:'' });
+
+    return {
+        rows: @js($initialExpenses ?? []),
+        meta: @js($initialMeta ?? ['current_page' => 1, 'last_page' => 1, 'total' => 0]),
+        search:'', searchTimer:null,
+        loadingList: false,
+        open:false, editingId:null, saving:false, form:blank(), errors:{},
+        monthlyTotal: {{ $monthlyTotal }},
+        categories:   @js($categories),
+        toast:{ show:false, message:'', timer:null },
+
+        init() {
+            if (new URLSearchParams(window.location.search).get('create') === '1') this.openNew();
+        },
+
+        async load(page=1) {
+            this.loadingList=true;
+            const r = await fetch(`${listUrl}?search=${encodeURIComponent(this.search)}&page=${page}`, { headers:{ Accept:'application/json' } });
+            const d = await r.json();
+            this.rows = d.data; this.meta = d.meta;
+            this.monthlyTotal = d.monthly_total;
+            if (d.categories) this.categories = d.categories;
+            this.loadingList=false;
+        },
+
+        onSearch() { clearTimeout(this.searchTimer); this.searchTimer=setTimeout(()=>this.load(1),400); },
+        goPage(p) { if(p>=1&&p<=this.meta.last_page) this.load(p); },
+
+        openNew()    { this.editingId=null; this.form=blank(); this.errors={}; this.open=true; },
+        openEdit(e)  { this.editingId=e.id; this.form={ date:e.date_raw, category:e.category, description:e.description, amount:e.amount }; this.errors={}; this.open=true; },
+        close()      { this.open=false; this.editingId=null; this.errors={}; },
+
+        async save() {
+            this.errors={};
+            this.saving=true;
+            const method = this.editingId ? 'PUT' : 'POST';
+            const url    = this.editingId ? `/expenses/${this.editingId}` : '/expenses';
+            const r = await fetch(url, { method, headers:{'Content-Type':'application/json',Accept:'application/json','X-CSRF-TOKEN':TOKEN}, body:JSON.stringify(this.form) });
+            this.saving=false;
+            if(r.ok){ const d=await r.json(); this.notify(d.message); this.close(); this.load(this.meta.current_page); }
+            else{ const d=await r.json(); this.errors=d.errors||{}; this.notify('Error: '+(d.message||'Verifica los datos')); }
+        },
+
+        async del(id) {
+            if(!confirm('¿Eliminar este gasto? No se puede deshacer.')) return;
+            const r = await fetch(`/expenses/${id}`, { method:'DELETE', headers:{Accept:'application/json','X-CSRF-TOKEN':TOKEN} });
+            const d = await r.json(); this.notify(d.message);
+            if(r.ok) this.load(this.meta.current_page);
+        },
+
+        fmt(v) { return '$'+new Intl.NumberFormat('es-CO',{maximumFractionDigits:0}).format(v||0); },
+        notify(msg,ms=3000) { clearTimeout(this.toast.timer); this.toast.message=msg; this.toast.show=true; this.toast.timer=setTimeout(()=>this.toast.show=false,ms); },
+    };
+};
+</script>
 <div x-data="expensesApp()" x-init="init()" aria-live="polite">
 
     <div class="crud-header">
@@ -122,66 +183,4 @@
         <button @click="goPage(meta.current_page+1)" :disabled="meta.current_page>=meta.last_page" class="btn btn-secondary" style="padding:8px 14px;font-size:13px;" :style="meta.current_page>=meta.last_page?'opacity:.4;cursor:not-allowed;':''">Siguiente →</button>
     </div>
 </div>
-
-<script>
-function expensesApp() {
-    const TOKEN   = document.querySelector('meta[name="csrf-token"]').content;
-    const listUrl = '{{ route('expenses.index') }}';
-
-    const blank = () => ({ date: new Date().toISOString().slice(0,10), category:'', description:'', amount:'' });
-
-    return {
-        rows: @js($initialExpenses ?? []),
-        meta: @js($initialMeta ?? ['current_page' => 1, 'last_page' => 1, 'total' => 0]),
-        search:'', searchTimer:null,
-        loadingList: false,
-        open:false, editingId:null, saving:false, form:blank(), errors:{},
-        monthlyTotal: {{ $monthlyTotal }},
-        categories:   @js($categories),
-        toast:{ show:false, message:'', timer:null },
-
-        init() {
-            if (new URLSearchParams(window.location.search).get('create') === '1') this.openNew();
-        },
-
-        async load(page=1) {
-            this.loadingList=true;
-            const r = await fetch(`${listUrl}?search=${encodeURIComponent(this.search)}&page=${page}`, { headers:{ Accept:'application/json' } });
-            const d = await r.json();
-            this.rows = d.data; this.meta = d.meta;
-            this.monthlyTotal = d.monthly_total;
-            if (d.categories) this.categories = d.categories;
-            this.loadingList=false;
-        },
-
-        onSearch() { clearTimeout(this.searchTimer); this.searchTimer=setTimeout(()=>this.load(1),400); },
-        goPage(p) { if(p>=1&&p<=this.meta.last_page) this.load(p); },
-
-        openNew()    { this.editingId=null; this.form=blank(); this.errors={}; this.open=true; },
-        openEdit(e)  { this.editingId=e.id; this.form={ date:e.date_raw, category:e.category, description:e.description, amount:e.amount }; this.errors={}; this.open=true; },
-        close()      { this.open=false; this.editingId=null; this.errors={}; },
-
-        async save() {
-            this.errors={};
-            this.saving=true;
-            const method = this.editingId ? 'PUT' : 'POST';
-            const url    = this.editingId ? `/expenses/${this.editingId}` : '/expenses';
-            const r = await fetch(url, { method, headers:{'Content-Type':'application/json',Accept:'application/json','X-CSRF-TOKEN':TOKEN}, body:JSON.stringify(this.form) });
-            this.saving=false;
-            if(r.ok){ const d=await r.json(); this.notify(d.message); this.close(); this.load(this.meta.current_page); }
-            else{ const d=await r.json(); this.errors=d.errors||{}; this.notify('Error: '+(d.message||'Verifica los datos')); }
-        },
-
-        async del(id) {
-            if(!confirm('¿Eliminar este gasto? No se puede deshacer.')) return;
-            const r = await fetch(`/expenses/${id}`, { method:'DELETE', headers:{Accept:'application/json','X-CSRF-TOKEN':TOKEN} });
-            const d = await r.json(); this.notify(d.message);
-            if(r.ok) this.load(this.meta.current_page);
-        },
-
-        fmt(v) { return '$'+new Intl.NumberFormat('es-CO',{maximumFractionDigits:0}).format(v||0); },
-        notify(msg,ms=3000) { clearTimeout(this.toast.timer); this.toast.message=msg; this.toast.show=true; this.toast.timer=setTimeout(()=>this.toast.show=false,ms); },
-    };
-}
-</script>
 </x-layouts.app>

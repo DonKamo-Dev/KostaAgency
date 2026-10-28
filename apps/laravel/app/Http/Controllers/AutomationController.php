@@ -12,6 +12,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\View\View;
 
 class AutomationController extends Controller
@@ -68,10 +69,17 @@ class AutomationController extends Controller
             'is_live' => $hasResendKey || ! in_array(config('mail.default'), ['log', 'array'], true),
         ];
 
-        $recentNotifications = Lead::whereNotNull('metadata')
-            ->latest()
-            ->limit(10)
-            ->get();
+        $recentNotifications = collect();
+        try {
+            if (Schema::hasTable('leads') && Schema::hasColumn('leads', 'metadata')) {
+                $recentNotifications = Lead::whereNotNull('metadata')
+                    ->latest()
+                    ->limit(10)
+                    ->get();
+            }
+        } catch (\Throwable $e) {
+            $recentNotifications = collect();
+        }
 
         $sampleLead = $this->getSampleLead();
 
@@ -124,10 +132,17 @@ class AutomationController extends Controller
             'has_webhook' => filled($settings['automation_whatsapp_webhook_url']),
         ];
 
-        $recentNotifications = Lead::whereNotNull('metadata')
-            ->latest()
-            ->limit(10)
-            ->get();
+        $recentNotifications = collect();
+        try {
+            if (Schema::hasTable('leads') && Schema::hasColumn('leads', 'metadata')) {
+                $recentNotifications = Lead::whereNotNull('metadata')
+                    ->latest()
+                    ->limit(10)
+                    ->get();
+            }
+        } catch (\Throwable $e) {
+            $recentNotifications = collect();
+        }
 
         $sampleLead = $this->getSampleLead();
         $sampleWaMessage = LeadNotificationService::formatWhatsAppMessage($sampleLead);
@@ -351,7 +366,18 @@ class AutomationController extends Controller
      */
     protected function getSampleLead(): Lead
     {
-        return Lead::latest()->first() ?? new Lead([
+        try {
+            if (Schema::hasTable('leads')) {
+                $latest = Lead::latest()->first();
+                if ($latest) {
+                    return $latest;
+                }
+            }
+        } catch (\Throwable $e) {
+            // Fallback to in-memory sample lead
+        }
+
+        return new Lead([
             'id' => 999999,
             'nombre' => 'Carolina Mendoza',
             'email' => 'carolina@luxurytravel.co',

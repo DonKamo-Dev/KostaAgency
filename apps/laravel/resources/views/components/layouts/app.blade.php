@@ -2147,24 +2147,34 @@
                 } elseif (request()->routeIs('profile', 'kamo')) {
                     $activeTab = 'ajustes';
                 }
+
+                $tabTitles = [
+                    'principal' => 'Kosta Studio',
+                    'leads' => 'Prospectos (Leads)',
+                    'operaciones' => 'Finanzas & Operación',
+                    'proyectos' => 'Proyectos & Casos',
+                    'automatizaciones' => 'Automatizaciones',
+                    'ajustes' => 'Configuración',
+                ];
+                $activeTabTitle = $tabTitles[$activeTab] ?? 'Kosta Studio';
             @endphp
 
             <!-- ========================================== -->
             <!-- 1. LEFT ICON RAIL (Tier 1) — ChatGPT Style -->
             <!-- ========================================== -->
-            <nav class="chatgpt-rail" id="chatgpt-rail" aria-label="Navegación principal">
+            <nav class="chatgpt-rail" id="chatgpt-rail" data-active-tab="{{ $activeTab }}" aria-label="Navegación principal">
                 <div class="chatgpt-rail-group">
                     <!-- Icono 1: Principal / Home -->
-                    <a wire:navigate href="{{ route('dashboard') }}" class="chatgpt-rail-btn rail-home" data-tab="principal" data-tooltip="Dashboard General" onclick="setMenuTab('principal')" aria-label="Dashboard General">
+                    <a href="{{ route('dashboard') }}" class="chatgpt-rail-btn rail-home {{ $activeTab === 'principal' ? 'active' : '' }}" data-tab="principal" data-tooltip="Dashboard General" onclick="setMenuTab('principal')" aria-label="Dashboard General">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
                         </svg>
                     </a>
 
                     <!-- Icono 2: Leads (Exclusivo en el Rail) -->
-                    <a wire:navigate href="{{ route('leads.index') }}" class="chatgpt-rail-btn rail-leads" data-tab="leads" data-tooltip="Prospectos & Leads @if($nuevosCount > 0)({{ $nuevosCount }} nuevos)@endif" onclick="setMenuTab('leads')" aria-label="Prospectos & Leads">
+                    <a href="{{ route('leads.index') }}" class="chatgpt-rail-btn rail-leads {{ $activeTab === 'leads' ? 'active' : '' }}" data-tab="leads" data-tooltip="Prospectos & Leads @if($nuevosCount > 0)({{ $nuevosCount }} nuevos)@endif" onclick="setMenuTab('leads')" aria-label="Prospectos & Leads">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"/>
                         </svg>
                         @if($nuevosCount > 0)
                             <span class="chatgpt-rail-badge-count">{{ $nuevosCount > 9 ? '9+' : $nuevosCount }}</span>
@@ -2172,31 +2182,31 @@
                     </a>
 
                     <!-- Icono 3: Finanzas & Operaciones -->
-                    <a wire:navigate href="{{ route('quotes.index') }}" class="chatgpt-rail-btn" data-tab="operaciones" data-tooltip="Finanzas & Operación" onclick="setMenuTab('operaciones')" aria-label="Finanzas & Operación">
+                    <a href="{{ route('quotes.index') }}" class="chatgpt-rail-btn {{ $activeTab === 'operaciones' ? 'active' : '' }}" data-tab="operaciones" data-tooltip="Finanzas & Operación" onclick="setMenuTab('operaciones')" aria-label="Finanzas & Operación">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
                         </svg>
                     </a>
 
                     <!-- Icono 4: Proyectos & Portafolio -->
-                    <a wire:navigate href="{{ route('case-studies.index') }}" class="chatgpt-rail-btn" data-tab="proyectos" data-tooltip="Proyectos & Portafolio" onclick="setMenuTab('proyectos')" aria-label="Proyectos & Portafolio">
+                    <a href="{{ route('case-studies.index') }}" class="chatgpt-rail-btn {{ $activeTab === 'proyectos' ? 'active' : '' }}" data-tab="proyectos" data-tooltip="Proyectos & Portafolio" onclick="setMenuTab('proyectos')" aria-label="Proyectos & Portafolio">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"/>
                         </svg>
                     </a>
 
                     <!-- Icono 5: Automatizaciones -->
-                    <a wire:navigate href="{{ route('automations.email') }}" class="chatgpt-rail-btn" data-tab="automatizaciones" data-tooltip="Automatizaciones (Email & WA)" onclick="setMenuTab('automatizaciones')" aria-label="Automatizaciones">
+                    <a href="{{ route('automations.email') }}" class="chatgpt-rail-btn {{ $activeTab === 'automatizaciones' ? 'active' : '' }}" data-tab="automatizaciones" data-tooltip="Automatizaciones (Email & WA)" onclick="setMenuTab('automatizaciones')" aria-label="Automatizaciones">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
                         </svg>
                     </a>
 
                     <!-- Icono 6: Ajustes & Más -->
-                    <a wire:navigate href="{{ route('profile') }}" class="chatgpt-rail-btn" data-tab="ajustes" data-tooltip="Ajustes & Sistema" onclick="setMenuTab('ajustes')" aria-label="Ajustes">
+                    <a href="{{ route('profile') }}" class="chatgpt-rail-btn {{ $activeTab === 'ajustes' ? 'active' : '' }}" data-tab="ajustes" data-tooltip="Ajustes & Sistema" onclick="setMenuTab('ajustes')" aria-label="Ajustes">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
                         </svg>
                     </a>
                 </div>
@@ -2211,7 +2221,7 @@
 
                     <!-- Avatar Usuario -->
                     @auth
-                        <a wire:navigate href="{{ route('profile') }}" class="chatgpt-rail-avatar" data-tooltip="{{ auth()->user()->name }} (Mi Perfil)" onclick="setMenuTab('ajustes')" aria-label="Mi Perfil">
+                        <a href="{{ route('profile') }}" class="chatgpt-rail-avatar" data-tooltip="{{ auth()->user()->name }} (Mi Perfil)" onclick="setMenuTab('ajustes')" aria-label="Mi Perfil">
                             {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
                         </a>
                     @endauth
@@ -2225,12 +2235,12 @@
                 <!-- Panel Header con Título Dinámico y Botón de Recoger [ | ] -->
                 <div class="chatgpt-panel-header">
                     <div class="chatgpt-panel-title-wrap">
-                        <span id="chatgpt-panel-title">Kosta Studio</span>
+                        <span id="chatgpt-panel-title">{{ $activeTabTitle }}</span>
                         <svg class="w-3.5 h-3.5 text-neutral-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                     </div>
 
                     <div class="chatgpt-panel-actions">
-                        <a href="{{ route('leads.index') }}" class="chatgpt-icon-btn" title="Bandeja de Leads" wire:navigate>
+                        <a href="{{ route('leads.index') }}" class="chatgpt-icon-btn" title="Bandeja de Leads" onclick="setMenuTab('leads')">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
                             </svg>
@@ -2249,7 +2259,7 @@
 
                 <!-- Botón de Acción Superior tipo "Nuevo Chat" -->
                 <div class="chatgpt-new-action-wrap">
-                    <a wire:navigate href="{{ route('quotes.create') }}" class="chatgpt-new-action-btn">
+                    <a href="{{ route('quotes.create') }}" class="chatgpt-new-action-btn" onclick="setMenuTab('operaciones')">
                         <div style="display: flex; align-items: center;">
                             <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
@@ -2263,16 +2273,16 @@
                 <!-- Contenido Dinámico según Icono seleccionado en el Rail -->
                 <div class="chatgpt-panel-nav">
                     <!-- ================= TAB 1: PRINCIPAL ================= -->
-                    <div class="chatgpt-tab-content" data-tab="principal">
+                    <div class="chatgpt-tab-content" data-tab="principal" style="display: {{ $activeTab === 'principal' ? 'block' : 'none' }};">
                         <div class="sidebar-section-label">General</div>
-                        <a wire:navigate href="{{ route('dashboard') }}" class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}">
+                        <a href="{{ route('dashboard') }}" class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}" onclick="setMenuTab('principal')">
                             <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
                             </svg>
                             <span>Dashboard General</span>
                         </a>
 
-                        <a wire:navigate href="{{ route('clients.index') }}" class="nav-link {{ request()->routeIs('clients.*') ? 'active' : '' }}">
+                        <a href="{{ route('clients.index') }}" class="nav-link {{ request()->routeIs('clients.*') ? 'active' : '' }}" onclick="setMenuTab('principal')">
                             <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
                             </svg>
@@ -2280,29 +2290,35 @@
                         </a>
 
                         <div class="sidebar-section-label" style="margin-top: 10px;">Atajos Rápidos</div>
-                        <a wire:navigate href="{{ route('leads.index') }}" class="nav-link {{ request()->routeIs('leads.*') ? 'active' : '' }}">
+                        <a href="{{ route('leads.index') }}" class="nav-link {{ request()->routeIs('leads.*') ? 'active' : '' }}" onclick="setMenuTab('leads')">
                             <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"/>
                             </svg>
                             <span>Bandeja de Leads</span>
                             @if($nuevosCount > 0)
                                 <span class="nav-badge-pill">{{ $nuevosCount }}</span>
                             @endif
                         </a>
-                        <a wire:navigate href="{{ route('quotes.index') }}" class="nav-link">
+                        <a href="{{ route('automations.email') }}" class="nav-link {{ request()->routeIs('automations.*') ? 'active' : '' }}" onclick="setMenuTab('automatizaciones')">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                            </svg>
+                            <span>Automatizaciones</span>
+                        </a>
+                        <a href="{{ route('quotes.index') }}" class="nav-link {{ request()->routeIs('quotes.*') ? 'active' : '' }}" onclick="setMenuTab('operaciones')">
                             <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
                             <span>Cotizaciones Activas</span>
                         </a>
-                        <a wire:navigate href="{{ route('invoices.index') }}" class="nav-link">
+                        <a href="{{ route('invoices.index') }}" class="nav-link {{ request()->routeIs('invoices.*') ? 'active' : '' }}" onclick="setMenuTab('operaciones')">
                             <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 14l6-6m-5.5.5h.01m4.99 5h.01M19 21l-7-4-7 4V5a2 2 0 012-2h10a2 2 0 012 2v16z"/></svg>
                             <span>Facturas Emitidas</span>
                         </a>
                     </div>
 
                     <!-- ================= TAB 2: LEADS (EXCLUSIVO) ================= -->
-                    <div class="chatgpt-tab-content" data-tab="leads" style="display: none;">
+                    <div class="chatgpt-tab-content" data-tab="leads" style="display: {{ $activeTab === 'leads' ? 'block' : 'none' }};">
                         <div class="sidebar-section-label">Bandeja Principal</div>
-                        <a wire:navigate href="{{ route('leads.index') }}" class="nav-link {{ request()->routeIs('leads.*') && !request()->has('estado') ? 'active' : '' }}">
+                        <a href="{{ route('leads.index') }}" class="nav-link {{ request()->routeIs('leads.*') && !request()->has('estado') ? 'active' : '' }}">
                             <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"/>
                             </svg>
@@ -2313,7 +2329,7 @@
                         </a>
 
                         <div class="sidebar-section-label" style="margin-top: 10px;">Filtros por Estado</div>
-                        <a wire:navigate href="{{ route('leads.index') }}?estado=nuevo" class="nav-sublink {{ request()->get('estado') === 'nuevo' ? 'active' : '' }}">
+                        <a href="{{ route('leads.index') }}?estado=nuevo" class="nav-sublink {{ request()->get('estado') === 'nuevo' ? 'active' : '' }}">
                             <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                             <span>Nuevos (Sin atender)</span>
                             @if($nuevosCount > 0)
@@ -2321,65 +2337,65 @@
                             @endif
                         </a>
 
-                        <a wire:navigate href="{{ route('leads.index') }}?estado=contactado" class="nav-sublink {{ request()->get('estado') === 'contactado' ? 'active' : '' }}">
+                        <a href="{{ route('leads.index') }}?estado=contactado" class="nav-sublink {{ request()->get('estado') === 'contactado' ? 'active' : '' }}">
                             <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
                             <span>Contactados / Chat</span>
                         </a>
 
-                        <a wire:navigate href="{{ route('leads.index') }}?estado=cotizado" class="nav-sublink {{ request()->get('estado') === 'cotizado' ? 'active' : '' }}">
+                        <a href="{{ route('leads.index') }}?estado=cotizado" class="nav-sublink {{ request()->get('estado') === 'cotizado' ? 'active' : '' }}">
                             <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
                             <span>Cotizados</span>
                         </a>
 
-                        <a wire:navigate href="{{ route('leads.index') }}?estado=ganado" class="nav-sublink {{ request()->get('estado') === 'ganado' ? 'active' : '' }}">
+                        <a href="{{ route('leads.index') }}?estado=ganado" class="nav-sublink {{ request()->get('estado') === 'ganado' ? 'active' : '' }}">
                             <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                             <span>Ganados / Clientes</span>
                         </a>
 
-                        <a wire:navigate href="{{ route('leads.index') }}?estado=descartado" class="nav-sublink {{ request()->get('estado') === 'descartado' ? 'active' : '' }}">
+                        <a href="{{ route('leads.index') }}?estado=descartado" class="nav-sublink {{ request()->get('estado') === 'descartado' ? 'active' : '' }}">
                             <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                             <span>Descartados</span>
                         </a>
 
                         <div class="sidebar-section-label" style="margin-top: 10px;">Automatizaciones</div>
-                        <a wire:navigate href="{{ route('automations.email') }}" class="nav-link">
+                        <a href="{{ route('automations.email') }}" class="nav-link" onclick="setMenuTab('automatizaciones')">
                             <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
                             <span>Configurar Alertas Email</span>
                         </a>
-                        <a wire:navigate href="{{ route('automations.whatsapp') }}" class="nav-link">
+                        <a href="{{ route('automations.whatsapp') }}" class="nav-link" onclick="setMenuTab('automatizaciones')">
                             <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
                             <span>Configurar WhatsApp Meta</span>
                         </a>
 
                         <div class="sidebar-section-label" style="margin-top: 10px;">Atajos Rápidos</div>
-                        <a wire:navigate href="{{ route('quotes.index') }}" class="nav-link">
+                        <a href="{{ route('quotes.index') }}" class="nav-link" onclick="setMenuTab('operaciones')">
                             <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
                             <span>Ver Cotizaciones</span>
                         </a>
-                        <a wire:navigate href="{{ route('invoices.index') }}" class="nav-link">
+                        <a href="{{ route('invoices.index') }}" class="nav-link" onclick="setMenuTab('operaciones')">
                             <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 14l6-6m-5.5.5h.01m4.99 5h.01M19 21l-7-4-7 4V5a2 2 0 012-2h10a2 2 0 012 2v16z"/></svg>
                             <span>Ver Facturas</span>
                         </a>
                     </div>
 
                     <!-- ================= TAB 2: OPERACIONES & FINANZAS ================= -->
-                    <div class="chatgpt-tab-content" data-tab="operaciones" style="display: none;">
+                    <div class="chatgpt-tab-content" data-tab="operaciones" style="display: {{ $activeTab === 'operaciones' ? 'block' : 'none' }};">
                         <div class="sidebar-section-label">Comercial & Cobros</div>
-                        <a wire:navigate href="{{ route('quotes.index') }}" class="nav-link {{ request()->routeIs('quotes.*') ? 'active' : '' }}">
+                        <a href="{{ route('quotes.index') }}" class="nav-link {{ request()->routeIs('quotes.*') ? 'active' : '' }}">
                             <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
                             </svg>
                             <span>Cotizaciones</span>
                         </a>
 
-                        <a wire:navigate href="{{ route('bills.index') }}" class="nav-link {{ request()->routeIs('bills.*') ? 'active' : '' }}">
+                        <a href="{{ route('bills.index') }}" class="nav-link {{ request()->routeIs('bills.*') ? 'active' : '' }}">
                             <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/>
                             </svg>
                             <span>Cuentas de Cobro</span>
                         </a>
 
-                        <a wire:navigate href="{{ route('invoices.index') }}" class="nav-link {{ request()->routeIs('invoices.*') ? 'active' : '' }}">
+                        <a href="{{ route('invoices.index') }}" class="nav-link {{ request()->routeIs('invoices.*') ? 'active' : '' }}">
                             <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 14l6-6m-5.5.5h.01m4.99 5h.01M19 21l-7-4-7 4V5a2 2 0 012-2h10a2 2 0 012 2v16z"/>
                             </svg>
@@ -2387,14 +2403,14 @@
                         </a>
 
                         <div class="sidebar-section-label" style="margin-top: 10px;">Costos & Catálogo</div>
-                        <a wire:navigate href="{{ route('expenses.index') }}" class="nav-link {{ request()->routeIs('expenses.*') ? 'active' : '' }}">
+                        <a href="{{ route('expenses.index') }}" class="nav-link {{ request()->routeIs('expenses.*') ? 'active' : '' }}">
                             <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6"/>
                             </svg>
                             <span>Gastos de Operación</span>
                         </a>
 
-                        <a wire:navigate href="{{ route('services.index') }}" class="nav-link {{ request()->routeIs('services.index') ? 'active' : '' }}">
+                        <a href="{{ route('services.index') }}" class="nav-link {{ request()->routeIs('services.index') ? 'active' : '' }}">
                             <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
                             </svg>
@@ -2403,52 +2419,52 @@
                     </div>
 
                     <!-- ================= TAB 3: PROYECTOS & CASOS ================= -->
-                    <div class="chatgpt-tab-content" data-tab="proyectos" style="display: none;">
+                    <div class="chatgpt-tab-content" data-tab="proyectos" style="display: {{ $activeTab === 'proyectos' ? 'block' : 'none' }};">
                         <div class="sidebar-section-label">Portafolio & Casos</div>
-                        <a wire:navigate href="{{ route('case-studies.index') }}" class="nav-link {{ request()->routeIs('case-studies.*') ? 'active' : '' }}">
+                        <a href="{{ route('case-studies.index') }}" class="nav-link {{ request()->routeIs('case-studies.*') && !request()->has('cat') ? 'active' : '' }}">
                             <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"/>
                             </svg>
                             <span>Todos los Casos</span>
                         </a>
 
-                        <a wire:navigate href="{{ route('case-studies.index') }}?cat=web" class="nav-sublink {{ request()->get('cat') === 'web' ? 'active' : '' }}">
+                        <a href="{{ route('case-studies.index') }}?cat=web" class="nav-sublink {{ request()->get('cat') === 'web' ? 'active' : '' }}">
                             <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/></svg>
                             <span>Páginas Web</span>
                         </a>
 
-                        <a wire:navigate href="{{ route('case-studies.index') }}?cat=ecommerce" class="nav-sublink {{ request()->get('cat') === 'ecommerce' ? 'active' : '' }}">
+                        <a href="{{ route('case-studies.index') }}?cat=ecommerce" class="nav-sublink {{ request()->get('cat') === 'ecommerce' ? 'active' : '' }}">
                             <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
                             <span>E-commerce</span>
                         </a>
 
-                        <a wire:navigate href="{{ route('case-studies.index') }}?cat=sistema" class="nav-sublink {{ request()->get('cat') === 'sistema' ? 'active' : '' }}">
+                        <a href="{{ route('case-studies.index') }}?cat=sistema" class="nav-sublink {{ request()->get('cat') === 'sistema' ? 'active' : '' }}">
                             <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
                             <span>Sistemas & Software</span>
                         </a>
 
-                        <a wire:navigate href="{{ route('case-studies.index') }}?cat=films" class="nav-sublink {{ in_array(request()->get('cat'), ['films', 'social'], true) ? 'active' : '' }}">
+                        <a href="{{ route('case-studies.index') }}?cat=films" class="nav-sublink {{ in_array(request()->get('cat'), ['films', 'social'], true) ? 'active' : '' }}">
                             <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
                             <span>Films & Reels</span>
                         </a>
 
-                        <a wire:navigate href="{{ route('case-studies.index') }}?cat=branding" class="nav-sublink {{ request()->get('cat') === 'branding' ? 'active' : '' }}">
+                        <a href="{{ route('case-studies.index') }}?cat=branding" class="nav-sublink {{ request()->get('cat') === 'branding' ? 'active' : '' }}">
                             <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>
                             <span>Branding</span>
                         </a>
                     </div>
 
                     <!-- ================= TAB 4: AUTOMATIZACIONES ================= -->
-                    <div class="chatgpt-tab-content" data-tab="automatizaciones" style="display: none;">
+                    <div class="chatgpt-tab-content" data-tab="automatizaciones" style="display: {{ $activeTab === 'automatizaciones' ? 'block' : 'none' }};">
                         <div class="sidebar-section-label">Canales & Respuestas</div>
-                        <a wire:navigate href="{{ route('automations.email') }}" class="nav-link {{ request()->routeIs('automations.email') || request()->routeIs('automations.index') ? 'active' : '' }}">
+                        <a href="{{ route('automations.email') }}" class="nav-link {{ request()->routeIs('automations.email') || request()->routeIs('automations.index') ? 'active' : '' }}">
                             <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
                             </svg>
                             <span>Correo (Resend)</span>
                         </a>
 
-                        <a wire:navigate href="{{ route('automations.whatsapp') }}" class="nav-link {{ request()->routeIs('automations.whatsapp') ? 'active' : '' }}">
+                        <a href="{{ route('automations.whatsapp') }}" class="nav-link {{ request()->routeIs('automations.whatsapp') ? 'active' : '' }}">
                             <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
                             </svg>
@@ -2456,20 +2472,20 @@
                         </a>
 
                         <div class="sidebar-section-label" style="margin-top: 10px;">Plantillas & Metacampos</div>
-                        <a wire:navigate href="{{ route('automations.email') }}" class="nav-sublink">
+                        <a href="{{ route('automations.email', ['tpl' => 'kosta']) }}" class="nav-sublink {{ request()->routeIs('automations.email') && request('tpl', 'kosta') === 'kosta' ? 'active' : '' }}">
                             <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
                             <span>Plantilla Kosta</span>
                         </a>
-                        <a wire:navigate href="{{ route('automations.email') }}" class="nav-sublink">
+                        <a href="{{ route('automations.email', ['tpl' => 'client']) }}" class="nav-sublink {{ request()->routeIs('automations.email') && request('tpl') === 'client' ? 'active' : '' }}">
                             <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
                             <span>Auto-responder Cliente</span>
                         </a>
                     </div>
 
                     <!-- ================= TAB 5: AJUSTES & CUENTA ================= -->
-                    <div class="chatgpt-tab-content" data-tab="ajustes" style="display: none;">
+                    <div class="chatgpt-tab-content" data-tab="ajustes" style="display: {{ $activeTab === 'ajustes' ? 'block' : 'none' }};">
                         <div class="sidebar-section-label">Mi Cuenta</div>
-                        <a wire:navigate href="{{ route('profile') }}" class="nav-link {{ request()->routeIs('profile') ? 'active' : '' }}">
+                        <a href="{{ route('profile') }}" class="nav-link {{ request()->routeIs('profile') ? 'active' : '' }}">
                             <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
                             </svg>
@@ -2500,7 +2516,7 @@
                                 {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
                             </div>
                             <div class="sidebar-user-info">
-                                <a href="{{ route('profile') }}" wire:navigate style="text-decoration: none; display: block;" title="Ver mi perfil">
+                                <a href="{{ route('profile') }}" style="text-decoration: none; display: block;" title="Ver mi perfil">
                                     <div class="sidebar-user-name">{{ auth()->user()->name }}</div>
                                     <div class="sidebar-user-email">{{ auth()->user()->email }}</div>
                                 </a>
@@ -2520,16 +2536,16 @@
 
             <!-- Mobile Top Bar -->
             <div class="mobile-topbar">
-                <a href="{{ route('dashboard') }}" class="mobile-topbar-brand" wire:navigate>
+                <a href="{{ route('dashboard') }}" class="mobile-topbar-brand">
                     <img src="{{ asset('img/WEB-Kosta-White.svg') }}" alt="Kosta">
                 </a>
                 <div class="mobile-topbar-actions">
-                    <a href="{{ route('leads.index') }}" class="mobile-topbar-btn" title="Prospectos Web" wire:navigate>
+                    <a href="{{ route('leads.index') }}" class="mobile-topbar-btn" title="Prospectos Web">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
                         </svg>
                         @php
-                            $unreadLeadsCount = \App\Models\Lead::where('estado', 'nuevo')->count();
+                            $unreadLeadsCount = $nuevosCount;
                         @endphp
                         @if($unreadLeadsCount > 0)
                             <span class="mobile-badge-dot"></span>
@@ -2555,7 +2571,7 @@
             <!-- Bottom Navigation (Mobile App-Style) -->
             <nav class="app-bottom-nav">
                 <!-- 1. Inicio -->
-                <a wire:navigate href="{{ route('dashboard') }}" class="bottom-nav-item {{ request()->routeIs('dashboard') ? 'active' : '' }}">
+                <a href="{{ route('dashboard') }}" class="bottom-nav-item {{ request()->routeIs('dashboard') ? 'active' : '' }}">
                     <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
                     </svg>
@@ -2563,7 +2579,7 @@
                 </a>
 
                 <!-- 2. Cotizaciones -->
-                <a wire:navigate href="{{ route('quotes.index') }}" class="bottom-nav-item {{ request()->routeIs('quotes.*') ? 'active' : '' }}">
+                <a href="{{ route('quotes.index') }}" class="bottom-nav-item {{ request()->routeIs('quotes.*') ? 'active' : '' }}">
                     <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
                     </svg>
@@ -2581,7 +2597,7 @@
                 </div>
 
                 <!-- 4. Finanzas (Cobros & Facturas) -->
-                <a wire:navigate href="{{ route('bills.index') }}" class="bottom-nav-item {{ (request()->routeIs('bills.*') || request()->routeIs('invoices.*') || request()->routeIs('expenses.*')) ? 'active' : '' }}">
+                <a href="{{ route('bills.index') }}" class="bottom-nav-item {{ (request()->routeIs('bills.*') || request()->routeIs('invoices.*') || request()->routeIs('expenses.*')) ? 'active' : '' }}">
                     <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/>
                     </svg>
@@ -2614,7 +2630,7 @@
             </div>
 
             <div class="sheet-grid">
-                <a href="{{ route('quotes.create') }}" class="sheet-grid-item" wire:navigate onclick="closeAllSheets()">
+                <a href="{{ route('quotes.create') }}" class="sheet-grid-item" onclick="closeAllSheets()">
                     <div class="sheet-grid-icon">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
@@ -2626,7 +2642,7 @@
                     </div>
                 </a>
 
-                <a href="{{ route('bills.index') }}" class="sheet-grid-item" wire:navigate onclick="closeAllSheets()">
+                <a href="{{ route('bills.index') }}" class="sheet-grid-item" onclick="closeAllSheets()">
                     <div class="sheet-grid-icon">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/>
@@ -2638,7 +2654,7 @@
                     </div>
                 </a>
 
-                <a href="{{ route('invoices.create') }}" class="sheet-grid-item" wire:navigate onclick="closeAllSheets()">
+                <a href="{{ route('invoices.create') }}" class="sheet-grid-item" onclick="closeAllSheets()">
                     <div class="sheet-grid-icon">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 14l6-6m-5.5.5h.01m4.99 5h.01M19 21l-7-4-7 4V5a2 2 0 012-2h10a2 2 0 012 2v16z"/>
@@ -2650,7 +2666,7 @@
                     </div>
                 </a>
 
-                <a href="{{ route('expenses.index') }}" class="sheet-grid-item" wire:navigate onclick="closeAllSheets()">
+                <a href="{{ route('expenses.index') }}" class="sheet-grid-item" onclick="closeAllSheets()">
                     <div class="sheet-grid-icon">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6"/>
@@ -2662,7 +2678,7 @@
                     </div>
                 </a>
 
-                <a href="{{ route('clients.index') }}" class="sheet-grid-item" wire:navigate onclick="closeAllSheets()">
+                <a href="{{ route('clients.index') }}" class="sheet-grid-item" onclick="closeAllSheets()">
                     <div class="sheet-grid-icon">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/>
@@ -2674,7 +2690,7 @@
                     </div>
                 </a>
 
-                <a href="{{ route('case-studies.create') }}" class="sheet-grid-item" wire:navigate onclick="closeAllSheets()">
+                <a href="{{ route('case-studies.create') }}" class="sheet-grid-item" onclick="closeAllSheets()">
                     <div class="sheet-grid-icon">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
@@ -2707,7 +2723,7 @@
             <!-- Grupo 1: CRM & Operaciones -->
             <div class="drawer-nav-group">
                 <div class="drawer-nav-heading">CRM & Operaciones</div>
-                <a href="{{ route('leads.index') }}" class="drawer-nav-item {{ request()->routeIs('leads.*') ? 'active' : '' }}" wire:navigate onclick="closeAllSheets()">
+                <a href="{{ route('leads.index') }}" class="drawer-nav-item {{ request()->routeIs('leads.*') ? 'active' : '' }}" onclick="closeAllSheets()">
                     <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
                     </svg>
@@ -2717,34 +2733,34 @@
                     @endif
                 </a>
 
-                <a href="{{ route('automations.email') }}" class="drawer-nav-item {{ request()->routeIs('automations.email') ? 'active' : '' }}" wire:navigate onclick="closeAllSheets()">
+                <a href="{{ route('automations.email') }}" class="drawer-nav-item {{ request()->routeIs('automations.email') ? 'active' : '' }}" onclick="closeAllSheets()">
                     <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
                     </svg>
                     <span>Auto: Correo (Resend)</span>
                 </a>
-                <a href="{{ route('automations.whatsapp') }}" class="drawer-nav-item {{ request()->routeIs('automations.whatsapp') ? 'active' : '' }}" wire:navigate onclick="closeAllSheets()">
+                <a href="{{ route('automations.whatsapp') }}" class="drawer-nav-item {{ request()->routeIs('automations.whatsapp') ? 'active' : '' }}" onclick="closeAllSheets()">
                     <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
                     </svg>
                     <span>Auto: WhatsApp (Meta)</span>
                 </a>
 
-                <a href="{{ route('clients.index') }}" class="drawer-nav-item {{ request()->routeIs('clients.*') ? 'active' : '' }}" wire:navigate onclick="closeAllSheets()">
+                <a href="{{ route('clients.index') }}" class="drawer-nav-item {{ request()->routeIs('clients.*') ? 'active' : '' }}" onclick="closeAllSheets()">
                     <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/>
                     </svg>
                     <span>Clientes</span>
                 </a>
 
-                <a href="{{ route('services.index') }}" class="drawer-nav-item {{ request()->routeIs('services.*') ? 'active' : '' }}" wire:navigate onclick="closeAllSheets()">
+                <a href="{{ route('services.index') }}" class="drawer-nav-item {{ request()->routeIs('services.*') ? 'active' : '' }}" onclick="closeAllSheets()">
                     <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
                     </svg>
                     <span>Servicios de Agencia</span>
                 </a>
 
-                <a href="{{ route('case-studies.index') }}" class="drawer-nav-item {{ request()->routeIs('case-studies.*') ? 'active' : '' }}" wire:navigate onclick="closeAllSheets()">
+                <a href="{{ route('case-studies.index') }}" class="drawer-nav-item {{ request()->routeIs('case-studies.*') ? 'active' : '' }}" onclick="closeAllSheets()">
                     <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
                     </svg>
@@ -2755,28 +2771,28 @@
             <!-- Grupo 2: Finanzas -->
             <div class="drawer-nav-group">
                 <div class="drawer-nav-heading">Facturación & Finanzas</div>
-                <a href="{{ route('quotes.index') }}" class="drawer-nav-item {{ request()->routeIs('quotes.*') ? 'active' : '' }}" wire:navigate onclick="closeAllSheets()">
+                <a href="{{ route('quotes.index') }}" class="drawer-nav-item {{ request()->routeIs('quotes.*') ? 'active' : '' }}" onclick="closeAllSheets()">
                     <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
                     </svg>
                     <span>Cotizaciones</span>
                 </a>
 
-                <a href="{{ route('bills.index') }}" class="drawer-nav-item {{ request()->routeIs('bills.*') ? 'active' : '' }}" wire:navigate onclick="closeAllSheets()">
+                <a href="{{ route('bills.index') }}" class="drawer-nav-item {{ request()->routeIs('bills.*') ? 'active' : '' }}" onclick="closeAllSheets()">
                     <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/>
                     </svg>
                     <span>Cuentas de Cobro</span>
                 </a>
 
-                <a href="{{ route('invoices.index') }}" class="drawer-nav-item {{ request()->routeIs('invoices.*') ? 'active' : '' }}" wire:navigate onclick="closeAllSheets()">
+                <a href="{{ route('invoices.index') }}" class="drawer-nav-item {{ request()->routeIs('invoices.*') ? 'active' : '' }}" onclick="closeAllSheets()">
                     <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 14l6-6m-5.5.5h.01m4.99 5h.01M19 21l-7-4-7 4V5a2 2 0 012-2h10a2 2 0 012 2v16z"/>
                     </svg>
                     <span>Facturas</span>
                 </a>
 
-                <a href="{{ route('expenses.index') }}" class="drawer-nav-item {{ request()->routeIs('expenses.*') ? 'active' : '' }}" wire:navigate onclick="closeAllSheets()">
+                <a href="{{ route('expenses.index') }}" class="drawer-nav-item {{ request()->routeIs('expenses.*') ? 'active' : '' }}" onclick="closeAllSheets()">
                     <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6"/>
                     </svg>
@@ -2787,7 +2803,7 @@
             <!-- Grupo 3: Cuenta & Enlaces -->
             <div class="drawer-nav-group">
                 <div class="drawer-nav-heading">Ajustes & Acceso</div>
-                <a href="{{ route('profile') }}" class="drawer-nav-item {{ request()->routeIs('profile') ? 'active' : '' }}" wire:navigate onclick="closeAllSheets()">
+                <a href="{{ route('profile') }}" class="drawer-nav-item {{ request()->routeIs('profile') ? 'active' : '' }}" onclick="closeAllSheets()">
                     <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
                     </svg>
@@ -2819,10 +2835,11 @@
         </div>
 
         <script>
-        function toggleActionSheet() {
+        window.toggleActionSheet = function toggleActionSheet() {
             const sheet = document.getElementById('quick-action-sheet');
             const backdrop = document.getElementById('mobile-sheet-backdrop');
             const fab = document.getElementById('bottom-nav-fab-btn');
+            if (!sheet || !backdrop) return;
             const isOpen = sheet.classList.contains('active');
             
             document.getElementById('mobile-drawer-sheet')?.classList.remove('active');
@@ -2836,12 +2853,13 @@
                 backdrop.classList.add('active');
                 fab?.classList.add('is-open');
             }
-        }
+        };
 
-        function toggleDrawerSheet() {
+        window.toggleDrawerSheet = function toggleDrawerSheet() {
             const drawer = document.getElementById('mobile-drawer-sheet');
             const backdrop = document.getElementById('mobile-sheet-backdrop');
             const fab = document.getElementById('bottom-nav-fab-btn');
+            if (!drawer || !backdrop) return;
             const isOpen = drawer.classList.contains('active');
 
             document.getElementById('quick-action-sheet')?.classList.remove('active');
@@ -2854,36 +2872,47 @@
                 drawer.classList.add('active');
                 backdrop.classList.add('active');
             }
-        }
+        };
 
-        function closeAllSheets() {
+        window.closeAllSheets = function closeAllSheets() {
             document.getElementById('quick-action-sheet')?.classList.remove('active');
             document.getElementById('mobile-drawer-sheet')?.classList.remove('active');
             document.getElementById('mobile-sheet-backdrop')?.classList.remove('active');
             document.getElementById('bottom-nav-fab-btn')?.classList.remove('is-open');
-        }
+        };
 
-        let currentTab = localStorage.getItem('kosta_active_tab') || '{{ $activeTab }}';
+        window.__kostaCurrentTab = document.getElementById('chatgpt-rail')?.getAttribute('data-active-tab') || localStorage.getItem('kosta_active_tab') || 'principal';
 
-        function setMenuTab(tabName) {
-            currentTab = tabName;
+        window.setMenuTab = function setMenuTab(tabName) {
+            window.__kostaCurrentTab = tabName;
             try {
                 localStorage.setItem('kosta_active_tab', tabName);
             } catch (e) {}
 
-            renderActiveTab();
-        }
+            const isCollapsed = document.body.classList.contains('sidebar-collapsed') || document.documentElement.classList.contains('sidebar-is-collapsed');
+            if (isCollapsed) {
+                document.body.classList.remove('sidebar-collapsed');
+                document.documentElement.classList.remove('sidebar-is-collapsed');
+                try {
+                    localStorage.setItem('kosta_sidebar_collapsed', 'false');
+                } catch (e) {}
+            }
 
-        function renderActiveTab() {
+            window.renderActiveTab();
+        };
+
+        window.renderActiveTab = function renderActiveTab() {
+            const activeTab = window.__kostaCurrentTab || 'principal';
+
             // Update rail buttons active class
             document.querySelectorAll('.chatgpt-rail-btn[data-tab]').forEach(btn => {
-                const isActive = btn.getAttribute('data-tab') === currentTab;
+                const isActive = btn.getAttribute('data-tab') === activeTab;
                 btn.classList.toggle('active', isActive);
             });
 
             // Update panel views
             document.querySelectorAll('.chatgpt-tab-content').forEach(pane => {
-                const isMatch = pane.getAttribute('data-tab') === currentTab;
+                const isMatch = pane.getAttribute('data-tab') === activeTab;
                 pane.style.display = isMatch ? 'block' : 'none';
             });
 
@@ -2897,12 +2926,12 @@
                 'ajustes': 'Configuración'
             };
             const titleEl = document.getElementById('chatgpt-panel-title');
-            if (titleEl && titles[currentTab]) {
-                titleEl.textContent = titles[currentTab];
+            if (titleEl && titles[activeTab]) {
+                titleEl.textContent = titles[activeTab];
             }
-        }
+        };
 
-        function toggleSidebar() {
+        window.toggleSidebar = function toggleSidebar() {
             const isCurrentlyCollapsed = document.body.classList.contains('sidebar-collapsed') || document.documentElement.classList.contains('sidebar-is-collapsed');
             const newState = !isCurrentlyCollapsed;
             
@@ -2912,45 +2941,12 @@
             try {
                 localStorage.setItem('kosta_sidebar_collapsed', newState ? 'true' : 'false');
             } catch (e) {}
-        }
+        };
 
-        function initSidebarState() {
-            try {
-                const serverRouteTab = '{{ $activeTab }}';
-                currentTab = serverRouteTab || localStorage.getItem('kosta_active_tab') || 'principal';
-                try {
-                    localStorage.setItem('kosta_active_tab', currentTab);
-                } catch (e) {}
-                renderActiveTab();
-
-                if (window.innerWidth >= 1024 && localStorage.getItem('kosta_sidebar_collapsed') === 'true') {
-                    document.body.classList.add('sidebar-collapsed');
-                    document.documentElement.classList.add('sidebar-is-collapsed');
-                } else if (window.innerWidth >= 1024) {
-                    document.body.classList.remove('sidebar-collapsed');
-                    document.documentElement.classList.remove('sidebar-is-collapsed');
-                }
-            } catch (e) {}
-        }
-
-        document.addEventListener('keydown', (e) => {
-            if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'b') {
-                const target = document.activeElement;
-                if (!target || !['INPUT', 'TEXTAREA', 'SELECT'].includes(target.tagName)) {
-                    e.preventDefault();
-                    toggleSidebar();
-                }
-            }
-        });
-
-        document.addEventListener('livewire:navigated', () => {
-            closeAllSheets();
-            initSidebarState();
-        });
-
-        document.addEventListener('DOMContentLoaded', () => {
-            initSidebarState();
+        window.bindNavHoverAnimations = function bindNavHoverAnimations() {
             document.querySelectorAll('.nav-link').forEach(link => {
+                if (link.dataset.hoverBound === '1') return;
+                link.dataset.hoverBound = '1';
                 const elements = link.querySelectorAll('svg path, svg polyline, svg line, svg circle, svg rect, svg ellipse');
 
                 link.addEventListener('mouseenter', () => {
@@ -2974,7 +2970,54 @@
                     });
                 });
             });
-        });
+        };
+
+        window.initSidebarState = function initSidebarState() {
+            try {
+                const railEl = document.getElementById('chatgpt-rail');
+                const domRouteTab = railEl ? railEl.getAttribute('data-active-tab') : null;
+                window.__kostaCurrentTab = domRouteTab || localStorage.getItem('kosta_active_tab') || 'principal';
+                try {
+                    localStorage.setItem('kosta_active_tab', window.__kostaCurrentTab);
+                } catch (e) {}
+                window.renderActiveTab();
+
+                if (window.innerWidth >= 1024 && localStorage.getItem('kosta_sidebar_collapsed') === 'true') {
+                    document.body.classList.add('sidebar-collapsed');
+                    document.documentElement.classList.add('sidebar-is-collapsed');
+                } else if (window.innerWidth >= 1024) {
+                    document.body.classList.remove('sidebar-collapsed');
+                    document.documentElement.classList.remove('sidebar-is-collapsed');
+                }
+
+                window.bindNavHoverAnimations();
+            } catch (e) {}
+        };
+
+        if (!window.__kostaSidebarListenersBound) {
+            window.__kostaSidebarListenersBound = true;
+
+            document.addEventListener('keydown', (e) => {
+                if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'b') {
+                    const target = document.activeElement;
+                    if (!target || !['INPUT', 'TEXTAREA', 'SELECT'].includes(target.tagName)) {
+                        e.preventDefault();
+                        window.toggleSidebar();
+                    }
+                }
+            });
+
+            document.addEventListener('livewire:navigated', () => {
+                window.closeAllSheets();
+                window.initSidebarState();
+            });
+
+            document.addEventListener('DOMContentLoaded', () => {
+                window.initSidebarState();
+            });
+        }
+
+        window.initSidebarState();
         </script>
         @livewireScripts
     </body>
