@@ -224,7 +224,11 @@ class AutomationController extends Controller
             }
         }
 
-        return redirect()->route('automations.email')
+        $activeTab = in_array($request->input('active_tab'), ['kosta', 'client', 'settings'], true)
+            ? $request->input('active_tab')
+            : 'kosta';
+
+        return redirect()->route('automations.email', ['tpl' => $activeTab])
             ->with('status', '¡Configuración y plantillas de correo guardadas con éxito!');
     }
 
@@ -291,11 +295,11 @@ class AutomationController extends Controller
         if ($result['success']) {
             $extra = $result['id'] ? " (Resend ID: {$result['id']})" : '';
 
-            return redirect()->route('automations.email')
+            return redirect()->route('automations.email', ['tpl' => 'settings'])
                 ->with('status', "✅ Correo enviado con éxito a: {$recipient}{$extra}. Revisa tu bandeja de entrada.");
         }
 
-        return redirect()->route('automations.email')
+        return redirect()->route('automations.email', ['tpl' => 'settings'])
             ->with('error', "❌ Error enviando correo: {$result['error']}");
     }
 

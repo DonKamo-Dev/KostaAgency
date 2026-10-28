@@ -27,8 +27,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ $title }}</title>
     <style>
-        body { margin: 0; padding: 0; background-color: #0a0a0c; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #f4f4f5; }
-        .wrapper { max-width: 580px; margin: 30px auto; background-color: #121216; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 20px; overflow: hidden; }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #0a0a0c; }
+        ::-webkit-scrollbar-thumb { background: #27272a; border-radius: 999px; }
+        ::-webkit-scrollbar-thumb:hover { background: #3f3f46; }
+        body { margin: 0; padding: 16px; background-color: #0a0a0c; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #f4f4f5; }
+        .wrapper { max-width: 580px; margin: 8px auto; background-color: #121216; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 20px; overflow: hidden; }
         .header { background: radial-gradient(circle at top, #1f1f28 0%, #121216 100%); padding: 36px 32px; border-bottom: 1px solid rgba(255, 255, 255, 0.08); text-align: center; }
         .badge { display: inline-block; background: rgba(230, 57, 70, 0.15); border: 1px solid rgba(230, 57, 70, 0.35); color: #e63946; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; padding: 4px 14px; border-radius: 999px; margin-bottom: 14px; }
         .title { color: #ffffff; font-size: 22px; font-weight: 700; margin: 0 0 8px 0; line-height: 1.3; }
