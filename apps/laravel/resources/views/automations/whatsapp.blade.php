@@ -31,8 +31,13 @@
         .form-input:focus { border-color: rgba(37, 211, 102, 0.55); background: rgba(0,0,0,0.7); box-shadow: 0 0 0 3px rgba(37, 211, 102, 0.1); }
         .form-hint { font-size: 11.5px; color: var(--text-muted); margin-top: 5px; }
 
-        .switch-pill { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.03); border: 1px solid var(--border-subtle); padding: 6px 10px; border-radius: 999px; cursor: pointer; user-select: none; flex-shrink: 0; }
-        .switch-pill-label { font-size: 11.5px; font-weight: 600; color: #d4d4d8; }
+        .switch-pill { display: inline-flex; align-items: center; gap: 10px; background: rgba(255,255,255,0.03); border: 1px solid var(--border-subtle); padding: 6px 12px; border-radius: 999px; cursor: pointer; user-select: none; flex-shrink: 0; transition: border-color 0.2s ease; }
+        .switch-pill:hover { border-color: rgba(255,255,255,0.2); }
+        .switch-pill-label { font-size: 12px; font-weight: 600; color: #e4e4e7; }
+        .switch-track { position: relative; display: inline-block; width: 36px; height: 20px; background: rgba(255,255,255,0.18); border-radius: 999px; transition: background 0.2s ease; flex-shrink: 0; }
+        .switch-track.on { background: #25D366; }
+        .switch-thumb { position: absolute; height: 14px; width: 14px; left: 3px; top: 3px; background: #ffffff; border-radius: 50%; transition: transform 0.2s ease; box-shadow: 0 1px 3px rgba(0,0,0,0.4); }
+        .switch-track.on .switch-thumb { transform: translateX(16px); }
 
         /* Collapsible Advanced Options */
         .advanced-details { background: rgba(255,255,255,0.02); border: 1px solid var(--border-subtle); border-radius: 12px; padding: 12px 14px; margin-top: 16px; }
@@ -139,12 +144,10 @@
                             </div>
 
                             <label class="switch-pill" title="Activar o pausar alertas de WhatsApp">
+                                <input type="checkbox" name="automation_whatsapp_enabled" value="1" x-model="waEnabled" style="display: none;">
                                 <span class="switch-pill-label" x-text="waEnabled ? 'Activo' : 'Pausado'"></span>
-                                <span style="position: relative; display: inline-block; width: 38px; height: 20px;">
-                                    <input type="checkbox" name="automation_whatsapp_enabled" value="1" x-model="waEnabled" style="opacity: 0; width: 0; height: 0;">
-                                    <span :style="waEnabled ? 'background: #25D366;' : 'background: rgba(255,255,255,0.2);'" style="position: absolute; inset: 0; border-radius: 999px; transition: 0.2s;">
-                                        <span :style="waEnabled ? 'transform: translateX(18px);' : 'transform: translateX(0);'" style="position: absolute; height: 14px; width: 14px; left: 3px; bottom: 3px; background: #000; border-radius: 50%; transition: 0.2s;"></span>
-                                    </span>
+                                <span class="switch-track" :class="{ 'on': waEnabled }">
+                                    <span class="switch-thumb"></span>
                                 </span>
                             </label>
                         </div>

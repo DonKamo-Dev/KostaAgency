@@ -46,8 +46,13 @@
         .form-hint { font-size: 11.5px; color: var(--text-muted); margin-top: 5px; }
 
         /* Switch Pill */
-        .switch-pill { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.03); border: 1px solid var(--border-subtle); padding: 6px 10px; border-radius: 999px; cursor: pointer; user-select: none; flex-shrink: 0; }
-        .switch-pill-label { font-size: 11.5px; font-weight: 600; color: #d4d4d8; }
+        .switch-pill { display: inline-flex; align-items: center; gap: 10px; background: rgba(255,255,255,0.03); border: 1px solid var(--border-subtle); padding: 6px 12px; border-radius: 999px; cursor: pointer; user-select: none; flex-shrink: 0; transition: border-color 0.2s ease; }
+        .switch-pill:hover { border-color: rgba(255,255,255,0.2); }
+        .switch-pill-label { font-size: 12px; font-weight: 600; color: #e4e4e7; }
+        .switch-track { position: relative; display: inline-block; width: 36px; height: 20px; background: rgba(255,255,255,0.18); border-radius: 999px; transition: background 0.2s ease; flex-shrink: 0; }
+        .switch-track.on { background: #10B981; }
+        .switch-thumb { position: absolute; height: 14px; width: 14px; left: 3px; top: 3px; background: #ffffff; border-radius: 50%; transition: transform 0.2s ease; box-shadow: 0 1px 3px rgba(0,0,0,0.4); }
+        .switch-track.on .switch-thumb { transform: translateX(16px); }
 
         .card-footer-bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--border-subtle); }
 
@@ -59,9 +64,11 @@
 
         /* Realistic Email Client Preview */
         .mail-preview-shell { border: 1px solid var(--border-subtle); border-radius: 18px; overflow: hidden; background: #0d0d0f; box-shadow: 0 12px 32px rgba(0,0,0,0.45); position: sticky; top: 20px; }
-        .mail-window-bar { background: #141418; padding: 11px 16px; border-bottom: 1px solid var(--border-subtle); display: flex; align-items: center; justify-content: space-between; }
-        .mail-window-dots { display: flex; align-items: center; gap: 6px; }
-        .mail-window-dots span { width: 9px; height: 9px; border-radius: 50%; }
+        .mail-window-bar { background: #141418; padding: 11px 16px; border-bottom: 1px solid var(--border-subtle); display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+        .mail-window-left { display: flex; align-items: center; gap: 10px; min-width: 0; }
+        .mail-window-dots { display: inline-flex; align-items: center; gap: 6px; flex-shrink: 0; }
+        .window-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+        .mail-window-title { font-size: 12px; font-weight: 600; color: #d4d4d8; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .mail-envelope-header { background: #101014; padding: 12px 16px; border-bottom: 1px solid rgba(255,255,255,0.06); font-size: 12px; display: grid; gap: 5px; }
         .mail-meta-row { display: flex; align-items: baseline; gap: 8px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
         .mail-meta-key { color: #71717a; font-weight: 600; min-width: 48px; font-size: 11px; text-transform: uppercase; }
@@ -180,12 +187,10 @@
                             </div>
 
                             <label class="switch-pill" title="Activar o pausar este correo">
+                                <input type="checkbox" name="automation_email_enabled" value="1" x-model="kostaEnabled" style="display: none;">
                                 <span class="switch-pill-label" x-text="kostaEnabled ? 'Activo' : 'Pausado'"></span>
-                                <span style="position: relative; display: inline-block; width: 38px; height: 20px;">
-                                    <input type="checkbox" name="automation_email_enabled" value="1" x-model="kostaEnabled" style="opacity: 0; width: 0; height: 0;">
-                                    <span :style="kostaEnabled ? 'background: #10B981;' : 'background: rgba(255,255,255,0.2);'" style="position: absolute; inset: 0; border-radius: 999px; transition: 0.2s;">
-                                        <span :style="kostaEnabled ? 'transform: translateX(18px);' : 'transform: translateX(0);'" style="position: absolute; height: 14px; width: 14px; left: 3px; bottom: 3px; background: #000; border-radius: 50%; transition: 0.2s;"></span>
-                                    </span>
+                                <span class="switch-track" :class="{ 'on': kostaEnabled }">
+                                    <span class="switch-thumb"></span>
                                 </span>
                             </label>
                         </div>
@@ -257,12 +262,10 @@
                             </div>
 
                             <label class="switch-pill" title="Activar o pausar el auto-responder">
+                                <input type="checkbox" name="automation_auto_responder_enabled" value="1" x-model="clientEnabled" style="display: none;">
                                 <span class="switch-pill-label" x-text="clientEnabled ? 'Activo' : 'Pausado'"></span>
-                                <span style="position: relative; display: inline-block; width: 38px; height: 20px;">
-                                    <input type="checkbox" name="automation_auto_responder_enabled" value="1" x-model="clientEnabled" style="opacity: 0; width: 0; height: 0;">
-                                    <span :style="clientEnabled ? 'background: #10B981;' : 'background: rgba(255,255,255,0.2);'" style="position: absolute; inset: 0; border-radius: 999px; transition: 0.2s;">
-                                        <span :style="clientEnabled ? 'transform: translateX(18px);' : 'transform: translateX(0);'" style="position: absolute; height: 14px; width: 14px; left: 3px; bottom: 3px; background: #000; border-radius: 50%; transition: 0.2s;"></span>
-                                    </span>
+                                <span class="switch-track" :class="{ 'on': clientEnabled }">
+                                    <span class="switch-thumb"></span>
                                 </span>
                             </label>
                         </div>
@@ -415,13 +418,15 @@
                 <!-- PREVIEW DE CORREO EN VIVO (Visible en Pestañas 1 y 2) -->
                 <div class="mail-preview-shell" x-show="activeTab === 'kosta' || activeTab === 'client'">
                     <div class="mail-window-bar">
-                        <div class="mail-window-dots">
-                            <span style="background: #EF4444;"></span>
-                            <span style="background: #F59E0B;"></span>
-                            <span style="background: #10B981;"></span>
-                            <span style="margin-left: 8px; font-size: 11.5px; font-weight: 600; color: #d4d4d8;" x-text="activeTab === 'kosta' ? 'Vista previa: Correo a Kosta' : 'Vista previa: Auto-responder al Cliente'"></span>
+                        <div class="mail-window-left">
+                            <div class="mail-window-dots">
+                                <span class="window-dot" style="background: #EF4444;"></span>
+                                <span class="window-dot" style="background: #F59E0B;"></span>
+                                <span class="window-dot" style="background: #10B981;"></span>
+                            </div>
+                            <span class="mail-window-title" x-text="activeTab === 'kosta' ? 'Vista previa: Correo a Kosta' : 'Vista previa: Auto-responder al Cliente'"></span>
                         </div>
-                        <button type="button" onclick="document.getElementById('preview-frame').contentWindow.location.reload();" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; padding: 3px 9px; color: #d4d4d8; cursor: pointer; font-size: 11px;">
+                        <button type="button" onclick="document.getElementById('preview-frame').contentWindow.location.reload();" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; padding: 4px 10px; color: #d4d4d8; cursor: pointer; font-size: 11px; flex-shrink: 0;">
                             ↻ Refrescar
                         </button>
                     </div>
@@ -444,6 +449,7 @@
 
                     <iframe id="preview-frame"
                             class="preview-iframe"
+                            onload="try { this.style.height = Math.max(540, this.contentWindow.document.documentElement.scrollHeight) + 'px'; } catch(e) {}"
                             :src="activeTab === 'client' ? '{{ route('automations.email.preview', 'client') }}' : '{{ route('automations.email.preview', 'kosta') }}'"
                             title="Previsualización de Correo"></iframe>
                 </div>
