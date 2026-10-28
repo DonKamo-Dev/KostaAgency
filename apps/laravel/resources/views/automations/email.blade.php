@@ -106,7 +106,7 @@
                 this.toastTimer = setTimeout(() => { this.toastMsg = ''; }, 2400);
             }
          }"
-         @switch-email-tab.window="setTab($event.detail)">
+         x-on:switch-email-tab.window="setTab($event.detail)">
 
         <!-- Top Header + Channel Switcher -->
         <div class="auto-header">
