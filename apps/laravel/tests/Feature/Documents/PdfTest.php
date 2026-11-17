@@ -144,7 +144,8 @@ class PdfTest extends TestCase
         $this->assertStringContainsString('CC-0001', $html);
         $this->assertStringContainsString('Kool Imports', $html);
         $this->assertStringContainsString('DEBE A', $html);
-        $this->assertStringContainsString('Kosta Studio Films', $html);
+        $this->assertStringContainsString('Yohan Camilo Blanco Rojas', $html);
+        $this->assertStringContainsString('1002196396', $html);
         $this->assertStringContainsString('Por concepto de:', $html);
         $this->assertStringContainsString('$1.500.000', $html);
         $this->assertStringContainsString('Generado automáticamente por Kosta Studio Films', $html);

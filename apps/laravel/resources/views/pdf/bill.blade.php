@@ -146,18 +146,21 @@
 
     {{-- A quién se le debe (Emisor) --}}
     <div class="section-box">
-        <div style="font-size: 15px; font-weight: bold; color: #111; margin-bottom: 6px;">Kosta Studio Films</div>
+        <div style="font-size: 15px; font-weight: bold; color: #111; margin-bottom: 6px;">Yohan Camilo Blanco Rojas</div>
         <table style="width: 100%; font-size: 11.5px; color: #555;">
             <tr>
                 <td style="width: 50%; padding-bottom: 3px;">
-                    <span style="color: #999;">Email:</span> yohanblaro18@gmail.com
+                    <span style="color: #999;">CC:</span> 1002196396
                 </td>
                 <td style="width: 50%; padding-bottom: 3px;">
                     <span style="color: #999;">Teléfono:</span> 3113894136
                 </td>
             </tr>
             <tr>
-                <td colspan="2">
+                <td style="width: 50%;">
+                    <span style="color: #999;">Email:</span> yohanblaro18@gmail.com
+                </td>
+                <td style="width: 50%;">
                     <span style="color: #999;">Ciudad:</span> Cartagena, Bolívar
                 </td>
             </tr>
