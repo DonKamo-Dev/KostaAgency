@@ -125,6 +125,7 @@ class PdfTest extends TestCase
             'paid' => 0,
             'status' => 'pending',
             'doc_number' => 'CC-0001',
+            'notes' => "Cuenta de Ahorro para Pagos\nCTA BANCOLOMBIA: 67817145938\nCTA Nequi: 3158396238",
         ]);
 
         DocumentItem::create([
@@ -145,7 +146,12 @@ class PdfTest extends TestCase
         $this->assertStringContainsString('Kool Imports', $html);
         $this->assertStringContainsString('DEBE A', $html);
         $this->assertStringContainsString('Yohan Camilo Blanco Rojas', $html);
-        $this->assertStringContainsString('1002196396', $html);
+        $this->assertStringContainsString('CC. 1002196396', $html);
+        $this->assertStringNotContainsString('yohanblaro18@gmail.com', $html);
+        $this->assertStringContainsString('alt="Bancolombia"', $html);
+        $this->assertStringContainsString('alt="Nequi"', $html);
+        $this->assertStringContainsString('67817145938', $html);
+        $this->assertStringContainsString('3158396238', $html);
         $this->assertStringContainsString('Por concepto de:', $html);
         $this->assertStringContainsString('$1.500.000', $html);
         $this->assertStringContainsString('Generado automáticamente por Kosta Studio Films', $html);

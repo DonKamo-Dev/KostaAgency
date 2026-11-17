@@ -142,29 +142,11 @@
         </table>
     </div>
 
-    <div class="debe-a-banner">DEBE A</div>
-
     {{-- A quién se le debe (Emisor) --}}
-    <div class="section-box">
-        <div style="font-size: 15px; font-weight: bold; color: #111; margin-bottom: 6px;">Yohan Camilo Blanco Rojas</div>
-        <table style="width: 100%; font-size: 11.5px; color: #555;">
-            <tr>
-                <td style="width: 50%; padding-bottom: 3px;">
-                    <span style="color: #999;">CC:</span> 1002196396
-                </td>
-                <td style="width: 50%; padding-bottom: 3px;">
-                    <span style="color: #999;">Teléfono:</span> 3113894136
-                </td>
-            </tr>
-            <tr>
-                <td style="width: 50%;">
-                    <span style="color: #999;">Email:</span> yohanblaro18@gmail.com
-                </td>
-                <td style="width: 50%;">
-                    <span style="color: #999;">Ciudad:</span> Cartagena, Bolívar
-                </td>
-            </tr>
-        </table>
+    <div style="text-align: center; margin: 16px 0 18px 0;">
+        <div class="debe-a-banner" style="margin: 0 0 6px 0;">DEBE A</div>
+        <div style="font-size: 16px; font-weight: bold; color: #111111; margin-bottom: 2px;">Yohan Camilo Blanco Rojas</div>
+        <div style="font-size: 12px; color: #555555;">CC. 1002196396</div>
     </div>
 
     <div class="clear"></div>
@@ -209,10 +191,52 @@
             <tr>
                 <td style="width: 60%; vertical-align: top; padding-right: 20px;">
                     @if($document->notes)
+                        @php
+                            $bancolombiaLogo = file_exists(public_path('img/logos/bancolombia.svg'))
+                                ? 'data:image/svg+xml;base64,' . base64_encode(file_get_contents(public_path('img/logos/bancolombia.svg')))
+                                : null;
+                            $nequiLogo = file_exists(public_path('img/logos/nequi.svg'))
+                                ? 'data:image/svg+xml;base64,' . base64_encode(file_get_contents(public_path('img/logos/nequi.svg')))
+                                : null;
+                            $noteLines = preg_split('/\r\n|\r|\n/', trim($document->notes));
+                        @endphp
                         <div style="background: #fcfcfc; border-left: 3px solid #E63946; padding: 10px 12px; border-radius: 0 6px 6px 0;">
                             <div style="font-weight: bold; color: #333; margin-bottom: 8px; text-transform: uppercase; font-size: 9px; letter-spacing: 0.05em; border-bottom: 1px solid #eee; padding-bottom: 4px;">Términos y Formas de Pago</div>
                             <div style="font-size: 10px; color: #555; line-height: 1.4;">
-                                {!! nl2br(e($document->notes)) !!}
+                                @foreach($noteLines as $line)
+                                    @php
+                                        $trimmed = trim($line);
+                                        $isBancolombia = stripos($trimmed, 'bancolombia') !== false;
+                                        $isNequi = stripos($trimmed, 'nequi') !== false;
+                                        preg_match('/[\d\-]{6,}/', $trimmed, $matches);
+                                        $accountNumber = $matches[0] ?? null;
+                                    @endphp
+                                    @if($isBancolombia && $bancolombiaLogo)
+                                        <table style="border-collapse: collapse; margin-top: 6px;">
+                                            <tr>
+                                                <td style="vertical-align: middle; padding-right: 10px;">
+                                                    <img src="{{ $bancolombiaLogo }}" style="height: 18px; width: auto;" alt="Bancolombia">
+                                                </td>
+                                                <td style="vertical-align: middle; font-size: 14px; font-weight: bold; color: #111111; letter-spacing: 0.03em;">
+                                                    {{ $accountNumber ?? $trimmed }}
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    @elseif($isNequi && $nequiLogo)
+                                        <table style="border-collapse: collapse; margin-top: 6px;">
+                                            <tr>
+                                                <td style="vertical-align: middle; padding-right: 10px;">
+                                                    <img src="{{ $nequiLogo }}" style="height: 17px; width: auto;" alt="Nequi">
+                                                </td>
+                                                <td style="vertical-align: middle; font-size: 14px; font-weight: bold; color: #111111; letter-spacing: 0.03em;">
+                                                    {{ $accountNumber ?? $trimmed }}
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    @elseif($trimmed !== '')
+                                        <div style="margin-bottom: 2px;">{{ $trimmed }}</div>
+                                    @endif
+                                @endforeach
                             </div>
                         </div>
                     @endif
