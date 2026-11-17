@@ -143,13 +143,11 @@ class PdfTest extends TestCase
         $this->assertStringContainsString('CUENTA DE COBRO', $html);
         $this->assertStringContainsString('CC-0001', $html);
         $this->assertStringContainsString('Kool Imports', $html);
-        $this->assertStringContainsString('Cantidad', $html);
-        $this->assertStringContainsString('Descripción', $html);
-        $this->assertStringContainsString('Mes', $html);
-        $this->assertStringContainsString('Valor', $html);
-        $this->assertStringContainsString('Noviembre', $html);
+        $this->assertStringContainsString('DEBE A', $html);
+        $this->assertStringContainsString('Kosta Studio Films', $html);
+        $this->assertStringContainsString('Por concepto de:', $html);
         $this->assertStringContainsString('$1.500.000', $html);
-        $this->assertStringContainsString('Pagar a nombre de:', $html);
+        $this->assertStringContainsString('Generado automáticamente por Kosta Studio Films', $html);
     }
 
     private function fakePdfRenderer(): void

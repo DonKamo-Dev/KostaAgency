@@ -8,267 +8,236 @@
             margin: 0;
         }
         body {
-            font-family: 'Helvetica', 'Arial', sans-serif;
+            font-family: 'Helvetica', sans-serif;
             margin: 0;
-            padding: 0;
-            color: #1f2430;
-            background: #ffffff;
+            padding: 28px 36px 250px 36px;
+            color: #333;
+            background: #fff;
         }
-        .wave-header {
-            width: 100%;
-            line-height: 0;
-        }
-        .wave-header img {
-            width: 100%;
-            height: 76px;
-            display: block;
-        }
-        .page-content {
-            padding: 16px 52px 245px 52px;
-        }
-        .logo-wrap {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .logo-wrap img {
-            height: 36px;
-            width: auto;
-        }
-        .meta-row {
+        .clear { clear: both; }
+        .table {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 22px;
-            font-size: 11px;
-            color: #2b303a;
-        }
-        .title-block {
-            text-align: center;
-            margin-bottom: 28px;
-        }
-        .title-pill {
-            display: inline-block;
-            background: #42568b;
-            color: #ffffff;
-            font-size: 12px;
-            font-weight: bold;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            padding: 7px 26px;
-            border-radius: 18px;
             margin-bottom: 10px;
-        }
-        .doc-number {
-            font-size: 13px;
-            font-weight: bold;
-            color: #1f2430;
-            margin-bottom: 3px;
-        }
-        .client-name {
-            font-size: 13px;
-            font-weight: bold;
-            color: #1f2430;
-            text-transform: uppercase;
-            letter-spacing: 0.02em;
-        }
-        .client-tax {
-            font-size: 10px;
-            color: #6b7280;
-            margin-top: 2px;
-        }
-        .intro-text {
-            font-size: 11px;
-            color: #2b303a;
-            margin-bottom: 12px;
-        }
-        .items-table {
-            width: 100%;
-            border-collapse: separate;
-            border-spacing: 0;
             table-layout: fixed;
         }
-        .items-table th {
-            background: #42568b;
-            color: #ffffff;
-            font-size: 10.5px;
-            font-weight: bold;
-            padding: 7px 12px;
+        .table th {
             text-align: left;
+            padding: 8px 10px;
+            background: #f1f3f5;
+            color: #495057;
+            font-size: 10px;
+            text-transform: uppercase;
+            border-bottom: 2px solid #dee2e6;
+            letter-spacing: 0.05em;
         }
-        .items-table th.col-first {
-            border-top-left-radius: 10px;
-            border-bottom-left-radius: 10px;
-            text-align: center;
-        }
-        .items-table th.col-last {
-            border-top-right-radius: 10px;
-            border-bottom-right-radius: 10px;
-            text-align: right;
-        }
-        .items-table td {
-            padding: 9px 12px;
-            font-size: 11px;
-            color: #2b303a;
-            vertical-align: top;
+        .table td {
+            padding: 8px 10px;
+            border-bottom: 1px solid #dee2e6;
+            font-size: 12px;
             word-wrap: break-word;
-            line-height: 1.35;
+            vertical-align: middle;
+            line-height: 1.3;
         }
-        .items-table tbody tr {
-            page-break-inside: avoid;
+        .table td.desc-cell {
+            vertical-align: top;
         }
-        .item-desc-sub {
-            font-size: 9.5px;
-            color: #6b7280;
-            margin-top: 2px;
+        .section-box {
+            margin-bottom: 12px;
+            border-left: 4px solid #E63946;
+            padding: 10px 16px;
+            background: #fcfcfc;
         }
-        .bottom-section {
+        .section-label {
+            font-size: 10px;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 6px;
+            font-weight: bold;
+        }
+        .debe-a-banner {
+            text-align: center;
+            margin: 14px 0 10px 0;
+            font-size: 13px;
+            font-weight: bold;
+            letter-spacing: 0.14em;
+            color: #111111;
+            text-transform: uppercase;
+        }
+        .concepto-title {
+            font-size: 11px;
+            font-weight: bold;
+            color: #333;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            margin: 14px 0 8px 0;
+        }
+        .footer {
             position: absolute;
-            left: 52px;
-            right: 52px;
-            bottom: 42px;
+            bottom: 16px;
+            left: 36px;
+            right: 36px;
+            text-align: center;
+            font-size: 9px;
+            color: #aaa;
+            border-top: 1px solid #eee;
+            padding-top: 6px;
         }
-        .total-divider {
-            border-top: 1px solid #7b8290;
-            margin-bottom: 8px;
-        }
-        .total-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 22px;
-        }
-        .total-label {
-            text-align: right;
-            font-size: 11.5px;
-            font-weight: bold;
-            color: #1f2430;
-            padding-right: 28px;
-        }
-        .total-value {
-            text-align: right;
-            font-size: 11.5px;
-            font-weight: bold;
-            color: #1f2430;
-            width: 110px;
-        }
-        .payment-details {
-            font-size: 10.5px;
-            line-height: 1.65;
-            color: #2b303a;
-        }
-        .payment-details strong {
-            color: #1f2430;
-        }
-        .custom-notes {
-            margin-top: 8px;
-            font-size: 9.5px;
-            color: #555c68;
-            line-height: 1.4;
+        .document-summary {
+            position: absolute;
+            right: 36px;
+            bottom: 58px;
+            left: 36px;
         }
     </style>
 </head>
 <body>
-    @php
-        $waveSvg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 95" preserveAspectRatio="none">'
-            . '<path d="M0,0 L800,0 L800,66 Q400,104 0,66 Z" fill="#2d3b63"/>'
-            . '<path d="M0,0 L800,0 L800,52 Q400,88 0,52 Z" fill="#42568b"/>'
-            . '<path d="M0,0 L800,0 L800,32 Q360,70 0,26 Z" fill="#364778" opacity="0.65"/>'
-            . '</svg>';
-        $parsedDate = \Carbon\Carbon::parse($document->date)->locale('es');
-        $formattedDate = ucfirst($parsedDate->translatedFormat('l j \d\e F \d\e Y'));
-        $defaultMonth = ucfirst($parsedDate->translatedFormat('F'));
-    @endphp
+    <table style="width: 100%; margin-bottom: 14px; border-bottom: 1px solid #eee; padding-bottom: 12px;">
+        <tr>
+            <td style="width: 50%; vertical-align: middle;">
+                @if(file_exists(public_path('img/WEB-Kosta-Black.svg')))
+                    <img src="data:image/svg+xml;base64,{{ base64_encode(file_get_contents(public_path('img/WEB-Kosta-Black.svg'))) }}" style="height:32px; width:auto;" alt="Kosta">
+                @else
+                    <div style="font-size:18px;font-weight:700;color:#111111;letter-spacing:-0.02em;line-height:1;">KOSTA</div>
+                    <div style="font-size:8px;color:#666;text-transform:uppercase;letter-spacing:0.18em;font-weight:600;">Studio Films</div>
+                @endif
+            </td>
+            <td style="width: 50%; text-align: right; vertical-align: middle;">
+                <div style="font-size: 10px; color: #888; text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 2px;">CUENTA DE COBRO</div>
+                <div style="font-size: 24px; font-weight: bold; color: #111111; line-height: 1.1;">N° {{ $document->doc_number }}</div>
+                <div style="font-size: 11px; margin-top: 4px; color: #555;">
+                    <span style="color: #888;">Fecha:</span>
+                    <span style="font-weight: bold; margin-left: 4px;">{{ \Carbon\Carbon::parse($document->date)->format('d/m/Y') }}</span>
+                    @if($document->due_date)
+                        <span style="color: #888; margin-left: 10px;">Vence:</span>
+                        <span style="font-weight: bold; margin-left: 4px;">{{ \Carbon\Carbon::parse($document->due_date)->format('d/m/Y') }}</span>
+                    @endif
+                </div>
+            </td>
+        </tr>
+    </table>
 
-    <div class="wave-header">
-        <img src="data:image/svg+xml;base64,{{ base64_encode($waveSvg) }}" alt="">
-    </div>
-
-    <div class="page-content">
-        <div class="logo-wrap">
-            @if(file_exists(public_path('img/WEB-Kosta-Black.svg')))
-                <img src="data:image/svg+xml;base64,{{ base64_encode(file_get_contents(public_path('img/WEB-Kosta-Black.svg'))) }}" alt="Kosta Studio Films">
-            @else
-                <div style="font-size: 18px; font-weight: bold; color: #2d3b63; letter-spacing: 0.04em;">KOSTA</div>
-                <div style="font-size: 8px; color: #555c68; text-transform: uppercase; letter-spacing: 0.16em;">Studio Films</div>
-            @endif
-        </div>
-
-        <table class="meta-row">
+    {{-- Quién debe (Cliente) --}}
+    <div class="section-box">
+        <div class="section-label">Datos del Cliente</div>
+        <div style="font-size: 17px; font-weight: bold; color: #111; margin-bottom: 8px;">{{ $document->client->name }}</div>
+        <table style="width: 100%; font-size: 11.5px; color: #555;">
             <tr>
-                <td style="text-align: left;">{{ $formattedDate }}</td>
-                <td style="text-align: right;">Cartagena, Colombia</td>
+                <td style="width: 50%; padding-bottom: 4px;">
+                    <span style="color: #999;">ID/NIT:</span> {{ $document->client->tax_id ?? '—' }}
+                </td>
+                <td style="width: 50%; padding-bottom: 4px;">
+                    <span style="color: #999;">Teléfono:</span> {{ $document->client->phone ?? '—' }}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span style="color: #999;">Email:</span> {{ $document->client->email }}
+                </td>
+                <td>
+                    <span style="color: #999;">Dirección:</span> {{ $document->client->address ?? '—' }}
+                </td>
             </tr>
         </table>
+    </div>
 
-        <div class="title-block">
-            <div class="title-pill">CUENTA DE COBRO</div>
-            <div class="doc-number">N° {{ $document->doc_number }}</div>
-            <div class="client-name">{{ $document->client->name }}</div>
-            @if(!empty($document->client->tax_id))
-                <div class="client-tax">ID/NIT: {{ $document->client->tax_id }}</div>
-            @endif
-        </div>
+    <div class="debe-a-banner">DEBE A</div>
 
-        <div class="intro-text">
-            A continuación, se detallan los conceptos correspondientes al servicio prestado:
-        </div>
+    {{-- A quién se le debe (Emisor) --}}
+    <div class="section-box">
+        <div style="font-size: 15px; font-weight: bold; color: #111; margin-bottom: 6px;">Kosta Studio Films</div>
+        <table style="width: 100%; font-size: 11.5px; color: #555;">
+            <tr>
+                <td style="width: 50%; padding-bottom: 3px;">
+                    <span style="color: #999;">Email:</span> yohanblaro18@gmail.com
+                </td>
+                <td style="width: 50%; padding-bottom: 3px;">
+                    <span style="color: #999;">Teléfono:</span> 3113894136
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <span style="color: #999;">Ciudad:</span> Cartagena, Bolívar
+                </td>
+            </tr>
+        </table>
+    </div>
 
-        <table class="items-table">
-            <thead>
+    <div class="clear"></div>
+
+    <div class="concepto-title">Por concepto de:</div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th style="width: 30px; text-align: center;">#</th>
+                <th>Servicio / Descripción</th>
+                <th style="width: 55px; text-align: center;">Cant.</th>
+                <th style="width: 95px; text-align: right;">P. Unitario</th>
+                <th style="width: 95px; text-align: right;">Subtotal</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach($document->items as $index => $item)
+                @php
+                    $itemSubtotal = (float) $item->subtotal > 0
+                        ? (float) $item->subtotal
+                        : ((float) $item->quantity * (float) $item->unit_price);
+                @endphp
                 <tr>
-                    <th class="col-first" style="width: 14%;">Cantidad</th>
-                    <th style="width: 48%;">Descripción</th>
-                    <th style="width: 18%; text-align: center;">Mes</th>
-                    <th class="col-last" style="width: 20%;">Valor</th>
+                    <td style="text-align: center; color: #888;">{{ $index + 1 }}</td>
+                    <td class="desc-cell">
+                        <div style="font-weight: bold;">{{ $item->service_name }}</div>
+                        @if($item->description)
+                            <div style="font-size: 10px; color: #666; margin-top: 3px; line-height: 1.3;">{{ $item->description }}</div>
+                        @endif
+                    </td>
+                    <td style="text-align: center;">{{ $item->quantity }}</td>
+                    <td style="text-align: right;">${{ number_format($item->unit_price, 0, ',', '.') }}</td>
+                    <td style="text-align: right; font-weight: bold;">${{ number_format($itemSubtotal, 0, ',', '.') }}</td>
                 </tr>
-            </thead>
-            <tbody>
-                @foreach($document->items as $item)
-                    @php
-                        $qty = (float) $item->quantity;
-                        $displayQty = $qty == (int) $qty ? (int) $qty : $item->quantity;
-                        $itemValue = (float) $item->subtotal > 0
-                            ? (float) $item->subtotal
-                            : ($qty * (float) $item->unit_price);
-                    @endphp
-                    <tr>
-                        <td style="text-align: center;">{{ $displayQty }}</td>
-                        <td>
-                            <div>{{ $item->service_name }}</div>
-                            @if(!empty($item->description))
-                                <div class="item-desc-sub">{{ $item->description }}</div>
-                            @endif
-                        </td>
-                        <td style="text-align: center;">{{ $defaultMonth }}</td>
-                        <td style="text-align: right;">${{ number_format($itemValue, 0, ',', '.') }}</td>
-                    </tr>
-                @endforeach
-            </tbody>
+            @endforeach
+        </tbody>
+    </table>
+
+    <div class="document-summary">
+        <table style="width: 100%; border-collapse: collapse;">
+            <tr>
+                <td style="width: 60%; vertical-align: top; padding-right: 20px;">
+                    @if($document->notes)
+                        <div style="background: #fcfcfc; border-left: 3px solid #E63946; padding: 10px 12px; border-radius: 0 6px 6px 0;">
+                            <div style="font-weight: bold; color: #333; margin-bottom: 8px; text-transform: uppercase; font-size: 9px; letter-spacing: 0.05em; border-bottom: 1px solid #eee; padding-bottom: 4px;">Términos y Formas de Pago</div>
+                            <div style="font-size: 10px; color: #555; line-height: 1.4;">
+                                {!! nl2br(e($document->notes)) !!}
+                            </div>
+                        </div>
+                    @endif
+                </td>
+                <td style="width: 40%; vertical-align: top;">
+                    <table style="width: 100%; border-collapse: collapse;">
+                        <tr>
+                            <td style="padding: 8px 0; font-size: 13px; color: #666; border-bottom: 1px solid #f1f3f5;">Subtotal:</td>
+                            <td style="padding: 8px 0; font-size: 13px; font-weight: bold; color: #333; text-align: right; border-bottom: 1px solid #f1f3f5;">${{ number_format($document->subtotal, 0, ',', '.') }}</td>
+                        </tr>
+                        @if($document->tax > 0)
+                            <tr>
+                                <td style="padding: 8px 0; font-size: 13px; color: #666; border-bottom: 1px solid #f1f3f5;">IVA (19%):</td>
+                                <td style="padding: 8px 0; font-size: 13px; font-weight: bold; color: #333; text-align: right; border-bottom: 1px solid #f1f3f5;">${{ number_format($document->tax, 0, ',', '.') }}</td>
+                            </tr>
+                        @endif
+                        <tr>
+                            <td style="padding: 10px 5px; font-weight: bold; color: #111; font-size: 13px; border-top: 2px solid #111111; background: #f8fafc;">TOTAL COP:</td>
+                            <td style="padding: 10px 5px; font-size: 20px; font-weight: bold; color: #111111; text-align: right; border-top: 2px solid #111111; background: #f8fafc;">${{ number_format($document->total, 0, ',', '.') }}</td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
         </table>
     </div>
 
-    <div class="bottom-section">
-        <div class="total-divider"></div>
-        <table class="total-table">
-            <tr>
-                <td></td>
-                <td class="total-label">Total</td>
-                <td class="total-value">${{ number_format($document->total, 0, ',', '.') }}</td>
-            </tr>
-        </table>
-
-        <div class="payment-details">
-            <div><strong>Pagar a nombre de:</strong> Kosta Studio Films</div>
-            <div><strong>Número de cuenta bancaria:</strong> 67817145938 (Ahorros) · Nequi: 3158396238</div>
-            <div><strong>Banco:</strong> Bancolombia / Nequi</div>
-            <div><strong>Teléfono:</strong> 3113894136</div>
-            <div><strong>Correo electrónico:</strong> yohanblaro18@gmail.com</div>
-            <div><strong>Dirección de residencia:</strong> Cartagena, Bolívar, Colombia</div>
-        </div>
-
-        @if(!empty($document->notes))
-            <div class="custom-notes">
-                {!! nl2br(e($document->notes)) !!}
-            </div>
-        @endif
+    <div class="footer">
+        Generado automáticamente por Kosta Studio Films - Documento con validez comercial.
     </div>
 </body>
 </html>
