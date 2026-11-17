@@ -11,7 +11,8 @@ class DocumentController extends Controller
     {
         $document->load(['items', 'client']);
 
-        $pdf = Pdf::loadView('pdf.quote', compact('document'));
+        $view = $document->type === 'bill' ? 'pdf.bill' : 'pdf.quote';
+        $pdf = Pdf::loadView($view, compact('document'));
 
         return $pdf->stream("Documento_{$document->doc_number}.pdf");
     }

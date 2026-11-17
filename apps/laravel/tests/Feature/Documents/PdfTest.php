@@ -100,6 +100,58 @@ class PdfTest extends TestCase
         $this->assertStringContainsString('padding: 28px 36px 250px 36px;', $template);
     }
 
+    public function test_bill_pdf_uses_dedicated_bill_template_and_computes_item_value(): void
+    {
+        $pdf = \Mockery::mock(PDF::class);
+        $pdf->shouldReceive('loadView')
+            ->once()
+            ->withArgs(fn ($view) => $view === 'pdf.bill')
+            ->andReturnSelf();
+        $pdf->shouldReceive('stream')->once()->andReturn(
+            response('%PDF-1.4 fake', 200, ['Content-Type' => 'application/pdf'])
+        );
+        $this->app->bind('dompdf.wrapper', fn () => $pdf);
+
+        $user = User::factory()->create();
+        $client = Client::factory()->create(['name' => 'Kool Imports', 'email' => 'contacto@koolimports.com']);
+
+        $document = Document::create([
+            'client_id' => $client->id,
+            'type' => 'bill',
+            'date' => '2026-11-17',
+            'subtotal' => 1500000,
+            'tax' => 0,
+            'total' => 1500000,
+            'paid' => 0,
+            'status' => 'pending',
+            'doc_number' => 'CC-0001',
+        ]);
+
+        DocumentItem::create([
+            'document_id' => $document->id,
+            'service_name' => 'Creacion de Chatbot y Crm para Empresa',
+            'description' => '',
+            'quantity' => 1,
+            'unit_price' => 1500000,
+            'subtotal' => 0,
+        ]);
+
+        $response = $this->actingAs($user)->get(route('documents.pdf', $document));
+        $response->assertOk();
+
+        $html = view('pdf.bill', ['document' => $document->load(['items', 'client'])])->render();
+        $this->assertStringContainsString('CUENTA DE COBRO', $html);
+        $this->assertStringContainsString('CC-0001', $html);
+        $this->assertStringContainsString('Kool Imports', $html);
+        $this->assertStringContainsString('Cantidad', $html);
+        $this->assertStringContainsString('Descripción', $html);
+        $this->assertStringContainsString('Mes', $html);
+        $this->assertStringContainsString('Valor', $html);
+        $this->assertStringContainsString('Noviembre', $html);
+        $this->assertStringContainsString('$1.500.000', $html);
+        $this->assertStringContainsString('Pagar a nombre de:', $html);
+    }
+
     private function fakePdfRenderer(): void
     {
         $pdf = \Mockery::mock(PDF::class);

@@ -201,13 +201,20 @@ class BillController extends Controller
     {
         foreach ($items as $item) {
             if (! empty(trim($item['service_name'] ?? ''))) {
+                $quantity = floatval($item['quantity'] ?? 1);
+                $unitPrice = floatval($item['unit_price'] ?? 0);
+                $subtotal = floatval($item['subtotal'] ?? 0);
+                if ($subtotal <= 0 && $unitPrice > 0) {
+                    $subtotal = $quantity * $unitPrice;
+                }
+
                 $doc->items()->create([
                     'service_id' => ($item['service_id'] ?? null) ?: null,
                     'service_name' => $item['service_name'],
                     'description' => $item['description'] ?? '',
-                    'quantity' => floatval($item['quantity'] ?? 1),
-                    'unit_price' => floatval($item['unit_price'] ?? 0),
-                    'subtotal' => floatval($item['subtotal'] ?? 0),
+                    'quantity' => $quantity,
+                    'unit_price' => $unitPrice,
+                    'subtotal' => $subtotal,
                 ]);
             }
         }
